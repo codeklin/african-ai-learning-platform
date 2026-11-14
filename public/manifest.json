@@ -1,0 +1,51 @@
+{
+  "name": "ituwaAfrica",
+  "short_name": "ituwa",
+  "description": "Practical AI skills, real projects and systems that move your work forward.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#E86A58",
+  "background_color": "#E86A58",
+  "categories": ["education", "productivity"],
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/ituwaAfricapwa.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/ituwaAfricapwa.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/ituwaAfrica.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "ituwaAfrica learning platform"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "short_name": "Home",
+      "description": "Go to your learning dashboard",
+      "url": "/dashboard",
+      "icons": [{ "src": "/ituwaAfricapwa.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Browse Courses",
+      "short_name": "Courses",
+      "description": "Explore the course catalogue",
+      "url": "/courses",
+      "icons": [{ "src": "/ituwaAfricapwa.png", "sizes": "192x192" }]
+    }
+  ]
+}

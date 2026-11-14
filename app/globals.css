@@ -464,16 +464,113 @@ button { color: inherit; font: inherit; }
 
 /* ── Dashboard responsive ───────────────────────────────────────── */
 @media(max-width:768px) {
-  .dash-layout { grid-template-columns:1fr; }
-  .dash-sidebar { position:static; height:auto; flex-direction:row; align-items:center; padding:14px 18px; border-right:0; border-bottom:1px solid #e8e8e3; }
-  .dash-sidebar-top { flex-direction:row; align-items:center; gap:16px; flex:1; }
-  .dash-nav { flex-direction:row; gap:4px; }
-  .dash-nav-item span:not(:first-child) { display:none; }
-  .dash-sidebar-foot { padding:0; border:0; }
-  .dash-main-inner { padding:22px 18px 48px; }
-  .admin-stats { grid-template-columns:repeat(2,1fr); }
-  .dash-header { flex-direction:column; gap:12px; align-items:flex-start; }
-  .dash-continue-card { flex-direction:column; align-items:flex-start; }
+  /* ── Admin / Dash layout ── */
+  .dash-layout { grid-template-columns: 1fr; }
+
+  /* Slim top bar replacing the sidebar on mobile */
+  .dash-sidebar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    height: auto;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px 16px;
+    border-right: 0;
+    border-bottom: 1px solid #EADBCE;
+    background: #FAF5EE;
+    gap: 12px;
+  }
+  .dash-sidebar-top { flex-direction: row; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+  .dash-nav { flex-direction: row; gap: 4px; overflow-x: auto; }
+  /* Show only the icon on mobile nav items — hide label text */
+  .dash-nav-item span:last-child { display: none; }
+  .dash-sidebar-foot { padding: 0; border: 0; flex-shrink: 0; }
+  .dash-main-inner { padding: 16px 14px 48px; }
+  .dash-header { flex-direction: column; gap: 10px; align-items: flex-start; }
+
+  /* Executive identity strip — stack vertically */
+  .super-admin-executive-strip {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px 16px;
+    gap: 12px;
+    border-radius: 12px;
+  }
+  .executive-strip-left { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .executive-crown-badge { font-size: 11px; padding: 5px 10px; }
+  .executive-meta b { font-size: 13px; }
+  .executive-meta span { font-size: 11px; white-space: normal; }
+  .executive-strip-right { flex-direction: row; flex-wrap: wrap; gap: 8px; }
+  .executive-pill-green, .executive-pill-amber { font-size: 11px; padding: 4px 10px; }
+
+  /* Header bar — stack on mobile */
+  .admin-header-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .admin-header-actions { width: 100%; display: flex; gap: 8px; }
+  .admin-header-btn { flex: 1; justify-content: center; font-size: 12px; padding: 0 10px; height: 38px; }
+  .admin-header-subtitle { font-size: 13px; }
+
+  /* Tabs — scroll horizontally, smaller text */
+  .admin-tabs-nav { gap: 6px; margin-bottom: 16px; }
+  .admin-tab-btn { padding: 7px 12px; font-size: 12px; }
+
+  /* Metric cards — 2 col */
+  .admin-stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .admin-metric-card { padding: 14px; border-radius: 14px; gap: 6px; }
+  .metric-value { font-size: 28px !important; }
+  .metric-label { font-size: 10px !important; }
+  .metric-footnote { font-size: 11px !important; }
+
+  /* Split panel — single column */
+  .admin-split-grid { grid-template-columns: 1fr; gap: 14px; }
+
+  /* Announcement panel */
+  .admin-announcement-panel { padding: 14px 16px; border-radius: 14px; }
+  .announcement-panel-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .announcement-toggle-wrap { width: 100%; justify-content: space-between; }
+
+  /* Panel cards */
+  .admin-panel-card { padding: 16px; border-radius: 14px; margin-bottom: 14px; }
+  .panel-header-row { flex-direction: column; align-items: flex-start; gap: 6px; margin-bottom: 14px; }
+  .panel-title { font-size: 16px !important; }
+
+  /* Tables — hide on mobile, show card list instead */
+  .admin-table-container { display: none; }
+  .admin-mobile-cards-list { display: flex; flex-direction: column; gap: 10px; }
+
+  /* Mobile user cards */
+  .admin-mobile-user-card {
+    background: #FAF5EE;
+    border: 1px solid #EADBCE;
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .mobile-user-card-top { display: flex; justify-content: space-between; align-items: center; }
+  .mobile-user-card-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 8px; border-top: 1px solid #EADBCE; }
+  .mobile-role-selector { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #7C6E65; }
+
+  /* Courses grid — single column */
+  .admin-courses-grid { grid-template-columns: 1fr; gap: 12px; }
+  .admin-course-card { padding: 14px; border-radius: 14px; }
+
+  /* Toolbar */
+  .admin-toolbar-row { flex-direction: column; align-items: stretch; gap: 10px; }
+  .admin-search-box { max-width: 100%; }
+  .admin-filter-pills { flex-wrap: wrap; }
+
+  /* Settings grid */
+  .settings-grid { grid-template-columns: 1fr; }
+
+  /* Suppress the old basic overrides now replaced */
+  .admin-stats { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* ── Blob number icons ──────────────────────────────────────────── */
@@ -695,7 +792,7 @@ a.skip-link:focus { top:0; }
   --app-radius-xs:      8px;
   --app-shadow-card:   0 2px 12px rgba(44,26,18,0.06), 0 1px 3px rgba(44,26,18,0.04);
   --app-shadow-lift:   0 8px 32px rgba(44,26,18,0.12), 0 2px 8px rgba(44,26,18,0.08);
-  --app-bottom-h:      72px;   /* height of the mobile bottom nav */
+  --app-bottom-h:      96px;   /* floating nav: 64px height + 16px gap + 16px breathing room */
   --app-topbar-h:      60px;
   --app-surface:       #ffffff;
   --app-surface-2:     #FAF5EE;
@@ -962,22 +1059,19 @@ a.skip-link:focus { top:0; }
    MOBILE BOTTOM NAV
    ═══════════════════════════════════════════════════════════════ */
 .app-bottom-nav {
-  display: none; /* only shown on mobile */
+  display: none; /* only shown on mobile — enabled in the ≤768px media query below */
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  min-height: var(--app-bottom-h);
-  height: calc(var(--app-bottom-h) + env(safe-area-inset-bottom, 0px));
-  background: var(--app-surface);
-  border-top: 1px solid var(--app-border);
-  /* safe area on notched phones */
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  height: 64px;
+  background: #2C1A12;
+  border-radius: 20px;
+  border: none;
+  padding: 0 8px;
   padding-bottom: env(safe-area-inset-bottom, 0px);
   z-index: 50;
-  /* glass blur for depth */
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  background: rgba(255,255,255,.94);
+  box-shadow: 0 8px 32px rgba(44, 26, 18, 0.35), 0 2px 8px rgba(44, 26, 18, 0.2);
 }
 .app-bottom-nav { display: none; }
 .app-bottom-nav-item {
@@ -985,21 +1079,26 @@ a.skip-link:focus { top:0; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 3px;
+  gap: 4px;
   flex: 1;
-  padding: 8px 4px;
-  color: #7C6E65;
-  font-size: 12px;
-  font-weight: 600;
+  padding: 10px 6px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
   transition: color .15s, transform .1s;
   position: relative;
+  border-radius: 14px;
 }
-.app-bottom-nav-item:active { transform: scale(.9); }
-.app-bottom-nav-item--active { color: #E86A58; }
+.app-bottom-nav-item:active { transform: scale(.88); }
+.app-bottom-nav-item--active {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
 .app-bottom-nav-icon { position: relative; display: flex; align-items: center; justify-content: center; }
 .app-bottom-nav-dot {
   position: absolute;
-  bottom: -5px;
+  bottom: -4px;
   left: 50%;
   transform: translateX(-50%);
   width: 4px; height: 4px;
@@ -1287,8 +1386,8 @@ a.skip-link:focus { top:0; }
 .role--instructor { background: #EEF3FC; color: #2B5C7D; }
 .profile-email-text, .profile-joined-text { display: flex; align-items: center; gap: 6px; font-size: 14px; color: #6C5950; margin: 4px 0 0; }
 .profile-hero-actions { display: flex; align-items: center; gap: 12px; }
-.profile-action-btn { height: 44px; padding: 0 18px; font-size: 14px; }
-.profile-signout-btn { display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 16px; border: 1px solid #EADBCE; border-radius: 9999px; background: transparent; color: #7C6E65; font-size: 14px; font-weight: 600; cursor: pointer; transition: all .2s; }
+.profile-action-btn { height: 44px; padding: 0 18px; font-size: 14px; white-space: nowrap; }
+.profile-signout-btn { display: inline-flex; align-items: center; gap: 6px; height: 44px; padding: 0 16px; border: 1px solid #EADBCE; border-radius: 9999px; background: transparent; color: #7C6E65; font-size: 14px; font-weight: 600; cursor: pointer; transition: all .2s; white-space: nowrap; }
 .profile-signout-btn:hover { background: #F0E7DB; color: #2C1A12; }
 .profile-stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-bottom: 28px; }
 .profile-stat-box { background: #fff; border: 1px solid #EADBCE; border-radius: 16px; padding: 18px; display: flex; align-items: center; gap: 14px; }
@@ -1883,6 +1982,9 @@ a.skip-link:focus { top:0; }
   font-size: 14px;
   color: #2C1A12;
   transition: border-color .2s;
+  /* reset any conflicting global textarea styles */
+  outline: none;
+  box-shadow: none;
 }
 .creator-form-field input:focus,
 .creator-form-field select:focus,
@@ -1890,6 +1992,7 @@ a.skip-link:focus { top:0; }
   outline: none;
   border-color: #E86A58;
   background: #fff;
+  box-shadow: 0 0 0 3px rgba(232, 106, 88, 0.12);
 }
 .creator-form-field small {
   font-size: 12px;
@@ -1928,4 +2031,105 @@ a.skip-link:focus { top:0; }
   .admin-modal-header, .admin-modal-body, .admin-modal-footer { padding: 16px; }
   .creator-form-grid { grid-template-columns: 1fr; }
   .creator-form-field.col-span-2 { grid-column: span 1; }
+}
+
+@media (max-width: 768px) {
+  /* Profile hero card — stack vertically on mobile */
+  .profile-hero-card {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 20px;
+    gap: 20px;
+  }
+
+  /* Actions row becomes a vertical stack, full-width buttons */
+  .profile-hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    width: 100%;
+  }
+
+  /* Both Link buttons fill the row */
+  .profile-action-btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 48px;
+    font-size: 15px;
+    padding: 0 20px;
+  }
+
+  /* Sign-out button also fills the row */
+  .profile-signout-btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 48px;
+    font-size: 15px;
+  }
+
+  /* Sign-out wrapping form needs to stretch too */
+  .profile-hero-actions form {
+    display: flex;
+  }
+  .profile-hero-actions form .profile-signout-btn {
+    flex: 1;
+  }
+
+  /* Stats grid 2-col on mobile */
+  .profile-stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   PWA SPLASH SCREEN
+   Shown by the OS while the app bundle loads. The orange background
+   matches manifest.json background_color so the transition is instant.
+   ═══════════════════════════════════════════════════════════════════ */
+@media (display-mode: standalone) {
+  /* Full-screen orange backdrop when running as installed PWA */
+  html {
+    background-color: #E86A58;
+  }
+  body {
+    background-color: #E86A58;
+    min-height: 100dvh;
+  }
+
+  /* Show the splash overlay only until React hydrates */
+  #pwa-splash {
+    display: flex;
+  }
+}
+
+/* The splash element itself — hidden in browser, visible in PWA before hydration */
+#pwa-splash {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #E86A58;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+#pwa-splash img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  border-radius: 24px;
+  animation: pwa-pulse 1.4s ease-in-out infinite;
+}
+#pwa-splash span {
+  font-family: var(--font-baloo2), Arial, sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: #FAF5EE;
+  letter-spacing: -0.5px;
+}
+
+@keyframes pwa-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.85; transform: scale(0.96); }
 }

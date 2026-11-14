@@ -46,23 +46,28 @@ export default async function AdminPage() {
     { data: recentEnrollments },
     { data: allCourses },
   ] = await Promise.all([
-    adminClient.from('profiles').select('*', { count: 'exact', head: true }),
-    adminClient.from('enrollments').select('*', { count: 'exact', head: true }),
-    adminClient.from('courses').select('*', { count: 'exact', head: true }).eq('status', 'published'),
+    // counts — head:true fetches zero rows, just the count
+    adminClient.from('profiles').select('id', { count: 'exact', head: true }),
+    adminClient.from('enrollments').select('id', { count: 'exact', head: true }),
+    adminClient.from('courses').select('id', { count: 'exact', head: true }).eq('status', 'published'),
+    // minimal columns, tight limit
     adminClient
       .from('profiles')
       .select('id, full_name, email, role, created_at')
       .order('created_at', { ascending: false })
-      .limit(30),
+      .limit(20),
+    // only the columns rendered in the table
     adminClient
       .from('enrollments')
       .select('id, enrolled_at, user_id, course_id, profiles(full_name, email), courses(title, academy)')
       .order('enrolled_at', { ascending: false })
-      .limit(30),
+      .limit(20),
+    // only columns used in the courses grid
     adminClient
       .from('courses')
-      .select('*')
-      .order('created_at', { ascending: false }),
+      .select('id, title, slug, description, academy, status, access, created_at')
+      .order('created_at', { ascending: false })
+      .limit(50),
   ])
 
   return (
