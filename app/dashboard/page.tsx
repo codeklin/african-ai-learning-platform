@@ -48,12 +48,12 @@ export default async function DashboardPage() {
 
   // Academy colour map for course art
   const academyColours: Record<string, string> = {
-    'AI Foundations':            '#eeecff',
-    'AI Content Creation':       '#f0f4d4',
-    'AI Freelancing':            '#f7e2dc',
-    'AI Automation':             '#e1edf2',
-    'AI App Development':        '#f2e6d5',
-    'Creator Economy & YouTube': '#eeecff',
+    'AI Foundations':            '#F5EDFA',
+    'AI Content Creation':       '#EEF7EE',
+    'AI Freelancing':            '#FDEEE9',
+    'AI Automation':             '#EEF3FC',
+    'AI App Development':        '#FDF5E8',
+    'Creator Economy & YouTube': '#F3EDF9',
   }
 
   return (
