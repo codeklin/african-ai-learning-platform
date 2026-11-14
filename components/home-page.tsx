@@ -198,13 +198,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Value strip */}
-        <section className="value-strip">
-          <span>LESS WATCHING. MORE MAKING.</span>
-          <p>No more notes you never use. Make something you can show.</p>
-          <span className="value-blob">✳</span>
-        </section>
-
         {/* Academies */}
         <section id="academies" className="section academies-section">
           <div className="section-heading">
