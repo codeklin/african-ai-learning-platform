@@ -11,6 +11,7 @@ const baloo2 = Baloo_2({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://ituwa.africa'),
   title: 'ituwaAfrica | AI tutorials don\'t help you. Practice, projects and systems do.',
   description: 'Stop watching AI tutorials. ituwaAfrica gives you practical AI skills, real projects and systems that move your work forward. Start free.',
   openGraph: {

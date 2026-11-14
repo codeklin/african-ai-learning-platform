@@ -279,6 +279,9 @@ export default async function ChallengesPage() {
               ))}
             </div>
           </section>
+
+          {/* Bottom allowance spacer so bottom nav never overshadows details */}
+          <div className="app-bottom-spacer" aria-hidden="true" />
         </main>
       </div>
 
