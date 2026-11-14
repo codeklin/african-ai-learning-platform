@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-import { ArrowDownRight, ArrowRight, ArrowUpRight, Check } from 'lucide-react'
+import { ArrowDownRight, ArrowRight, ArrowUpRight, Check, ShieldCheck } from 'lucide-react'
 import Brand from '@/components/brand'
 import AppBottomNav from '@/components/app-bottom-nav'
 import { useUser } from '@/hooks/use-user'
@@ -75,22 +75,17 @@ function SiteHeader({ isAuthenticated }: { isAuthenticated: boolean }) {
           <a onClick={() => setOpen(false)} href="#how-it-works">How it works</a>
           <a onClick={() => setOpen(false)} href="#pricing">Pricing</a>
           <div className="nav-actions">
-            {isAuthenticated ? (
-              <Link className="login-link" onClick={() => setOpen(false)} href="/dashboard">Dashboard</Link>
-            ) : (
+            {!isAuthenticated && (
               <Link className="login-link" onClick={() => setOpen(false)} href="/login">Log in</Link>
             )}
-            {isAuthenticated ? (
-              <Link className="button button-dark nav-cta" onClick={() => setOpen(false)} href="/dashboard">
-                <span>Dashboard</span>
-                <ArrowRight size={15} />
-              </Link>
-            ) : (
-              <Link className="button button-dark nav-cta" onClick={() => setOpen(false)} href="/courses">
-                <span>Start learning</span>
-                <ArrowRight size={15} />
-              </Link>
-            )}
+            <Link
+              className="button button-dark nav-cta"
+              onClick={() => setOpen(false)}
+              href={isAuthenticated ? '/dashboard' : '/courses'}
+            >
+              <span>{isAuthenticated ? 'Dashboard' : 'Start learning'}</span>
+              <ArrowRight size={15} />
+            </Link>
           </div>
         </nav>
       </div>
@@ -108,10 +103,6 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
         {/* ── 1. Hero ── */}
         <section className="hero hero--editorial">
           <div className="hero-editorial-inner">
-            <div className="hero-note">
-              <span className="hero-note-index">01</span>
-              TIRED OF AI TUTORIALS THAT DON&apos;T HELP YOU EARN?
-            </div>
             <h1>
               Stop watching AI hype.<br />
               <span>Learn practical skills you can actually earn with.</span>
@@ -162,12 +153,12 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
         </section>
 
         {/* ── 2. Who It's For (Bespoke Editorial Showcase) ── */}
-        <section className="section who-section">
+        <section className="who-section">
           {/* Ambient blurred backdrop shapes */}
           <div className="who-ambient-blob who-ambient-blob--left" aria-hidden="true" />
           <div className="who-ambient-blob who-ambient-blob--right" aria-hidden="true" />
 
-          <div className="who-container">
+          <div className="section who-container">
             <div className="who-header">
               <span className="who-header-kicker">WHO THIS ACTUALLY WORKS FOR</span>
               <h2 className="who-header-title">
@@ -181,13 +172,13 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
                 <span className="who-card-watermark" aria-hidden="true">01</span>
                 <div className="who-card-top">
                   <span className="who-kicker">01 / FOR THE FREELANCER</span>
-                  <span className="who-stamp who-stamp--coral">₦50K – ₦250K / BRIEF</span>
+                  <span className="who-stamp">₦50K – ₦250K / BRIEF</span>
                 </div>
                 <h3>Package real services clients pay for</h3>
                 <p>
                   Tired of bidding with generic proposals? Learn how to package real AI services clients pay ₦50k–₦250k for. Build portfolio samples that prove your value before you pitch.
                 </p>
-                <div className="who-specimen who-specimen--coral">
+                <div className="who-specimen">
                   <div className="specimen-step">
                     <span className="specimen-dot" />
                     <span>Client brief</span>
@@ -210,13 +201,13 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
                 <span className="who-card-watermark" aria-hidden="true">02</span>
                 <div className="who-card-top">
                   <span className="who-kicker">02 / FOR THE CREATOR</span>
-                  <span className="who-stamp who-stamp--amber">ZERO CAMERA REQUIRED</span>
+                  <span className="who-stamp">ZERO CAMERA REQUIRED</span>
                 </div>
                 <h3>Launch channels without showing your face</h3>
                 <p>
                   Want to start YouTube without buying expensive cameras or showing your face? Build faceless channel systems, hook-driven scripts, and original content that earns over time.
                 </p>
-                <div className="who-specimen who-specimen--amber">
+                <div className="who-specimen">
                   <div className="specimen-step">
                     <span className="specimen-dot" />
                     <span>Hook blueprint</span>
@@ -239,13 +230,13 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
                 <span className="who-card-watermark" aria-hidden="true">03</span>
                 <div className="who-card-top">
                   <span className="who-kicker">03 / FOR THE SOLO HUSTLER</span>
-                  <span className="who-stamp who-stamp--sage">4+ HOURS RECLAIMED</span>
+                  <span className="who-stamp">4+ HOURS RECLAIMED</span>
                 </div>
                 <h3>Reclaim 4+ hours every single day</h3>
                 <p>
                   Stop doing repetitive manual tasks. Learn prompt pipelines and lightweight automations that handle client replies, graphics, and order summaries automatically.
                 </p>
-                <div className="who-specimen who-specimen--sage">
+                <div className="who-specimen">
                   <div className="specimen-step">
                     <span className="specimen-dot" />
                     <span>Customer DM</span>
@@ -327,55 +318,71 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
           </div>
         </section>
 
-        {/* ── 5. Free Starter Access ── */}
+        {/* ── 5. Pricing (Two Tiers: Free Explorer + AI Learner) ── */}
         <section id="pricing" className="pricing-section">
           <div className="section pricing-inner">
-            <div className="pricing-copy">
-              <div className="eyebrow"><span className="eyebrow-line" /> ZERO FINANCIAL BARRIER</div>
-              <h2>Start free.<br />Build real capability first.</h2>
+
+            {/* Section header */}
+            <div className="pricing-header">
+              <div className="eyebrow"><span className="eyebrow-line" /> TWO WAYS TO LEARN</div>
+              <h2>Start free.<br /><span>Upgrade when you&apos;re ready to build real assets.</span></h2>
               <p>
-                No credit card required. No foreign currency complications. Just structured, practical lessons you can finish on your phone and start applying immediately.
+                No foreign currency complications. No pressure. Begin with selected free courses across all academies, then unlock the full library when you are ready to go deeper.
               </p>
-              <div className="pricing-highlights">
-                <div className="pricing-hl-item">
-                  <span className="pricing-hl-num">01</span>
-                  <div>
-                    <strong>100% Free Starter Access</strong>
-                    <p>Access foundational modules across all academies at zero cost.</p>
-                  </div>
-                </div>
-                <div className="pricing-hl-item">
-                  <span className="pricing-hl-num">02</span>
-                  <div>
-                    <strong>Low-Bandwidth Mobile Friendly</strong>
-                    <p>High-compression text-first walk-throughs designed for Nigerian network stability.</p>
-                  </div>
-                </div>
-              </div>
             </div>
 
-            <div className="price-card">
-              <div className="price-top">
-                <span className="plan-label">ITUWA AFRICA / EXPLORER</span>
-                <span className="free-tag">ALWAYS FREE</span>
+            {/* Column layout for pricing cards */}
+            <div className="pricing-cards-column">
+
+              {/* Card 1: Free Explorer */}
+              <div className="price-card price-card--free">
+                <div className="price-top">
+                  <span className="plan-label">FREE EXPLORER</span>
+                  <span className="free-tag">START NOW</span>
+                </div>
+                <div className="price-amount">
+                  <span className="price-val">₦0</span>
+                  <span className="price-period">/ forever</span>
+                </div>
+                <p className="price-tagline">Curiosity has no cover charge.</p>
+                <ul>
+                  <li><Check size={15} /> Selected starter courses across all academies</li>
+                  <li><Check size={15} /> Personal learner dashboard and progress tracking</li>
+                  <li><Check size={15} /> Daily practical micro-challenges</li>
+                  <li><Check size={15} /> Mobile-first, works on slow networks</li>
+                </ul>
+                <Link className="price-btn--free" href={isAuthenticated ? '/dashboard' : '/signup'}>
+                  <span>{isAuthenticated ? 'Go to dashboard' : 'Create free account'}</span>
+                  <ArrowRight size={15} />
+                </Link>
+                <small>No card required. Learn at your own pace.</small>
               </div>
-              <div className="price-amount">
-                <span className="price-val">₦0</span>
-                <span className="price-period">forever</span>
+
+              {/* Card 2: AI Learner (Paid) */}
+              <div className="price-card price-card--paid">
+                <div className="price-top">
+                  <span className="plan-label">AI LEARNER</span>
+                  <span className="paid-tag">FULL ACCESS</span>
+                </div>
+                <div className="price-amount">
+                  <span className="price-val">₦20,000</span>
+                  <span className="price-period">/ month</span>
+                </div>
+                <p className="price-tagline">Everything you need to earn with AI.</p>
+                <ul>
+                  <li><ShieldCheck size={15} /> Full course library and guided learning pathways</li>
+                  <li><ShieldCheck size={15} /> Portfolio projects and client-ready brief templates</li>
+                  <li><ShieldCheck size={15} /> Graded assessments and instructor feedback</li>
+                  <li><ShieldCheck size={15} /> Downloadable prompt libraries and proposal systems</li>
+                  <li><ShieldCheck size={15} /> Verified certificate of completion</li>
+                </ul>
+                <Link className="price-btn--paid" href={isAuthenticated ? '/dashboard' : '/signup'}>
+                  <span>Join AI Learner</span>
+                  <ArrowRight size={15} />
+                </Link>
+                <small>Cancel anytime. Built for Nigerian freelancers and creators.</small>
               </div>
-              <h3>Curiosity has no cover charge.</h3>
-              <p>Start learning today. Build portfolio projects and develop skills you can earn with.</p>
-              <ul>
-                <li><Check size={15} /> Free starter courses in all core academies</li>
-                <li><Check size={15} /> Personal learner dashboard and progress tracking</li>
-                <li><Check size={15} /> Daily practical micro-challenges</li>
-                <li><Check size={15} /> Works cleanly on mobile browsers and slow networks</li>
-              </ul>
-              <Link className="button button-light" href={isAuthenticated ? "/dashboard" : "/signup"}>
-                <span>{isAuthenticated ? 'Go to your dashboard' : 'Create free account'}</span>
-                <ArrowRight size={16} />
-              </Link>
-              <small>No card required. Learn at your own pace.</small>
+
             </div>
           </div>
         </section>

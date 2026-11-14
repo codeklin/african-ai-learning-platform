@@ -13,11 +13,10 @@
  * SHA here; for now it uses a timestamp set at install time.
  */
 
-const CACHE_NAME = 'ituwa-v1'
+const CACHE_NAME = 'ituwa-v2'
 
-// Assets to pre-cache on install (app shell)
+// Assets to pre-cache on install (static assets only, never HTML pages)
 const PRECACHE_URLS = [
-  '/',
   '/manifest.json',
   '/ituwaAfricapwa.png',
   '/favicon.ico',
@@ -25,7 +24,7 @@ const PRECACHE_URLS = [
 
 // ── Install ──────────────────────────────────────────────────────
 self.addEventListener('install', (event) => {
-  // Skip waiting so this SW activates immediately on first install
+  // Skip waiting so this SW activates immediately
   self.skipWaiting()
 
   event.waitUntil(
@@ -35,11 +34,11 @@ self.addEventListener('install', (event) => {
 
 // ── Activate ─────────────────────────────────────────────────────
 self.addEventListener('activate', (event) => {
-  // Claim all open clients so they use this SW without a reload
+  // Claim all open clients immediately
   event.waitUntil(
     Promise.all([
       self.clients.claim(),
-      // Delete any caches from previous versions
+      // Delete any caches from previous versions (including stale ituwa-v1)
       caches.keys().then((keys) =>
         Promise.all(
           keys
@@ -51,35 +50,49 @@ self.addEventListener('activate', (event) => {
   )
 })
 
-// ── Fetch (stale-while-revalidate) ───────────────────────────────
+// ── Fetch ────────────────────────────────────────────────────────
 self.addEventListener('fetch', (event) => {
   const { request } = event
 
-  // Only handle GET requests for same-origin or same-site resources
+  // Only handle GET requests
   if (request.method !== 'GET') return
 
   const url = new URL(request.url)
 
-  // Skip Supabase API calls, analytics, and other third-party requests —
-  // these must always go to the network
-  const isThirdParty =
-    !url.origin.includes('ituwa') &&
-    !url.pathname.startsWith('/_next/') &&
+  // Skip Supabase, external APIs, and internal Next.js API routes
+  if (
+    url.pathname.startsWith('/api/') ||
     url.origin !== self.location.origin
+  ) {
+    return
+  }
 
-  if (isThirdParty) return
+  // 1. Navigation / HTML pages: ALWAYS Network-First
+  // Guarantees immediate UI updates and fresh auth state without stale cache traps
+  if (request.mode === 'navigate') {
+    event.respondWith(
+      fetch(request)
+        .then((response) => {
+          if (response && response.status === 200) {
+            const clone = response.clone()
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, clone))
+          }
+          return response
+        })
+        .catch(async () => {
+          const cached = await caches.match(request)
+          return cached ?? new Response('Offline', { status: 503 })
+        })
+    )
+    return
+  }
 
-  // Skip Next.js internal API routes — always network-first
-  if (url.pathname.startsWith('/api/')) return
-
+  // 2. Static assets: Stale-While-Revalidate
   event.respondWith(
     caches.open(CACHE_NAME).then(async (cache) => {
       const cached = await cache.match(request)
-
-      // Fetch fresh copy in the background regardless
       const networkFetch = fetch(request)
         .then((response) => {
-          // Only cache valid, non-opaque responses
           if (response && response.status === 200 && response.type === 'basic') {
             cache.put(request, response.clone())
           }
@@ -87,7 +100,6 @@ self.addEventListener('fetch', (event) => {
         })
         .catch(() => null)
 
-      // Return cached immediately if available, otherwise wait for network
       return cached ?? (await networkFetch) ?? new Response('Offline', { status: 503 })
     })
   )
