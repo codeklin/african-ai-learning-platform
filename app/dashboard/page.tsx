@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowRight, BookOpen, Flame, LayoutDashboard, LogOut, Trophy, User, Bell, Zap } from 'lucide-react'
+import { ArrowRight, BookOpen, Flame, LayoutDashboard, LogOut, ShieldCheck, Trophy, User, Bell, Zap } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { signOut } from '@/app/actions/auth'
 import Brand from '@/components/brand'
@@ -76,6 +76,13 @@ export default async function DashboardPage() {
             <Link href="/dashboard/profile" className="app-sidebar-item">
               <User size={18} aria-hidden="true" /> Profile
             </Link>
+            {profile?.role === 'admin' && (
+              <Link href="/admin" className="app-sidebar-item app-sidebar-item--admin">
+                <ShieldCheck size={18} aria-hidden="true" />
+                <span>Admin Console</span>
+                <span className="super-admin-sidebar-tag">SUPER ADMIN</span>
+              </Link>
+            )}
           </nav>
         </div>
         <div className="app-sidebar-foot">
@@ -94,6 +101,12 @@ export default async function DashboardPage() {
         <header className="app-topbar" aria-label="App header">
           <Brand />
           <div className="app-topbar-right">
+            {profile?.role === 'admin' && (
+              <Link href="/admin" className="super-admin-topbar-chip" aria-label="Super Admin Portal">
+                <ShieldCheck size={14} />
+                <span>SUPER ADMIN</span>
+              </Link>
+            )}
             <button className="app-icon-btn" aria-label="Notifications">
               <Bell size={20} />
             </button>
@@ -104,6 +117,30 @@ export default async function DashboardPage() {
         </header>
 
         <main className="app-main" id="main-content">
+          {/* Super Admin Control Center Banner */}
+          {profile?.role === 'admin' && (
+            <section className="super-admin-alert-banner">
+              <div className="super-admin-banner-left">
+                <div className="super-admin-badge-strip">
+                  <span className="super-admin-live-dot" />
+                  <ShieldCheck size={15} />
+                  <span>SUPER ADMIN PRIVILEGES ACTIVE</span>
+                </div>
+                <h2>Super Admin Control Center</h2>
+                <p>
+                  You have full executive clearance: manage user roles, publish or draft courses, inspect live database logs, and review platform enrollments.
+                </p>
+              </div>
+              <div className="super-admin-banner-btns">
+                <Link href="/admin" className="button button-dark super-admin-action-btn">
+                  Open Super Admin Suite <ArrowRight size={15} />
+                </Link>
+                <Link href="/admin/users" className="button button-light super-admin-action-btn">
+                  Manage Learners
+                </Link>
+              </div>
+            </section>
+          )}
 
           {/* Greeting band */}
           <section className="app-greeting-band">

@@ -77,6 +77,13 @@ export default async function ProfilePage() {
             >
               <User size={18} aria-hidden="true" /> Profile
             </Link>
+            {role === 'admin' && (
+              <Link href="/admin" className="app-sidebar-item app-sidebar-item--admin">
+                <ShieldCheck size={18} aria-hidden="true" />
+                <span>Admin Console</span>
+                <span className="super-admin-sidebar-tag">SUPER ADMIN</span>
+              </Link>
+            )}
           </nav>
         </div>
         <div className="app-sidebar-foot">
@@ -94,6 +101,12 @@ export default async function ProfilePage() {
         <header className="app-topbar" aria-label="App header">
           <Brand />
           <div className="app-topbar-right">
+            {role === 'admin' && (
+              <Link href="/admin" className="super-admin-topbar-chip" aria-label="Super Admin Portal">
+                <ShieldCheck size={14} />
+                <span>SUPER ADMIN</span>
+              </Link>
+            )}
             <button className="app-icon-btn" aria-label="Notifications">
               <Bell size={20} />
             </button>
@@ -114,7 +127,7 @@ export default async function ProfilePage() {
                 <div className="profile-name-row">
                   <h1>{fullName}</h1>
                   <span className={`profile-role-tag role--${role}`}>
-                    {role.toUpperCase()}
+                    {role === 'admin' ? 'SUPER ADMIN' : role.toUpperCase()}
                   </span>
                 </div>
                 <p className="profile-email-text">
@@ -127,7 +140,13 @@ export default async function ProfilePage() {
             </div>
 
             <div className="profile-hero-actions">
-              <Link href="/courses" className="button button-dark profile-action-btn">
+              {role === 'admin' && (
+                <Link href="/admin" className="button button-dark profile-action-btn">
+                  <ShieldCheck size={15} />
+                  <span>Super Admin Suite</span>
+                </Link>
+              )}
+              <Link href="/courses" className="button button-light profile-action-btn">
                 <span>Browse courses</span>
                 <ArrowRight size={15} />
               </Link>
