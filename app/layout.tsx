@@ -59,18 +59,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={baloo2.variable}>
       <body className="antialiased">
-        {/* PWA splash — visible only when installed as a PWA, hidden once JS runs */}
-        <div id="pwa-splash" aria-hidden="true">
+        {/* PWA splash — only visible when running as an installed PWA before JS loads.
+            suppressHydrationWarning prevents the React hydration mismatch caused by
+            the display:none style being applied by the inline script before hydration. */}
+        <div id="pwa-splash" aria-hidden="true" suppressHydrationWarning>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/ituwaAfricapwa.png" alt="" width={120} height={120} />
           <span>ituwaAfrica</span>
         </div>
-        {/* Remove splash as soon as the page script runs */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){var s=document.getElementById('pwa-splash');if(s)s.style.display='none';})();`,
-          }}
-        />
         {children}
         <PwaRegister />
         {process.env.NODE_ENV === 'production' && <Analytics />}

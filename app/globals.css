@@ -464,112 +464,211 @@ button { color: inherit; font: inherit; }
 
 /* ── Dashboard responsive ───────────────────────────────────────── */
 @media(max-width:768px) {
-  /* ── Admin / Dash layout ── */
+  /* ══════════════════════════════════════════════════════════════
+     ADMIN / SUPER ADMIN MOBILE  ≤768px
+     Sidebar collapses to a single sticky top bar:
+       [Brand + badge]  [scrollable icon nav]  [sign-out icon]
+     ══════════════════════════════════════════════════════════════ */
+
   .dash-layout { grid-template-columns: 1fr; }
 
-  /* Slim top bar replacing the sidebar on mobile */
+  /* Sidebar → one-row sticky top bar */
   .dash-sidebar {
     position: sticky;
     top: 0;
     z-index: 20;
-    height: auto;
+    height: 56px;
+    min-height: 56px;
+    max-height: 56px;
+    overflow: hidden;
     flex-direction: row;
     align-items: center;
-    padding: 12px 16px;
-    border-right: 0;
+    padding: 0 12px;
+    border-right: none;
     border-bottom: 1px solid #EADBCE;
     background: #FAF5EE;
-    gap: 12px;
+    gap: 8px;
+    justify-content: space-between;
   }
-  .dash-sidebar-top { flex-direction: row; align-items: center; gap: 10px; flex: 1; min-width: 0; }
-  .dash-nav { flex-direction: row; gap: 4px; overflow-x: auto; }
-  /* Show only the icon on mobile nav items — hide label text */
-  .dash-nav-item span:last-child { display: none; }
-  .dash-sidebar-foot { padding: 0; border: 0; flex-shrink: 0; }
-  .dash-main-inner { padding: 16px 14px 48px; }
-  .dash-header { flex-direction: column; gap: 10px; align-items: flex-start; }
 
-  /* Executive identity strip — stack vertically */
+  /* Left: brand + badge in one row, no wrapping */
+  .dash-sidebar-top {
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    min-width: 0;
+  }
+
+  .admin-brand-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 0;
+    white-space: nowrap;
+  }
+
+  /* Shrink brand text */
+  .admin-brand-row .brand { font-size: 18px !important; letter-spacing: -1px !important; }
+
+  /* Super Admin badge — compact pill */
+  .dash-role-badge,
+  .super-admin-badge {
+    font-size: 9px !important;
+    padding: 2px 6px !important;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Nav — scrollable icon-only row in the middle, takes remaining space */
+  .dash-nav {
+    flex-direction: row;
+    gap: 2px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex: 1;
+    min-width: 0;
+    padding: 0 4px;
+    scrollbar-width: none;
+    align-items: center;
+    height: 100%;
+  }
+  .dash-nav::-webkit-scrollbar { display: none; }
+
+  .dash-nav-item {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 10px;
+    min-width: 40px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    gap: 0;
+    font-size: 0; /* collapse text */
+  }
+
+  /* Hide ALL text and badges inside nav items — icon only */
+  .dash-nav-item > span,
+  .dash-nav-item > small { display: none !important; }
+
+  /* Right: sign-out as icon-only button */
+  .dash-sidebar-foot {
+    padding: 0;
+    border: 0;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Hide non-essential foot content */
+  .admin-user-info,
+  .dash-view-learner-link { display: none !important; }
+
+  /* Sign-out: icon only, no text */
+  .dash-signout {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    justify-content: center;
+    gap: 0;
+    border-radius: 8px;
+    background: #F0E7DB;
+    color: #2C1A12;
+    font-size: 0;
+  }
+  .dash-signout svg { flex-shrink: 0; }
+
+  /* ── Main content ── */
+  .dash-main { overflow-x: hidden; }
+  .dash-main-inner { padding: 12px 12px 60px; max-width: 100%; }
+  .dash-header { flex-direction: column; gap: 8px; align-items: flex-start; }
+  .dash-greeting { font-size: 20px !important; }
+
+  /* ── Executive strip ── */
   .super-admin-executive-strip {
     flex-direction: column;
     align-items: flex-start;
-    padding: 14px 16px;
-    gap: 12px;
+    padding: 12px 14px;
+    gap: 10px;
     border-radius: 12px;
+    margin-bottom: 12px;
   }
-  .executive-strip-left { flex-direction: column; align-items: flex-start; gap: 8px; }
-  .executive-crown-badge { font-size: 11px; padding: 5px 10px; }
+  .executive-strip-left { flex-direction: column; align-items: flex-start; gap: 6px; width: 100%; }
+  .executive-crown-badge { font-size: 11px; padding: 4px 10px; }
   .executive-meta b { font-size: 13px; }
-  .executive-meta span { font-size: 11px; white-space: normal; }
-  .executive-strip-right { flex-direction: row; flex-wrap: wrap; gap: 8px; }
-  .executive-pill-green, .executive-pill-amber { font-size: 11px; padding: 4px 10px; }
+  .executive-meta span { font-size: 11px; white-space: normal; line-height: 1.4; }
+  .executive-strip-right { flex-direction: row; flex-wrap: wrap; gap: 6px; width: 100%; }
+  .executive-pill-green, .executive-pill-amber { font-size: 10px; padding: 3px 8px; }
 
-  /* Header bar — stack on mobile */
-  .admin-header-bar {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 16px;
-  }
+  /* ── Page header bar ── */
+  .admin-header-bar { flex-direction: column; align-items: flex-start; gap: 10px; margin-bottom: 12px; }
+  .admin-live-badge { font-size: 11px; padding: 3px 10px; }
+  .admin-header-subtitle { font-size: 13px; line-height: 1.4; }
   .admin-header-actions { width: 100%; display: flex; gap: 8px; }
-  .admin-header-btn { flex: 1; justify-content: center; font-size: 12px; padding: 0 10px; height: 38px; }
-  .admin-header-subtitle { font-size: 13px; }
+  .admin-header-btn { flex: 1; justify-content: center; font-size: 12px; padding: 0 10px; height: 38px; gap: 6px; }
 
-  /* Tabs — scroll horizontally, smaller text */
-  .admin-tabs-nav { gap: 6px; margin-bottom: 16px; }
-  .admin-tab-btn { padding: 7px 12px; font-size: 12px; }
+  /* ── Tab nav ── */
+  .admin-tabs-nav { gap: 5px; margin-bottom: 12px; padding-bottom: 4px; }
+  .admin-tab-btn { padding: 7px 11px; font-size: 11px; }
 
-  /* Metric cards — 2 col */
-  .admin-stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-  .admin-metric-card { padding: 14px; border-radius: 14px; gap: 6px; }
-  .metric-value { font-size: 28px !important; }
-  .metric-label { font-size: 10px !important; }
-  .metric-footnote { font-size: 11px !important; }
+  /* ── KPI metric cards — 2×2 ── */
+  .admin-stats-grid { grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+  .admin-metric-card { padding: 12px; border-radius: 12px; gap: 4px; }
+  .metric-label { font-size: 10px !important; letter-spacing: 0.3px !important; }
+  .metric-value { font-size: 26px !important; line-height: 1 !important; }
+  .metric-trend-pill { font-size: 10px !important; padding: 2px 6px !important; }
+  .metric-footnote { font-size: 11px !important; line-height: 1.3 !important; }
+  .metric-number-row { gap: 6px !important; flex-wrap: wrap; }
+  .metric-icon-box { width: 30px !important; height: 30px !important; border-radius: 8px !important; }
 
-  /* Split panel — single column */
-  .admin-split-grid { grid-template-columns: 1fr; gap: 14px; }
+  /* ── Split panel → single column ── */
+  .admin-split-grid { grid-template-columns: 1fr; gap: 10px; margin-bottom: 14px; }
 
-  /* Announcement panel */
-  .admin-announcement-panel { padding: 14px 16px; border-radius: 14px; }
-  .announcement-panel-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+  /* ── Announcement panel ── */
+  .admin-announcement-panel { padding: 12px 14px; border-radius: 12px; }
+  .announcement-panel-header { flex-direction: column; align-items: flex-start; gap: 8px; }
   .announcement-toggle-wrap { width: 100%; justify-content: space-between; }
 
-  /* Panel cards */
-  .admin-panel-card { padding: 16px; border-radius: 14px; margin-bottom: 14px; }
-  .panel-header-row { flex-direction: column; align-items: flex-start; gap: 6px; margin-bottom: 14px; }
-  .panel-title { font-size: 16px !important; }
+  /* ── Panel cards ── */
+  .admin-panel-card { padding: 14px; border-radius: 12px; margin-bottom: 10px; }
+  .panel-header-row { flex-direction: column; align-items: flex-start; gap: 4px; margin-bottom: 10px; }
+  .panel-kicker { font-size: 10px !important; }
+  .panel-title { font-size: 15px !important; }
 
-  /* Tables — hide on mobile, show card list instead */
+  /* ── Tables hidden — mobile card list shown ── */
   .admin-table-container { display: none; }
-  .admin-mobile-cards-list { display: flex; flex-direction: column; gap: 10px; }
-
-  /* Mobile user cards */
+  .admin-mobile-cards-list { display: flex; flex-direction: column; gap: 8px; }
   .admin-mobile-user-card {
-    background: #FAF5EE;
-    border: 1px solid #EADBCE;
-    border-radius: 14px;
-    padding: 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    background: #FAF5EE; border: 1px solid #EADBCE; border-radius: 12px;
+    padding: 12px; display: flex; flex-direction: column; gap: 8px;
   }
   .mobile-user-card-top { display: flex; justify-content: space-between; align-items: center; }
   .mobile-user-card-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 8px; border-top: 1px solid #EADBCE; }
   .mobile-role-selector { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #7C6E65; }
 
-  /* Courses grid — single column */
-  .admin-courses-grid { grid-template-columns: 1fr; gap: 12px; }
-  .admin-course-card { padding: 14px; border-radius: 14px; }
+  /* ── Courses grid → single column ── */
+  .admin-courses-grid { grid-template-columns: 1fr; gap: 10px; }
+  .admin-course-card { padding: 12px; border-radius: 12px; }
+  .admin-course-title { font-size: 14px !important; }
+  .admin-course-desc { font-size: 12px !important; }
 
-  /* Toolbar */
-  .admin-toolbar-row { flex-direction: column; align-items: stretch; gap: 10px; }
+  /* ── Toolbar ── */
+  .admin-toolbar-row { flex-direction: column; align-items: stretch; gap: 8px; }
   .admin-search-box { max-width: 100%; }
-  .admin-filter-pills { flex-wrap: wrap; }
+  .admin-filter-pills { flex-wrap: wrap; gap: 5px; }
 
-  /* Settings grid */
-  .settings-grid { grid-template-columns: 1fr; }
+  /* ── Settings ── */
+  .settings-grid { grid-template-columns: 1fr; gap: 10px; }
 
-  /* Suppress the old basic overrides now replaced */
+  /* ── Modal slides up from bottom ── */
+  .admin-modal-backdrop { padding: 0; align-items: flex-end; }
+  .admin-modal-window { max-height: 94dvh; border-radius: 20px 20px 0 0; }
+  .admin-modal-header { padding: 14px 16px; }
+  .admin-modal-body { padding: 14px 16px; }
+  .admin-modal-footer { padding: 12px 16px; }
+  .creator-form-grid { grid-template-columns: 1fr; }
+  .creator-form-field.col-span-2 { grid-column: span 1; }
+
   .admin-stats { grid-template-columns: repeat(2, 1fr); }
 }
 
@@ -2086,23 +2185,8 @@ a.skip-link:focus { top:0; }
    Shown by the OS while the app bundle loads. The orange background
    matches manifest.json background_color so the transition is instant.
    ═══════════════════════════════════════════════════════════════════ */
-@media (display-mode: standalone) {
-  /* Full-screen orange backdrop when running as installed PWA */
-  html {
-    background-color: #E86A58;
-  }
-  body {
-    background-color: #E86A58;
-    min-height: 100dvh;
-  }
 
-  /* Show the splash overlay only until React hydrates */
-  #pwa-splash {
-    display: flex;
-  }
-}
-
-/* The splash element itself — hidden in browser, visible in PWA before hydration */
+/* The splash element — hidden by default in every browser context */
 #pwa-splash {
   display: none;
   position: fixed;
@@ -2113,6 +2197,8 @@ a.skip-link:focus { top:0; }
   align-items: center;
   justify-content: center;
   gap: 20px;
+  /* Fade out quickly once the app shell is painted */
+  animation: pwa-splash-hide 0.4s ease 1.2s forwards;
 }
 #pwa-splash img {
   width: 120px;
@@ -2129,7 +2215,22 @@ a.skip-link:focus { top:0; }
   letter-spacing: -0.5px;
 }
 
+/* Only show splash when running as an installed PWA (standalone mode) */
+@media (display-mode: standalone) {
+  #pwa-splash {
+    display: flex;
+  }
+  html {
+    background-color: #E86A58;
+  }
+}
+
 @keyframes pwa-pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
   50%       { opacity: 0.85; transform: scale(0.96); }
+}
+
+/* After 1.2s the splash fades out and is removed from layout */
+@keyframes pwa-splash-hide {
+  to { opacity: 0; pointer-events: none; visibility: hidden; }
 }
