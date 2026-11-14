@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-import { ArrowDownRight, ArrowRight, ArrowUpRight, Check, ShieldCheck } from 'lucide-react'
+import { ArrowDownRight, ArrowRight, ArrowUpRight, Check, MessageCircle, ShieldCheck } from 'lucide-react'
 import Brand from '@/components/brand'
 import AppBottomNav from '@/components/app-bottom-nav'
 import { useUser } from '@/hooks/use-user'
@@ -104,8 +104,8 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
         <section className="hero hero--editorial">
           <div className="hero-editorial-inner">
             <h1>
-              Stop watching AI hype.<br />
-              <span>Learn practical skills you can actually earn with.</span>
+              <strong className="hero-h1-primary">Stop watching AI hype.</strong>
+              <span className="hero-h1-secondary">Learn practical skills you can actually earn with.</span>
             </h1>
             <p>
               Most AI tutorials teach you nothing useful. ituwaAfrica shows you how to package real freelance services, launch creator channels, and do work that paying clients actually send money for. No foreign fluff. No high-end laptop required.
@@ -324,10 +324,10 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
 
             {/* Section header */}
             <div className="pricing-header">
-              <div className="eyebrow"><span className="eyebrow-line" /> TWO WAYS TO LEARN</div>
+              <div className="eyebrow"><span className="eyebrow-line" /> THREE WAYS TO LEARN</div>
               <h2>Start free.<br /><span>Upgrade when you&apos;re ready to build real assets.</span></h2>
               <p>
-                No foreign currency complications. No pressure. Begin with selected free courses across all academies, then unlock the full library when you are ready to go deeper.
+                No foreign currency complications. No pressure. Begin with selected free courses across all academies, unlock full library access, or book direct 1-on-1 mentorship.
               </p>
             </div>
 
@@ -381,6 +381,35 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
                   <ArrowRight size={15} />
                 </Link>
                 <small>Cancel anytime. Built for Nigerian freelancers and creators.</small>
+              </div>
+
+              {/* Card 3: 1-on-1 Mentorship */}
+              <div className="price-card price-card--mentorship">
+                <div className="price-top">
+                  <span className="plan-label">1-ON-1 MENTORSHIP</span>
+                  <span className="mentorship-tag">DIRECT ACCESS</span>
+                </div>
+                <div className="price-amount">
+                  <span className="price-val" style={{ fontSize: 'clamp(26px, 5vw, 34px)', color: '#E86A58' }}>Custom</span>
+                  <span className="price-period">/ session</span>
+                </div>
+                <p className="price-tagline">Personal guidance. Real feedback. Fast results.</p>
+                <ul>
+                  <li><MessageCircle size={15} /> 1-on-1 private strategy & consultation session</li>
+                  <li><MessageCircle size={15} /> Portfolio & proposal review with honest feedback</li>
+                  <li><MessageCircle size={15} /> Custom AI workflow tailored to your specific niche</li>
+                  <li><MessageCircle size={15} /> Direct WhatsApp follow-up & voice note support</li>
+                </ul>
+                <a
+                  className="price-btn--mentorship"
+                  href="https://wa.me/2347031098097?text=Hi%2C%20I%27m%20interested%20in%20a%201-on-1%20mentorship%20session%20with%20ituwaAfrica."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span>Chat on WhatsApp</span>
+                  <ArrowRight size={15} />
+                </a>
+                <small>Limited monthly slots. Message directly to book.</small>
               </div>
 
             </div>
