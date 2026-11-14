@@ -19,6 +19,8 @@ const creatorCourses: Record<string, { title: string; description: string }> = {
   'building-a-creator-business-beyond-ad-revenue': { title: 'Building a Creator Business Beyond Ad Revenue', description: 'Explore audience-aligned services, products, partnerships, and other diversified models.' },
 }
 
+const WHATSAPP_URL = 'https://wa.me/2347031098097?text=Hi%20ituwaAfrica%2C%20I%20want%20to%20learn%20more%20about%20this%20course.'
+
 const courses: Record<string, {
   title: string
   academy: string
@@ -30,8 +32,75 @@ const courses: Record<string, {
   modules: Array<{ title: string; lessons: string[] }>
   youtubeVideoId?: string
 }> = {
-  'ai-toolkit-practical-start': { title: 'Your AI Toolkit: A Practical Start', academy: 'AI Foundations', level: 'Beginner', duration: '2h 15m', lessons: 8, description: 'New to AI and tired of the buzzwords? Learn what these tools can do, where they fall short, and how to use one on a task you already have.', outcomes: ['Know what these tools can and cannot do', 'Choose a tool for the job instead of chasing every new one', 'Give clear instructions to get a better first draft', 'Make a simple workflow for a task you do often'], modules: [{ title: 'Getting oriented', lessons: ['What AI can (and cannot) do', 'A practical AI toolkit', 'Use AI with care and good judgement'] }, { title: 'Working with prompts', lessons: ['Give your prompt a purpose', 'Add context that matters', 'Improve a first response'] }, { title: 'Put it into practice', lessons: ['Build a personal workflow', 'Your first AI-assisted project'] }] },
-  'prompting-better-work': { title: 'Prompting for Better Work', academy: 'AI Foundations', level: 'Beginner', duration: '3h 10m', lessons: 12, description: 'Getting answers that sound right but do not help? Learn how to give a tool the details it needs and check its work.', outcomes: ['Break a task into clear steps', 'Share the details that change the answer', 'Improve a first draft without starting over', 'Check answers before you rely on them'], modules: [{ title: 'The shape of a prompt', lessons: ['Start with the task', 'Add context and constraints', 'Describe the output you need'] }, { title: 'Make it more useful', lessons: ['Work in small iterations', 'Ask for alternatives', 'Check what matters'] }, { title: 'A repeatable practice', lessons: ['Create your prompt brief', 'Build a reusable template'] }] },
+  'ai-toolkit-practical-start': {
+    title: 'Your AI Toolkit: A Practical Start',
+    academy: 'AI Foundations',
+    level: 'Beginner',
+    duration: '2h 15m',
+    lessons: 8,
+    youtubeVideoId: '',
+    description: 'New to AI and tired of the buzzwords? Learn what these tools can do, where they fall short, and how to use one on a task you already have.',
+    outcomes: ['Know what these tools can and cannot do', 'Choose a tool for the job instead of chasing every new one', 'Give clear instructions to get a better first draft', 'Make a simple workflow for a task you do often'],
+    modules: [{ title: 'Getting oriented', lessons: ['What AI can (and cannot) do', 'A practical AI toolkit', 'Use AI with care and good judgement'] }, { title: 'Working with prompts', lessons: ['Give your prompt a purpose', 'Add context that matters', 'Improve a first response'] }, { title: 'Put it into practice', lessons: ['Build a personal workflow', 'Your first AI-assisted project'] }],
+  },
+  'prompting-better-work': {
+    title: 'Prompting for Better Work',
+    academy: 'AI Foundations',
+    level: 'Beginner',
+    duration: '3h 10m',
+    lessons: 12,
+    youtubeVideoId: '',
+    description: 'Getting answers that sound right but do not help? Learn how to give a tool the details it needs and check its work.',
+    outcomes: ['Break a task into clear steps', 'Share the details that change the answer', 'Improve a first draft without starting over', 'Check answers before you rely on them'],
+    modules: [{ title: 'The shape of a prompt', lessons: ['Start with the task', 'Add context and constraints', 'Describe the output you need'] }, { title: 'Make it more useful', lessons: ['Work in small iterations', 'Ask for alternatives', 'Check what matters'] }, { title: 'A repeatable practice', lessons: ['Create your prompt brief', 'Build a reusable template'] }],
+  },
+  'freelance-ai-content-studio': {
+    title: 'The Freelance AI Content Studio',
+    academy: 'AI Content Creation',
+    level: 'Intermediate',
+    duration: '4h 30m',
+    lessons: 16,
+    youtubeVideoId: '',
+    description: 'Turn a client brief into clear, finished content and build a portfolio of samples you can show when pitching new work.',
+    outcomes: ['Turn a vague brief into a clear content brief', 'Use AI to draft copy you then shape into your own voice', 'Build a repeatable content production workflow', 'Create portfolio samples that show your process'],
+    modules: [
+      { title: 'The content brief', lessons: ['What clients actually need', 'Turning a brief into a clear task', 'Research and reference gathering'] },
+      { title: 'Drafting with AI', lessons: ['Writing your first draft prompt', 'Editing AI output into your voice', 'Structuring long-form content'] },
+      { title: 'Production workflow', lessons: ['Building a repeatable content pipeline', 'Quality checks before delivery', 'Packaging your work for clients'] },
+      { title: 'Portfolio & pitching', lessons: ['Choosing your best samples', 'Writing a simple case study', 'Pitching your content service', 'Your first content brief project'] },
+    ],
+  },
+  'build-your-first-ai-workflow': {
+    title: 'Build Your First AI Workflow',
+    academy: 'AI Automation',
+    level: 'Intermediate',
+    duration: '3h 45m',
+    lessons: 10,
+    youtubeVideoId: '',
+    description: 'Stop repeating the same task by hand. Pick one routine job, map out the steps, and build a simple automated workflow using AI tools.',
+    outcomes: ['Identify tasks worth automating in your work', 'Map a task from trigger to output', 'Connect AI tools into a working chain', 'Test and hand off your first workflow'],
+    modules: [
+      { title: 'Think in workflows', lessons: ['What makes a task automatable?', 'Mapping trigger → action → output', 'Picking your first workflow target'] },
+      { title: 'Build it', lessons: ['Connecting tools without code', 'Prompt chains and conditional steps', 'Testing your workflow end to end'] },
+      { title: 'Ship it', lessons: ['Handling errors and edge cases', 'Documenting your workflow', 'Sharing and handing off to a client', 'Your workflow showcase project'] },
+    ],
+  },
+  'ai-for-your-freelance-business': {
+    title: 'AI for Your Freelance Business',
+    academy: 'AI Freelancing',
+    level: 'Beginner',
+    duration: '4h',
+    lessons: 14,
+    youtubeVideoId: '',
+    description: 'Not sure what to sell? Find one problem clients pay to solve, build a clear service offer around it, and use AI to deliver it efficiently.',
+    outcomes: ['Find a service you can offer and explain its value', 'Write a one-page service offer that clients understand', 'Use AI to cut delivery time without cutting quality', 'Handle your first client brief end to end'],
+    modules: [
+      { title: 'Your service offer', lessons: ['Finding a problem clients pay for', 'Naming and scoping your service', 'Pricing for value, not hours'] },
+      { title: 'Getting clients', lessons: ['Writing a clear service page', 'Pitching in DMs and emails', 'Your first proposal template'] },
+      { title: 'Delivering with AI', lessons: ['Onboarding a client', 'Using AI in your delivery workflow', 'Quality control before you send'] },
+      { title: 'Growing it', lessons: ['Getting a testimonial', 'Turning one client into two', 'Building your freelance portfolio', 'Your first client project'] },
+    ],
+  },
   'build-a-helpful-ai-app': {
     title: 'Build a Helpful AI App',
     academy: 'AI App Development',
@@ -40,36 +109,11 @@ const courses: Record<string, {
     lessons: 8,
     youtubeVideoId: 'qIUZ_C5ki3g',
     description: 'Watch the step-by-step masterclass on building and shipping a functional AI tool. Learn how to connect prompt pipelines, structure user inputs, and test with real users.',
-    outcomes: [
-      'Connect user inputs to structured prompt pipelines',
-      'Design functional UI prototypes that solve real business friction',
-      'Deploy and test your utility with actual users',
-      'Package and monetize single-purpose micro-tools',
-    ],
+    outcomes: ['Connect user inputs to structured prompt pipelines', 'Design functional UI prototypes that solve real business friction', 'Deploy and test your utility with actual users', 'Package and monetize single-purpose micro-tools'],
     modules: [
-      {
-        title: 'Core Concept & Logic Architecture',
-        lessons: [
-          'Identify one high-demand business problem',
-          'Design the input-to-output pipeline',
-          'Prompt engineering for consistent structured responses',
-        ],
-      },
-      {
-        title: 'Live App Build Walkthrough',
-        lessons: [
-          'Build a Helpful AI App Masterclass (Video)',
-          'Handling API calls, keys, and edge errors',
-          'Deploying to a live mobile-friendly link',
-        ],
-      },
-      {
-        title: 'Packaging, Pricing & Portfolio',
-        lessons: [
-          'Testing with your first 5 real users',
-          'Creating your portfolio showcase asset',
-        ],
-      },
+      { title: 'Core Concept & Logic Architecture', lessons: ['Identify one high-demand business problem', 'Design the input-to-output pipeline', 'Prompt engineering for consistent structured responses'] },
+      { title: 'Live App Build Walkthrough', lessons: ['Build a Helpful AI App Masterclass (Video)', 'Handling API calls, keys, and edge errors', 'Deploying to a live mobile-friendly link'] },
+      { title: 'Packaging, Pricing & Portfolio', lessons: ['Testing with your first 5 real users', 'Creating your portfolio showcase asset'] },
     ],
   },
 }
@@ -141,6 +185,19 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
               Start this course <ArrowRight size={15} />
             </Link>
             <span className="detail-demo-note">Demo preview · Progress is not saved</span>
+            {/* WhatsApp enquiry CTA */}
+            <a
+              href={`https://wa.me/2347031098097?text=Hi%20ituwaAfrica%2C%20I%27m%20interested%20in%20the%20${encodeURIComponent(title)}%20course.`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="detail-whatsapp-cta"
+            >
+              <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="20" height="20">
+                <circle cx="16" cy="16" r="16" fill="#25D366"/>
+                <path d="M23.472 8.516A10.368 10.368 0 0 0 16.01 5.5C10.733 5.5 6.44 9.794 6.44 15.07c0 1.69.44 3.34 1.278 4.793L6.37 24.5l4.76-1.249a10.4 10.4 0 0 0 4.876 1.237h.004c5.275 0 9.57-4.294 9.57-9.57a9.52 9.52 0 0 0-2.108-6.402Zm-7.462 14.724h-.003a8.636 8.636 0 0 1-4.404-1.207l-.316-.187-3.274.858.874-3.19-.206-.327a8.63 8.63 0 0 1-1.323-4.617c0-4.77 3.882-8.65 8.655-8.65a8.598 8.598 0 0 1 6.118 2.534 8.598 8.598 0 0 1 2.531 6.12c-.002 4.771-3.882 8.666-8.652 8.666Zm4.747-6.483c-.26-.13-1.538-.759-1.776-.846-.238-.087-.41-.13-.583.13-.173.26-.67.846-.82 1.02-.152.173-.303.195-.563.065-.26-.13-1.098-.405-2.09-1.29-.773-.688-1.294-1.538-1.446-1.797-.152-.26-.016-.4.114-.53.117-.116.26-.302.39-.453.13-.152.173-.26.26-.433.086-.173.043-.325-.022-.455-.065-.13-.583-1.405-.8-1.924-.21-.505-.424-.436-.583-.444l-.497-.009c-.173 0-.455.065-.693.325-.238.26-.909.888-.909 2.165s.931 2.511 1.061 2.684c.13.173 1.832 2.797 4.44 3.922.62.268 1.104.428 1.482.548.622.198 1.19.17 1.637.103.499-.074 1.538-.629 1.754-1.236.217-.607.217-1.128.152-1.236-.065-.109-.238-.173-.498-.303Z" fill="#fff"/>
+              </svg>
+              Chat on WhatsApp to enrol
+            </a>
           </div>
 
           <div className="detail-art">
@@ -187,15 +244,35 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
 
             {course?.youtubeVideoId && (
               <div className="detail-block course-video-block">
-                <div className="detail-section-kicker">03 / FREE VIDEO MASTERCLASS</div>
-                <h2>Live Stream Walkthrough</h2>
-                <p>Watch how to assemble, test, and deploy a functional AI utility from scratch.</p>
+                <div className="detail-section-kicker">03 / FREE INTRO VIDEO</div>
+                <h2>Watch before you start.</h2>
+                <p>A free introduction to this course. Watch to decide if it&apos;s right for you, then jump in.</p>
                 <div style={{ marginTop: 16 }}>
                   <YouTubeEmbed
                     videoId={course.youtubeVideoId}
                     title={title}
                     duration={duration}
                   />
+                </div>
+              </div>
+            )}
+            {course && !course.youtubeVideoId && (
+              <div className="detail-block course-video-block">
+                <div className="detail-section-kicker">03 / FREE INTRO VIDEO</div>
+                <h2>Video coming soon.</h2>
+                <div className="detail-video-placeholder">
+                  <Play size={32} />
+                  <p>An introduction video for this course will be added shortly. Chat with us on WhatsApp to get notified when it goes live.</p>
+                  <a
+                    href={`https://wa.me/2347031098097?text=Hi%2C%20notify%20me%20when%20the%20${encodeURIComponent(title)}%20intro%20video%20is%20live.`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="detail-whatsapp-cta"
+                    style={{ marginTop: 8 }}
+                  >
+                    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="18" height="18"><circle cx="16" cy="16" r="16" fill="#25D366"/><path d="M23.472 8.516A10.368 10.368 0 0 0 16.01 5.5C10.733 5.5 6.44 9.794 6.44 15.07c0 1.69.44 3.34 1.278 4.793L6.37 24.5l4.76-1.249a10.4 10.4 0 0 0 4.876 1.237h.004c5.275 0 9.57-4.294 9.57-9.57a9.52 9.52 0 0 0-2.108-6.402Zm-7.462 14.724h-.003a8.636 8.636 0 0 1-4.404-1.207l-.316-.187-3.274.858.874-3.19-.206-.327a8.63 8.63 0 0 1-1.323-4.617c0-4.77 3.882-8.65 8.655-8.65a8.598 8.598 0 0 1 6.118 2.534 8.598 8.598 0 0 1 2.531 6.12c-.002 4.771-3.882 8.666-8.652 8.666Zm4.747-6.483c-.26-.13-1.538-.759-1.776-.846-.238-.087-.41-.13-.583.13-.173.26-.67.846-.82 1.02-.152.173-.303.195-.563.065-.26-.13-1.098-.405-2.09-1.29-.773-.688-1.294-1.538-1.446-1.797-.152-.26-.016-.4.114-.53.117-.116.26-.302.39-.453.13-.152.173-.26.26-.433.086-.173.043-.325-.022-.455-.065-.13-.583-1.405-.8-1.924-.21-.505-.424-.436-.583-.444l-.497-.009c-.173 0-.455.065-.693.325-.238.26-.909.888-.909 2.165s.931 2.511 1.061 2.684c.13.173 1.832 2.797 4.44 3.922.62.268 1.104.428 1.482.548.622.198 1.19.17 1.637.103.499-.074 1.538-.629 1.754-1.236.217-.607.217-1.128.152-1.236-.065-.109-.238-.173-.498-.303Z" fill="#fff"/></svg>
+                    Notify me on WhatsApp
+                  </a>
                 </div>
               </div>
             )}
@@ -235,6 +312,19 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
               <Link className="text-link" href="/courses">
                 Explore more courses <ArrowRight size={15} />
               </Link>
+              <div className="aside-divider" />
+              <a
+                href={`https://wa.me/2347031098097?text=Hi%20ituwaAfrica%2C%20I%27m%20interested%20in%20the%20${encodeURIComponent(title)}%20course.`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="detail-whatsapp-aside"
+              >
+                <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="20" height="20"><circle cx="16" cy="16" r="16" fill="#25D366"/><path d="M23.472 8.516A10.368 10.368 0 0 0 16.01 5.5C10.733 5.5 6.44 9.794 6.44 15.07c0 1.69.44 3.34 1.278 4.793L6.37 24.5l4.76-1.249a10.4 10.4 0 0 0 4.876 1.237h.004c5.275 0 9.57-4.294 9.57-9.57a9.52 9.52 0 0 0-2.108-6.402Zm-7.462 14.724h-.003a8.636 8.636 0 0 1-4.404-1.207l-.316-.187-3.274.858.874-3.19-.206-.327a8.63 8.63 0 0 1-1.323-4.617c0-4.77 3.882-8.65 8.655-8.65a8.598 8.598 0 0 1 6.118 2.534 8.598 8.598 0 0 1 2.531 6.12c-.002 4.771-3.882 8.666-8.652 8.666Zm4.747-6.483c-.26-.13-1.538-.759-1.776-.846-.238-.087-.41-.13-.583.13-.173.26-.67.846-.82 1.02-.152.173-.303.195-.563.065-.26-.13-1.098-.405-2.09-1.29-.773-.688-1.294-1.538-1.446-1.797-.152-.26-.016-.4.114-.53.117-.116.26-.302.39-.453.13-.152.173-.26.26-.433.086-.173.043-.325-.022-.455-.065-.13-.583-1.405-.8-1.924-.21-.505-.424-.436-.583-.444l-.497-.009c-.173 0-.455.065-.693.325-.238.26-.909.888-.909 2.165s.931 2.511 1.061 2.684c.13.173 1.832 2.797 4.44 3.922.62.268 1.104.428 1.482.548.622.198 1.19.17 1.637.103.499-.074 1.538-.629 1.754-1.236.217-.607.217-1.128.152-1.236-.065-.109-.238-.173-.498-.303Z" fill="#fff"/></svg>
+                <div>
+                  <b>Have a question?</b>
+                  <span>Chat with us on WhatsApp</span>
+                </div>
+              </a>
             </div>
           </aside>
         </div>

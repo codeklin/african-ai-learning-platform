@@ -22,9 +22,9 @@ interface CourseItem {
 const catalogue: CourseItem[] = [
   { title: 'Your AI Toolkit: A Practical Start', academy: 'AI Foundations', level: 'Beginner', lessons: 8, duration: '2h 15m', access: 'Free', tone: 'lilac', symbol: '01', description: 'Too much AI talk and not sure what matters? Learn what the tools can do and try the basics for yourself.' },
   { title: 'Prompting for Better Work', academy: 'AI Foundations', level: 'Beginner', lessons: 12, duration: '3h 10m', access: 'Free', tone: 'green', symbol: '02', description: 'Tired of vague answers? Learn how to give clear instructions and get a better first draft.' },
-  { title: 'The Freelance AI Content Studio', academy: 'AI Content Creation', level: 'Intermediate', lessons: 16, duration: '4h 30m', access: 'Coming soon', tone: 'orange', symbol: '03', description: 'Turn a client brief into clear content and build samples you can show when pitching.' },
-  { title: 'Build Your First AI Workflow', academy: 'AI Automation', level: 'Intermediate', lessons: 10, duration: '3h 45m', access: 'Coming soon', tone: 'blue', symbol: '04', description: 'Stop repeating the same task by hand. Pick one routine job and build a simple workflow.' },
-  { title: 'AI for Your Freelance Business', academy: 'AI Freelancing', level: 'Beginner', lessons: 14, duration: '4h', access: 'Coming soon', tone: 'peach', symbol: '05', description: 'Not sure what to sell? Find one problem you can solve and turn it into a clear offer.' },
+  { title: 'The Freelance AI Content Studio', academy: 'AI Content Creation', level: 'Intermediate', lessons: 16, duration: '4h 30m', access: 'Free', tone: 'orange', symbol: '03', description: 'Turn a client brief into clear content and build samples you can show when pitching.' },
+  { title: 'Build Your First AI Workflow', academy: 'AI Automation', level: 'Intermediate', lessons: 10, duration: '3h 45m', access: 'Free', tone: 'blue', symbol: '04', description: 'Stop repeating the same task by hand. Pick one routine job and build a simple workflow.' },
+  { title: 'AI for Your Freelance Business', academy: 'AI Freelancing', level: 'Beginner', lessons: 14, duration: '4h', access: 'Free', tone: 'peach', symbol: '05', description: 'Not sure what to sell? Find one problem you can solve and turn it into a clear offer.' },
   { title: 'Build a Helpful AI App', academy: 'AI App Development', level: 'Beginner to Intermediate', lessons: 8, duration: '1h 45m', access: 'Free', tone: 'lavender', symbol: '06', description: 'Watch the step-by-step masterclass on building a functional AI tool. Connect prompt logic, handle user input, and test live.' },
   { title: 'YouTube Business Fundamentals', academy: 'Creator Economy & YouTube', level: 'Beginner', lessons: 8, duration: '2h 30m', access: 'Free', tone: 'blue', symbol: '07', description: 'Want to start a channel but unsure how it earns? Learn the basics, costs, and realistic ways creators make money.' },
   { title: 'Starting a Faceless YouTube Channel', academy: 'Creator Economy & YouTube', level: 'Beginner', lessons: 8, duration: '3h', access: 'Free', tone: 'lilac', symbol: '08', description: 'Want to make videos but not appear on camera? Plan a channel with its own clear point of view.' },
@@ -46,15 +46,18 @@ const categories = [
   'AI App Development',
 ]
 
-function getCourseLink(course: CourseItem, index: number) {
-  if (course.access !== 'Free') return '/courses'
-  if (course.title === 'Build a Helpful AI App') {
-    return '/courses/build-a-helpful-ai-app'
+function getCourseLink(course: CourseItem) {
+  const slugMap: Record<string, string> = {
+    'Your AI Toolkit: A Practical Start':              '/courses/ai-toolkit-practical-start',
+    'Prompting for Better Work':                       '/courses/prompting-better-work',
+    'The Freelance AI Content Studio':                 '/courses/freelance-ai-content-studio',
+    'Build Your First AI Workflow':                    '/courses/build-your-first-ai-workflow',
+    'AI for Your Freelance Business':                  '/courses/ai-for-your-freelance-business',
+    'Build a Helpful AI App':                          '/courses/build-a-helpful-ai-app',
   }
-  if (course.academy === 'Creator Economy & YouTube') {
-    return `/courses/${course.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
-  }
-  return `/courses/${index === 0 ? 'ai-toolkit-practical-start' : 'prompting-better-work'}`
+  if (slugMap[course.title]) return slugMap[course.title]
+  // Creator Economy courses — auto-slug from title
+  return `/courses/${course.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
 }
 
 export default function CoursesPage() {
@@ -181,8 +184,8 @@ export default function CoursesPage() {
 
         {/* Course Grid */}
         <div className="catalog-grid">
-          {filteredCourses.map((course, i) => {
-            const courseLink = getCourseLink(course, i)
+          {filteredCourses.map((course) => {
+            const courseLink = getCourseLink(course)
             const isFree = course.access === 'Free'
 
             return (
