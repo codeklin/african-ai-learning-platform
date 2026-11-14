@@ -1,6 +1,33 @@
-import Link from 'next/link'
-import { ArrowLeft, ArrowRight, Sparkles } from 'lucide-react'
+import AuthHeader from '@/components/auth-header'
+import LoginForm from './login-form'
+
+export const metadata = {
+  title: 'Sign in — ituwaAfrica',
+}
 
 export default function LoginPage() {
-  return <main className="login-state"><Link href="/" className="brand"><span className="brand-mark"><span /></span><span>gohper<span className="brand-ai">AI</span></span></Link><div className="login-state-card"><span className="login-state-icon"><Sparkles size={18} /></span><span className="detail-section-kicker">LEARNER ACCESS</span><h1>You can start without an account.</h1><p>Want to try a lesson before signing up? Browse the free courses. This preview does not save your progress.</p><Link href="/courses" className="button button-dark">Explore free courses <ArrowRight size={15} /></Link><Link href="/" className="login-home"><ArrowLeft size={13} /> Back to gohperAI</Link></div><small className="login-preview-note">Preview only. No account or payment is collected here.</small></main>
+  return (
+    <>
+      <AuthHeader activePage="login" />
+      <main className="auth-main" id="main-content">
+        <div className="auth-card-wrap">
+          <div className="auth-card">
+            {/* Decorative blob */}
+            <div className="auth-blob" aria-hidden="true">01</div>
+
+            <div className="auth-card-body">
+              <h1 className="auth-heading">Welcome back</h1>
+              <p className="auth-sub">Sign in to continue learning</p>
+              <LoginForm />
+            </div>
+          </div>
+
+          <p className="auth-alt-note">
+            Just exploring?{' '}
+            <a href="/courses">Browse free courses</a> — no account needed.
+          </p>
+        </div>
+      </main>
+    </>
+  )
 }

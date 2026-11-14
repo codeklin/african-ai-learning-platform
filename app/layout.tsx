@@ -1,12 +1,20 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
+import { Baloo_2 } from 'next/font/google'
 import './globals.css'
 
+const baloo2 = Baloo_2({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-baloo2',
+  display: 'swap',
+})
+
 export const metadata: Metadata = {
-  title: 'gohperAI | Learn skills you can put to work',
+  title: 'ituwaAfrica | Learn skills you can put to work',
   description: 'Tired of watching lessons without making progress? Learn a useful skill, put it to work, and build something you can show.',
-  openGraph: { title: 'gohperAI | Learn skills you can put to work', description: 'Tired of watching lessons without making progress? Learn a useful skill, put it to work, and build something you can show.', type: 'website' },
-  generator: 'gohperAI',
+  openGraph: { title: 'ituwaAfrica | Learn skills you can put to work', description: 'Tired of watching lessons without making progress? Learn a useful skill, put it to work, and build something you can show.', type: 'website' },
+  generator: 'ituwaAfrica',
   icons: {
     icon: [
       {
@@ -37,7 +45,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={baloo2.variable}>
       <body className="antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
