@@ -252,6 +252,12 @@ export default async function ProfilePage() {
                     <span>Study Reminder</span>
                     <span className="setting-pill pill-active">Daily 7:00 PM</span>
                   </div>
+                  <div className="setting-row" style={{ paddingTop: 8, borderTop: '1px solid #F0E7DB' }}>
+                    <span>Recalibrate track</span>
+                    <Link href="/quiz" className="setting-link">
+                      Take Skill Assessment →
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>

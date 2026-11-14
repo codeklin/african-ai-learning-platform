@@ -130,6 +130,13 @@ export default function SignUpForm() {
         disabled={loading}
       />
 
+      <p style={{ fontSize: 12, color: '#7C6E65', lineHeight: 1.5, margin: '14px 0 16px' }}>
+        By creating an account, you agree to our{' '}
+        <Link href="/terms" style={{ color: '#E86A58', fontWeight: 650, textDecoration: 'underline' }}>Terms of Service</Link>{' '}
+        and{' '}
+        <Link href="/privacy" style={{ color: '#E86A58', fontWeight: 650, textDecoration: 'underline' }}>Privacy Policy</Link>.
+      </p>
+
       <button
         type="submit"
         className="button button-dark auth-submit"

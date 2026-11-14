@@ -46,6 +46,7 @@ function SiteHeader({ isAuthenticated }: { isAuthenticated: boolean }) {
         </button>
         <nav id="primary-navigation" className={open ? 'main-nav is-open' : 'main-nav'} aria-label="Main navigation">
           <Link onClick={() => setOpen(false)} href="/courses">Explore courses</Link>
+          <Link onClick={() => setOpen(false)} href="/quiz">Skill Assessment</Link>
           <a onClick={() => setOpen(false)} href="#academies">Academies</a>
           <a onClick={() => setOpen(false)} href="#how-it-works">How it works</a>
           <a onClick={() => setOpen(false)} href="#pricing">Pricing</a>
@@ -371,6 +372,7 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
             <div>
               <span>EXPLORE</span>
               <Link href="/courses">Courses</Link>
+              <Link href="/quiz">Skill Assessment</Link>
               <a href="#academies">Academies</a>
               <a href="#pricing">Pricing</a>
             </div>
@@ -381,6 +383,12 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
               <Link href={isAuthenticated ? "/dashboard" : "/login"}>
                 {isAuthenticated ? 'Dashboard' : 'Log in'}
               </Link>
+            </div>
+            <div>
+              <span>LEGAL & TRUST</span>
+              <Link href="/terms">Terms of Service</Link>
+              <Link href="/privacy">Privacy Policy</Link>
+              <Link href="/quiz">Skill Quiz</Link>
             </div>
           </div>
         </div>

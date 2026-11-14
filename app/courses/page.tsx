@@ -264,18 +264,27 @@ export default function CoursesPage() {
 
       {/* ── Closing Call to Action ── */}
       <section className="catalog-cta">
-        <span className="eyebrow">A GOOD PLACE TO BEGIN</span>
-        <h2>Curiosity is a skill, too.</h2>
-        <p>Pick one module today, take 20 minutes, and build something you can show.</p>
-        <Link href="/" className="button button-dark">
-          Back to ituwaAfrica <ArrowRight size={16} />
-        </Link>
+        <span className="eyebrow">NOT SURE WHERE TO BEGIN?</span>
+        <h2>Find your tailored learning pathway.</h2>
+        <p>Answer 7 quick questions about your schedule, goals, and experience to get a matched Academy and starter sprint.</p>
+        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <Link href="/quiz" className="button button-dark">
+            Take 90-sec Skill Assessment <ArrowRight size={16} />
+          </Link>
+          <Link href="/" className="button button-light">
+            Back to home
+          </Link>
+        </div>
       </section>
 
       {/* ── Footer ── */}
       <footer className="catalog-footer">
-        <span>© 2026 ituwaAfrica</span>
-        <Link href="/">Learn with intention.</Link>
+        <span>© 2026 ituwaAfrica · Real practical projects</span>
+        <div style={{ display: 'flex', gap: 16 }}>
+          <Link href="/quiz">Skill Assessment</Link>
+          <Link href="/terms">Terms</Link>
+          <Link href="/privacy">Privacy</Link>
+        </div>
       </footer>
 
       {/* Fixed bottom navigation for authenticated mobile users */}
