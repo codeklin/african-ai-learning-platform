@@ -1,11 +1,22 @@
+import { redirect } from 'next/navigation'
 import AuthHeader from '@/components/auth-header'
 import SignUpForm from './signup-form'
+import { createClient } from '@/lib/supabase/server'
 
 export const metadata = {
   title: 'Create account — ituwaAfrica',
 }
 
-export default function SignUpPage() {
+export default async function SignUpPage() {
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  if (user) {
+    redirect('/dashboard')
+  }
+
   return (
     <>
       <AuthHeader activePage="signup" />

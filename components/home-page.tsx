@@ -4,6 +4,9 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { ArrowDownRight, ArrowRight, ArrowUpRight, Bookmark, Check, ChevronDown, Clock3, Flame, Play } from 'lucide-react'
 import Brand from '@/components/brand'
+import AppBottomNav from '@/components/app-bottom-nav'
+import { useUser } from '@/hooks/use-user'
+import type { User } from '@supabase/supabase-js'
 
 const academies = [
   { number: '01', title: 'AI Foundations',              detail: 'Make sense of the tools everyone is talking about.',               tone: 'lavender', tag: 'Start here'  },
@@ -26,7 +29,7 @@ const steps = [
   { number: '03', title: 'Have something to show',  text: 'Finish with a project you can share when someone asks what you can do.' },
 ]
 
-function SiteHeader() {
+function SiteHeader({ isAuthenticated }: { isAuthenticated: boolean }) {
   const [open, setOpen] = useState(false)
   return (
     <header className={open ? 'site-header menu-open' : 'site-header'}>
@@ -47,8 +50,16 @@ function SiteHeader() {
           <a onClick={() => setOpen(false)} href="#how-it-works">How it works</a>
           <a onClick={() => setOpen(false)} href="#pricing">Pricing</a>
           <div className="nav-actions">
-            <Link className="login-link" onClick={() => setOpen(false)} href="/login">Log in</Link>
-            <Link className="button button-dark nav-cta" onClick={() => setOpen(false)} href="/courses">Start learning <ArrowRight size={15} /></Link>
+            {isAuthenticated ? (
+              <Link className="login-link" onClick={() => setOpen(false)} href="/dashboard">Dashboard</Link>
+            ) : (
+              <Link className="login-link" onClick={() => setOpen(false)} href="/login">Log in</Link>
+            )}
+            {isAuthenticated ? (
+              <Link className="button button-dark nav-cta" onClick={() => setOpen(false)} href="/dashboard">Dashboard <ArrowRight size={15} /></Link>
+            ) : (
+              <Link className="button button-dark nav-cta" onClick={() => setOpen(false)} href="/courses">Start learning <ArrowRight size={15} /></Link>
+            )}
           </div>
         </nav>
       </div>
@@ -158,13 +169,14 @@ function DashboardPreview() {
   )
 }
 
-export default function HomePage() {
+export default function HomePage({ initialUser = null }: { initialUser?: User | null }) {
+  const { isAuthenticated } = useUser(initialUser)
   const [activeAcademy, setActiveAcademy] = useState('All')
   const filteredCourses = activeAcademy === 'All' ? courses : courses.filter((c) => c.academy === activeAcademy)
 
   return (
-    <>
-      <SiteHeader />
+    <div className={isAuthenticated ? 'landing-page-wrap has-app-bottom-nav' : 'landing-page-wrap'}>
+      <SiteHeader isAuthenticated={isAuthenticated} />
       <main>
         {/* Hero */}
         <section className="hero">
@@ -176,7 +188,9 @@ export default function HomePage() {
             <h1>AI tutorials don't help you. <span>Practice, projects and systems do.</span></h1>
             <p>Stop watching and start building. ituwaAfrica gives you the AI skills, real projects and practical systems that actually move your work forward.</p>
             <div className="hero-actions">
-              <Link className="button button-dark" href="/courses">Start learning free <ArrowRight size={16} /></Link>
+              <Link className="button button-dark" href={isAuthenticated ? "/dashboard" : "/courses"}>
+                {isAuthenticated ? 'Go to your dashboard' : 'Start learning free'} <ArrowRight size={16} />
+              </Link>
               <a className="text-link" href="#academies">Explore academies <ArrowDownRight size={16} /></a>
             </div>
             <div className="hero-proof">
@@ -364,7 +378,9 @@ export default function HomePage() {
               <span>ITUWA AFRICA</span>
               <a href="#how-it-works">Our approach</a>
               <a href="mailto:hello@ituwa.africa">Get in touch</a>
-              <Link href="/login">Log in</Link>
+              <Link href={isAuthenticated ? "/dashboard" : "/login"}>
+                {isAuthenticated ? 'Dashboard' : 'Log in'}
+              </Link>
             </div>
           </div>
         </div>
@@ -373,6 +389,9 @@ export default function HomePage() {
           <span>Start where you are. Build from there.</span>
         </div>
       </footer>
-    </>
+
+      {/* Fixed bottom navigation for authenticated mobile users */}
+      {isAuthenticated && <AppBottomNav active="dashboard" />}
+    </div>
   )
 }

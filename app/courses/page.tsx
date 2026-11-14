@@ -4,6 +4,8 @@ import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, ArrowRight, Clock3, Play, Search, Sparkles, CheckCircle2 } from 'lucide-react'
 import Brand from '@/components/brand'
+import AppBottomNav from '@/components/app-bottom-nav'
+import { useUser } from '@/hooks/use-user'
 
 interface CourseItem {
   title: string
@@ -53,6 +55,7 @@ function getCourseLink(course: CourseItem, index: number) {
 }
 
 export default function CoursesPage() {
+  const { isAuthenticated } = useUser()
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -72,7 +75,7 @@ export default function CoursesPage() {
   const freeCount = catalogue.filter((c) => c.access === 'Free').length
 
   return (
-    <main className="catalog-page">
+    <main className={`catalog-page ${isAuthenticated ? 'has-app-bottom-nav' : ''}`}>
       {/* ── Native Play Store Quality App Header ── */}
       <header className="catalog-nav">
         <Link href="/" className="catalog-back" aria-label="Back to home">
@@ -83,9 +86,15 @@ export default function CoursesPage() {
           <Brand />
         </div>
         <div className="catalog-nav-actions">
-          <Link href="/login" className="catalog-login">
-            Log in
-          </Link>
+          {isAuthenticated ? (
+            <Link href="/dashboard" className="catalog-login">
+              Dashboard
+            </Link>
+          ) : (
+            <Link href="/login" className="catalog-login">
+              Log in
+            </Link>
+          )}
         </div>
       </header>
 
@@ -268,6 +277,9 @@ export default function CoursesPage() {
         <span>© 2026 ituwaAfrica</span>
         <Link href="/">Learn with intention.</Link>
       </footer>
+
+      {/* Fixed bottom navigation for authenticated mobile users */}
+      {isAuthenticated && <AppBottomNav active="courses" />}
     </main>
   )
 }
