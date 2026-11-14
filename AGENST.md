@@ -42,14 +42,28 @@ Maintainable code.
 Honest product states.
 Real functionality over decorative mockups.
 4. Brand and UI Rules
-Primary background: #FBFBF8.
-Primary text: #17181D.
-Primary accent: #7168ED.
-Secondary accent: #E4FB4F.
-Supporting colors:
-#E9C7F5
-#F06C5B
-#E8E8E3
+Primary background: #FAF5EE (Warm oat cream).
+Primary text: #2C1A12 (Deep espresso).
+Primary accent: #E86A58 (Warm terracotta).
+Secondary accent: #FFBA38 (Warm amber).
+Status & success accent: #3DA872 (Jade green).
+Supporting warm tones:
+#FDEEE9 (Coral tint)
+#EEF7EE (Sage tint)
+#EEF3FC (Blue tint)
+#F5EDFA (Lilac tint)
+#FDF5E8 (Peach tint)
+#EADBCE (Muted border)
+
+STRICT ICONOGRAPHY & TYPOGRAPHY RULES:
+- Absolutely NO emojis in app UI, headers, cards, badges, buttons, copies, or documentation. Emojis look generic, amateurish, and degrade the bespoke editorial feel of the app.
+- NO generic or cliché icons: avoid generic rockets, lightning bolts, targets, generic flame symbols, or generic robot clipart.
+- Use purposeful, tailored Lucide icons, editorial typographic index numbers (e.g. '01', '02', '03' in serif or bold sans), clean geometric lines, or custom badges.
+- Minimum font size on mobile: Never render critical content, counts, or links under 12px. Headings must scale cleanly using clamp() without layout blowouts.
+- Academy and course cards must be single-column (1 card per row) on mobile screens (≤768px). Never squeeze cards horizontally into multi-column rows on phones.
+- Mobile bottom navigation (<AppBottomNav />) must remain persistent and accessible across all authenticated pages (Dashboard, Courses, Course Detail, Challenges, Profile).
+- Top navigation headers must remain sticky on scroll (position: sticky; top: 0) with a frosted-glass blur backdrop, using overflow-x: clip on root documents.
+- Authenticated user flow: Never show 'Log in' to an already logged-in user. Automatically redirect authenticated users from /login or /signup straight to /dashboard.
 Maintain consistent design tokens.
 Do not introduce random colors or inconsistent button styles.
 Do not use generic AI robot graphics.

@@ -109,7 +109,7 @@ export default async function DashboardPage() {
           <section className="app-greeting-band">
             <div className="app-greeting-text">
               <p className="app-greeting-sub">{new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })}</p>
-              <h1 className="app-greeting-h1">{greeting}, {firstName} 👋</h1>
+              <h1 className="app-greeting-h1">{greeting}, {firstName}</h1>
             </div>
             <div className="app-streak-chip">
               <Zap size={14} fill="currentColor" aria-hidden="true" />

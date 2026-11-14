@@ -28,6 +28,7 @@ import {
   Trophy,
   UserCheck,
   Users,
+  X,
   Zap,
 } from 'lucide-react'
 import Brand from '@/components/brand'
@@ -517,8 +518,9 @@ export default function AdminDashboardView({
                       <button
                         onClick={() => setSearchUserQuery('')}
                         className="admin-clear-btn"
+                        aria-label="Clear user search"
                       >
-                        ✕
+                        <X size={14} />
                       </button>
                     )}
                   </div>

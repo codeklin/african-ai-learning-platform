@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, ArrowRight, Clock3, Play, Search, Sparkles, CheckCircle2 } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Clock3, Play, Search, Sparkles, CheckCircle2, X } from 'lucide-react'
 import Brand from '@/components/brand'
 import AppBottomNav from '@/components/app-bottom-nav'
 import { useUser } from '@/hooks/use-user'
@@ -20,20 +20,20 @@ interface CourseItem {
 }
 
 const catalogue: CourseItem[] = [
-  { title: 'Your AI Toolkit: A Practical Start', academy: 'AI Foundations', level: 'Beginner', lessons: 8, duration: '2h 15m', access: 'Free', tone: 'lilac', symbol: 'AI', description: 'Too much AI talk and not sure what matters? Learn what the tools can do and try the basics for yourself.' },
-  { title: 'Prompting for Better Work', academy: 'AI Foundations', level: 'Beginner', lessons: 12, duration: '3h 10m', access: 'Free', tone: 'green', symbol: '✳', description: 'Tired of vague answers? Learn how to give clear instructions and get a better first draft.' },
-  { title: 'The Freelance AI Content Studio', academy: 'AI Content Creation', level: 'Intermediate', lessons: 16, duration: '4h 30m', access: 'Coming soon', tone: 'orange', symbol: '✦', description: 'Turn a client brief into clear content and build samples you can show when pitching.' },
-  { title: 'Build Your First AI Workflow', academy: 'AI Automation', level: 'Intermediate', lessons: 10, duration: '3h 45m', access: 'Coming soon', tone: 'blue', symbol: '↗', description: 'Stop repeating the same task by hand. Pick one routine job and build a simple workflow.' },
-  { title: 'AI for Your Freelance Business', academy: 'AI Freelancing', level: 'Beginner', lessons: 14, duration: '4h', access: 'Coming soon', tone: 'peach', symbol: 'K.', description: 'Not sure what to sell? Find one problem you can solve and turn it into a clear offer.' },
-  { title: 'Build a Helpful AI App', academy: 'AI App Development', level: 'Advanced', lessons: 18, duration: '6h 20m', access: 'Coming soon', tone: 'lavender', symbol: '01', description: 'Have an idea but not sure how to build it? Make a first version you can test with people.' },
-  { title: 'YouTube Business Fundamentals', academy: 'Creator Economy & YouTube', level: 'Beginner', lessons: 8, duration: '2h 30m', access: 'Free', tone: 'blue', symbol: 'YT', description: 'Want to start a channel but unsure how it earns? Learn the basics, costs, and realistic ways creators make money.' },
-  { title: 'Starting a Faceless YouTube Channel', academy: 'Creator Economy & YouTube', level: 'Beginner', lessons: 8, duration: '3h', access: 'Free', tone: 'lilac', symbol: '02', description: 'Want to make videos but not appear on camera? Plan a channel with its own clear point of view.' },
-  { title: 'YouTube Automation & Monetization Masterclass', academy: 'Creator Economy & YouTube', level: 'Intermediate', lessons: 8, duration: '4h', access: 'Free', tone: 'green', symbol: '03', description: 'Save time on repeat tasks without handing over your creative decisions.' },
-  { title: 'AI-Powered YouTube Content Production', academy: 'Creator Economy & YouTube', level: 'Intermediate', lessons: 8, duration: '3h 30m', access: 'Free', tone: 'orange', symbol: '04', description: 'Use AI to get past the blank page, then shape the final video in your own voice.' },
-  { title: 'YouTube Shorts Growth Strategy', academy: 'Creator Economy & YouTube', level: 'Beginner', lessons: 8, duration: '2h 45m', access: 'Free', tone: 'peach', symbol: '05', description: 'Make short videos around what your audience cares about. Views are never guaranteed.' },
-  { title: 'YouTube SEO and Analytics', academy: 'Creator Economy & YouTube', level: 'Intermediate', lessons: 8, duration: '3h', access: 'Free', tone: 'blue', symbol: '06', description: 'See what people search for, read your channel stats, and decide what to try next.' },
-  { title: 'YouTube Monetization Policies and Copyright', academy: 'Creator Economy & YouTube', level: 'Intermediate', lessons: 8, duration: '3h 15m', access: 'Free', tone: 'lavender', symbol: '07', description: 'Know what you can use, what needs credit, and where to check the latest rules.' },
-  { title: 'Building a Creator Business Beyond Ad Revenue', academy: 'Creator Economy & YouTube', level: 'Intermediate', lessons: 8, duration: '3h 30m', access: 'Free', tone: 'green', symbol: '08', description: 'Ad income can be unpredictable. Explore services, products, and partnerships that fit your audience.' },
+  { title: 'Your AI Toolkit: A Practical Start', academy: 'AI Foundations', level: 'Beginner', lessons: 8, duration: '2h 15m', access: 'Free', tone: 'lilac', symbol: '01', description: 'Too much AI talk and not sure what matters? Learn what the tools can do and try the basics for yourself.' },
+  { title: 'Prompting for Better Work', academy: 'AI Foundations', level: 'Beginner', lessons: 12, duration: '3h 10m', access: 'Free', tone: 'green', symbol: '02', description: 'Tired of vague answers? Learn how to give clear instructions and get a better first draft.' },
+  { title: 'The Freelance AI Content Studio', academy: 'AI Content Creation', level: 'Intermediate', lessons: 16, duration: '4h 30m', access: 'Coming soon', tone: 'orange', symbol: '03', description: 'Turn a client brief into clear content and build samples you can show when pitching.' },
+  { title: 'Build Your First AI Workflow', academy: 'AI Automation', level: 'Intermediate', lessons: 10, duration: '3h 45m', access: 'Coming soon', tone: 'blue', symbol: '04', description: 'Stop repeating the same task by hand. Pick one routine job and build a simple workflow.' },
+  { title: 'AI for Your Freelance Business', academy: 'AI Freelancing', level: 'Beginner', lessons: 14, duration: '4h', access: 'Coming soon', tone: 'peach', symbol: '05', description: 'Not sure what to sell? Find one problem you can solve and turn it into a clear offer.' },
+  { title: 'Build a Helpful AI App', academy: 'AI App Development', level: 'Advanced', lessons: 18, duration: '6h 20m', access: 'Coming soon', tone: 'lavender', symbol: '06', description: 'Have an idea but not sure how to build it? Make a first version you can test with people.' },
+  { title: 'YouTube Business Fundamentals', academy: 'Creator Economy & YouTube', level: 'Beginner', lessons: 8, duration: '2h 30m', access: 'Free', tone: 'blue', symbol: '07', description: 'Want to start a channel but unsure how it earns? Learn the basics, costs, and realistic ways creators make money.' },
+  { title: 'Starting a Faceless YouTube Channel', academy: 'Creator Economy & YouTube', level: 'Beginner', lessons: 8, duration: '3h', access: 'Free', tone: 'lilac', symbol: '08', description: 'Want to make videos but not appear on camera? Plan a channel with its own clear point of view.' },
+  { title: 'YouTube Automation & Monetization Masterclass', academy: 'Creator Economy & YouTube', level: 'Intermediate', lessons: 8, duration: '4h', access: 'Free', tone: 'green', symbol: '09', description: 'Save time on repeat tasks without handing over your creative decisions.' },
+  { title: 'AI-Powered YouTube Content Production', academy: 'Creator Economy & YouTube', level: 'Intermediate', lessons: 8, duration: '3h 30m', access: 'Free', tone: 'orange', symbol: '10', description: 'Use AI to get past the blank page, then shape the final video in your own voice.' },
+  { title: 'YouTube Shorts Growth Strategy', academy: 'Creator Economy & YouTube', level: 'Beginner', lessons: 8, duration: '2h 45m', access: 'Free', tone: 'peach', symbol: '11', description: 'Make short videos around what your audience cares about. Views are never guaranteed.' },
+  { title: 'YouTube SEO and Analytics', academy: 'Creator Economy & YouTube', level: 'Intermediate', lessons: 8, duration: '3h', access: 'Free', tone: 'blue', symbol: '12', description: 'See what people search for, read your channel stats, and decide what to try next.' },
+  { title: 'YouTube Monetization Policies and Copyright', academy: 'Creator Economy & YouTube', level: 'Intermediate', lessons: 8, duration: '3h 15m', access: 'Free', tone: 'lavender', symbol: '13', description: 'Know what you can use, what needs credit, and where to check the latest rules.' },
+  { title: 'Building a Creator Business Beyond Ad Revenue', academy: 'Creator Economy & YouTube', level: 'Intermediate', lessons: 8, duration: '3h 30m', access: 'Free', tone: 'green', symbol: '14', description: 'Ad income can be unpredictable. Explore services, products, and partnerships that fit your audience.' },
 ]
 
 const categories = [
@@ -148,7 +148,7 @@ export default function CoursesPage() {
                   className="catalog-search-clear"
                   aria-label="Clear search"
                 >
-                  ✕
+                  <X size={14} />
                 </button>
               )}
             </div>

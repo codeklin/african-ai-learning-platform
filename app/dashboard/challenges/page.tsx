@@ -96,10 +96,10 @@ const challengesData: ChallengeItem[] = [
 ]
 
 const badgesEarned = [
-  { name: 'Fast Starter', desc: 'Completed 1st practical lesson', icon: '🚀', date: 'Yesterday' },
-  { name: 'Prompt Crafter', desc: 'Engineered 5 structured prompts', icon: '✍️', date: 'Nov 12' },
-  { name: 'Streak Flame', desc: 'Maintained 3-day learning habit', icon: '🔥', date: 'Nov 10' },
-  { name: 'Maker Spirit', desc: 'Shipped first real project sample', icon: '⚡', date: 'Earn soon' },
+  { name: 'Fast Starter', desc: 'Completed 1st practical lesson', code: '01', date: 'Yesterday' },
+  { name: 'Prompt Crafter', desc: 'Engineered 5 structured prompts', code: '02', date: 'Nov 12' },
+  { name: 'Streak Habit', desc: 'Maintained 3-day learning habit', code: '03', date: 'Nov 10' },
+  { name: 'Maker Spirit', desc: 'Shipped first real project sample', code: '04', date: 'Earn soon' },
 ]
 
 export default async function ChallengesPage() {
@@ -173,7 +173,7 @@ export default async function ChallengesPage() {
             <div className="challenges-title-row">
               <div>
                 <p className="app-greeting-sub">SKILL PRACTICE & REWARDS</p>
-                <h1 className="app-greeting-h1">Active Challenges 🎯</h1>
+                <h1 className="app-greeting-h1">Active Challenges</h1>
                 <p className="challenges-subtext">
                   Complete focused micro-challenges to lock in your skills and unlock creator perks.
                 </p>
@@ -269,7 +269,7 @@ export default async function ChallengesPage() {
             <div className="badges-grid">
               {badgesEarned.map((b) => (
                 <div key={b.name} className="badge-item-card">
-                  <div className="badge-emoji-box">{b.icon}</div>
+                  <div className="badge-index-box">{b.code}</div>
                   <div className="badge-details">
                     <h4>{b.name}</h4>
                     <p>{b.desc}</p>
