@@ -11,26 +11,25 @@ const baloo2 = Baloo_2({
 })
 
 export const metadata: Metadata = {
-  title: 'ituwaAfrica | Learn skills you can put to work',
-  description: 'Tired of watching lessons without making progress? Learn a useful skill, put it to work, and build something you can show.',
-  openGraph: { title: 'ituwaAfrica | Learn skills you can put to work', description: 'Tired of watching lessons without making progress? Learn a useful skill, put it to work, and build something you can show.', type: 'website' },
+  title: 'ituwaAfrica | AI tutorials don\'t help you. Practice, projects and systems do.',
+  description: 'Stop watching AI tutorials. ituwaAfrica gives you practical AI skills, real projects and systems that move your work forward. Start free.',
+  openGraph: {
+    title: 'ituwaAfrica | Practice, projects and AI systems that work',
+    description: 'Stop watching AI tutorials. ituwaAfrica gives you practical AI skills, real projects and systems that move your work forward.',
+    type: 'website',
+    images: [{ url: '/ituwaafrica.png', width: 1200, height: 630, alt: 'ituwaAfrica' }],
+  },
   generator: 'ituwaAfrica',
   icons: {
     icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
+      { url: '/favicon_io/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon_io/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' },
     ],
-    apple: '/apple-icon.png',
+    apple: '/favicon_io/apple-touch-icon.png',
+    other: [
+      { rel: 'manifest', url: '/favicon_io/site.webmanifest' },
+    ],
   },
 }
 
