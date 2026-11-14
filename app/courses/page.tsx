@@ -25,7 +25,7 @@ const catalogue: CourseItem[] = [
   { title: 'The Freelance AI Content Studio', academy: 'AI Content Creation', level: 'Intermediate', lessons: 16, duration: '4h 30m', access: 'Coming soon', tone: 'orange', symbol: '03', description: 'Turn a client brief into clear content and build samples you can show when pitching.' },
   { title: 'Build Your First AI Workflow', academy: 'AI Automation', level: 'Intermediate', lessons: 10, duration: '3h 45m', access: 'Coming soon', tone: 'blue', symbol: '04', description: 'Stop repeating the same task by hand. Pick one routine job and build a simple workflow.' },
   { title: 'AI for Your Freelance Business', academy: 'AI Freelancing', level: 'Beginner', lessons: 14, duration: '4h', access: 'Coming soon', tone: 'peach', symbol: '05', description: 'Not sure what to sell? Find one problem you can solve and turn it into a clear offer.' },
-  { title: 'Build a Helpful AI App', academy: 'AI App Development', level: 'Advanced', lessons: 18, duration: '6h 20m', access: 'Coming soon', tone: 'lavender', symbol: '06', description: 'Have an idea but not sure how to build it? Make a first version you can test with people.' },
+  { title: 'Build a Helpful AI App', academy: 'AI App Development', level: 'Beginner to Intermediate', lessons: 8, duration: '1h 45m', access: 'Free', tone: 'lavender', symbol: '06', description: 'Watch the step-by-step masterclass on building a functional AI tool. Connect prompt logic, handle user input, and test live.' },
   { title: 'YouTube Business Fundamentals', academy: 'Creator Economy & YouTube', level: 'Beginner', lessons: 8, duration: '2h 30m', access: 'Free', tone: 'blue', symbol: '07', description: 'Want to start a channel but unsure how it earns? Learn the basics, costs, and realistic ways creators make money.' },
   { title: 'Starting a Faceless YouTube Channel', academy: 'Creator Economy & YouTube', level: 'Beginner', lessons: 8, duration: '3h', access: 'Free', tone: 'lilac', symbol: '08', description: 'Want to make videos but not appear on camera? Plan a channel with its own clear point of view.' },
   { title: 'YouTube Automation & Monetization Masterclass', academy: 'Creator Economy & YouTube', level: 'Intermediate', lessons: 8, duration: '4h', access: 'Free', tone: 'green', symbol: '09', description: 'Save time on repeat tasks without handing over your creative decisions.' },
@@ -48,6 +48,9 @@ const categories = [
 
 function getCourseLink(course: CourseItem, index: number) {
   if (course.access !== 'Free') return '/courses'
+  if (course.title === 'Build a Helpful AI App') {
+    return '/courses/build-a-helpful-ai-app'
+  }
   if (course.academy === 'Creator Economy & YouTube') {
     return `/courses/${course.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
   }

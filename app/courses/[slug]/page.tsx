@@ -4,6 +4,8 @@ import { ArrowLeft, ArrowRight, Check, Clock3, Play } from 'lucide-react'
 import CreatorProjectStudio from '@/components/creator-project-studio'
 import Brand from '@/components/brand'
 import AppBottomNav from '@/components/app-bottom-nav'
+import YouTubeEmbed from '@/components/youtube-embed'
+import CalendarReminder from '@/components/calendar-reminder'
 import { createClient } from '@/lib/supabase/server'
 
 const creatorCourses: Record<string, { title: string; description: string }> = {
@@ -17,9 +19,59 @@ const creatorCourses: Record<string, { title: string; description: string }> = {
   'building-a-creator-business-beyond-ad-revenue': { title: 'Building a Creator Business Beyond Ad Revenue', description: 'Explore audience-aligned services, products, partnerships, and other diversified models.' },
 }
 
-const courses = {
+const courses: Record<string, {
+  title: string
+  academy: string
+  level: string
+  duration: string
+  lessons: number
+  description: string
+  outcomes: string[]
+  modules: Array<{ title: string; lessons: string[] }>
+  youtubeVideoId?: string
+}> = {
   'ai-toolkit-practical-start': { title: 'Your AI Toolkit: A Practical Start', academy: 'AI Foundations', level: 'Beginner', duration: '2h 15m', lessons: 8, description: 'New to AI and tired of the buzzwords? Learn what these tools can do, where they fall short, and how to use one on a task you already have.', outcomes: ['Know what these tools can and cannot do', 'Choose a tool for the job instead of chasing every new one', 'Give clear instructions to get a better first draft', 'Make a simple workflow for a task you do often'], modules: [{ title: 'Getting oriented', lessons: ['What AI can (and cannot) do', 'A practical AI toolkit', 'Use AI with care and good judgement'] }, { title: 'Working with prompts', lessons: ['Give your prompt a purpose', 'Add context that matters', 'Improve a first response'] }, { title: 'Put it into practice', lessons: ['Build a personal workflow', 'Your first AI-assisted project'] }] },
   'prompting-better-work': { title: 'Prompting for Better Work', academy: 'AI Foundations', level: 'Beginner', duration: '3h 10m', lessons: 12, description: 'Getting answers that sound right but do not help? Learn how to give a tool the details it needs and check its work.', outcomes: ['Break a task into clear steps', 'Share the details that change the answer', 'Improve a first draft without starting over', 'Check answers before you rely on them'], modules: [{ title: 'The shape of a prompt', lessons: ['Start with the task', 'Add context and constraints', 'Describe the output you need'] }, { title: 'Make it more useful', lessons: ['Work in small iterations', 'Ask for alternatives', 'Check what matters'] }, { title: 'A repeatable practice', lessons: ['Create your prompt brief', 'Build a reusable template'] }] },
+  'build-a-helpful-ai-app': {
+    title: 'Build a Helpful AI App',
+    academy: 'AI App Development',
+    level: 'Beginner to Intermediate',
+    duration: '1h 45m Masterclass',
+    lessons: 8,
+    youtubeVideoId: 'qIUZ_C5ki3g',
+    description: 'Watch the step-by-step masterclass on building and shipping a functional AI tool. Learn how to connect prompt pipelines, structure user inputs, and test with real users.',
+    outcomes: [
+      'Connect user inputs to structured prompt pipelines',
+      'Design functional UI prototypes that solve real business friction',
+      'Deploy and test your utility with actual users',
+      'Package and monetize single-purpose micro-tools',
+    ],
+    modules: [
+      {
+        title: 'Core Concept & Logic Architecture',
+        lessons: [
+          'Identify one high-demand business problem',
+          'Design the input-to-output pipeline',
+          'Prompt engineering for consistent structured responses',
+        ],
+      },
+      {
+        title: 'Live App Build Walkthrough',
+        lessons: [
+          'Build a Helpful AI App Masterclass (Video)',
+          'Handling API calls, keys, and edge errors',
+          'Deploying to a live mobile-friendly link',
+        ],
+      },
+      {
+        title: 'Packaging, Pricing & Portfolio',
+        lessons: [
+          'Testing with your first 5 real users',
+          'Creating your portfolio showcase asset',
+        ],
+      },
+    ],
+  },
 }
 
 type CourseSlug = keyof typeof courses
@@ -131,6 +183,26 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
                   </ul>
                 </details>
               ))}
+            </div>
+
+            {course?.youtubeVideoId && (
+              <div className="detail-block course-video-block">
+                <div className="detail-section-kicker">03 / FREE VIDEO MASTERCLASS</div>
+                <h2>Live Stream Walkthrough</h2>
+                <p>Watch how to assemble, test, and deploy a functional AI utility from scratch.</p>
+                <div style={{ marginTop: 16 }}>
+                  <YouTubeEmbed
+                    videoId={course.youtubeVideoId}
+                    title={title}
+                    duration={duration}
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Calendar Reminder Retention Feature */}
+            <div className="detail-block">
+              <CalendarReminder courseTitle={title} courseSlug={slug} />
             </div>
 
             {creator && (

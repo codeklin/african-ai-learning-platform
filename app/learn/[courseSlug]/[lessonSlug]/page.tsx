@@ -12,6 +12,7 @@ import type { Lesson, Course } from '@/lib/database.types'
 const LEGACY_COURSES = [
   'ai-toolkit-practical-start',
   'prompting-better-work',
+  'build-a-helpful-ai-app',
   'youtube-business-fundamentals',
   'starting-a-faceless-youtube-channel',
   'youtube-automation-monetization-masterclass',

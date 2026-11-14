@@ -3,7 +3,7 @@
 :root {
   color-scheme: light;
   --background: #FAF5EE;
-  --foreground: #2C1A12;
+  --foreground: #331c12;
   --primary: #E86A58;
   --primary-hover: #D75947;
   --accent-amber: #FFBA38;
@@ -2233,4 +2233,979 @@ a.skip-link:focus { top:0; }
 /* After 1.2s the splash fades out and is removed from layout */
 @keyframes pwa-splash-hide {
   to { opacity: 0; pointer-events: none; visibility: hidden; }
+}
+
+
+/* ── Simplified Homepage (Earning-First Copy & Flow) ───────────── */
+.hero--editorial {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 84px 24px 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.hero-editorial-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 860px;
+  margin: 0 auto;
+}
+.hero-editorial-inner .hero-note {
+  justify-content: center;
+  margin-bottom: 22px;
+}
+.hero-note-index {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #FDEEE9;
+  color: #E86A58;
+  font-size: 11px;
+  font-weight: 750;
+  margin-right: 6px;
+}
+.hero--editorial h1 {
+  font-size: clamp(34px, 5.2vw, 62px);
+  line-height: 1.04;
+  letter-spacing: -2.5px;
+  font-weight: 750;
+  color: #2C1A12;
+  margin: 0;
+}
+.hero--editorial h1 span {
+  color: #E86A58;
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  display: block;
+  margin-top: 6px;
+}
+.hero--editorial p {
+  max-width: 660px;
+  margin: 22px auto 32px;
+  color: #6C6D75;
+  font-size: 17px;
+  line-height: 1.7;
+  font-weight: 500;
+}
+.hero--editorial .hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.hero-btn-main {
+  min-height: 52px;
+  padding: 0 28px;
+  font-size: 16px;
+}
+.hero-btn-quiz {
+  min-height: 52px;
+  padding: 0 24px;
+  font-size: 15px;
+  border: 1.5px solid #2C1A12;
+  background: transparent;
+  color: #2C1A12;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  transition: all .2s;
+}
+.hero-btn-quiz:hover {
+  background: #2C1A12;
+  color: #FAF5EE;
+}
+.button-outline-warm {
+  min-height: 48px;
+  padding: 0 22px;
+  border-radius: 9999px;
+  border: 1.5px solid #2C1A12;
+  background: transparent;
+  color: #2C1A12;
+  font-size: 14px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all .2s;
+}
+.button-outline-warm:hover {
+  background: #2C1A12;
+  color: #FAF5EE;
+}
+.hero--editorial .hero-proof {
+  margin-top: 36px;
+  justify-content: center;
+}
+
+/* ── Who It's For (Dark Premium Showcase · Matching Pricing) ── */
+.who-section {
+  position: relative;
+  overflow: hidden;
+  padding-top: 88px;
+  padding-bottom: 92px;
+  background: #2C1A12;
+  color: #FAF5EE;
+  border-top: 1px solid #452314;
+  border-bottom: 1px solid #452314;
+}
+
+.who-ambient-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  opacity: 0.18;
+  z-index: 0;
+}
+.who-ambient-blob--left {
+  width: 460px;
+  height: 460px;
+  top: -120px;
+  left: -140px;
+  background: #FFBA38;
+}
+.who-ambient-blob--right {
+  width: 500px;
+  height: 500px;
+  bottom: -140px;
+  right: -160px;
+  background: #E86A58;
+}
+
+.who-container {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.who-header {
+  margin-bottom: 42px;
+}
+.who-header-kicker {
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  color: #FFBA38 !important;
+  margin-bottom: 12px;
+}
+.who-header-title {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 750;
+  letter-spacing: -1.4px;
+  line-height: 1.15;
+  color: #FAF5EE !important;
+  max-width: 740px;
+}
+
+.who-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+.who-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 34px 28px 28px;
+  background: #392218;
+  border: 1px solid #543426;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s, border-color 0.25s;
+}
+.who-card:hover {
+  transform: translateY(-5px);
+  border-color: #FFBA38;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* Distinct Asymmetric Shapes */
+.who-card--freelancer {
+  border-radius: 32px 14px 32px 14px;
+}
+.who-card--creator {
+  border-radius: 14px 32px 14px 32px;
+}
+.who-card--hustler {
+  border-radius: 32px 32px 14px 32px;
+}
+
+.who-card-watermark {
+  position: absolute;
+  right: 18px;
+  top: 10px;
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-size: 96px;
+  font-weight: 700;
+  line-height: 1;
+  color: #FFBA38;
+  opacity: 0.09;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+.who-card-top {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.who-kicker {
+  color: #FFBA38 !important;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.who-stamp {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background: #FFBA38 !important;
+  color: #2C1A12 !important;
+  border: none !important;
+}
+
+.who-card h3 {
+  position: relative;
+  z-index: 1;
+  font-size: 21px;
+  font-weight: 750;
+  line-height: 1.25;
+  color: #FAF5EE !important;
+  margin: 0 0 12px;
+}
+
+.who-card p {
+  position: relative;
+  z-index: 1;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: #C4B5A8 !important;
+  margin: 0;
+}
+
+/* Micro-Pipeline Specimen (Dark & Yellow) */
+.who-specimen {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: 26px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 650;
+  border: 1px solid #543426;
+  background: #2A170F;
+}
+.specimen-step {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #D5C7BE;
+  white-space: nowrap;
+}
+.specimen-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #FFBA38;
+}
+.specimen-step--highlight {
+  color: #FFBA38 !important;
+  font-weight: 800;
+}
+.specimen-step--highlight .specimen-dot {
+  background: #FFBA38;
+  box-shadow: 0 0 8px rgba(255, 186, 56, 0.8);
+}
+.specimen-arrow {
+  color: #FFBA38;
+  font-size: 11px;
+}
+
+/* ── Academies Footer Link ── */
+.academies-footer {
+  margin-top: 36px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+/* ── Pricing additions ── */
+.price-amount {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 16px 0 12px;
+}
+.price-val {
+  font-size: 46px;
+  font-weight: 800;
+  letter-spacing: -2px;
+  color: #FFBA38;
+}
+.price-period {
+  font-size: 15px;
+  color: #C4B5A8;
+}
+.pricing-highlights {
+  display: grid;
+  gap: 16px;
+  margin-top: 32px;
+}
+.pricing-hl-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.pricing-hl-num {
+  font-size: 12px;
+  font-weight: 750;
+  color: #FFBA38;
+  padding: 4px 8px;
+  border: 1px solid rgba(255, 186, 56, 0.3);
+  border-radius: 6px;
+}
+.pricing-hl-item strong {
+  display: block;
+  font-size: 15px;
+  color: #FAF5EE;
+  margin-bottom: 2px;
+}
+.pricing-hl-item p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #BDB0A4;
+}
+
+/* ── Closing CTA Additions ── */
+.closing-cta-sub {
+  max-width: 580px;
+  margin: 14px auto 28px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: #6C6D75;
+}
+.closing-cta-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (max-width: 900px) {
+  .who-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 680px) {
+  .who-section {
+    padding-top: 50px;
+    padding-bottom: 52px;
+  }
+  .who-header {
+    margin-bottom: 26px;
+  }
+  .who-header-title {
+    font-size: 26px;
+    letter-spacing: -1px;
+  }
+  .who-card {
+    padding: 24px 20px 20px;
+  }
+  .who-card-top {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .who-card h3 {
+    font-size: 19px;
+  }
+  .who-card p {
+    font-size: 14px;
+  }
+  .who-specimen {
+    font-size: 11.5px;
+    padding: 8px 10px;
+    gap: 4px;
+    overflow-x: auto;
+  }
+  .specimen-step span {
+    font-size: 11.5px;
+  }
+  .hero--editorial {
+    padding: 42px 18px 36px;
+    text-align: left;
+    align-items: flex-start;
+  }
+  .hero-editorial-inner {
+    align-items: flex-start;
+    text-align: left;
+  }
+  .hero-editorial-inner .hero-note {
+    justify-content: flex-start;
+  }
+  .hero--editorial h1 {
+    font-size: clamp(30px, 8.5vw, 42px);
+    letter-spacing: -1.2px;
+    line-height: 1.1;
+  }
+  .hero--editorial h1 span {
+    display: inline;
+  }
+  .hero--editorial p {
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 16px 0 24px;
+    text-align: left;
+  }
+  .hero--editorial .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .hero-btn-main, .hero-btn-quiz {
+    width: 100%;
+    justify-content: center;
+    font-size: 15px;
+  }
+  .hero--editorial .hero-proof {
+    justify-content: flex-start;
+    margin-top: 24px;
+  }
+  .closing-cta-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+  .closing-cta-actions .button {
+    width: 100%;
+  }
+}
+
+
+/* ── PWA Install Banner & iOS Modal ────────────────────────────── */
+.pwa-install-banner {
+  position: fixed;
+  bottom: 24px;
+  left: 20px;
+  right: 20px;
+  max-width: 480px;
+  margin: 0 auto;
+  z-index: 98;
+  animation: pwa-banner-slide 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.has-app-bottom-nav .pwa-install-banner {
+  bottom: calc(var(--app-bottom-h) + env(safe-area-inset-bottom, 0px) + 16px);
+}
+
+.pwa-banner-inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px 12px 12px;
+  background: #2C1A12;
+  color: #FAF5EE;
+  border: 1px solid #543426;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(44, 26, 18, 0.22);
+}
+
+.pwa-banner-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: #E86A58;
+  color: #FAF5EE;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.pwa-banner-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.pwa-banner-title {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #FAF5EE;
+}
+
+.pwa-banner-desc {
+  margin: 2px 0 0;
+  font-size: 12px;
+  line-height: 1.35;
+  color: #C4B5A8;
+}
+
+.pwa-banner-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.pwa-install-btn {
+  padding: 7px 14px;
+  border: 0;
+  border-radius: 9999px;
+  background: #FFBA38;
+  color: #2C1A12;
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.pwa-install-btn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.pwa-dismiss-btn {
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #A3968E;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+
+.pwa-dismiss-btn:hover {
+  color: #FAF5EE;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* iOS Guide Modal */
+.pwa-ios-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(44, 26, 18, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: grid;
+  place-items: end center;
+  padding: 16px;
+  animation: pwa-fade 0.2s ease forwards;
+}
+
+.pwa-ios-modal-inner {
+  width: 100%;
+  max-width: 440px;
+  background: #FAF5EE;
+  color: #2C1A12;
+  border: 1px solid #EADBCE;
+  border-radius: 20px;
+  padding: 22px 20px;
+  box-shadow: 0 16px 40px rgba(44, 26, 18, 0.25);
+  animation: pwa-banner-slide 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.pwa-ios-modal-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.pwa-ios-modal-top strong {
+  font-size: 17px;
+  font-weight: 750;
+  color: #2C1A12;
+}
+
+.pwa-ios-modal-top .pwa-dismiss-btn {
+  color: #7C6E65;
+}
+
+.pwa-ios-steps {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+  display: grid;
+  gap: 12px;
+}
+
+.pwa-ios-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #55565E;
+}
+
+.pwa-ios-steps li span {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #FDEEE9;
+  color: #E86A58;
+  font-size: 12px;
+  font-weight: 750;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.pwa-ios-steps .inline-icon {
+  display: inline;
+  vertical-align: -2px;
+  margin: 0 2px;
+  color: #E86A58;
+}
+
+.pwa-ios-close-btn {
+  width: 100%;
+  justify-content: center;
+  min-height: 44px;
+  font-size: 14px;
+}
+
+@keyframes pwa-banner-slide {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pwa-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+
+/* ── Calendar Reminder Component (Retention System) ────────────── */
+.cal-reminder-box {
+  background: #FAF5EE;
+  border: 1.5px solid #EADBCE;
+  border-radius: 20px;
+  padding: 26px 24px;
+  box-shadow: 0 4px 20px rgba(44, 26, 18, 0.04);
+}
+
+.cal-reminder-top {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.cal-reminder-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #2C1A12;
+  color: #FFBA38;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.cal-reminder-kicker {
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #E86A58;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.cal-reminder-title {
+  margin: 0 0 6px;
+  font-size: 20px;
+  font-weight: 750;
+  color: #2C1A12;
+  line-height: 1.2;
+}
+
+.cal-reminder-desc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #6C6D75;
+}
+
+.cal-time-picker {
+  margin: 20px 0 18px;
+}
+
+.cal-picker-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #2C1A12;
+  margin-bottom: 10px;
+}
+
+.cal-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.cal-slot-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 8px;
+  border: 1.5px solid #EADBCE;
+  border-radius: 12px;
+  background: #fff;
+  color: #2C1A12;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.cal-slot-btn strong {
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.2;
+}
+
+.cal-slot-btn small {
+  font-size: 11px;
+  color: #8C7E75;
+  margin-top: 2px;
+}
+
+.cal-slot-btn:hover {
+  border-color: #E86A58;
+}
+
+.cal-slot-btn.active {
+  border-color: #2C1A12;
+  background: #2C1A12;
+  color: #FAF5EE;
+}
+
+.cal-slot-btn.active small {
+  color: #FFBA38;
+}
+
+.cal-actions-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.cal-btn-google {
+  flex: 1;
+  min-width: 220px;
+  justify-content: center;
+}
+
+.cal-btn-ics {
+  flex: 1;
+  min-width: 220px;
+  justify-content: center;
+}
+
+.cal-success-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #2D7A53;
+  background: #EEF7EE;
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin-top: 14px;
+  border: 1px solid rgba(61, 168, 114, 0.25);
+}
+
+.cal-foot-note {
+  display: block;
+  font-size: 12px;
+  color: #8C7E75;
+  margin-top: 14px;
+  line-height: 1.5;
+}
+
+.course-video-block {
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid #EADBCE;
+}
+
+@media (max-width: 680px) {
+  .cal-slots-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .cal-actions-row {
+    flex-direction: column;
+  }
+  .cal-btn-google,
+  .cal-btn-ics {
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+
+/* ── Landing Page Typography (Warm Roasted Mahogany #452314) ──────── */
+.landing-page-wrap {
+  color: #452314;
+}
+
+.landing-page-wrap h1,
+.landing-page-wrap h2,
+.landing-page-wrap h3,
+.landing-page-wrap h4,
+.landing-page-wrap h5,
+.landing-page-wrap h6,
+.landing-page-wrap .brand,
+.landing-page-wrap .main-nav > a,
+.landing-page-wrap .text-link,
+.landing-page-wrap .button-outline-warm,
+.landing-page-wrap .hero-btn-quiz {
+  color: #452314;
+}
+
+.landing-page-wrap .hero h1,
+.landing-page-wrap .hero--editorial h1,
+.landing-page-wrap .section-heading h2,
+.landing-page-wrap .academy-card h3,
+.landing-page-wrap .how-intro h2,
+.landing-page-wrap .step h3,
+.landing-page-wrap .closing-cta h2 {
+  color: #452314;
+}
+
+/* Secondary / Body paragraph texts: warm, soft, natural contrast */
+.landing-page-wrap .hero-copy > p,
+.landing-page-wrap .hero--editorial p,
+.landing-page-wrap .section-heading > p,
+.landing-page-wrap .academy-card > p,
+.landing-page-wrap .how-intro > p,
+.landing-page-wrap .step p,
+.landing-page-wrap .closing-cta-sub {
+  color: #634233;
+}
+
+/* Specific deliberate accents */
+.landing-page-wrap .hero h1 span,
+.landing-page-wrap .hero--editorial h1 span,
+.landing-page-wrap .how-intro h2 span,
+.landing-page-wrap .closing-cta h2 em,
+.landing-page-wrap .hero-note,
+.landing-page-wrap .eyebrow {
+  color: #E86A58 !important;
+}
+
+/* Dark Sections (Pricing & Who It's For: White text, Yellow accents) */
+.landing-page-wrap .pricing-section,
+.landing-page-wrap .pricing-section h2,
+.landing-page-wrap .pricing-section h3,
+.landing-page-wrap .pricing-section strong,
+.landing-page-wrap .who-section,
+.landing-page-wrap .who-header-title,
+.landing-page-wrap .who-card h3 {
+  color: #FAF5EE !important;
+}
+.landing-page-wrap .pricing-section p,
+.landing-page-wrap .pricing-section small,
+.landing-page-wrap .who-card p {
+  color: #C4B5A8 !important;
+}
+.landing-page-wrap .who-header-kicker,
+.landing-page-wrap .who-kicker,
+.landing-page-wrap .pricing-section .price-val {
+  color: #FFBA38 !important;
+}
+.landing-page-wrap .pricing-section .plan-label {
+  color: #FAF5EE !important;
+}
+.landing-page-wrap .pricing-section .price-card {
+  color: #FAF5EE !important;
+}
+
+/* Button dark text */
+.button-dark {
+  background: #452314 !important;
+  color: #FAF5EE !important;
+}
+.landing-page-wrap .button-outline-warm,
+.landing-page-wrap .hero-btn-quiz {
+  border-color: #452314;
+  color: #452314;
+}
+.landing-page-wrap .button-outline-warm:hover,
+.landing-page-wrap .hero-btn-quiz:hover {
+  background: #452314;
+  color: #FAF5EE;
+}
+
+
+/* ── Proof Avatars Image Overlap ───────────────────────────────── */
+.proof-avatars {
+  display: inline-flex;
+  align-items: center;
+  padding-left: 2px;
+  vertical-align: middle;
+}
+.proof-avatar-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #FAF5EE;
+  margin-left: -8px;
+  object-fit: cover;
+  background: #FDEEE9;
+  box-shadow: 0 2px 6px rgba(44, 26, 18, 0.12);
+  display: block;
+  flex-shrink: 0;
+}
+.proof-avatar-img:first-child {
+  margin-left: 0;
 }

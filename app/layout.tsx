@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Baloo_2 } from 'next/font/google'
 import PwaRegister from '@/components/pwa-register'
+import PwaInstallPrompt from '@/components/pwa-install-prompt'
 import './globals.css'
 
 const baloo2 = Baloo_2({
@@ -69,6 +70,7 @@ export default function RootLayout({
         </div>
         {children}
         <PwaRegister />
+        <PwaInstallPrompt />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
