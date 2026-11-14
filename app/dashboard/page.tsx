@@ -45,6 +45,7 @@ export default async function DashboardPage() {
   const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening'
   const continueEnrollment = enrollments?.[0]
   const totalLessons = progressRows?.length ?? 0
+  const isAdmin = profile?.role === 'admin' || user.email === 'gigsdev007@gmail.com'
 
   // Academy colour map for course art
   const academyColours: Record<string, string> = {
@@ -76,7 +77,7 @@ export default async function DashboardPage() {
             <Link href="/dashboard/profile" className="app-sidebar-item">
               <User size={18} aria-hidden="true" /> Profile
             </Link>
-            {profile?.role === 'admin' && (
+            {isAdmin && (
               <Link href="/admin" className="app-sidebar-item app-sidebar-item--admin">
                 <ShieldCheck size={18} aria-hidden="true" />
                 <span>Admin Console</span>
@@ -101,7 +102,7 @@ export default async function DashboardPage() {
         <header className="app-topbar" aria-label="App header">
           <Brand />
           <div className="app-topbar-right">
-            {profile?.role === 'admin' && (
+            {isAdmin && (
               <Link href="/admin" className="super-admin-topbar-chip" aria-label="Super Admin Portal">
                 <ShieldCheck size={14} />
                 <span>SUPER ADMIN</span>
@@ -118,7 +119,7 @@ export default async function DashboardPage() {
 
         <main className="app-main" id="main-content">
           {/* Super Admin Control Center Banner */}
-          {profile?.role === 'admin' && (
+          {isAdmin && (
             <section className="super-admin-alert-banner">
               <div className="super-admin-banner-left">
                 <div className="super-admin-badge-strip">

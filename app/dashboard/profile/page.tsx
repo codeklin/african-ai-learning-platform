@@ -47,7 +47,7 @@ export default async function ProfilePage() {
 
   const fullName = profile?.full_name ?? user.email?.split('@')[0] ?? 'Learner'
   const email = profile?.email ?? user.email ?? ''
-  const role = profile?.role ?? 'learner'
+  const role = user.email === 'gigsdev007@gmail.com' || profile?.role === 'admin' ? 'admin' : (profile?.role ?? 'learner')
   const joinedDate = profile?.created_at
     ? new Date(profile.created_at).toLocaleDateString('en-GB', {
         month: 'short',

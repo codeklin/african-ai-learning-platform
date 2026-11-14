@@ -37,8 +37,8 @@ import {
 } from 'lucide-react'
 import Brand from '@/components/brand'
 import { signOut } from '@/app/actions/auth'
-import { updateUserRoleAction, updateCourseStatusAction } from '@/app/actions/admin'
-import type { Profile, Course, UserRole, CourseStatus } from '@/lib/database.types'
+import { updateUserRoleAction, updateCourseStatusAction, createCourseAction } from '@/app/actions/admin'
+import type { Profile, Course, UserRole, CourseStatus, LessonType } from '@/lib/database.types'
 
 interface EnrollmentItem {
   id: string
@@ -86,6 +86,25 @@ export default function AdminDashboardView({
   // Announcement feature
   const [announcementText, setAnnouncementText] = useState('New practical learning sprints are live in YouTube & AI Foundations.')
   const [isAnnouncementActive, setIsAnnouncementActive] = useState(true)
+
+  // Course Creator Studio State
+  const [isCreateCourseOpen, setIsCreateCourseOpen] = useState(false)
+  const [isSubmittingCourse, setIsSubmittingCourse] = useState(false)
+  const [courseForm, setCourseForm] = useState({
+    title: '',
+    slug: '',
+    description: '',
+    academy: 'Creator Economy & YouTube',
+    access: 'free' as 'free' | 'paid',
+    status: 'published' as 'published' | 'draft',
+    moduleTitle: 'Module 01: Core Foundations & Framework',
+    firstLessonTitle: '',
+    firstLessonSlug: '',
+    lessonType: 'text' as LessonType,
+    youtubeVideoId: '',
+    lessonBody: '',
+    takeaway: '',
+  })
 
   // Filter users
   const filteredUsers = useMemo(() => {
@@ -169,6 +188,69 @@ export default function AdminDashboardView({
     } finally {
       setUpdatingCourseId(null)
       setTimeout(() => setNotification(null), 4000)
+    }
+  }
+
+  // Handle Course Creation Submit
+  const handleCreateCourseSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!courseForm.title.trim()) {
+      setNotification({ message: 'Course title is required.', type: 'error' })
+      return
+    }
+    setIsSubmittingCourse(true)
+    try {
+      const res = await createCourseAction({
+        title: courseForm.title,
+        slug: courseForm.slug || undefined,
+        description: courseForm.description || undefined,
+        academy: courseForm.academy,
+        access: courseForm.access,
+        status: courseForm.status,
+        moduleTitle: courseForm.moduleTitle || undefined,
+        firstLessonTitle: courseForm.firstLessonTitle || undefined,
+        firstLessonSlug: courseForm.firstLessonSlug || undefined,
+        lessonType: courseForm.lessonType,
+        youtubeVideoId: courseForm.youtubeVideoId || undefined,
+        lessonBody: courseForm.lessonBody || undefined,
+        takeaway: courseForm.takeaway || undefined,
+      })
+      if (res.success) {
+        setCourses((prev) => [res.course, ...prev])
+        setNotification({
+          message: `Course "${res.course.title}" successfully uploaded and saved to database!`,
+          type: 'success',
+        })
+        setIsCreateCourseOpen(false)
+        setCourseForm({
+          title: '',
+          slug: '',
+          description: '',
+          academy: 'Creator Economy & YouTube',
+          access: 'free',
+          status: 'published',
+          moduleTitle: 'Module 01: Core Foundations & Framework',
+          firstLessonTitle: '',
+          firstLessonSlug: '',
+          lessonType: 'text',
+          youtubeVideoId: '',
+          lessonBody: '',
+          takeaway: '',
+        })
+      } else {
+        setNotification({
+          message: res.error || 'Failed to create course in database',
+          type: 'error',
+        })
+      }
+    } catch (err: unknown) {
+      setNotification({
+        message: err instanceof Error ? err.message : 'Error creating course',
+        type: 'error',
+      })
+    } finally {
+      setIsSubmittingCourse(false)
+      setTimeout(() => setNotification(null), 5000)
     }
   }
 
@@ -864,9 +946,19 @@ export default function AdminDashboardView({
                     <span className="panel-kicker">SUPER ADMIN CURRICULUM CONTROL</span>
                     <h2 className="panel-title">Courses Inventory & Publishing</h2>
                   </div>
-                  <Link href="/courses" className="panel-view-all">
-                    Public View →
-                  </Link>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                    <button
+                      type="button"
+                      onClick={() => setIsCreateCourseOpen(true)}
+                      className="button button-dark"
+                      style={{ minHeight: 38, padding: '0 16px', fontSize: 13 }}
+                    >
+                      <Plus size={15} /> Upload New Course
+                    </button>
+                    <Link href="/courses" className="panel-view-all">
+                      Public View →
+                    </Link>
+                  </div>
                 </div>
 
                 <div className="admin-toolbar-row">
@@ -993,6 +1085,218 @@ export default function AdminDashboardView({
             </div>
           )}
         </div>
+
+        {/* ═════════════════════════════════════════════════════════════
+            SUPER ADMIN COURSE CREATOR STUDIO MODAL
+           ═════════════════════════════════════════════════════════════ */}
+        {isCreateCourseOpen && (
+          <div className="admin-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="creator-title">
+            <div className="admin-modal-window">
+              <header className="admin-modal-header">
+                <div>
+                  <span className="creator-section-kicker">EXECUTIVE CURRICULUM STUDIO</span>
+                  <h2 id="creator-title">Upload & Publish New Course</h2>
+                  <p>Add practical learning modules directly into the live PostgreSQL database.</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsCreateCourseOpen(false)}
+                  className="admin-modal-close-btn"
+                  aria-label="Close modal"
+                >
+                  <X size={18} />
+                </button>
+              </header>
+
+              <form onSubmit={handleCreateCourseSubmit}>
+                <div className="admin-modal-body">
+                  {/* 1. Core Course Identity */}
+                  <div className="creator-form-section">
+                    <span className="creator-section-kicker">01 / COURSE IDENTITY</span>
+                    <h3>Primary Metadata</h3>
+                    <div className="creator-form-grid">
+                      <div className="creator-form-field col-span-2">
+                        <label htmlFor="course-title">Course Title *</label>
+                        <input
+                          id="course-title"
+                          type="text"
+                          required
+                          placeholder="e.g. Starting a Faceless YouTube Channel"
+                          value={courseForm.title}
+                          onChange={(e) => setCourseForm({ ...courseForm, title: e.target.value })}
+                        />
+                      </div>
+
+                      <div className="creator-form-field">
+                        <label htmlFor="course-slug">URL Slug (optional)</label>
+                        <input
+                          id="course-slug"
+                          type="text"
+                          placeholder="Auto-generated if left blank"
+                          value={courseForm.slug}
+                          onChange={(e) => setCourseForm({ ...courseForm, slug: e.target.value })}
+                        />
+                      </div>
+
+                      <div className="creator-form-field">
+                        <label htmlFor="course-academy">Academy Track *</label>
+                        <select
+                          id="course-academy"
+                          value={courseForm.academy}
+                          onChange={(e) => setCourseForm({ ...courseForm, academy: e.target.value })}
+                        >
+                          <option value="Creator Economy & YouTube">Creator Economy & YouTube</option>
+                          <option value="AI Foundations">AI Foundations</option>
+                          <option value="AI Freelancing">AI Freelancing</option>
+                          <option value="AI Automation">AI Automation</option>
+                          <option value="AI Content Creation">AI Content Creation</option>
+                          <option value="AI App Development">AI App Development</option>
+                        </select>
+                      </div>
+
+                      <div className="creator-form-field">
+                        <label htmlFor="course-access">Access Level</label>
+                        <select
+                          id="course-access"
+                          value={courseForm.access}
+                          onChange={(e) => setCourseForm({ ...courseForm, access: e.target.value as 'free' | 'paid' })}
+                        >
+                          <option value="free">Free (Starter Module)</option>
+                          <option value="paid">Paid (Subscription Pro)</option>
+                        </select>
+                      </div>
+
+                      <div className="creator-form-field">
+                        <label htmlFor="course-status">Publishing Status</label>
+                        <select
+                          id="course-status"
+                          value={courseForm.status}
+                          onChange={(e) => setCourseForm({ ...courseForm, status: e.target.value as 'published' | 'draft' })}
+                        >
+                          <option value="published">Published (Live to learners)</option>
+                          <option value="draft">Draft (Internal preview only)</option>
+                        </select>
+                      </div>
+
+                      <div className="creator-form-field col-span-2">
+                        <label htmlFor="course-desc">Course Summary & Outcomes</label>
+                        <textarea
+                          id="course-desc"
+                          rows={3}
+                          placeholder="Explain what the learner will build and achieve in this course..."
+                          value={courseForm.description}
+                          onChange={(e) => setCourseForm({ ...courseForm, description: e.target.value })}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 2. Starter Curriculum (Optional) */}
+                  <div className="creator-form-section">
+                    <span className="creator-section-kicker">02 / STARTER MODULE & FIRST LESSON</span>
+                    <h3>First Practical Module (Optional)</h3>
+                    <p>You can create the starter module now or add more lessons later.</p>
+
+                    <div className="creator-form-grid">
+                      <div className="creator-form-field col-span-2">
+                        <label htmlFor="module-title">Module Title</label>
+                        <input
+                          id="module-title"
+                          type="text"
+                          placeholder="e.g. Module 01: Core Foundations & Framework"
+                          value={courseForm.moduleTitle}
+                          onChange={(e) => setCourseForm({ ...courseForm, moduleTitle: e.target.value })}
+                        />
+                      </div>
+
+                      <div className="creator-form-field col-span-2">
+                        <label htmlFor="lesson-title">First Lesson Title</label>
+                        <input
+                          id="lesson-title"
+                          type="text"
+                          placeholder="e.g. Finding Your Niche & Audience Demand"
+                          value={courseForm.firstLessonTitle}
+                          onChange={(e) => setCourseForm({ ...courseForm, firstLessonTitle: e.target.value })}
+                        />
+                      </div>
+
+                      <div className="creator-form-field">
+                        <label htmlFor="lesson-type">Lesson Format</label>
+                        <select
+                          id="lesson-type"
+                          value={courseForm.lessonType}
+                          onChange={(e) => setCourseForm({ ...courseForm, lessonType: e.target.value as LessonType })}
+                        >
+                          <option value="text">Text-First Reading (Low-Data Friendly)</option>
+                          <option value="video">Video Walkthrough (YouTube Embed)</option>
+                          <option value="mixed">Mixed (Interactive Exercise Sprint)</option>
+                        </select>
+                      </div>
+
+                      <div className="creator-form-field">
+                        <label htmlFor="youtube-id">YouTube Video ID (Optional)</label>
+                        <input
+                          id="youtube-id"
+                          type="text"
+                          placeholder="e.g. dQw4w9WgXcQ (Costs 0 Vercel bandwidth)"
+                          value={courseForm.youtubeVideoId}
+                          onChange={(e) => setCourseForm({ ...courseForm, youtubeVideoId: e.target.value })}
+                        />
+                        <small>Paste unlisted YouTube ID to protect your Vercel bandwidth.</small>
+                      </div>
+
+                      <div className="creator-form-field col-span-2">
+                        <label htmlFor="lesson-body">Lesson Content & Prompt Framework</label>
+                        <textarea
+                          id="lesson-body"
+                          rows={4}
+                          placeholder="Enter the lesson text, step-by-step instructions, and prompts..."
+                          value={courseForm.lessonBody}
+                          onChange={(e) => setCourseForm({ ...courseForm, lessonBody: e.target.value })}
+                        />
+                      </div>
+
+                      <div className="creator-form-field col-span-2">
+                        <label htmlFor="lesson-takeaway">Actionable Takeaway / Sprint Goal</label>
+                        <input
+                          id="lesson-takeaway"
+                          type="text"
+                          placeholder="e.g. Draft a 3-part channel concept board before moving to lesson 02."
+                          value={courseForm.takeaway}
+                          onChange={(e) => setCourseForm({ ...courseForm, takeaway: e.target.value })}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <footer className="admin-modal-footer">
+                  <button
+                    type="button"
+                    onClick={() => setIsCreateCourseOpen(false)}
+                    className="admin-modal-cancel-btn"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={isSubmittingCourse}
+                    className="button button-dark admin-modal-submit-btn"
+                  >
+                    {isSubmittingCourse ? (
+                      <span>Uploading to database...</span>
+                    ) : (
+                      <>
+                        <Plus size={16} />
+                        <span>Publish Course to Database</span>
+                      </>
+                    )}
+                  </button>
+                </footer>
+              </form>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   )
