@@ -312,13 +312,11 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
             {creator && (
               <div className="creator-eligibility">
                 <div className="detail-section-kicker">IMPORTANT DISTINCTION</div>
-                <h2>Learning completion is not YPP eligibility.</h2>
+                <h2>Finishing this course does not qualify your channel for monetisation.</h2>
                 <p>
-                  Finishing lessons or projects confirms educational participation only.
-                  YouTube Partner Program eligibility depends on YouTube&apos;s current
-                  requirements and channel review. Thresholds and policies can change, and
-                  meeting a threshold does not guarantee acceptance, views, subscribers,
-                  monetization, or income.
+                  YouTube sets the current requirements and reviews each channel. Rules can
+                  change, and meeting a requirement does not guarantee approval, views,
+                  subscribers or income.
                 </p>
               </div>
             )}

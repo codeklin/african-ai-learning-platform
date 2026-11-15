@@ -233,9 +233,9 @@ export default async function DashboardPage() {
             ) : (
               <div className="app-empty-state">
                 <Trophy size={32} className="app-empty-icon" aria-hidden="true" />
-                <p>You haven&apos;t enrolled in any courses yet.</p>
+                <p>Choose a course to start. Your enrolled courses will appear here.</p>
                 <Link href="/courses" className="button button-dark">
-                  Browse courses <ArrowRight size={15} />
+                  Choose a course <ArrowRight size={15} />
                 </Link>
               </div>
             )}
@@ -245,10 +245,10 @@ export default async function DashboardPage() {
           <section className="app-explore-banner">
             <div>
               <p className="app-explore-label">DISCOVER MORE</p>
-              <h3 className="app-explore-title">Find your next skill</h3>
+              <h3 className="app-explore-title">Choose a skill to learn next</h3>
             </div>
             <Link href="/courses" className="button button-dark" style={{ flexShrink: 0 }}>
-              Browse <ArrowRight size={15} />
+              View courses <ArrowRight size={15} />
             </Link>
           </section>
 

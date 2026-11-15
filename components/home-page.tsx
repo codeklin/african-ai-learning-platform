@@ -128,20 +128,20 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
               <span className="hero-h1-secondary">Build real things.</span>
             </h1>
             <p>
-              Learn AI, content creation, freelancing, YouTube, automation and app development through practical lessons and projects. Start with free training, then ask for personal guidance when you need help applying what you have learned.
+              Learn AI-powered digital skills with simple lessons and hands-on projects. Start for free.
             </p>
             <div className="hero-actions">
               <Link className="button button-dark hero-btn-main" href={isAuthenticated ? "/dashboard" : "/courses"}>
                 <span>{isAuthenticated ? 'Go to your dashboard' : 'Start learning free'}</span>
                 <ArrowRight size={16} />
               </Link>
-              <Link className="button button-outline-warm hero-btn-quiz" href="#academies">
-                <span>Explore the academies</span>
+              <Link className="button button-outline-warm hero-btn-quiz" href="/courses">
+                <span>Explore courses</span>
                 <ArrowRight size={15} />
               </Link>
             </div>
             <div className="hero-proof">
-              <span>For beginners, freelancers, creators and working professionals across Nigeria and Africa.</span>
+              <span>For beginners, freelancers and creators in Nigeria and across Africa.</span>
             </div>
           </div>
         </section>
@@ -168,19 +168,19 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
                   <span className="who-kicker">01 / FREELANCE SERVICES</span>
                   <span className="who-stamp">PRACTISE AN OFFER</span>
                 </div>
-                <h3>Draft a clear freelance service</h3>
+                <h3>Create a freelance service</h3>
                 <p>
-                  Explore a problem you could help solve, describe your service, and practise responding to a sample client brief. Learning does not guarantee clients or income.
+                  Use AI to plan one service. Say what you can do and make a sample for a client. Clients and income are not guaranteed.
                 </p>
                 <div className="who-specimen">
                   <div className="specimen-step">
                     <span className="specimen-dot" />
-                    <span>Client brief</span>
+                    <span>Client need</span>
                   </div>
                   <ArrowRight className="specimen-arrow" size={14} aria-hidden="true" />
                   <div className="specimen-step">
                     <span className="specimen-dot" />
-                    <span>Service draft</span>
+                    <span>Your service</span>
                   </div>
                   <ArrowRight className="specimen-arrow" size={14} aria-hidden="true" />
                   <div className="specimen-step specimen-step--highlight">
@@ -197,53 +197,53 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
                   <span className="who-kicker">02 / CONTENT CREATION</span>
                   <span className="who-stamp">ORIGINALITY FIRST</span>
                 </div>
-                <h3>Plan videos for a clear audience</h3>
+                <h3>Create videos for your audience</h3>
                 <p>
-                  Develop a channel idea, plan useful videos, and practise making original content. Views, monetisation and income are never guaranteed.
+                  Use AI for ideas, then create an original video for your audience. Views, monetisation and income are not guaranteed.
                 </p>
                 <div className="who-specimen">
                   <div className="specimen-step">
                     <span className="specimen-dot" />
-                    <span>Audience idea</span>
+                    <span>Your audience</span>
                   </div>
                   <ArrowRight className="specimen-arrow" size={14} aria-hidden="true" />
                   <div className="specimen-step">
                     <span className="specimen-dot" />
-                    <span>Video outline</span>
+                    <span>Video idea</span>
                   </div>
                   <ArrowRight className="specimen-arrow" size={14} aria-hidden="true" />
                   <div className="specimen-step specimen-step--highlight">
                     <span className="specimen-dot" />
-                    <span>Content plan</span>
+                    <span>Original video</span>
                   </div>
                 </div>
               </article>
 
-              {/* Card 03: Automation */}
-              <article className="who-card who-card--hustler">
+              {/* Card 03: App development */}
+              <article className="who-card who-card--app-builder">
                 <span className="who-card-watermark" aria-hidden="true">03</span>
                 <div className="who-card-top">
-                  <span className="who-kicker">03 / AI AUTOMATION</span>
-                  <span className="who-stamp">ONE TASK AT A TIME</span>
+                  <span className="who-kicker">03 / APP DEVELOPMENT</span>
+                  <span className="who-stamp">3-DAY CHALLENGE</span>
                 </div>
-                <h3>Map one repetitive task</h3>
+                <h3>Build and launch an AI-powered mobile web app in 3 days</h3>
                 <p>
-                  Choose a task you repeat, map its steps, and test a simple workflow. Tools have limits, so review the results before relying on them.
+                  Pick one problem, use AI to build a mobile-friendly web app, test it on your phone, then launch it.
                 </p>
                 <div className="who-specimen">
                   <div className="specimen-step">
                     <span className="specimen-dot" />
-                    <span>Repeated task</span>
+                    <span>Day 1: Pick an idea</span>
                   </div>
                   <ArrowRight className="specimen-arrow" size={14} aria-hidden="true" />
                   <div className="specimen-step">
                     <span className="specimen-dot" />
-                    <span>Workflow map</span>
+                    <span>Day 2: Build</span>
                   </div>
                   <ArrowRight className="specimen-arrow" size={14} aria-hidden="true" />
                   <div className="specimen-step specimen-step--highlight">
                     <span className="specimen-dot" />
-                    <span>Test result</span>
+                    <span>Day 3: Test and launch</span>
                   </div>
                 </div>
               </article>

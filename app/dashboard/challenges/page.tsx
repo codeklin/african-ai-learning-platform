@@ -26,33 +26,33 @@ interface PracticeIdea {
 const practiceIdeas: PracticeIdea[] = [
   {
     id: 'practice-1',
-    title: 'Write a prompt brief for one task',
+    title: 'Write an AI prompt for one task',
     academy: 'AI Foundations',
-    description: 'Describe the task, add useful context and specify the format you need.',
+    description: 'Choose a real task. Tell AI what you need, add key details and ask for a clear format.',
     courseSlug: 'prompting-better-work',
     tone: 'coral',
   },
   {
     id: 'practice-2',
-    title: 'Outline an original channel idea',
+    title: 'Plan an original YouTube channel',
     academy: 'Creator Economy & YouTube',
-    description: 'Choose an audience, write a clear channel promise and plan one useful video.',
+    description: 'Use AI to explore ideas. Choose who the channel is for and outline one original video.',
     courseSlug: 'starting-a-faceless-youtube-channel',
     tone: 'amber',
   },
   {
     id: 'practice-3',
-    title: 'Map a task you repeat',
+    title: 'Find one task AI could help with',
     academy: 'AI Automation',
-    description: 'Write down the steps, identify where a tool might help and test the result.',
+    description: 'Write down the steps. Pick one where an AI tool might help, then check its result.',
     courseSlug: 'build-your-first-ai-workflow',
     tone: 'jade',
   },
   {
     id: 'practice-4',
-    title: 'Try an AI tool on an everyday task',
+    title: 'Use AI on an everyday task',
     academy: 'AI Foundations',
-    description: 'Review what the tool can do, check its response and decide what to change.',
+    description: 'Ask AI for a first draft. Check it for mistakes, then improve it yourself.',
     courseSlug: 'ai-toolkit-practical-start',
     tone: 'lavender',
   },
@@ -128,10 +128,10 @@ export default async function ChallengesPage() {
           <section className="challenges-hero">
             <div className="challenges-title-row">
               <div>
-                <p className="app-greeting-sub">PRACTISE WHAT YOU LEARN</p>
-                <h1 className="app-greeting-h1">Practice ideas</h1>
+                <p className="app-greeting-sub">PICK ONE TASK TO TRY</p>
+                <h1 className="app-greeting-h1">Practice a skill</h1>
                 <p className="challenges-subtext">
-                  Try one of these activities alongside a free course. These ideas do not track completion or award points.
+                  Choose an exercise, then open its course for a lesson to help you do it. This page does not save completed exercises.
                 </p>
               </div>
             </div>
@@ -139,7 +139,7 @@ export default async function ChallengesPage() {
 
           {/* Suggested exercises */}
           <section className="challenges-section">
-            <div className="dash-section-label">SUGGESTED EXERCISES</div>
+            <div className="dash-section-label">CHOOSE AN EXERCISE</div>
             <div className="challenges-grid">
               {practiceIdeas.map((idea) => (
                 <article key={idea.id} className={`challenge-card challenge-tone--${idea.tone}`}>
@@ -151,7 +151,7 @@ export default async function ChallengesPage() {
                   <p className="challenges-subtext">{idea.description}</p>
                   <div className="challenge-card-footer">
                     <Link href={`/courses/${idea.courseSlug}`} className="challenge-action-btn">
-                      <span>View course</span>
+                      <span>Open the course</span>
                       <ArrowRight size={15} />
                     </Link>
                   </div>

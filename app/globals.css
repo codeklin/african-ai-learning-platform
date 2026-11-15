@@ -2485,7 +2485,7 @@ a.skip-link:focus { top:0; }
 
 .who-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 26px;
 }
 
@@ -2514,7 +2514,7 @@ a.skip-link:focus { top:0; }
 .who-card--creator {
   border-radius: 14px 32px 14px 32px;
 }
-.who-card--hustler {
+.who-card--app-builder {
   border-radius: 32px 32px 14px 32px;
 }
 
