@@ -22,8 +22,8 @@ async function assertSuperAdmin() {
 
   const profile = rawProfile as { role: UserRole } | null
 
-  if (profile?.role !== 'admin' && user.email !== 'gigsdev007@gmail.com') {
-    throw new Error('Forbidden: Super Administrator privileges required.')
+  if (profile?.role !== 'admin') {
+    throw new Error('Forbidden: Administrator privileges required.')
   }
 
   return user

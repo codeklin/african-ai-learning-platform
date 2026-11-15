@@ -5,8 +5,7 @@ import Brand from '@/components/brand'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy | ituwaAfrica',
-  description:
-    'How ituwaAfrica collects, protects, and respects your personal learning data in accordance with the Nigeria Data Protection Act (NDPA).',
+  description: 'How ituwaAfrica uses account and learning information.',
 }
 
 export default function PrivacyPage() {
@@ -33,11 +32,11 @@ export default function PrivacyPage() {
           <span className="legal-kicker">DATA PROTECTION & PRIVACY</span>
           <h1>Privacy Policy</h1>
           <p className="legal-effective-date">
-            Effective Date: November 2026 · Compliant with NDPA 2023 & NDPR
+            Effective Date: November 2026 · Last Reviewed: November 2026
           </p>
           <p className="legal-intro-lead">
-            ituwaAfrica takes your personal data and privacy seriously. We collect only what is strictly necessary
-            to deliver an exceptional, personalized learning experience and protect your data with enterprise-grade security.
+            ituwaAfrica uses account and learning information to operate the platform. This notice explains how that
+            information is handled.
           </p>
         </div>
       </section>
@@ -179,7 +178,7 @@ export default function PrivacyPage() {
                 account permanently:
               </p>
               <p>
-                Submit a request from your registered email address to <code>privacy@ituwa.africa</code> or <code>hello@ituwa.africa</code> with the subject line &quot;Delete My Account&quot;. We will purge your personal identifiers and project records from our active database within 14 business days.
+                Submit a request from your registered email address to <code>ituwaafrica@gmail.com</code> with the subject line &quot;Delete My Account&quot;. We will purge your personal identifiers and project records from our active database within 5 working days.
               </p>
             </section>
 
@@ -192,9 +191,9 @@ export default function PrivacyPage() {
                   Contact our Data Protection and Compliance Lead:
                 </p>
                 <p>
-                  Email: <a href="mailto:privacy@ituwa.africa">privacy@ituwa.africa</a> / <a href="mailto:hello@ituwa.africa">hello@ituwa.africa</a><br />
+                  Email: <a href="mailto:ituwaafrica@gmail.com">ituwaafrica@gmail.com</a><br />
                   Location: Lagos, Nigeria<br />
-                  Response Window: Within 48 business hours
+                  Response Window: Within 5 working days
                 </p>
                 <div className="legal-contact-actions">
                   <Link href="/terms" className="button button-light">

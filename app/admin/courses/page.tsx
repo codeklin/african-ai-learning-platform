@@ -13,7 +13,7 @@ export default async function AdminCoursesPage() {
     .eq('id', user.id)
     .single()
   const profile = rawProfile as { role: import('@/lib/database.types').UserRole } | null
-  if (profile?.role !== 'admin' && user.email !== 'gigsdev007@gmail.com') redirect('/dashboard')
+  if (profile?.role !== 'admin') redirect('/dashboard')
 
   const adminClient = await createAdminClient()
   const [
@@ -48,7 +48,7 @@ export default async function AdminCoursesPage() {
       users={recentUsers ?? []}
       enrollments={recentEnrollments ?? []}
       courses={allCourses ?? []}
-      adminUserEmail={user.email ?? 'admin@ituwa.africa'}
+      adminUserEmail={user.email ?? 'Account email unavailable'}
       initialTab="courses"
     />
   )

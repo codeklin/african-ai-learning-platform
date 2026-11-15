@@ -23,14 +23,9 @@ import {
   Settings,
   ShieldAlert,
   ShieldCheck,
-  Sparkles,
-  TrendingUp,
-  Trophy,
   UserCheck,
   Users,
   X,
-  Zap,
-  Radio,
   Eye,
   Sliders,
   AlertCircle,
@@ -82,10 +77,6 @@ export default function AdminDashboardView({
   const [updatingUserId, setUpdatingUserId] = useState<string | null>(null)
   const [updatingCourseId, setUpdatingCourseId] = useState<string | null>(null)
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
-
-  // Announcement feature
-  const [announcementText, setAnnouncementText] = useState('New practical learning sprints are live in YouTube & AI Foundations.')
-  const [isAnnouncementActive, setIsAnnouncementActive] = useState(true)
 
   // Course Creator Studio State
   const [isCreateCourseOpen, setIsCreateCourseOpen] = useState(false)
@@ -140,7 +131,7 @@ export default function AdminDashboardView({
           prev.map((u) => (u.id === userId ? { ...u, role: newRole } : u))
         )
         setNotification({
-          message: `User role elevated to ${newRole.toUpperCase()} successfully.`,
+          message: `User role updated to ${newRole.toUpperCase()}.`,
           type: 'success',
         })
       } else {
@@ -280,12 +271,12 @@ export default function AdminDashboardView({
   return (
     <div className="dash-layout">
       {/* ── Sidebar ── */}
-      <aside className="dash-sidebar" aria-label="Super Admin Navigation">
+      <aside className="dash-sidebar" aria-label="Admin navigation">
         <div className="dash-sidebar-top">
           <div className="admin-brand-row">
             <Brand />
             <span className="dash-role-badge super-admin-badge">
-              <ShieldCheck size={14} /> SUPER ADMIN
+              <ShieldCheck size={14} /> ADMIN
             </span>
           </div>
 
@@ -302,7 +293,7 @@ export default function AdminDashboardView({
               className={`dash-nav-item ${activeTab === 'users' ? 'active' : ''}`}
             >
               <Users size={18} />
-              <span>Learners Directory</span>
+              <span>User accounts</span>
               <small className="nav-count-badge">{users.length}</small>
             </button>
             <button
@@ -335,7 +326,7 @@ export default function AdminDashboardView({
           <div className="admin-user-info">
             <span className="admin-status-indicator" />
             <div className="admin-identity-block">
-              <span className="admin-identity-role">ROOT SUPER ADMIN</span>
+              <span className="admin-identity-role">ADMINISTRATOR</span>
               <span className="admin-email-text" title={adminUserEmail}>
                 {adminUserEmail}
               </span>
@@ -355,25 +346,17 @@ export default function AdminDashboardView({
       {/* ── Main Content Area ── */}
       <main className="dash-main">
         <div className="dash-main-inner">
-          {/* Prominent Super Admin Identity Strip */}
+          {/* Administrator identity */}
           <section className="super-admin-executive-strip">
             <div className="executive-strip-left">
               <div className="executive-crown-badge">
                 <ShieldCheck size={20} />
-                <span>SUPER ADMINISTRATOR</span>
+                <span>ADMINISTRATOR</span>
               </div>
               <div className="executive-meta">
-                <b>Root Control Center</b>
-                <span>Tier 1 Clearance · Direct Database Access · Session Authenticated</span>
+                <b>Admin workspace</b>
+                <span>Signed-in account · Role checked on the server</span>
               </div>
-            </div>
-            <div className="executive-strip-right">
-              <span className="executive-pill-green">
-                <span className="pulse-dot" /> RLS Enforcement Engine: ACTIVE
-              </span>
-              <span className="executive-pill-amber">
-                Database: Supabase Production
-              </span>
             </div>
           </section>
 
@@ -399,12 +382,9 @@ export default function AdminDashboardView({
           {/* Header Bar */}
           <header className="admin-header-bar">
             <div>
-              <div className="admin-live-badge">
-                <span className="pulse-dot" /> Live Production Engine
-              </div>
-              <h1 className="dash-greeting">Platform Executive Suite</h1>
+              <h1 className="dash-greeting">Platform administration</h1>
               <p className="admin-header-subtitle">
-                ituwaAfrica operations, role assignments, course publishing, and database sync.
+                Manage learner accounts, enrollments, and course publishing.
               </p>
             </div>
 
@@ -438,7 +418,7 @@ export default function AdminDashboardView({
               onClick={() => setActiveTab('users')}
               className={`admin-tab-btn ${activeTab === 'users' ? 'active' : ''}`}
             >
-              Learners Directory ({users.length})
+              User accounts ({users.length})
             </button>
             <button
               onClick={() => setActiveTab('enrollments')}
@@ -450,7 +430,7 @@ export default function AdminDashboardView({
               onClick={() => setActiveTab('courses')}
               className={`admin-tab-btn ${activeTab === 'courses' ? 'active' : ''}`}
             >
-              Courses Inventory ({courses.length})
+              Course inventory ({courses.length})
             </button>
             <button
               onClick={() => setActiveTab('settings')}
@@ -465,38 +445,32 @@ export default function AdminDashboardView({
              ═══════════════════════════════════════════════ */}
           {activeTab === 'overview' && (
             <div className="admin-tab-content">
-              {/* Top 4 KPI Metrics */}
+              {/* Current database totals and reporting availability */}
               <section className="admin-stats-grid">
                 <div className="admin-metric-card metric-coral">
                   <div className="metric-card-top">
-                    <span className="metric-label">TOTAL LEARNERS</span>
+                    <span className="metric-label">REGISTERED ACCOUNTS</span>
                     <div className="metric-icon-box">
                       <Users size={18} />
                     </div>
                   </div>
                   <div className="metric-number-row">
-                    <span className="metric-value">{users.length}</span>
-                    <span className="metric-trend-pill trend-up">
-                      <TrendingUp size={12} /> +18.4%
-                    </span>
+                    <span className="metric-value">{userCount}</span>
                   </div>
-                  <p className="metric-footnote">Registered learner accounts across Africa</p>
+                  <p className="metric-footnote">User profiles currently in the database</p>
                 </div>
 
                 <div className="admin-metric-card metric-amber">
                   <div className="metric-card-top">
-                    <span className="metric-label">ACTIVE ENROLLMENTS</span>
+                    <span className="metric-label">ENROLLMENTS</span>
                     <div className="metric-icon-box">
                       <GraduationCap size={18} />
                     </div>
                   </div>
                   <div className="metric-number-row">
                     <span className="metric-value">{enrollmentCount}</span>
-                    <span className="metric-trend-pill trend-up">
-                      <Zap size={12} /> 86% active
-                    </span>
                   </div>
-                  <p className="metric-footnote">Total course registrations tracked</p>
+                  <p className="metric-footnote">Course registrations in the database</p>
                 </div>
 
                 <div className="admin-metric-card metric-jade">
@@ -507,61 +481,30 @@ export default function AdminDashboardView({
                     </div>
                   </div>
                   <div className="metric-number-row">
-                    <span className="metric-value">{courses.filter((c) => c.status === 'published').length}</span>
-                    <span className="metric-trend-pill trend-neutral">{courses.length} in catalog</span>
+                    <span className="metric-value">{courseCount}</span>
                   </div>
-                  <p className="metric-footnote">Practical learning paths available live</p>
+                  <p className="metric-footnote">Courses marked published in the database</p>
                 </div>
 
                 <div className="admin-metric-card metric-espresso">
                   <div className="metric-card-top">
-                    <span className="metric-label">COMPLETION RATE</span>
+                    <span className="metric-label">COMPLETION REPORTING</span>
                     <div className="metric-icon-box">
-                      <Trophy size={18} />
+                      <BookOpen size={18} />
                     </div>
                   </div>
                   <div className="metric-number-row">
-                    <span className="metric-value">74.2%</span>
-                    <span className="metric-trend-pill trend-up">
-                      <Sparkles size={12} /> High
-                    </span>
+                    <span className="metric-value">Not tracked</span>
                   </div>
-                  <p className="metric-footnote">Average module-to-certificate finish rate</p>
+                  <p className="metric-footnote">Course completion rates are not calculated in this view.</p>
                 </div>
               </section>
 
-              {/* Super Admin Live Announcement Control */}
-              <section className="admin-announcement-panel">
-                <div className="announcement-panel-header">
-                  <div className="announcement-title-wrap">
-                    <Radio size={18} className="announcement-icon" />
-                    <div>
-                      <h3>Community Announcement Broadcast</h3>
-                      <p>Active notification displayed at the top of learner sessions.</p>
-                    </div>
-                  </div>
-                  <div className="announcement-toggle-wrap">
-                    <span className="announcement-status-text">
-                      Status: {isAnnouncementActive ? 'LIVE' : 'DISABLED'}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => setIsAnnouncementActive(!isAnnouncementActive)}
-                      className={`announcement-toggle-btn ${isAnnouncementActive ? 'btn-active' : ''}`}
-                    >
-                      {isAnnouncementActive ? 'Deactivate' : 'Broadcast Now'}
-                    </button>
-                  </div>
-                </div>
-                <div className="announcement-input-box">
-                  <input
-                    type="text"
-                    value={announcementText}
-                    onChange={(e) => setAnnouncementText(e.target.value)}
-                    className="announcement-input"
-                    placeholder="Enter broadcast message to all learners..."
-                  />
-                </div>
+              <section className="admin-panel-card">
+                <h2 className="panel-title">Learner announcements</h2>
+                <p className="admin-empty-full">
+                  The admin dashboard does not currently send announcements to learners.
+                </p>
               </section>
 
               {/* Split Content: Recent Enrollments & Quick User Feed */}
@@ -570,14 +513,14 @@ export default function AdminDashboardView({
                 <section className="admin-panel-card">
                   <div className="panel-header-row">
                     <div>
-                      <span className="panel-kicker">REAL-TIME ACTIVITY</span>
+                      <span className="panel-kicker">RECENT RECORDS</span>
                       <h2 className="panel-title">Recent Enrollments</h2>
                     </div>
                     <button
                       onClick={() => setActiveTab('enrollments')}
                       className="panel-view-all"
                     >
-                      View all ({enrollments.length}) →
+                      Review records ({enrollments.length}) →
                     </button>
                   </div>
 
@@ -610,7 +553,7 @@ export default function AdminDashboardView({
                             </td>
                             <td>
                               <span className="table-course-pill">
-                                {e.courses?.title ?? 'AI Foundations'}
+                                        {e.courses?.title ?? 'Course information unavailable'}
                               </span>
                             </td>
                             <td>
@@ -635,83 +578,35 @@ export default function AdminDashboardView({
                   </div>
                 </section>
 
-                {/* Platform Academy Breakdown */}
+                {/* Academy analytics are not currently available */}
                 <section className="admin-panel-card">
                   <div className="panel-header-row">
                     <div>
-                      <span className="panel-kicker">LEARNER DEMAND</span>
-                      <h2 className="panel-title">Popular Academies</h2>
-                    </div>
-                    <span className="panel-status-pill">Active Cohort</span>
-                  </div>
-
-                  <div className="academy-stats-list">
-                    <div className="academy-stat-row">
-                      <div className="academy-stat-labels">
-                        <span>AI Foundations</span>
-                        <b>44% of learners</b>
-                      </div>
-                      <div className="stat-progress-bar">
-                        <span style={{ width: '44%', background: '#E86A58' }} />
-                      </div>
-                    </div>
-
-                    <div className="academy-stat-row">
-                      <div className="academy-stat-labels">
-                        <span>Creator Economy & YouTube</span>
-                        <b>28% of learners</b>
-                      </div>
-                      <div className="stat-progress-bar">
-                        <span style={{ width: '28%', background: '#FFBA38' }} />
-                      </div>
-                    </div>
-
-                    <div className="academy-stat-row">
-                      <div className="academy-stat-labels">
-                        <span>AI Content Creation</span>
-                        <b>16% of learners</b>
-                      </div>
-                      <div className="stat-progress-bar">
-                        <span style={{ width: '16%', background: '#3DA872' }} />
-                      </div>
-                    </div>
-
-                    <div className="academy-stat-row">
-                      <div className="academy-stat-labels">
-                        <span>AI Automation & App Dev</span>
-                        <b>12% of learners</b>
-                      </div>
-                      <div className="stat-progress-bar">
-                        <span style={{ width: '12%', background: '#4B7A94' }} />
-                      </div>
+                      <span className="panel-kicker">ACADEMY REPORTING</span>
+                      <h2 className="panel-title">Enrollment by academy</h2>
                     </div>
                   </div>
-
-                  <div className="panel-tip-box">
-                    <Sparkles size={16} className="tip-icon" />
-                    <p>
-                      <strong>Super Admin Insight:</strong> High retention in YouTube & AI Foundations.
-                      Learners respond best to hands-on portfolio challenges.
-                    </p>
-                  </div>
+                  <p className="admin-empty-full">
+                    Academy-level enrollment analytics are not available in this dashboard.
+                  </p>
                 </section>
               </div>
             </div>
           )}
 
           {/* ═══════════════════════════════════════════════
-              TAB 2: LEARNERS DIRECTORY (WITH SUPER ADMIN ROLE SWITCHING)
+              TAB 2: USER ACCOUNTS AND ROLE MANAGEMENT
              ═══════════════════════════════════════════════ */}
           {activeTab === 'users' && (
             <div className="admin-tab-content">
               <section className="admin-panel-card">
                 <div className="panel-header-row">
                   <div>
-                    <span className="panel-kicker">SUPER ADMIN ACCESS</span>
-                    <h2 className="panel-title">Learners & Privileges Directory</h2>
+                    <span className="panel-kicker">ACCOUNT MANAGEMENT</span>
+                    <h2 className="panel-title">Learners & Roles</h2>
                   </div>
                   <div className="panel-user-count">
-                    Showing {filteredUsers.length} of {users.length} accounts
+                    Showing {filteredUsers.length} of {users.length} loaded accounts
                   </div>
                 </div>
 
@@ -791,7 +686,7 @@ export default function AdminDashboardView({
                             >
                               <option value="learner">Learner</option>
                               <option value="instructor">Instructor</option>
-                              <option value="admin">Super Admin</option>
+                              <option value="admin">Administrator</option>
                             </select>
                           </td>
                           <td>
@@ -843,7 +738,7 @@ export default function AdminDashboardView({
                           >
                             <option value="learner">Learner</option>
                             <option value="instructor">Instructor</option>
-                            <option value="admin">Super Admin</option>
+                            <option value="admin">Administrator</option>
                           </select>
                         </div>
                       </div>
@@ -863,10 +758,10 @@ export default function AdminDashboardView({
                 <div className="panel-header-row">
                   <div>
                     <span className="panel-kicker">COURSE PROGRESSION</span>
-                    <h2 className="panel-title">All Enrollment Records</h2>
+                    <h2 className="panel-title">Recent enrollment records</h2>
                   </div>
                   <span className="panel-user-count">
-                    {enrollments.length} total registrations
+                    {enrollments.length} records shown
                   </span>
                 </div>
 
@@ -901,12 +796,12 @@ export default function AdminDashboardView({
                           </td>
                           <td>
                             <b className="table-course-title">
-                              {e.courses?.title ?? 'AI Foundations Toolkit'}
+                              {e.courses?.title ?? 'Course information unavailable'}
                             </b>
                           </td>
                           <td>
                             <span className="table-academy-tag">
-                              {e.courses?.academy ?? 'AI Foundations'}
+                              {e.courses?.academy ?? 'Academy not set'}
                             </span>
                           </td>
                           <td>
@@ -916,7 +811,7 @@ export default function AdminDashboardView({
                           </td>
                           <td>
                             <span className="enrollment-status-badge status-active">
-                              In Progress
+                              Enrolled
                             </span>
                           </td>
                         </tr>
@@ -936,14 +831,14 @@ export default function AdminDashboardView({
           )}
 
           {/* ═══════════════════════════════════════════════
-              TAB 4: COURSES INVENTORY (WITH SUPER ADMIN PUBLISHING TOGGLE)
+              TAB 4: COURSE INVENTORY AND PUBLISHING
              ═══════════════════════════════════════════════ */}
           {activeTab === 'courses' && (
             <div className="admin-tab-content">
               <section className="admin-panel-card">
                 <div className="panel-header-row">
                   <div>
-                    <span className="panel-kicker">SUPER ADMIN CURRICULUM CONTROL</span>
+                    <span className="panel-kicker">COURSE MANAGEMENT</span>
                     <h2 className="panel-title">Courses Inventory & Publishing</h2>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -953,7 +848,7 @@ export default function AdminDashboardView({
                       className="button button-dark"
                       style={{ minHeight: 38, padding: '0 16px', fontSize: 13 }}
                     >
-                      <Plus size={15} /> Upload New Course
+                      <Plus size={15} /> Create course
                     </button>
                     <Link href="/courses" className="panel-view-all">
                       Public View →
@@ -979,7 +874,7 @@ export default function AdminDashboardView({
                     <article key={c.id} className="admin-course-card">
                       <div className="course-card-top-bar">
                         <span className="admin-academy-label">
-                          {c.academy ?? 'AI Foundations'}
+                          {c.academy ?? 'Academy not set'}
                         </span>
                         <span className={`admin-status-pill ${c.status === 'published' ? 'published' : 'draft'}`}>
                           {c.status.toUpperCase()}
@@ -987,7 +882,7 @@ export default function AdminDashboardView({
                       </div>
                       <h3 className="admin-course-title">{c.title}</h3>
                       <p className="admin-course-desc">
-                        {c.description ?? 'Practical step-by-step masterclass.'}
+                        {c.description ?? 'No course description provided.'}
                       </p>
                       <div className="admin-course-foot">
                         <span className="admin-access-tag">
@@ -1030,12 +925,9 @@ export default function AdminDashboardView({
               <section className="admin-panel-card">
                 <div className="panel-header-row">
                   <div>
-                    <span className="panel-kicker">INFRASTRUCTURE & CONFIGURATION</span>
-                    <h2 className="panel-title">System Settings & Super Admin Status</h2>
+                    <span className="panel-kicker">ADMINISTRATION</span>
+                    <h2 className="panel-title">Admin operations</h2>
                   </div>
-                  <span className="panel-status-pill status-healthy">
-                    All Systems Operational
-                  </span>
                 </div>
 
                 <div className="settings-grid">
@@ -1044,12 +936,10 @@ export default function AdminDashboardView({
                       <ShieldCheck size={22} />
                     </div>
                     <div>
-                      <h4>Super Admin Role-Based Access</h4>
+                      <h4>Administrator access</h4>
                       <p>
-                        Role enforcement is verified directly at the database tier via PostgreSQL
-                        RLS policies and service-role bypass for verified admins.
+                        Admin pages and actions check the signed-in account&apos;s assigned administrator role on the server.
                       </p>
-                      <span className="settings-pill-ok">Security Policy Active</span>
                     </div>
                   </div>
 
@@ -1058,12 +948,10 @@ export default function AdminDashboardView({
                       <Globe size={22} />
                     </div>
                     <div>
-                      <h4>Pan-African Mobile Delivery Engine</h4>
+                      <h4>Course publishing</h4>
                       <p>
-                        Optimized Next.js 16 build targeting Android Google Play Store standards
-                        with zero layout blowout and instant low-bandwidth rendering.
+                        Publish or unpublish courses from the inventory. Published courses appear in the public catalog.
                       </p>
-                      <span className="settings-pill-ok">Android Standard Enforced</span>
                     </div>
                   </div>
 
@@ -1072,12 +960,10 @@ export default function AdminDashboardView({
                       <Activity size={22} />
                     </div>
                     <div>
-                      <h4>Supabase PostgreSQL Cluster</h4>
+                      <h4>Platform records</h4>
                       <p>
-                        Database engine connection active with automated health checks, foreign
-                        key validation, and session rotation.
+                        Learner accounts, enrollments, and course records shown here are loaded from Supabase.
                       </p>
-                      <span className="settings-pill-ok">PostgreSQL Connected</span>
                     </div>
                   </div>
                 </div>
@@ -1087,16 +973,16 @@ export default function AdminDashboardView({
         </div>
 
         {/* ═════════════════════════════════════════════════════════════
-            SUPER ADMIN COURSE CREATOR STUDIO MODAL
+            COURSE CREATION
            ═════════════════════════════════════════════════════════════ */}
         {isCreateCourseOpen && (
           <div className="admin-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="creator-title">
             <div className="admin-modal-window">
               <header className="admin-modal-header">
                 <div>
-                  <span className="creator-section-kicker">EXECUTIVE CURRICULUM STUDIO</span>
-                  <h2 id="creator-title">Upload & Publish New Course</h2>
-                  <p>Add practical learning modules directly into the live PostgreSQL database.</p>
+                  <span className="creator-section-kicker">COURSE MANAGEMENT</span>
+                  <h2 id="creator-title">Create a course</h2>
+                  <p>Add course details and an optional starter module and lesson.</p>
                 </div>
                 <button
                   type="button"

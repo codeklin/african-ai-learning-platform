@@ -45,7 +45,7 @@ export default async function ProfilePage() {
 
   const fullName = profile?.full_name ?? user.email?.split('@')[0] ?? 'Learner'
   const email = profile?.email ?? user.email ?? ''
-  const role = user.email === 'gigsdev007@gmail.com' || profile?.role === 'admin' ? 'admin' : (profile?.role ?? 'learner')
+  const role = profile?.role ?? 'learner'
   const joinedDate = profile?.created_at
     ? new Date(profile.created_at).toLocaleDateString('en-GB', {
         month: 'short',
@@ -79,7 +79,7 @@ export default async function ProfilePage() {
               <Link href="/admin" className="app-sidebar-item app-sidebar-item--admin">
                 <ShieldCheck size={18} aria-hidden="true" />
                 <span>Admin Console</span>
-                <span className="super-admin-sidebar-tag">SUPER ADMIN</span>
+                <span className="super-admin-sidebar-tag">ADMIN</span>
               </Link>
             )}
           </nav>
@@ -100,9 +100,9 @@ export default async function ProfilePage() {
           <Brand />
           <div className="app-topbar-right">
             {role === 'admin' && (
-              <Link href="/admin" className="super-admin-topbar-chip" aria-label="Super Admin Portal">
+              <Link href="/admin" className="super-admin-topbar-chip" aria-label="Admin portal">
                 <ShieldCheck size={14} />
-                <span>SUPER ADMIN</span>
+                <span>ADMIN</span>
               </Link>
             )}
             <button className="app-icon-btn" aria-label="Notifications">
@@ -125,7 +125,7 @@ export default async function ProfilePage() {
                 <div className="profile-name-row">
                   <h1>{fullName}</h1>
                   <span className={`profile-role-tag role--${role}`}>
-                    {role === 'admin' ? 'SUPER ADMIN' : role.toUpperCase()}
+                    {role.toUpperCase()}
                   </span>
                 </div>
                 <p className="profile-email-text">
@@ -143,7 +143,7 @@ export default async function ProfilePage() {
               {role === 'admin' && (
                 <Link href="/admin" className="button button-dark profile-action-btn">
                   <ShieldCheck size={15} />
-                  <span>Super Admin Suite</span>
+                  <span>Admin console</span>
                 </Link>
               )}
               <Link href="/courses" className="button button-light profile-action-btn">

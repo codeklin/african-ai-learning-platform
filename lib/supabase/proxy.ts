@@ -80,7 +80,7 @@ export async function updateSession(request: NextRequest) {
       .single()
     const profile = rawProfile as { role: string } | null
 
-    if (profile?.role !== 'admin' && user.email !== 'gigsdev007@gmail.com') {
+    if (profile?.role !== 'admin') {
       const url = request.nextUrl.clone()
       url.pathname = '/dashboard'
       return NextResponse.redirect(url)

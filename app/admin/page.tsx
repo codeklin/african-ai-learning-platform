@@ -13,7 +13,7 @@ export default async function AdminPage() {
   } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
-  // Verify admin role — read from DB, never trust client state
+  // Verify the administrator role from the database, never client state.
   const { data: rawProfile } = await supabase
     .from('profiles')
     .select('role')
@@ -21,7 +21,7 @@ export default async function AdminPage() {
     .single()
   const profile = rawProfile as { role: import('@/lib/database.types').UserRole } | null
 
-  if (profile?.role !== 'admin' && user.email !== 'gigsdev007@gmail.com') {
+  if (profile?.role !== 'admin') {
     return (
       <main className="access-denied">
         <div className="access-denied-card">
@@ -78,7 +78,7 @@ export default async function AdminPage() {
       users={recentUsers ?? []}
       enrollments={recentEnrollments ?? []}
       courses={allCourses ?? []}
-      adminUserEmail={user.email ?? 'admin@ituwa.africa'}
+      adminUserEmail={user.email ?? 'Account email unavailable'}
       initialTab="overview"
     />
   )

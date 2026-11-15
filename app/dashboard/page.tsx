@@ -45,7 +45,7 @@ export default async function DashboardPage() {
   const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening'
   const continueEnrollment = enrollments?.[0]
   const totalLessons = progressRows?.length ?? 0
-  const isAdmin = profile?.role === 'admin' || user.email === 'gigsdev007@gmail.com'
+  const isAdmin = profile?.role === 'admin'
   const continueCourse = continueEnrollment?.courses
   const continueCourseId = continueCourse?.id
   const continueCompleted = continueCourseId ? progressByCourse[continueCourseId] ?? 0 : 0
@@ -84,7 +84,7 @@ export default async function DashboardPage() {
               <Link href="/admin" className="app-sidebar-item app-sidebar-item--admin">
                 <ShieldCheck size={18} aria-hidden="true" />
                 <span>Admin Console</span>
-                <span className="super-admin-sidebar-tag">SUPER ADMIN</span>
+                <span className="super-admin-sidebar-tag">ADMIN</span>
               </Link>
             )}
           </nav>
@@ -106,9 +106,9 @@ export default async function DashboardPage() {
           <Brand />
           <div className="app-topbar-right">
             {isAdmin && (
-              <Link href="/admin" className="super-admin-topbar-chip" aria-label="Super Admin Portal">
+              <Link href="/admin" className="super-admin-topbar-chip" aria-label="Admin portal">
                 <ShieldCheck size={14} />
-                <span>SUPER ADMIN</span>
+                <span>ADMIN</span>
               </Link>
             )}
             <button className="app-icon-btn" aria-label="Notifications">
@@ -121,23 +121,22 @@ export default async function DashboardPage() {
         </header>
 
         <main className="app-main" id="main-content">
-          {/* Super Admin Control Center Banner */}
+          {/* Administrator shortcuts */}
           {isAdmin && (
             <section className="super-admin-alert-banner">
               <div className="super-admin-banner-left">
                 <div className="super-admin-badge-strip">
-                  <span className="super-admin-live-dot" />
                   <ShieldCheck size={15} />
-                  <span>SUPER ADMIN PRIVILEGES ACTIVE</span>
+                  <span>ADMINISTRATOR</span>
                 </div>
-                <h2>Super Admin Control Center</h2>
+                <h2>Admin workspace</h2>
                 <p>
-                  You have full executive clearance: manage user roles, publish or draft courses, inspect live database logs, and review platform enrollments.
+                  Manage account roles, review enrollments, and publish or unpublish courses.
                 </p>
               </div>
               <div className="super-admin-banner-btns">
                 <Link href="/admin" className="button button-dark super-admin-action-btn">
-                  Open Super Admin Suite <ArrowRight size={15} />
+                  Open admin console <ArrowRight size={15} />
                 </Link>
                 <Link href="/admin/users" className="button button-light super-admin-action-btn">
                   Manage Learners
