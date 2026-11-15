@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState } from 'react'
 import { ArrowRight, ArrowUpRight, Check, MessageCircle } from 'lucide-react'
 import Brand from '@/components/brand'
@@ -141,6 +142,11 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
               </Link>
             </div>
             <div className="hero-proof">
+              <span className="proof-avatars" aria-hidden="true">
+                <Image className="proof-avatar-img" src="/ailab1.png" alt="" width={36} height={36} />
+                <Image className="proof-avatar-img" src="/ailab2.png" alt="" width={36} height={36} />
+                <Image className="proof-avatar-img" src="/ailab4.png" alt="" width={36} height={36} />
+              </span>
               <span>For beginners, freelancers and creators in Nigeria and across Africa.</span>
             </div>
           </div>
