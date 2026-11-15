@@ -1,14 +1,14 @@
 'use client'
 
 import Link from 'next/link'
-import { BookOpen, Flame, LayoutDashboard, User } from 'lucide-react'
+import { BookOpen, LayoutDashboard, PenLine, User } from 'lucide-react'
 
 type NavItem = 'dashboard' | 'courses' | 'challenges' | 'profile'
 
 const items: { id: NavItem; label: string; href: string; Icon: typeof LayoutDashboard }[] = [
   { id: 'dashboard',  label: 'Home',       href: '/dashboard',            Icon: LayoutDashboard },
   { id: 'courses',    label: 'Courses',    href: '/courses',               Icon: BookOpen        },
-  { id: 'challenges', label: 'Challenges', href: '/dashboard/challenges',  Icon: Flame           },
+  { id: 'challenges', label: 'Practice',   href: '/dashboard/challenges',  Icon: PenLine         },
   { id: 'profile',    label: 'Profile',    href: '/dashboard/profile',     Icon: User            },
 ]
 

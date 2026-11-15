@@ -33,7 +33,7 @@ export default function ResetPasswordForm() {
     const { error } = await supabase.auth.updateUser({ password })
 
     if (error) {
-      setError(error.message)
+      setError('We could not update your password. Please try again or request a new reset link.')
       setLoading(false)
       return
     }

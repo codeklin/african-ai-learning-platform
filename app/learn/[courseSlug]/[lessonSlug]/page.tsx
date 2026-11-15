@@ -97,7 +97,7 @@ export default async function LessonPage({
           <ArrowLeft size={15} /><span>Course overview</span>
         </Link>
         <Brand />
-        <span className="lesson-header-progress" aria-label="Lesson progress">
+        <span className="lesson-header-progress" aria-label="Lesson position in course">
           {currentIdx + 1} / {siblings?.length ?? 1}
         </span>
       </header>
@@ -109,7 +109,7 @@ export default async function LessonPage({
             <span>{course.title}</span>
           </Link>
           <div className="lesson-sidebar-label">
-            COURSE CONTENT
+            LESSON POSITION
             <span>{currentIdx + 1} / {siblings?.length ?? 1}</span>
           </div>
           <div className="lesson-progress-line">
@@ -122,8 +122,8 @@ export default async function LessonPage({
                 href={`/learn/${courseSlug}/${s.slug}`}
                 className={s.id === lesson.id ? 'lesson-item selected' : 'lesson-item'}
               >
-                <span className={i < currentIdx ? 'lesson-state done' : 'lesson-state'}>
-                  {i < currentIdx ? <Check size={12} /> : <Play size={11} />}
+                <span className={s.id === lesson.id ? 'lesson-state current' : 'lesson-state'}>
+                  {String(i + 1).padStart(2, '0')}
                 </span>
                 <span>
                   {s.title}
@@ -217,10 +217,9 @@ function LockedLesson({ courseSlug, courseTitle }: { courseSlug: string; courseT
     <div className="lesson-locked">
       <div className="lesson-locked-card">
         <Lock size={32} className="lesson-locked-icon" aria-hidden="true" />
-        <h1>This lesson is for enrolled learners</h1>
+        <h1>This lesson is available to enrolled learners</h1>
         <p>
-          Enrol in <strong>{courseTitle}</strong> to access all lessons, videos
-          and progress tracking.
+        Review <strong>{courseTitle}</strong> to see its lessons and available access options.
         </p>
         <Link href={`/courses/${courseSlug}`} className="button button-dark">
           View course <ArrowRight size={15} />

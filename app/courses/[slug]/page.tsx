@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowLeft, ArrowRight, Check, Clock3, Play } from 'lucide-react'
@@ -13,7 +14,7 @@ const creatorCourses: Record<string, { title: string; description: string }> = {
   'starting-a-faceless-youtube-channel': { title: 'Starting a Faceless YouTube Channel', description: 'Develop an original channel concept without appearing on camera.' },
   'youtube-automation-monetization-masterclass': { title: 'YouTube Automation & Monetization Masterclass', description: 'Design responsible repeatable workflows while keeping creative decisions and quality human-led.' },
   'ai-powered-youtube-content-production': { title: 'AI-Powered YouTube Content Production', description: 'Use AI responsibly for ideation and production while creating meaningfully original work.' },
-  'youtube-shorts-growth-strategy': { title: 'YouTube Shorts Growth Strategy', description: 'Plan short-form experiments around audience needs,without promising reach or growth.' },
+  'youtube-shorts-growth-strategy': { title: 'YouTube Shorts Growth Strategy', description: 'Plan short-form experiments around audience needs without promising reach or growth.' },
   'youtube-seo-and-analytics': { title: 'YouTube SEO and Analytics', description: 'Use search intent and channel analytics to make evidence-informed creative decisions.' },
   'youtube-monetization-policies-and-copyright': { title: 'YouTube Monetization Policies and Copyright', description: 'Understand policy, copyright, disclosure, and how to review official updates.' },
   'building-a-creator-business-beyond-ad-revenue': { title: 'Building a Creator Business Beyond Ad Revenue', description: 'Explore audience-aligned services, products, partnerships, and other diversified models.' },
@@ -92,13 +93,13 @@ const courses: Record<string, {
     duration: '4h',
     lessons: 14,
     youtubeVideoId: '',
-    description: 'Not sure what to sell? Find one problem clients pay to solve, build a clear service offer around it, and use AI to deliver it efficiently.',
-    outcomes: ['Find a service you can offer and explain its value', 'Write a one-page service offer that clients understand', 'Use AI to cut delivery time without cutting quality', 'Handle your first client brief end to end'],
+    description: 'Explore a problem potential clients may need help with, draft a clear service offer, and practise planning how to deliver it.',
+    outcomes: ['Describe a service you could offer and its value', 'Write a one-page service offer in clear language', 'Use AI to support delivery and review its output', 'Practise responding to a sample client brief'],
     modules: [
-      { title: 'Your service offer', lessons: ['Finding a problem clients pay for', 'Naming and scoping your service', 'Pricing for value, not hours'] },
+      { title: 'Your service offer', lessons: ['Finding a problem a potential client may need help with', 'Naming and scoping your service', 'Pricing for value, not hours'] },
       { title: 'Getting clients', lessons: ['Writing a clear service page', 'Pitching in DMs and emails', 'Your first proposal template'] },
       { title: 'Delivering with AI', lessons: ['Onboarding a client', 'Using AI in your delivery workflow', 'Quality control before you send'] },
-      { title: 'Growing it', lessons: ['Getting a testimonial', 'Turning one client into two', 'Building your freelance portfolio', 'Your first client project'] },
+      { title: 'Building your practice', lessons: ['Asking for feedback on completed work', 'Following up professionally', 'Building your freelance portfolio', 'Your first client project'] },
     ],
   },
   'build-a-helpful-ai-app': {
@@ -108,18 +109,44 @@ const courses: Record<string, {
     duration: '1h 45m Masterclass',
     lessons: 8,
     youtubeVideoId: 'qIUZ_C5ki3g',
-    description: 'Watch the step-by-step masterclass on building and shipping a functional AI tool. Learn how to connect prompt pipelines, structure user inputs, and test with real users.',
-    outcomes: ['Connect user inputs to structured prompt pipelines', 'Design functional UI prototypes that solve real business friction', 'Deploy and test your utility with actual users', 'Package and monetize single-purpose micro-tools'],
+    description: 'Follow a practical build to connect user input, prompt instructions and a simple interface, then test how the tool responds.',
+    outcomes: ['Connect user input to a structured prompt', 'Design an interface for a specific task', 'Test how the tool responds to sample inputs', 'Describe the tool and its limitations in a project overview'],
     modules: [
-      { title: 'Core Concept & Logic Architecture', lessons: ['Identify one high-demand business problem', 'Design the input-to-output pipeline', 'Prompt engineering for consistent structured responses'] },
+      { title: 'Core concept and logic', lessons: ['Identify a problem someone may need solved', 'Design the input-to-output steps', 'Write prompts for structured responses'] },
       { title: 'Live App Build Walkthrough', lessons: ['Build a Helpful AI App Masterclass (Video)', 'Handling API calls, keys, and edge errors', 'Deploying to a live mobile-friendly link'] },
-      { title: 'Packaging, Pricing & Portfolio', lessons: ['Testing with your first 5 real users', 'Creating your portfolio showcase asset'] },
+      { title: 'Testing and portfolio', lessons: ['Test sample inputs and review the results', 'Create a project overview for your portfolio'] },
     ],
   },
 }
 
 type CourseSlug = keyof typeof courses
 const creatorLessons = ['Define your audience and channel promise', 'Research topics and validate demand', 'Build a distinctive channel identity', 'Plan a useful publishing rhythm', 'Create an original video outline', 'Produce and package your video', 'Review audience signals and analytics', 'Evaluate rights, policy, and next steps']
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const creator = creatorCourses[slug]
+  const course = courses[slug as CourseSlug]
+  const title = creator?.title ?? course?.title
+  const description = creator?.description ?? course?.description
+
+  if (!title || !description) {
+    return { title: 'Course not found | ituwaAfrica' }
+  }
+
+  return {
+    title: `${title} | ituwaAfrica`,
+    description,
+    openGraph: {
+      title: `${title} | ituwaAfrica`,
+      description,
+      type: 'article',
+    },
+  }
+}
 
 export default async function CourseDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
@@ -196,7 +223,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
                 <circle cx="16" cy="16" r="16" fill="#25D366"/>
                 <path d="M23.472 8.516A10.368 10.368 0 0 0 16.01 5.5C10.733 5.5 6.44 9.794 6.44 15.07c0 1.69.44 3.34 1.278 4.793L6.37 24.5l4.76-1.249a10.4 10.4 0 0 0 4.876 1.237h.004c5.275 0 9.57-4.294 9.57-9.57a9.52 9.52 0 0 0-2.108-6.402Zm-7.462 14.724h-.003a8.636 8.636 0 0 1-4.404-1.207l-.316-.187-3.274.858.874-3.19-.206-.327a8.63 8.63 0 0 1-1.323-4.617c0-4.77 3.882-8.65 8.655-8.65a8.598 8.598 0 0 1 6.118 2.534 8.598 8.598 0 0 1 2.531 6.12c-.002 4.771-3.882 8.666-8.652 8.666Zm4.747-6.483c-.26-.13-1.538-.759-1.776-.846-.238-.087-.41-.13-.583.13-.173.26-.67.846-.82 1.02-.152.173-.303.195-.563.065-.26-.13-1.098-.405-2.09-1.29-.773-.688-1.294-1.538-1.446-1.797-.152-.26-.016-.4.114-.53.117-.116.26-.302.39-.453.13-.152.173-.26.26-.433.086-.173.043-.325-.022-.455-.065-.13-.583-1.405-.8-1.924-.21-.505-.424-.436-.583-.444l-.497-.009c-.173 0-.455.065-.693.325-.238.26-.909.888-.909 2.165s.931 2.511 1.061 2.684c.13.173 1.832 2.797 4.44 3.922.62.268 1.104.428 1.482.548.622.198 1.19.17 1.637.103.499-.074 1.538-.629 1.754-1.236.217-.607.217-1.128.152-1.236-.065-.109-.238-.173-.498-.303Z" fill="#fff"/>
               </svg>
-              Chat on WhatsApp to enrol
+              Ask a question about this course
             </a>
           </div>
 

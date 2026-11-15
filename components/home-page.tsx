@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-import { ArrowDownRight, ArrowRight, ArrowUpRight, Check, MessageCircle, ShieldCheck } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Check, MessageCircle } from 'lucide-react'
 import Brand from '@/components/brand'
 import AppBottomNav from '@/components/app-bottom-nav'
 import { useUser } from '@/hooks/use-user'
@@ -11,45 +11,63 @@ import type { User } from '@supabase/supabase-js'
 const featuredAcademies = [
   {
     number: '01',
-    title: 'AI Freelancing & Client Services',
-    detail: 'Package real services that clients pay for. Build proposals, deliver work, and get repeat business.',
+    title: 'AI Foundations',
+    detail: 'Understand AI and learn how to use it for everyday tasks.',
     href: '/courses',
     tone: 'coral',
-    tag: 'Highest demand',
   },
   {
     number: '02',
-    title: 'Creator Economy & YouTube',
-    detail: 'Start a channel, grow without showing your face, and build media assets that earn over time.',
+    title: 'AI Content Creation',
+    detail: 'Learn to create videos, images and written content with AI.',
     href: '/courses',
     tone: 'lavender',
-    tag: 'New academy',
   },
   {
     number: '03',
-    title: 'AI Foundations & Prompt Craft',
-    detail: 'Stop getting useless outputs. Learn how to give AI clear instructions and get real results.',
+    title: 'Creator Economy & YouTube',
+    detail: 'Learn how to start, manage and grow a YouTube channel or creator business.',
     href: '/courses',
     tone: 'lime',
-    tag: 'Start here',
+  },
+  {
+    number: '04',
+    title: 'AI Freelancing',
+    detail: 'Learn how to package and present digital services to clients.',
+    href: '/courses',
+    tone: 'peach',
+  },
+  {
+    number: '05',
+    title: 'AI Automation',
+    detail: 'Learn to automate repetitive tasks and connect digital tools.',
+    href: '/courses',
+    tone: 'blue',
+  },
+  {
+    number: '06',
+    title: 'AI App Development',
+    detail: 'Learn to build websites, apps and useful digital tools.',
+    href: '/courses',
+    tone: 'lime',
   },
 ]
 
 const steps = [
   {
     number: '01',
-    title: 'Pick a real problem',
-    text: 'Choose one service or workflow you want to offer or fix. No bloated 40-hour syllabus.',
+    title: 'Choose a skill to learn',
+    text: 'Start with an area that fits a task or interest you already have.',
   },
   {
     number: '02',
-    title: 'Practice on real briefs',
-    text: 'Build actual deliverables — client proposals, video hooks, prompt chains — not multiple-choice tests.',
+    title: 'Practise with a project',
+    text: 'Follow practical lessons and apply what you learn in an exercise or project.',
   },
   {
     number: '03',
-    title: 'Ship and get paid',
-    text: 'Leave each track with finished assets you can pitch to clients or launch publicly.',
+    title: 'Get guidance if you need it',
+    text: 'Start with free learning. Ask about personal mentorship when you want feedback on your work.',
   },
 ]
 
@@ -73,7 +91,7 @@ function SiteHeader({ isAuthenticated }: { isAuthenticated: boolean }) {
           <Link onClick={() => setOpen(false)} href="/quiz">Skill Assessment</Link>
           <a onClick={() => setOpen(false)} href="#academies">Academies</a>
           <a onClick={() => setOpen(false)} href="#how-it-works">How it works</a>
-          <a onClick={() => setOpen(false)} href="#pricing">Pricing</a>
+          <a onClick={() => setOpen(false)} href="#pricing">Mentorship</a>
           <div className="nav-actions">
             {!isAuthenticated && (
               <Link className="login-link" onClick={() => setOpen(false)} href="/login">Log in</Link>
@@ -83,7 +101,7 @@ function SiteHeader({ isAuthenticated }: { isAuthenticated: boolean }) {
               onClick={() => setOpen(false)}
               href={isAuthenticated ? '/dashboard' : '/courses'}
             >
-              <span>{isAuthenticated ? 'Dashboard' : 'Start learning'}</span>
+              <span>{isAuthenticated ? 'Dashboard' : 'Start learning free'}</span>
               <ArrowRight size={15} />
             </Link>
           </div>
@@ -104,50 +122,24 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
         <section className="hero hero--editorial">
           <div className="hero-editorial-inner">
             <h1>
-              <strong className="hero-h1-primary">Stop watching AI hype.</strong>
-              <span className="hero-h1-secondary">Learn practical skills you can actually earn with.</span>
+              <strong className="hero-h1-primary">Learn digital skills.</strong>
+              <span className="hero-h1-secondary">Build real things.</span>
             </h1>
             <p>
-              Most AI tutorials teach you nothing useful. ituwaAfrica shows you how to package real freelance services, launch creator channels, and do work that paying clients actually send money for. No foreign fluff. No high-end laptop required.
+              Learn AI, content creation, freelancing, YouTube, automation and app development through practical lessons and projects. Start with free training, then ask for personal guidance when you need help applying what you have learned.
             </p>
             <div className="hero-actions">
               <Link className="button button-dark hero-btn-main" href={isAuthenticated ? "/dashboard" : "/courses"}>
                 <span>{isAuthenticated ? 'Go to your dashboard' : 'Start learning free'}</span>
                 <ArrowRight size={16} />
               </Link>
-              <Link className="button button-outline-warm hero-btn-quiz" href="/quiz">
-                <span>Take 90-sec Quiz: What Should I Learn?</span>
+              <Link className="button button-outline-warm hero-btn-quiz" href="#academies">
+                <span>Explore the academies</span>
                 <ArrowRight size={15} />
               </Link>
             </div>
             <div className="hero-proof">
-              <div className="proof-avatars">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/ailab1.png"
-                  alt="ituwaAfrica learner avatar"
-                  className="proof-avatar-img"
-                  width={32}
-                  height={32}
-                />
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/ailab2.png"
-                  alt="ituwaAfrica learner avatar"
-                  className="proof-avatar-img"
-                  width={32}
-                  height={32}
-                />
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/ailab3.png"
-                  alt="ituwaAfrica learner avatar"
-                  className="proof-avatar-img"
-                  width={32}
-                  height={32}
-                />
-              </div>
-              <span>Built for Nigerian freelancers, creators, and solo hustlers</span>
+              <span>For beginners, freelancers, creators and working professionals across Nigeria and Africa.</span>
             </div>
           </div>
         </section>
@@ -160,38 +152,38 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
 
           <div className="section who-container">
             <div className="who-header">
-              <span className="who-header-kicker">WHO THIS ACTUALLY WORKS FOR</span>
+              <span className="who-header-kicker">PRACTISE USEFUL SKILLS</span>
               <h2 className="who-header-title">
-                Three real ways people use ituwaAfrica to put money in their account.
+                Learn by working on practical tasks and projects.
               </h2>
             </div>
 
             <div className="who-grid">
-              {/* Card 01: Freelancer */}
+              {/* Card 01: Freelance service */}
               <article className="who-card who-card--freelancer">
                 <span className="who-card-watermark" aria-hidden="true">01</span>
                 <div className="who-card-top">
-                  <span className="who-kicker">01 / FOR THE FREELANCER</span>
-                  <span className="who-stamp">₦50K – ₦250K / BRIEF</span>
+                  <span className="who-kicker">01 / FREELANCE SERVICES</span>
+                  <span className="who-stamp">PRACTISE AN OFFER</span>
                 </div>
-                <h3>Package real services clients pay for</h3>
+                <h3>Draft a clear freelance service</h3>
                 <p>
-                  Tired of bidding with generic proposals? Learn how to package real AI services clients pay ₦50k–₦250k for. Build portfolio samples that prove your value before you pitch.
+                  Explore a problem you could help solve, describe your service, and practise responding to a sample client brief. Learning does not guarantee clients or income.
                 </p>
                 <div className="who-specimen">
                   <div className="specimen-step">
                     <span className="specimen-dot" />
                     <span>Client brief</span>
                   </div>
-                  <span className="specimen-arrow">➔</span>
+                  <ArrowRight className="specimen-arrow" size={14} aria-hidden="true" />
                   <div className="specimen-step">
                     <span className="specimen-dot" />
-                    <span>AI system</span>
+                    <span>Service draft</span>
                   </div>
-                  <span className="specimen-arrow">➔</span>
+                  <ArrowRight className="specimen-arrow" size={14} aria-hidden="true" />
                   <div className="specimen-step specimen-step--highlight">
                     <span className="specimen-dot" />
-                    <span>Paid invoice</span>
+                    <span>Work sample</span>
                   </div>
                 </div>
               </article>
@@ -200,56 +192,56 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
               <article className="who-card who-card--creator">
                 <span className="who-card-watermark" aria-hidden="true">02</span>
                 <div className="who-card-top">
-                  <span className="who-kicker">02 / FOR THE CREATOR</span>
-                  <span className="who-stamp">ZERO CAMERA REQUIRED</span>
+                  <span className="who-kicker">02 / CONTENT CREATION</span>
+                  <span className="who-stamp">ORIGINALITY FIRST</span>
                 </div>
-                <h3>Launch channels without showing your face</h3>
+                <h3>Plan videos for a clear audience</h3>
                 <p>
-                  Want to start YouTube without buying expensive cameras or showing your face? Build faceless channel systems, hook-driven scripts, and original content that earns over time.
+                  Develop a channel idea, plan useful videos, and practise making original content. Views, monetisation and income are never guaranteed.
                 </p>
                 <div className="who-specimen">
                   <div className="specimen-step">
                     <span className="specimen-dot" />
-                    <span>Hook blueprint</span>
+                    <span>Audience idea</span>
                   </div>
-                  <span className="specimen-arrow">➔</span>
+                  <ArrowRight className="specimen-arrow" size={14} aria-hidden="true" />
                   <div className="specimen-step">
                     <span className="specimen-dot" />
-                    <span>Faceless edit</span>
+                    <span>Video outline</span>
                   </div>
-                  <span className="specimen-arrow">➔</span>
+                  <ArrowRight className="specimen-arrow" size={14} aria-hidden="true" />
                   <div className="specimen-step specimen-step--highlight">
                     <span className="specimen-dot" />
-                    <span>Media asset</span>
+                    <span>Content plan</span>
                   </div>
                 </div>
               </article>
 
-              {/* Card 03: Solo Hustler */}
+              {/* Card 03: Automation */}
               <article className="who-card who-card--hustler">
                 <span className="who-card-watermark" aria-hidden="true">03</span>
                 <div className="who-card-top">
-                  <span className="who-kicker">03 / FOR THE SOLO HUSTLER</span>
-                  <span className="who-stamp">4+ HOURS RECLAIMED</span>
+                  <span className="who-kicker">03 / AI AUTOMATION</span>
+                  <span className="who-stamp">ONE TASK AT A TIME</span>
                 </div>
-                <h3>Reclaim 4+ hours every single day</h3>
+                <h3>Map one repetitive task</h3>
                 <p>
-                  Stop doing repetitive manual tasks. Learn prompt pipelines and lightweight automations that handle client replies, graphics, and order summaries automatically.
+                  Choose a task you repeat, map its steps, and test a simple workflow. Tools have limits, so review the results before relying on them.
                 </p>
                 <div className="who-specimen">
                   <div className="specimen-step">
                     <span className="specimen-dot" />
-                    <span>Customer DM</span>
+                    <span>Repeated task</span>
                   </div>
-                  <span className="specimen-arrow">➔</span>
+                  <ArrowRight className="specimen-arrow" size={14} aria-hidden="true" />
                   <div className="specimen-step">
                     <span className="specimen-dot" />
-                    <span>Auto pipeline</span>
+                    <span>Workflow map</span>
                   </div>
-                  <span className="specimen-arrow">➔</span>
+                  <ArrowRight className="specimen-arrow" size={14} aria-hidden="true" />
                   <div className="specimen-step specimen-step--highlight">
                     <span className="specimen-dot" />
-                    <span>Order closed</span>
+                    <span>Test result</span>
                   </div>
                 </div>
               </article>
@@ -257,14 +249,14 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
           </div>
         </section>
 
-        {/* ── 3. 3 Core Academies ── */}
+        {/* ── 3. Six Academies ── */}
         <section id="academies" className="section academies-section">
           <div className="section-heading">
             <div>
-              <div className="eyebrow"><span className="eyebrow-line" /> FOCUSED LEARNING TRACKS</div>
-              <h2>Three pathways built<br />to get you earning.</h2>
+              <div className="eyebrow"><span className="eyebrow-line" /> SIX PRACTICAL LEARNING AREAS</div>
+              <h2>Choose what you want<br />to learn and make.</h2>
             </div>
-            <p>Pick one track, finish the starter sprint, and build work you can actually point to.</p>
+            <p>Explore practical lessons and projects across AI, content, freelancing, YouTube, automation and app development.</p>
           </div>
           <div className="academy-grid">
             {featuredAcademies.map((academy) => (
@@ -277,7 +269,7 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
                 <h3>{academy.title}</h3>
                 <p>{academy.detail}</p>
                 <div className="academy-bottom">
-                  <span>{academy.tag}</span>
+                  <span>Explore courses</span>
                   <ArrowRight size={15} />
                 </div>
               </Link>
@@ -285,7 +277,7 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
           </div>
           <div className="academies-footer">
             <Link href="/courses" className="button button-outline-warm">
-              <span>Browse all courses & tracks</span>
+              <span>Browse all courses</span>
               <ArrowRight size={15} />
             </Link>
           </div>
@@ -295,11 +287,11 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
         <section id="how-it-works" className="how-section">
           <div className="section how-inner">
             <div className="how-intro">
-              <div className="eyebrow"><span className="eyebrow-line" /> NO MORE WATCHING WITHOUT PRACTICE</div>
-              <h2>Knowledge is good.<br /><span>Capability gets paid.</span></h2>
-              <p>Watching endless videos feels productive until someone asks to see your work. Here, you practice on real briefs from day one.</p>
-              <Link className="text-link" href="/quiz">
-                <span>Take the 90-second assessment</span>
+              <div className="eyebrow"><span className="eyebrow-line" /> LEARN, THEN PUT IT INTO PRACTICE</div>
+              <h2>Learn something.<br /><span>Try it for yourself.</span></h2>
+              <p>Use free lessons and practical exercises to learn at your own pace. Choose a course that fits what you want to do next.</p>
+              <Link className="text-link" href="/courses">
+                <span>Explore free courses</span>
                 <ArrowRight size={16} />
               </Link>
             </div>
@@ -318,98 +310,72 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
           </div>
         </section>
 
-        {/* ── 5. Pricing (Two Tiers: Free Explorer + AI Learner) ── */}
+        {/* ── 5. Free learning and personal mentorship ── */}
         <section id="pricing" className="pricing-section">
           <div className="section pricing-inner">
 
             {/* Section header */}
             <div className="pricing-header">
-              <div className="eyebrow"><span className="eyebrow-line" /> THREE WAYS TO LEARN</div>
-              <h2>Start free.<br /><span>Upgrade when you&apos;re ready to build real assets.</span></h2>
+              <div className="eyebrow"><span className="eyebrow-line" /> LEARNING &amp; MENTORSHIP</div>
+              <h2>Start with free learning.<br /><span>Get personal guidance when you need it.</span></h2>
               <p>
-                No foreign currency complications. No pressure. Begin with selected free courses across all academies, unlock full library access, or book direct 1-on-1 mentorship.
+                Learn through free tutorials, available courses and practical exercises. If you want help applying a skill, ask about one-to-one mentorship.
               </p>
             </div>
 
-            {/* Column layout for pricing cards */}
+            {/* Free learning and mentorship offers */}
             <div className="pricing-cards-column">
 
-              {/* Card 1: Free Explorer */}
+              {/* Free learning */}
               <div className="price-card price-card--free">
                 <div className="price-top">
-                  <span className="plan-label">FREE EXPLORER</span>
-                  <span className="free-tag">START NOW</span>
+                  <span className="plan-label">FREE LEARNING</span>
+                  <span className="free-tag">START HERE</span>
                 </div>
                 <div className="price-amount">
-                  <span className="price-val">₦0</span>
-                  <span className="price-period">/ forever</span>
+                  <span className="price-val">Free</span>
+                  <span className="price-period">to begin</span>
                 </div>
-                <p className="price-tagline">Curiosity has no cover charge.</p>
+                <p className="price-tagline">Learn and practise at your own pace.</p>
                 <ul>
-                  <li><Check size={15} /> Selected starter courses across all academies</li>
-                  <li><Check size={15} /> Personal learner dashboard and progress tracking</li>
-                  <li><Check size={15} /> Daily practical micro-challenges</li>
-                  <li><Check size={15} /> Mobile-first, works on slow networks</li>
+                  <li><Check size={15} /> Free YouTube tutorials</li>
+                  <li><Check size={15} /> Available free courses on ituwaAfrica</li>
+                  <li><Check size={15} /> Practical lessons and exercises</li>
+                  <li><Check size={15} /> Six academies to explore</li>
                 </ul>
-                <Link className="price-btn--free" href={isAuthenticated ? '/dashboard' : '/signup'}>
-                  <span>{isAuthenticated ? 'Go to dashboard' : 'Create free account'}</span>
+                <Link className="price-btn--free" href="/courses">
+                  <span>Explore free courses</span>
                   <ArrowRight size={15} />
                 </Link>
-                <small>No card required. Learn at your own pace.</small>
+                <small>Start with the free learning available on the platform.</small>
               </div>
 
-              {/* Card 2: AI Learner (Paid) */}
-              <div className="price-card price-card--paid">
-                <div className="price-top">
-                  <span className="plan-label">AI LEARNER</span>
-                  <span className="paid-tag">FULL ACCESS</span>
-                </div>
-                <div className="price-amount">
-                  <span className="price-val">₦20,000</span>
-                  <span className="price-period">/ month</span>
-                </div>
-                <p className="price-tagline">Everything you need to earn with AI.</p>
-                <ul>
-                  <li><ShieldCheck size={15} /> Full course library and guided learning pathways</li>
-                  <li><ShieldCheck size={15} /> Portfolio projects and client-ready brief templates</li>
-                  <li><ShieldCheck size={15} /> Graded assessments and instructor feedback</li>
-                  <li><ShieldCheck size={15} /> Downloadable prompt libraries and proposal systems</li>
-                  <li><ShieldCheck size={15} /> Verified certificate of completion</li>
-                </ul>
-                <Link className="price-btn--paid" href={isAuthenticated ? '/dashboard' : '/signup'}>
-                  <span>Join AI Learner</span>
-                  <ArrowRight size={15} />
-                </Link>
-                <small>Cancel anytime. Built for Nigerian freelancers and creators.</small>
-              </div>
-
-              {/* Card 3: 1-on-1 Mentorship */}
+              {/* Personal mentorship */}
               <div className="price-card price-card--mentorship">
                 <div className="price-top">
-                  <span className="plan-label">1-ON-1 MENTORSHIP</span>
-                  <span className="mentorship-tag">DIRECT ACCESS</span>
+                  <span className="plan-label">PERSONAL MENTORSHIP</span>
+                  <span className="mentorship-tag">ONE TO ONE</span>
                 </div>
                 <div className="price-amount">
-                  <span className="price-val" style={{ fontSize: 'clamp(26px, 5vw, 34px)', color: '#E86A58' }}>Custom</span>
-                  <span className="price-period">/ session</span>
+                  <span className="price-val">Personal</span>
+                  <span className="price-period">guidance</span>
                 </div>
-                <p className="price-tagline">Personal guidance. Real feedback. Fast results.</p>
+                <p className="price-tagline">Work directly with a mentor on your learning goals.</p>
                 <ul>
-                  <li><MessageCircle size={15} /> 1-on-1 private strategy & consultation session</li>
-                  <li><MessageCircle size={15} /> Portfolio & proposal review with honest feedback</li>
-                  <li><MessageCircle size={15} /> Custom AI workflow tailored to your specific niche</li>
-                  <li><MessageCircle size={15} /> Direct WhatsApp follow-up & voice note support</li>
+                  <li><MessageCircle size={15} /> Get help choosing a learning direction</li>
+                  <li><MessageCircle size={15} /> Ask for feedback on a project or draft</li>
+                  <li><MessageCircle size={15} /> Discuss how to apply a skill to a practical task</li>
                 </ul>
                 <a
                   className="price-btn--mentorship"
-                  href="https://wa.me/2347031098097?text=Hi%2C%20I%27m%20interested%20in%20a%201-on-1%20mentorship%20session%20with%20ituwaAfrica."
+                  href="https://wa.me/2347031098097?text=Hi%2C%20I%27d%20like%20to%20ask%20about%20personal%20mentorship%20with%20ituwaAfrica."
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <span>Chat on WhatsApp</span>
+                  <span>Ask about mentorship</span>
                   <ArrowRight size={15} />
                 </a>
-                <small>Limited monthly slots. Message directly to book.</small>
+                <small>Ask about the format and current availability. Mentorship does not guarantee clients, employment or income.</small>
               </div>
 
             </div>
@@ -418,21 +384,21 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
 
         {/* ── 6. Closing CTA ── */}
         <section className="closing-cta">
-          <div className="eyebrow">START WHERE YOU ARE · BUILD FROM THERE</div>
+          <div className="eyebrow">START WITH WHAT YOU CAN LEARN</div>
           <h2>
-            Stop waiting for the perfect time.<br />
-            <em>Start earning with practical AI today.</em>
+            Start with a skill you want to learn.<br />
+            <em>Build something useful as you practise.</em>
           </h2>
           <p className="closing-cta-sub">
-            You don&apos;t need a foreign tech degree or an expensive laptop. Pick one track, practice 20 minutes a day, and build work that speaks for itself.
+            Explore free courses and practical lessons. Learn at your own pace, then ask for personal guidance if you need help with your next step.
           </p>
           <div className="closing-cta-actions">
             <Link className="button button-dark" href={isAuthenticated ? "/dashboard" : "/courses"}>
               <span>{isAuthenticated ? 'Go to your dashboard' : 'Start learning free'}</span>
               <ArrowRight size={16} />
             </Link>
-            <Link className="button button-outline-warm" href="/quiz">
-              <span>Take 90-sec Quiz</span>
+            <Link className="button button-outline-warm" href="#academies">
+            <span>Explore the academies</span>
               <ArrowRight size={15} />
             </Link>
           </div>
@@ -450,7 +416,7 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
               <Link href="/courses">Courses</Link>
               <Link href="/quiz">Skill Assessment</Link>
               <a href="#academies">Academies</a>
-              <a href="#pricing">Pricing</a>
+              <a href="#pricing">Mentorship</a>
             </div>
             <div>
               <span>ITUWA AFRICA</span>
@@ -469,8 +435,8 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© 2026 ituwaAfrica. Made for real work.</span>
-          <span>Start where you are. Build from there.</span>
+          <span>© 2026 ituwaAfrica. Practical learning, at your own pace.</span>
+          <span>Learn digital skills. Build real things.</span>
         </div>
       </footer>
 

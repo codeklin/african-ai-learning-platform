@@ -26,7 +26,7 @@ export default function LoginForm() {
       setError(
         error.message === 'Invalid login credentials'
           ? 'Incorrect email or password. Please try again.'
-          : error.message
+          : 'We could not sign you in. Please try again or reset your password.'
       )
       setLoading(false)
       return

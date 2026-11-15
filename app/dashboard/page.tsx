@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowRight, BookOpen, Flame, LayoutDashboard, LogOut, ShieldCheck, Trophy, User, Bell, Zap } from 'lucide-react'
+import { ArrowRight, BookOpen, LayoutDashboard, LogOut, PenLine, ShieldCheck, Trophy, User, Bell } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { signOut } from '@/app/actions/auth'
 import Brand from '@/components/brand'
@@ -46,6 +46,9 @@ export default async function DashboardPage() {
   const continueEnrollment = enrollments?.[0]
   const totalLessons = progressRows?.length ?? 0
   const isAdmin = profile?.role === 'admin' || user.email === 'gigsdev007@gmail.com'
+  const continueCourse = continueEnrollment?.courses
+  const continueCourseId = continueCourse?.id
+  const continueCompleted = continueCourseId ? progressByCourse[continueCourseId] ?? 0 : 0
 
   // Academy colour map for course art
   const academyColours: Record<string, string> = {
@@ -72,7 +75,7 @@ export default async function DashboardPage() {
               <BookOpen size={18} aria-hidden="true" /> Browse courses
             </Link>
             <Link href="/dashboard/challenges" className="app-sidebar-item">
-              <Flame size={18} aria-hidden="true" /> Challenges
+              <PenLine size={18} aria-hidden="true" /> Practice
             </Link>
             <Link href="/dashboard/profile" className="app-sidebar-item">
               <User size={18} aria-hidden="true" /> Profile
@@ -150,8 +153,7 @@ export default async function DashboardPage() {
               <h1 className="app-greeting-h1">{greeting}, {firstName}</h1>
             </div>
             <div className="app-streak-chip">
-              <Zap size={14} fill="currentColor" aria-hidden="true" />
-              <span>0 day streak</span>
+              <span>Learn at your own pace</span>
             </div>
           </section>
 
@@ -166,41 +168,29 @@ export default async function DashboardPage() {
               <span className="app-stat-num">{totalLessons}</span>
               <span className="app-stat-label">Lessons done</span>
             </div>
-            <div className="app-stat-divider" aria-hidden="true" />
-            <div className="app-stat">
-              <span className="app-stat-num">0</span>
-              <span className="app-stat-label">Certificates</span>
-            </div>
           </section>
 
           {/* Continue learning */}
-          {continueEnrollment?.courses ? (
+          {continueCourse ? (
             <section className="app-section">
               <div className="app-section-label">CONTINUE LEARNING</div>
               <Link
-                href={`/learn/${continueEnrollment.courses.slug}/lesson-1`}
+                href={`/learn/${continueCourse.slug}/lesson-1`}
                 className="app-continue-card"
-                aria-label={`Continue: ${continueEnrollment.courses.title}`}
+                aria-label={`Continue: ${continueCourse.title}`}
               >
                 <div
                   className="app-continue-art"
-                  style={{ background: academyColours[continueEnrollment.courses.academy ?? ''] ?? '#eeecff' }}
+                  style={{ background: academyColours[continueCourse.academy ?? ''] ?? '#eeecff' }}
                   aria-hidden="true"
                 >
                   <span className="app-continue-num">01</span>
                 </div>
                 <div className="app-continue-body">
-                  <span className="app-academy-chip">{continueEnrollment.courses.academy}</span>
-                  <h2 className="app-continue-title">{continueEnrollment.courses.title}</h2>
-                  <div className="app-progress-track" role="progressbar"
-                    aria-valuenow={Math.min(100, Math.round(((progressByCourse[continueEnrollment.courses.id] ?? 0) / 8) * 100))}
-                    aria-valuemin={0} aria-valuemax={100}
-                    aria-label="Course progress">
-                    <div className="app-progress-fill"
-                      style={{ width: `${Math.min(100, Math.round(((progressByCourse[continueEnrollment.courses.id] ?? 0) / 8) * 100))}%` }} />
-                  </div>
+                  <span className="app-academy-chip">{continueCourse.academy}</span>
+                  <h2 className="app-continue-title">{continueCourse.title}</h2>
                   <span className="app-progress-label">
-                    {progressByCourse[continueEnrollment.courses.id] ?? 0} of 8 lessons complete
+                    Completed lessons: {continueCompleted}
                   </span>
                 </div>
                 <ArrowRight size={18} className="app-continue-arrow" aria-hidden="true" />
@@ -221,14 +211,13 @@ export default async function DashboardPage() {
                   if (!en.courses) return null
                   const c = en.courses
                   const done = progressByCourse[c.id] ?? 0
-                  const pct = Math.min(100, Math.round((done / 8) * 100))
                   const bg = academyColours[c.academy ?? ''] ?? '#eeecff'
                   return (
                     <Link
                       key={en.id}
                       href={`/learn/${c.slug}/lesson-1`}
                       className="app-course-tile"
-                      aria-label={`${c.title} — ${pct}% complete`}
+                      aria-label={`${c.title} — ${done} completed lessons`}
                     >
                       <div className="app-tile-art" style={{ background: bg }} aria-hidden="true">
                         <span className="app-tile-num">{String(i + 1).padStart(2, '0')}</span>
@@ -236,12 +225,7 @@ export default async function DashboardPage() {
                       <div className="app-tile-body">
                         {c.academy && <span className="app-academy-chip app-academy-chip--xs">{c.academy}</span>}
                         <h3 className="app-tile-title">{c.title}</h3>
-                        <div className="app-progress-track" role="progressbar"
-                          aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100}
-                          aria-label={`${pct}% complete`}>
-                          <div className="app-progress-fill" style={{ width: `${pct}%` }} />
-                        </div>
-                        <span className="app-progress-label">{pct}%</span>
+                        <span className="app-progress-label">Completed lessons: {done}</span>
                       </div>
                     </Link>
                   )

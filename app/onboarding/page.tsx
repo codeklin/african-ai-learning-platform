@@ -28,60 +28,70 @@ interface TrackOption {
   firstCourse: string
   firstCourseSlug: string
   tone: string
-  outcome: string
-  hoursPerWeek: string
+  practiceGoal: string
+  focusLabel: string
 }
 
 const tracks: TrackOption[] = [
   {
     id: 'creator',
     title: 'Creator Economy & YouTube',
-    subtitle: 'Plan, script, and launch faceless or personal video channels with structured workflows.',
+    subtitle: 'Plan original videos and learn the basics of building a YouTube channel.',
     firstCourse: 'YouTube Business Fundamentals',
     firstCourseSlug: 'youtube-business-fundamentals',
     tone: 'lavender',
-    outcome: 'A published YouTube video or 3-part channel package.',
-    hoursPerWeek: '2–3 hours/week',
+    practiceGoal: 'Plan an original channel concept and outline a useful video.',
+    focusLabel: 'Channel planning',
   },
   {
     id: 'foundations',
     title: 'AI Foundations',
-    subtitle: 'Cut through marketing noise, master structured prompt chains, and build everyday AI confidence.',
+    subtitle: 'Understand what AI can do and practise using it for everyday tasks.',
     firstCourse: 'Your AI Toolkit: A Practical Start',
-    firstCourseSlug: 'prompting-better-work',
+    firstCourseSlug: 'ai-toolkit-practical-start',
     tone: 'coral',
-    outcome: 'Mastery of structured prompt frameworks and AI tool selection.',
-    hoursPerWeek: '2 hours/week',
+    practiceGoal: 'Try an AI tool on an everyday task and review its response.',
+    focusLabel: 'Everyday AI',
   },
   {
     id: 'freelance',
     title: 'AI Freelancing',
-    subtitle: 'Package tangible AI services, pitch international and Nigerian clients, and build portfolio assets.',
+    subtitle: 'Learn to describe a digital service and practise responding to a client brief.',
     firstCourse: 'AI for Your Freelance Business',
-    firstCourseSlug: 'prompting-better-work',
+    firstCourseSlug: 'ai-for-your-freelance-business',
     tone: 'amber',
-    outcome: 'A client-ready service offer, sample deliverable, and pitch script.',
-    hoursPerWeek: '4 hours/week',
+    practiceGoal: 'Draft a service offer and a sample response to a client brief.',
+    focusLabel: 'Service planning',
   },
   {
     id: 'automation',
     title: 'AI Automation',
-    subtitle: 'Eliminate repetitive manual tasks by chaining triggers, AI logic, and automated data pipelines.',
+    subtitle: 'Map a repetitive task and learn how digital tools can work together.',
     firstCourse: 'Build Your First AI Workflow',
-    firstCourseSlug: 'prompting-better-work',
+    firstCourseSlug: 'build-your-first-ai-workflow',
     tone: 'jade',
-    outcome: 'A functional background workflow saving 5+ manual hours weekly.',
-    hoursPerWeek: '3 hours/week',
+    practiceGoal: 'Map one task, plan a simple workflow and test its output.',
+    focusLabel: 'Workflow design',
   },
   {
     id: 'content',
     title: 'AI Content Creation',
-    subtitle: 'Defeat the blank page, build editorial workflows, and create work that retains human nuance.',
+    subtitle: 'Use AI to support content ideas and drafts, then edit the work in your own voice.',
     firstCourse: 'The Freelance AI Content Studio',
-    firstCourseSlug: 'prompting-better-work',
+    firstCourseSlug: 'freelance-ai-content-studio',
     tone: 'lime',
-    outcome: 'An editorial studio system for articles, newsletters, and briefs.',
-    hoursPerWeek: '3 hours/week',
+    practiceGoal: 'Create and edit a content sample from a brief.',
+    focusLabel: 'Content production',
+  },
+  {
+    id: 'apps',
+    title: 'AI App Development',
+    subtitle: 'Learn to plan and test a simple app or digital tool.',
+    firstCourse: 'Build a Helpful AI App',
+    firstCourseSlug: 'build-a-helpful-ai-app',
+    tone: 'peach',
+    practiceGoal: 'Plan a simple AI app and test it with sample inputs.',
+    focusLabel: 'App prototyping',
   },
 ]
 
@@ -127,14 +137,14 @@ function OnboardingContent() {
       <header className="onboarding-topbar">
         <Brand />
         <div className="onboarding-step-indicator">
-          <span className={`step-pill ${step >= 1 ? 'active' : ''}`}>1. Track</span>
+          <span className={`step-pill ${step >= 1 ? 'active' : ''}`}>1. Focus</span>
           <span className="step-arrow">→</span>
           <span className={`step-pill ${step >= 2 ? 'active' : ''}`}>2. Rhythm</span>
           <span className="step-arrow">→</span>
-          <span className={`step-pill ${step >= 3 ? 'active' : ''}`}>3. Launch</span>
+          <span className={`step-pill ${step >= 3 ? 'active' : ''}`}>3. Review</span>
         </div>
         <Link href="/quiz" className="onboarding-quiz-link">
-          <Compass size={15} /> Recalculate with Quiz
+          <Compass size={15} /> Take the skill assessment
         </Link>
       </header>
 
@@ -144,10 +154,9 @@ function OnboardingContent() {
           <section className="onboarding-card">
             <div className="onboarding-card-header">
               <span className="onboarding-kicker">STEP 01 OF 03 · YOUR FOCUS ACADEMY</span>
-              <h1>Choose your primary learning track</h1>
+              <h1>Choose an area to start with</h1>
               <p>
-                Focusing on one clear capability first gives you real momentum. You can switch tracks or explore
-                other courses anytime from your dashboard.
+                Choose a topic that interests you. You can explore other courses whenever you are ready.
               </p>
             </div>
 
@@ -162,7 +171,7 @@ function OnboardingContent() {
                     className={`onboarding-track-card ${isSelected ? 'selected' : ''}`}
                   >
                     <div className="track-card-top">
-                      <span className={`track-tone-pill tone--${track.tone}`}>{track.hoursPerWeek}</span>
+                      <span className={`track-tone-pill tone--${track.tone}`}>{track.focusLabel}</span>
                       {isSelected && (
                         <span className="track-selected-tag">
                           <CheckCircle2 size={16} /> Selected
@@ -201,8 +210,7 @@ function OnboardingContent() {
               <span className="onboarding-kicker">STEP 02 OF 03 · YOUR PACE & HABIT</span>
               <h1>Set your realistic learning rhythm</h1>
               <p>
-                Short, disciplined sessions beat long, exhausting binge sessions. Pick a target you can reliably
-                hit this week.
+                Choose a weekly lesson target that fits your schedule. You can change your target at any time.
               </p>
             </div>
 
@@ -210,9 +218,9 @@ function OnboardingContent() {
               <label className="rhythm-label">WEEKLY LESSON TARGET</label>
               <div className="rhythm-options-row">
                 {[
-                  { count: 2, label: '2 Lessons / week', desc: 'Gentle pace (approx 40 mins/week)' },
-                  { count: 3, label: '3 Lessons / week', desc: 'Recommended steady momentum', badge: 'Popular' },
-                  { count: 5, label: '5 Lessons / week', desc: 'Intensive career acceleration' },
+                  { count: 2, label: '2 lessons / week', desc: 'A lighter weekly target' },
+                  { count: 3, label: '3 lessons / week', desc: 'A steady weekly target' },
+                  { count: 5, label: '5 lessons / week', desc: 'More frequent practice' },
                 ].map((item) => (
                   <button
                     key={item.count}
@@ -220,7 +228,6 @@ function OnboardingContent() {
                     onClick={() => setWeeklyTarget(item.count)}
                     className={`rhythm-target-btn ${weeklyTarget === item.count ? 'selected' : ''}`}
                   >
-                    {item.badge && <span className="rhythm-badge">{item.badge}</span>}
                     <span className="rhythm-count">{item.count}</span>
                     <strong className="rhythm-title">{item.label}</strong>
                     <span className="rhythm-desc">{item.desc}</span>
@@ -232,8 +239,8 @@ function OnboardingContent() {
                 <div className="reminder-header">
                   <Clock size={18} className="reminder-icon" />
                   <div>
-                    <h4>Daily Study Reminder Slot</h4>
-                    <p>When are you most likely to focus without disruptions?</p>
+                    <h4>Choose a study time</h4>
+                    <p>This adds a preferred time to your plan; it does not schedule a notification.</p>
                   </div>
                 </div>
                 <div className="reminder-slots-row">
@@ -264,7 +271,7 @@ function OnboardingContent() {
                 onClick={() => setStep(3)}
                 className="button button-dark onboarding-next-btn"
               >
-                <span>Confirm commitment</span>
+                <span>Review your choices</span>
                 <ArrowRight size={17} />
               </button>
             </div>
@@ -274,16 +281,16 @@ function OnboardingContent() {
         {step === 3 && (
           <section className="onboarding-card">
             <div className="onboarding-card-header">
-              <span className="onboarding-kicker">STEP 03 OF 03 · YOUR FIRST SPRINT</span>
-              <h1>Your personalized learning workspace is ready</h1>
+              <span className="onboarding-kicker">STEP 03 OF 03 · REVIEW YOUR CHOICES</span>
+              <h1>Review the learning plan you chose</h1>
               <p>
-                We have prepared your dashboard with your chosen track, weekly goals, and starter project.
+                Your learning focus and weekly target are saved in this browser.
               </p>
             </div>
 
             <div className="onboarding-ready-card">
               <div className="ready-card-left">
-                <span className="ready-track-tag">ACTIVATED TRACK</span>
+                <span className="ready-track-tag">LEARNING FOCUS</span>
                 <h2>{selectedTrack.title}</h2>
                 <p className="ready-subtitle">{selectedTrack.subtitle}</p>
 
@@ -299,18 +306,21 @@ function OnboardingContent() {
                 </div>
 
                 <div className="ready-outcome-box">
-                  <strong>Expected 30-Day Milestone:</strong>
-                  <p>{selectedTrack.outcome}</p>
+                  <strong>A practical goal to work toward:</strong>
+                  <p>{selectedTrack.practiceGoal}</p>
                 </div>
               </div>
 
               <div className="ready-card-right">
-                <span className="starter-label">FIRST STARTER COURSE</span>
+                <span className="starter-label">SUGGESTED COURSE</span>
                 <h3>{selectedTrack.firstCourse}</h3>
-                <p>Begin with practical module 01 today. Take 20 minutes to try the first hands-on exercise.</p>
+                <p>Open the course overview to see its lessons, what you can practise and how to get started.</p>
                 <div className="starter-free-badge">
-                  <CheckCircle2 size={15} /> Free instant access
+                  <CheckCircle2 size={15} /> Free course
                 </div>
+                <Link className="text-link" href={`/courses/${selectedTrack.firstCourseSlug}`}>
+                  View suggested course <ArrowRight size={15} />
+                </Link>
               </div>
             </div>
 

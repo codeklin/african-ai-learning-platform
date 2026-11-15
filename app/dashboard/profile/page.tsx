@@ -5,16 +5,14 @@ import {
   BookOpen,
   Calendar,
   CheckCircle2,
-  Flame,
+  Compass,
   LayoutDashboard,
   LogOut,
   Mail,
+  PenLine,
   ShieldCheck,
-  Trophy,
   User,
-  Zap,
   ArrowRight,
-  Settings,
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { signOut } from '@/app/actions/auth'
@@ -53,7 +51,7 @@ export default async function ProfilePage() {
         month: 'short',
         year: 'numeric',
       })
-    : '2026'
+    : null
 
   return (
     <div className="app-shell">
@@ -69,7 +67,7 @@ export default async function ProfilePage() {
               <BookOpen size={18} aria-hidden="true" /> Browse courses
             </Link>
             <Link href="/dashboard/challenges" className="app-sidebar-item">
-              <Flame size={18} aria-hidden="true" /> Challenges
+              <PenLine size={18} aria-hidden="true" /> Practice
             </Link>
             <Link
               href="/dashboard/profile"
@@ -133,9 +131,11 @@ export default async function ProfilePage() {
                 <p className="profile-email-text">
                   <Mail size={14} /> {email}
                 </p>
-                <p className="profile-joined-text">
-                  <Calendar size={14} /> Joined {joinedDate}
-                </p>
+                {joinedDate && (
+                  <p className="profile-joined-text">
+                    <Calendar size={14} /> Joined {joinedDate}
+                  </p>
+                )}
               </div>
             </div>
 
@@ -161,16 +161,6 @@ export default async function ProfilePage() {
           {/* Learning Metrics Grid */}
           <section className="profile-stats-grid">
             <div className="profile-stat-box">
-              <div className="profile-stat-icon-wrap icon-amber">
-                <Flame size={20} />
-              </div>
-              <div>
-                <span className="profile-stat-number">4</span>
-                <span className="profile-stat-label">Day Streak</span>
-              </div>
-            </div>
-
-            <div className="profile-stat-box">
               <div className="profile-stat-icon-wrap icon-terracotta">
                 <BookOpen size={20} />
               </div>
@@ -190,15 +180,6 @@ export default async function ProfilePage() {
               </div>
             </div>
 
-            <div className="profile-stat-box">
-              <div className="profile-stat-icon-wrap icon-purple">
-                <Zap size={20} />
-              </div>
-              <div>
-                <span className="profile-stat-number">320</span>
-                <span className="profile-stat-label">XP Earned</span>
-              </div>
-            </div>
           </section>
 
           {/* Account Details & Settings Section */}
@@ -212,7 +193,7 @@ export default async function ProfilePage() {
                   </div>
                   <div>
                     <h3>Security & Authentication</h3>
-                    <p>Protected by Supabase Auth with encrypted sessions.</p>
+                    <p>Your sign-in and password updates are managed with Supabase Auth.</p>
                   </div>
                 </div>
                 <div className="setting-card-body">
@@ -232,30 +213,24 @@ export default async function ProfilePage() {
               <div className="profile-setting-card">
                 <div className="setting-card-header">
                   <div className="setting-icon-box">
-                    <Trophy size={20} />
+                    <Compass size={20} />
                   </div>
                   <div>
-                    <h3>Learning Preferences</h3>
-                    <p>Tailor your daily goals and course recommendations.</p>
+                    <h3>Choose your next learning goal</h3>
+                    <p>Explore the courses or take the skill assessment to find a place to start.</p>
                   </div>
                 </div>
                 <div className="setting-card-body">
                   <div className="setting-row">
-                    <span>Active Track</span>
-                    <span className="setting-pill">Creator Economy & AI</span>
+                    <span>Browse learning areas</span>
+                    <Link href="/courses" className="setting-link">
+                      Explore courses →
+                    </Link>
                   </div>
                   <div className="setting-row">
-                    <span>Weekly Target</span>
-                    <span className="setting-pill">3 lessons / week</span>
-                  </div>
-                  <div className="setting-row">
-                    <span>Study Reminder</span>
-                    <span className="setting-pill pill-active">Daily 7:00 PM</span>
-                  </div>
-                  <div className="setting-row" style={{ paddingTop: 8, borderTop: '1px solid #F0E7DB' }}>
-                    <span>Recalibrate track</span>
+                    <span>Find a starting point</span>
                     <Link href="/quiz" className="setting-link">
-                      Take Skill Assessment →
+                      Take the skill assessment →
                     </Link>
                   </div>
                 </div>

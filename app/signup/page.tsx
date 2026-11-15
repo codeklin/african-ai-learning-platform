@@ -27,14 +27,14 @@ export default async function SignUpPage() {
 
             <div className="auth-card-body">
               <h1 className="auth-heading">Create your account</h1>
-              <p className="auth-sub">Start learning practical AI skills for free</p>
+              <p className="auth-sub">Create a free account to access course lessons and track your learning.</p>
               <SignUpForm />
             </div>
           </div>
 
           <p className="auth-alt-note">
             Just exploring?{' '}
-            <a href="/courses">Browse free courses</a> — no account needed.
+            <a href="/courses">Browse free course outlines</a>. Create an account to open lessons.
           </p>
         </div>
       </main>

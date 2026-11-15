@@ -37,29 +37,39 @@ interface Question {
 const quizQuestions: Question[] = [
   {
     id: 1,
-    kicker: '01 / WHAT YOU WANT',
-    title: 'What do you actually want to earn from?',
-    subtitle: 'Pick the one that fits your current situation — not your dream situation.',
+    kicker: '01 / WHAT YOU WANT TO LEARN',
+    title: 'What would you like to learn to do?',
+    subtitle: 'Choose the kind of practical work you want to explore.',
     options: [
       {
-        label: 'Get paid by clients for a service',
-        subtext: 'Package a skill, pitch to businesses, collect payment. Upwork, local contracts, WhatsApp referrals.',
-        scores: { freelance: 4, content: 2, foundations: 1 },
+        label: 'Use AI for everyday work',
+        subtext: 'Understand what AI can do and practise using it for a task.',
+        scores: { foundations: 4, content: 1 },
       },
       {
-        label: 'Build a channel or media asset',
-        subtext: 'YouTube, faceless content, newsletters — something that earns while you sleep.',
-        scores: { creator: 4, content: 2 },
+        label: 'Create videos, images or written content',
+        subtext: 'Develop ideas and make original content with AI as a tool.',
+        scores: { content: 4, creator: 2 },
       },
       {
-        label: 'Stop doing repetitive work manually',
-        subtext: 'Automate client replies, reports, graphics — reclaim hours every single week.',
-        scores: { automation: 4, apps: 2 },
+        label: 'Plan and manage a YouTube channel',
+        subtext: 'Choose an audience, plan videos and understand channel basics.',
+        scores: { creator: 4 },
       },
       {
-        label: 'Understand AI properly before choosing',
-        subtext: "I keep hearing about AI but don't know where to start. Give me solid basics first.",
-        scores: { foundations: 4 },
+        label: 'Offer a digital service',
+        subtext: 'Describe a service and practise responding to a sample client brief.',
+        scores: { freelance: 4, content: 1 },
+      },
+      {
+        label: 'Automate a repetitive task',
+        subtext: 'Map a routine task and explore how digital tools can work together.',
+        scores: { automation: 4 },
+      },
+      {
+        label: 'Build a simple app or digital tool',
+        subtext: 'Plan a tool, connect user input and test how it responds.',
+        scores: { apps: 4 },
       },
     ],
   },
@@ -67,7 +77,7 @@ const quizQuestions: Question[] = [
     id: 2,
     kicker: '02 / WHERE YOU ARE NOW',
     title: "Be honest — how comfortable are you with AI tools right now?",
-    subtitle: 'Every track starts from zero. This just helps us point you to the right entry point.',
+    subtitle: 'This helps us suggest a useful starting point.',
     options: [
       {
         label: "I haven't really used AI tools yet",
@@ -75,18 +85,18 @@ const quizQuestions: Question[] = [
         scores: { foundations: 4, creator: 1 },
       },
       {
-        label: 'I use ChatGPT sometimes but randomly',
-        subtext: "I copy-paste prompts from Google. It works occasionally but I don't have a system.",
+        label: 'I use AI tools sometimes',
+        subtext: 'I can try a tool, but I want to get more useful and reliable results.',
         scores: { content: 3, freelance: 3, creator: 2 },
       },
       {
-        label: 'I understand workflows and love connecting things',
-        subtext: 'Spreadsheets, step-by-step logic, linking apps together — that makes sense to me.',
+        label: 'I have connected tools or workflows before',
+        subtext: 'I am comfortable thinking through steps and how tools work together.',
         scores: { automation: 4, apps: 2 },
       },
       {
-        label: 'I want to build actual tools, not just use them',
-        subtext: 'APIs, prototypes, interactive things — I want to go beyond text generation.',
+        label: 'I want to build a simple digital tool',
+        subtext: 'I am interested in prototypes, apps or interactive projects.',
         scores: { apps: 4, automation: 2 },
       },
     ],
@@ -94,22 +104,22 @@ const quizQuestions: Question[] = [
   {
     id: 3,
     kicker: '03 / YOUR TIME',
-    title: 'How much time can you honestly commit each week?',
-    subtitle: '20 minutes daily beats 4 hours once. Be real.',
+    title: 'How much time can you set aside for learning each week?',
+    subtitle: 'Choose an estimate that fits your current schedule.',
     options: [
       {
-        label: '1 to 2 hours — I have a busy life',
-        subtext: 'Short lessons I can do on my phone between other things.',
+        label: '1 to 2 hours',
+        subtext: 'A little time for lessons or practice during the week.',
         scores: { foundations: 3, creator: 2 },
       },
       {
-        label: '3 to 5 hours — I can be consistent',
-        subtext: '30 to 45 minutes most evenings. Watch, practice, build.',
+        label: '3 to 5 hours',
+        subtext: 'Time for regular lessons and practice.',
         scores: { content: 3, freelance: 3, creator: 2 },
       },
       {
-        label: '6+ hours — I need this to work fast',
-        subtext: "I'm transitioning, job-hunting, or trying to replace my income. All in.",
+        label: '6 or more hours',
+        subtext: 'I have more time available for learning and practice.',
         scores: { freelance: 4, automation: 3, apps: 3 },
       },
     ],
@@ -118,7 +128,7 @@ const quizQuestions: Question[] = [
     id: 4,
     kicker: '04 / YOUR STYLE',
     title: 'Which kind of work do you actually enjoy doing?',
-    subtitle: 'The best track is one you will actually finish.',
+    subtitle: 'Your preferences can help narrow the examples you see.',
     options: [
       {
         label: 'Scripts, storytelling, videos',
@@ -126,13 +136,13 @@ const quizQuestions: Question[] = [
         scores: { creator: 4, content: 3 },
       },
       {
-        label: 'Solving a client problem and getting paid',
-        subtext: "Brief comes in, I figure it out, I deliver, I invoice. That's satisfying.",
+        label: 'Understanding a brief and shaping a solution',
+        subtext: 'I like clarifying what is needed and planning a useful response.',
         scores: { freelance: 4, content: 2 },
       },
       {
-        label: 'Connecting systems so they run themselves',
-        subtext: "Triggers, pipelines, no more manual clicking — I want that life.",
+        label: 'Connecting steps and tools',
+        subtext: 'I like thinking about how a process could work more smoothly.',
         scores: { automation: 4, apps: 1 },
       },
       {
@@ -144,57 +154,62 @@ const quizQuestions: Question[] = [
   },
   {
     id: 5,
-    kicker: '05 / PAST FRUSTRATION',
-    title: "What's killed your momentum with online learning before?",
-    subtitle: 'ituwaAfrica was built to fix exactly one of these.',
+    kicker: '05 / HOW YOU LIKE TO LEARN',
+    title: 'What would help you learn a new skill?',
+    subtitle: 'Choose the kind of learning support that matters most to you.',
     options: [
       {
-        label: 'Finished videos, built nothing',
-        subtext: 'Hours of watching. No project. No portfolio. No result.',
-        scores: { foundations: 3, freelance: 3 },
+        label: 'Practice activities',
+        subtext: 'A chance to apply ideas instead of only reading or watching.',
+        scores: { foundations: 3, freelance: 3, automation: 2 },
       },
       {
-        label: "Courses built for people abroad, not for me",
-        subtext: 'Tools I cannot afford, examples that make no sense in Nigeria.',
-        scores: { creator: 3, freelance: 3 },
+        label: 'Clear explanations for beginners',
+        subtext: 'Simple language and a step-by-step introduction to the topic.',
+        scores: { foundations: 3, creator: 2, apps: 1 },
       },
       {
-        label: 'Started strong, lost steam with no structure',
-        subtext: 'Nobody checking in, no clear next step, just disappeared.',
-        scores: { foundations: 3, creator: 2 },
+        label: 'Examples related to real tasks',
+        subtext: 'Lessons that show how a skill might be used in practice.',
+        scores: { freelance: 2, content: 3, automation: 2 },
       },
       {
-        label: 'The tools kept changing and the course went stale',
-        subtext: 'Learned a button layout. Update dropped. Course was useless.',
-        scores: { automation: 3, apps: 3, foundations: 2 },
+        label: 'Guidance on choosing tools',
+        subtext: 'Help understanding what a tool can do and where it has limits.',
+        scores: { foundations: 3, apps: 2, automation: 2 },
       },
     ],
   },
   {
     id: 6,
-    kicker: '06 / 30-DAY WIN',
-    title: 'In 30 days, which result would actually mean something to you?',
-    subtitle: 'Pick what you would actually show someone.',
+    kicker: '06 / WHAT YOU WANT TO PRACTISE',
+    title: 'Which activity would you like to try first?',
+    subtitle: 'Choose a project or task that sounds useful to you.',
     options: [
       {
-        label: 'A published YouTube video or complete channel setup',
-        subtext: 'Title, script, voiceover, thumbnail — built and live.',
+        label: 'Plan a YouTube channel and outline a video',
+        subtext: 'Choose an audience and prepare an original video idea.',
         scores: { creator: 5 },
       },
       {
-        label: 'A service offer I can pitch and get paid for',
-        subtext: 'One clear deliverable, priced, ready to send to prospects.',
+        label: 'Draft a service offer and sample proposal',
+        subtext: 'Describe what you could offer and how you would respond to a brief.',
         scores: { freelance: 5 },
       },
       {
-        label: 'An automation saving me 5+ hours every week',
-        subtext: 'Running in the background. Handling what I used to do manually.',
+        label: 'Map a routine task and test a workflow idea',
+        subtext: 'Write down the steps and consider where a tool might help.',
         scores: { automation: 5 },
       },
       {
-        label: 'Knowing how to get useful output from AI every time',
-        subtext: 'No more useless responses. A prompt system that actually works.',
+        label: 'Use AI to draft or review a piece of work',
+        subtext: 'Try a tool, check its response and make your own improvements.',
         scores: { foundations: 4, content: 3 },
+      },
+      {
+        label: 'Build and test a simple app prototype',
+        subtext: 'Plan a small tool and try it with sample inputs.',
+        scores: { apps: 5 },
       },
     ],
   },
@@ -202,21 +217,21 @@ const quizQuestions: Question[] = [
     id: 7,
     kicker: '07 / HOW YOU WORK',
     title: 'Do you prefer working solo or directly with clients?',
-    subtitle: 'Both earn — this just shapes how your track is structured.',
+    subtitle: 'This helps us suggest examples that fit your preference.',
     options: [
       {
-        label: 'Solo — build assets, stay behind the scenes',
-        subtext: 'Faceless. Automated. No pitching on calls every day.',
+        label: 'Mostly independent work',
+        subtext: 'I prefer planning, creating or testing things on my own.',
         scores: { creator: 3, automation: 3, apps: 2 },
       },
       {
-        label: 'Client-facing — solve problems, send invoices',
-        subtext: 'Talk to business owners, understand their needs, deliver and earn.',
+        label: 'Working with clients or a team',
+        subtext: 'I like discussing what people need and planning work together.',
         scores: { freelance: 4, content: 2 },
       },
       {
         label: "I need solid basics first, then I'll decide",
-        subtext: 'Let me learn properly. I will figure out the money angle after.',
+        subtext: 'I want to learn the basics before choosing a direction.',
         scores: { foundations: 4 },
       },
     ],
@@ -243,90 +258,90 @@ const academyProfiles: Record<string, AcademyResult> = {
     key: 'creator',
     title: 'Creator Economy & YouTube Academy',
     archetype: 'The Channel Builder',
-    tagline: 'Build a real media channel. Grow an audience. Earn without showing your face.',
+    tagline: 'Plan original videos and learn the basics of a YouTube channel.',
     description:
-      'Your answers point to building content that earns over time. This track shows you how to plan faceless channels, write scripts that hook viewers, stay within YouTube policies, and package your media work as a sellable asset — not just a hobby.',
+      'Your answers suggest you may enjoy planning video content. Explore audience research, original video ideas, channel basics and the policies creators need to review.',
     recommendedCourse: 'YouTube Business Fundamentals',
     courseSlug: 'youtube-business-fundamentals',
     duration: '2h 30m',
     lessonsCount: 8,
-    keySkills: ['Faceless Channel Strategy', 'Script & Hook Writing', 'YouTube Policy & Copyright', 'Monetisation Planning'],
-    firstSprint: 'Plan a 3-part faceless video series and write your first 60-second hook script.',
+    keySkills: ['Audience research', 'Video planning', 'Original content', 'Policy awareness'],
+    firstSprint: 'Choose an audience and outline one original video idea.',
     tone: 'lavender',
   },
   freelance: {
     key: 'freelance',
     title: 'AI Freelancing Academy',
-    archetype: 'The Paid Specialist',
-    tagline: 'Package one clear service. Land paying clients. Earn without a 9-to-5.',
+    archetype: 'The Service Planner',
+    tagline: 'Describe a digital service and practise responding to a client brief.',
     description:
-      'You want to get paid — directly, clearly, and soon. This track shows you how to pick one AI-powered service, build a sample to prove your skill, write a pitch that actually gets replies, and deliver work that earns repeat business. No fluff. No foreign case studies.',
+      'Your answers suggest you may enjoy solving practical problems. Learn to describe a service, prepare a sample and practise responding to a brief. Courses do not guarantee clients, employment or income.',
     recommendedCourse: 'AI for Your Freelance Business',
     courseSlug: 'ai-for-your-freelance-business',
     duration: '4h 00m',
     lessonsCount: 14,
-    keySkills: ['Service Packaging', 'Client Pitching', 'Portfolio Samples', 'Pricing & Invoicing'],
-    firstSprint: 'Define 1 service offer, build a sample deliverable, and write your first pitch message.',
+    keySkills: ['Service planning', 'Brief writing', 'Sample work', 'Clear proposals'],
+    firstSprint: 'Draft a service offer and a sample response to a client brief.',
     tone: 'coral',
   },
   automation: {
     key: 'automation',
     title: 'AI Automation Academy',
     archetype: 'The Systems Builder',
-    tagline: 'Stop doing repetitive work. Build workflows that handle it for you.',
+    tagline: 'Map a repeated task and explore how digital tools can work together.',
     description:
-      'You think in steps and hate wasted time. This track shows you how to map manual tasks, build multi-step AI workflows, and connect tools so they run without you touching them every day. Saves time — and can be sold as a service to small businesses.',
+      'Your answers suggest you may enjoy thinking in steps. Learn to map a task, plan a workflow and test how tools handle the work. Review automated results before relying on them.',
     recommendedCourse: 'Build Your First AI Workflow',
     courseSlug: 'build-your-first-ai-workflow',
     duration: '3h 45m',
     lessonsCount: 10,
-    keySkills: ['Workflow Mapping', 'Multi-Step Prompt Chains', 'Tool Connections', 'Selling Automation Services'],
-    firstSprint: 'Automate one manual task you do every week using a 2-step prompt pipeline.',
+    keySkills: ['Workflow mapping', 'Tool connections', 'Testing results', 'Handling errors'],
+    firstSprint: 'Map a repeated task and sketch a simple workflow to test.',
     tone: 'blue',
   },
   content: {
     key: 'content',
     title: 'AI Content Creation Academy',
-    archetype: 'The Content Operator',
-    tagline: 'Write faster, pitch better, deliver polished content clients actually pay for.',
+    archetype: 'The Content Maker',
+    tagline: 'Use AI to support content work, then shape it in your own voice.',
     description:
-      'You are a clear thinker who communicates well. This track shows you how to use AI to draft articles, social posts, email campaigns, and pitch decks without losing your voice — and how to sell that output to businesses and creators who need it.',
+      'Your answers suggest you may enjoy writing and research. Practise turning a brief into a draft, editing it for a clear purpose and checking the final work.',
     recommendedCourse: 'The Freelance AI Content Studio',
-    courseSlug: 'the-freelance-ai-content-studio',
+    courseSlug: 'freelance-ai-content-studio',
     duration: '4h 30m',
     lessonsCount: 16,
-    keySkills: ['Structured Drafting', 'Brand Voice Control', 'Editorial Workflows', 'Content Pricing'],
-    firstSprint: 'Write an 800-word article and social carousel package using a 3-step prompt framework.',
+    keySkills: ['Brief writing', 'AI-assisted drafting', 'Editing', 'Content review'],
+    firstSprint: 'Create and edit a short content sample from a brief.',
     tone: 'lime',
   },
   apps: {
     key: 'apps',
     title: 'AI App Development Academy',
-    archetype: 'The Product Builder',
-    tagline: 'Build real tools. Charge for access. Ship without a computer science degree.',
+    archetype: 'The Tool Builder',
+    tagline: 'Plan a simple digital tool and test how it responds.',
     description:
-      'You want to make things, not just use things. This track shows you how to connect APIs, build simple interactive prototypes, and ship tools that solve real problems — including how to charge for access and present them to clients or investors.',
+      'Your answers suggest you may enjoy making interactive tools. Explore how to plan a small app, connect user input to AI and test the results.',
     recommendedCourse: 'Build a Helpful AI App',
     courseSlug: 'build-a-helpful-ai-app',
-    duration: '6h 20m',
-    lessonsCount: 18,
-    keySkills: ['API Integration', 'UI Prototyping', 'Prompt Logic', 'Shipping & Pricing Tools'],
-    firstSprint: 'Build a single-purpose tool that takes user input and produces structured business output.',
+    duration: '1h 45m',
+    lessonsCount: 8,
+    keySkills: ['Input and output', 'Prompt structure', 'Interface planning', 'Testing'],
+    firstSprint: 'Plan a small app and test it with sample inputs.',
     tone: 'peach',
   },
   foundations: {
     key: 'foundations',
     title: 'AI Foundations Academy',
     archetype: 'The Practical Starter',
-    tagline: 'Get the basics right. Build habits that actually produce results.',
+    tagline: 'Understand what AI can do and practise using it for everyday tasks.',
     description:
-      "You are done with hype and want something solid. This track gives you the actual fundamentals — how AI works, how to write prompts that get useful results, how to spot bad outputs, and how to build a daily practice that compounds. Everything else sits on top of this.",
+      'Your answers suggest you may want to start with the basics. Learn what AI tools can and cannot do, how to give them useful instructions and how to review their responses.',
     recommendedCourse: 'Your AI Toolkit: A Practical Start',
-    courseSlug: 'your-ai-toolkit-practical-start',
+    courseSlug: 'ai-toolkit-practical-start',
     duration: '2h 15m',
     lessonsCount: 8,
-    keySkills: ['Prompt Craft', 'Tool Selection', 'Spotting Bad Outputs', 'Building a Daily Practice'],
-    firstSprint: 'Master the 4-part prompt structure and build 3 prompt chains you will actually use this week.',
+    keySkills: ['Clear instructions', 'Tool selection', 'Reviewing responses', 'Everyday practice'],
+    firstSprint: 'Choose an everyday task and try it with an AI tool.',
     tone: 'lavender',
   },
 }
@@ -479,9 +494,9 @@ export default function QuizPage() {
                     <ArrowLeft size={16} /> Previous
                   </button>
                 ) : (
-                  <span className="quiz-note-text">Under 90 seconds. No card required.</span>
+                  <span className="quiz-note-text">Free assessment. No payment details needed.</span>
                 )}
-                <span className="quiz-confidential-note">Your answers stay private</span>
+                <span className="quiz-confidential-note">Your answers are not saved by this assessment.</span>
               </div>
             </div>
           </div>
@@ -490,7 +505,7 @@ export default function QuizPage() {
           <div className="quiz-result-container">
             {/* Result Tag + Restart */}
             <div className="quiz-result-badge-row">
-              <span className="quiz-result-tag">YOUR RECOMMENDED TRACK</span>
+              <span className="quiz-result-tag">A SUGGESTED LEARNING AREA</span>
               <button type="button" onClick={handleRestart} className="quiz-restart-btn">
                 <RotateCcw size={14} /> Retake
               </button>
@@ -508,9 +523,9 @@ export default function QuizPage() {
 
               <p className="quiz-archetype-desc">{result.top.description}</p>
 
-              {/* Skills you will build */}
+              {/* Skills to explore */}
               <div className="quiz-competencies-block">
-                <span className="quiz-block-label">WHAT YOU WILL ACTUALLY BUILD</span>
+                <span className="quiz-block-label">SKILLS TO EXPLORE</span>
                 <div className="quiz-skills-tags">
                   {result.top.keySkills.map((skill) => (
                     <span key={skill} className="quiz-skill-chip">
@@ -539,35 +554,22 @@ export default function QuizPage() {
                     <BookOpen size={18} />
                   </div>
                   <div>
-                    <strong>Your first 7-day sprint:</strong>
+                    <strong>A practical first exercise:</strong>
                     <p>{result.top.firstSprint}</p>
                   </div>
                 </div>
 
                 {/* CTA */}
                 <div className="quiz-cta-row">
-                  {user ? (
-                    <Link
-                      href={`/onboarding?academy=${result.top.key}`}
-                      className="button button-dark quiz-primary-cta"
-                    >
-                      <span>Start this track</span>
-                      <ArrowRight size={17} />
-                    </Link>
-                  ) : (
-                    <Link
-                      href={`/signup?recommended=${result.top.key}`}
-                      className="button button-dark quiz-primary-cta"
-                    >
-                      <span>Create free account to start</span>
-                      <ArrowRight size={17} />
-                    </Link>
-                  )}
                   <Link
                     href={`/courses/${result.top.courseSlug}`}
-                    className="button button-light quiz-secondary-cta"
+                    className="button button-dark quiz-primary-cta"
                   >
-                    <span>See full course outline</span>
+                    <span>View suggested course</span>
+                    <ArrowRight size={17} />
+                  </Link>
+                  <Link href="/courses" className="button button-light quiz-secondary-cta">
+                    <span>Browse all courses</span>
                   </Link>
                 </div>
               </div>
@@ -587,27 +589,27 @@ export default function QuizPage() {
               </div>
             </div>
 
-            {/* Why ituwaAfrica */}
+            {/* Learning notes */}
             <div className="quiz-guarantee-strip">
               <div className="guarantee-item">
                 <span className="guarantee-num">01</span>
                 <div>
-                  <h4>No passive watching</h4>
-                  <p>Every lesson ends with something you built, wrote, or shipped.</p>
+                  <h4>Practical learning</h4>
+                  <p>Courses include lessons and practice activities; what you make depends on the course.</p>
                 </div>
               </div>
               <div className="guarantee-item">
                 <span className="guarantee-num">02</span>
                 <div>
-                  <h4>Works on data and mobile</h4>
-                  <p>Text-first lessons built for Nigerian network conditions.</p>
+                  <h4>Free courses to explore</h4>
+                  <p>Review course outlines before deciding what you want to study.</p>
                 </div>
               </div>
               <div className="guarantee-item">
                 <span className="guarantee-num">03</span>
                 <div>
-                  <h4>No income guarantees</h4>
-                  <p>We teach real skills. What you earn depends on what you build and ship.</p>
+                  <h4>No outcome guarantees</h4>
+                  <p>Course completion does not guarantee clients, employment, views, monetisation or income.</p>
                 </div>
               </div>
             </div>

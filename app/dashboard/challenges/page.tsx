@@ -1,19 +1,12 @@
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import {
-  Award,
   Bell,
   BookOpen,
-  CheckCircle2,
-  Clock3,
-  Flame,
   LayoutDashboard,
   LogOut,
-  Sparkles,
-  Target,
-  Trophy,
+  PenLine,
   User,
-  Zap,
   ArrowRight,
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
@@ -21,85 +14,48 @@ import { signOut } from '@/app/actions/auth'
 import Brand from '@/components/brand'
 import AppBottomNav from '@/components/app-bottom-nav'
 
-interface ChallengeItem {
+interface PracticeIdea {
   id: string
   title: string
   academy: string
-  xp: number
-  progress: number
-  maxProgress: number
-  unit: string
-  durationLeft: string
-  status: 'active' | 'completed'
-  tag: string
+  description: string
   courseSlug: string
   tone: string
 }
 
-const challengesData: ChallengeItem[] = [
+const practiceIdeas: PracticeIdea[] = [
   {
-    id: 'ch-1',
-    title: 'Write a 3-Step AI Prompt Chain',
+    id: 'practice-1',
+    title: 'Write a prompt brief for one task',
     academy: 'AI Foundations',
-    xp: 60,
-    progress: 2,
-    maxProgress: 3,
-    unit: 'steps',
-    durationLeft: '12h left today',
-    status: 'active',
-    tag: 'Daily Sprint',
+    description: 'Describe the task, add useful context and specify the format you need.',
     courseSlug: 'prompting-better-work',
     tone: 'coral',
   },
   {
-    id: 'ch-2',
-    title: 'Draft a Faceless YouTube Concept',
+    id: 'practice-2',
+    title: 'Outline an original channel idea',
     academy: 'Creator Economy & YouTube',
-    xp: 90,
-    progress: 1,
-    maxProgress: 2,
-    unit: 'lessons',
-    durationLeft: '2 days left',
-    status: 'active',
-    tag: 'Weekly Quest',
+    description: 'Choose an audience, write a clear channel promise and plan one useful video.',
     courseSlug: 'starting-a-faceless-youtube-channel',
     tone: 'amber',
   },
   {
-    id: 'ch-3',
-    title: 'Build a 1-Step Workflow Automation',
+    id: 'practice-3',
+    title: 'Map a task you repeat',
     academy: 'AI Automation',
-    xp: 120,
-    progress: 0,
-    maxProgress: 1,
-    unit: 'exercise',
-    durationLeft: '4 days left',
-    status: 'active',
-    tag: 'Skill Sprint',
+    description: 'Write down the steps, identify where a tool might help and test the result.',
     courseSlug: 'build-your-first-ai-workflow',
     tone: 'jade',
   },
   {
-    id: 'ch-4',
-    title: 'Complete First AI Toolkit Lesson',
+    id: 'practice-4',
+    title: 'Try an AI tool on an everyday task',
     academy: 'AI Foundations',
-    xp: 50,
-    progress: 1,
-    maxProgress: 1,
-    unit: 'lesson',
-    durationLeft: 'Completed',
-    status: 'completed',
-    tag: 'Starter Quest',
+    description: 'Review what the tool can do, check its response and decide what to change.',
     courseSlug: 'ai-toolkit-practical-start',
     tone: 'lavender',
   },
-]
-
-const badgesEarned = [
-  { name: 'Fast Starter', desc: 'Completed 1st practical lesson', code: '01', date: 'Yesterday' },
-  { name: 'Prompt Crafter', desc: 'Engineered 5 structured prompts', code: '02', date: 'Nov 12' },
-  { name: 'Streak Habit', desc: 'Maintained 3-day learning habit', code: '03', date: 'Nov 10' },
-  { name: 'Maker Spirit', desc: 'Shipped first real project sample', code: '04', date: 'Earn soon' },
 ]
 
 export default async function ChallengesPage() {
@@ -136,7 +92,7 @@ export default async function ChallengesPage() {
               href="/dashboard/challenges"
               className="app-sidebar-item app-sidebar-item--active"
             >
-              <Flame size={18} aria-hidden="true" /> Challenges
+              <PenLine size={18} aria-hidden="true" /> Practice
             </Link>
             <Link href="/dashboard/profile" className="app-sidebar-item">
               <User size={18} aria-hidden="true" /> Profile
@@ -168,114 +124,38 @@ export default async function ChallengesPage() {
         </header>
 
         <main className="app-main" id="main-content">
-          {/* Header Title & Streak Banner */}
+          {/* Practice ideas */}
           <section className="challenges-hero">
             <div className="challenges-title-row">
               <div>
-                <p className="app-greeting-sub">SKILL PRACTICE & REWARDS</p>
-                <h1 className="app-greeting-h1">Active Challenges</h1>
+                <p className="app-greeting-sub">PRACTISE WHAT YOU LEARN</p>
+                <h1 className="app-greeting-h1">Practice ideas</h1>
                 <p className="challenges-subtext">
-                  Complete focused micro-challenges to lock in your skills and unlock creator perks.
+                  Try one of these activities alongside a free course. These ideas do not track completion or award points.
                 </p>
               </div>
-              <div className="challenges-hero-badge">
-                <div className="challenges-xp-total">
-                  <Zap size={20} className="challenges-zap-icon" />
-                  <div>
-                    <span className="xp-number">320 XP</span>
-                    <span className="xp-label">Level 2 Maker</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Daily Habit Strip */}
-            <div className="daily-streak-card">
-              <div className="daily-streak-info">
-                <div className="streak-flame-circle">
-                  <Flame size={24} />
-                </div>
-                <div>
-                  <h3>4-Day Learning Streak!</h3>
-                  <p>You’re 1 sprint away from completing this week’s Creator Sprint.</p>
-                </div>
-              </div>
-              <div className="daily-streak-progress-box">
-                <div className="daily-streak-bar">
-                  <span style={{ width: '75%' }} />
-                </div>
-                <div className="daily-streak-days">
-                  {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((day, i) => (
-                    <span key={i} className={`streak-day-dot ${i < 4 ? 'done' : ''}`}>
-                      {day}
-                    </span>
-                  ))}
-                </div>
-              </div>
             </div>
           </section>
 
-          {/* Active Challenges Grid */}
+          {/* Suggested exercises */}
           <section className="challenges-section">
-            <div className="dash-section-label">SPRINTS IN PROGRESS</div>
+            <div className="dash-section-label">SUGGESTED EXERCISES</div>
             <div className="challenges-grid">
-              {challengesData.map((ch) => {
-                const percent = Math.min(100, Math.round((ch.progress / ch.maxProgress) * 100))
-                const isDone = ch.status === 'completed'
-
-                return (
-                  <article key={ch.id} className={`challenge-card challenge-tone--${ch.tone}`}>
-                    <div className="challenge-card-top">
-                      <span className="challenge-tag">{ch.tag}</span>
-                      <span className="challenge-xp-badge">+{ch.xp} XP</span>
-                    </div>
-
-                    <h2 className="challenge-card-title">{ch.title}</h2>
-                    <p className="challenge-card-academy">{ch.academy}</p>
-
-                    <div className="challenge-progress-wrap">
-                      <div className="challenge-progress-header">
-                        <span>
-                          {ch.progress} of {ch.maxProgress} {ch.unit}
-                        </span>
-                        <span>{ch.durationLeft}</span>
-                      </div>
-                      <div className="challenge-progress-bar">
-                        <span style={{ width: `${percent}%` }} />
-                      </div>
-                    </div>
-
-                    <div className="challenge-card-footer">
-                      {isDone ? (
-                        <div className="challenge-done-pill">
-                          <CheckCircle2 size={16} /> Completed
-                        </div>
-                      ) : (
-                        <Link href={`/courses/${ch.courseSlug}`} className="challenge-action-btn">
-                          <span>Continue sprint</span>
-                          <ArrowRight size={15} />
-                        </Link>
-                      )}
-                    </div>
-                  </article>
-                )
-              })}
-            </div>
-          </section>
-
-          {/* Earned Badges Showcase */}
-          <section className="badges-section">
-            <div className="dash-section-label">YOUR BADGES & ACHIEVEMENTS</div>
-            <div className="badges-grid">
-              {badgesEarned.map((b) => (
-                <div key={b.name} className="badge-item-card">
-                  <div className="badge-index-box">{b.code}</div>
-                  <div className="badge-details">
-                    <h4>{b.name}</h4>
-                    <p>{b.desc}</p>
-                    <small>{b.date}</small>
+              {practiceIdeas.map((idea) => (
+                <article key={idea.id} className={`challenge-card challenge-tone--${idea.tone}`}>
+                  <div className="challenge-card-top">
+                    <span className="challenge-tag">PRACTICE IDEA</span>
                   </div>
-                </div>
+                  <h2 className="challenge-card-title">{idea.title}</h2>
+                  <p className="challenge-card-academy">{idea.academy}</p>
+                  <p className="challenges-subtext">{idea.description}</p>
+                  <div className="challenge-card-footer">
+                    <Link href={`/courses/${idea.courseSlug}`} className="challenge-action-btn">
+                      <span>View course</span>
+                      <ArrowRight size={15} />
+                    </Link>
+                  </div>
+                </article>
               ))}
             </div>
           </section>

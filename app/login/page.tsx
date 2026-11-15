@@ -35,7 +35,7 @@ export default async function LoginPage() {
 
           <p className="auth-alt-note">
             Just exploring?{' '}
-            <a href="/courses">Browse free courses</a> — no account needed.
+            <a href="/courses">Browse free course outlines</a>. Create an account to open lessons.
           </p>
         </div>
       </main>

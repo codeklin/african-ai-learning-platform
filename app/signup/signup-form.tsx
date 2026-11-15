@@ -44,7 +44,7 @@ export default function SignUpForm() {
     })
 
     if (error) {
-      setError(error.message)
+      setError('We could not create your account. Please try again.')
       setLoading(false)
       return
     }

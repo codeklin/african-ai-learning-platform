@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-import { ArrowLeft, ArrowRight, Check, ChevronDown, Circle, Menu, PanelLeftClose, PanelLeftOpen, Play, Sparkles, X } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Check, ChevronDown, Menu, PanelLeftClose, PanelLeftOpen, Play, Sparkles, X } from 'lucide-react'
 import Brand from '@/components/brand'
 import YouTubeEmbed from '@/components/youtube-embed'
 
@@ -32,14 +32,14 @@ const lessonContent: Record<string, LessonCourseData> = {
     lessons: [
       'Problem definition: Pick one friction point to solve',
       'System design: Input ➔ Prompt pipeline ➔ Output format',
-      'Prompt logic: Writing instructions that guarantee clean structure',
+      'Prompt logic: Writing instructions for a consistent structure',
       'Live Masterclass: Step-by-step app walkthrough',
       'Handling API keys, limits, and edge errors',
       'Interface styling: Mobile-first responsive prototype',
-      'First 5 users: Testing and gathering real feedback',
-      'Packaging and commercializing your micro-tool',
+      'Testing a prototype with sample inputs',
+      'Describing your tool and its limitations',
     ],
-    body: 'Building an AI app does not require a computer science degree or months of coding. It starts with identifying one specific task people struggle with, structuring a reliable prompt pipeline, and creating a lightweight interface that delivers immediate value.',
+    body: 'Start by identifying one task a tool could help with. Plan the input, the steps the tool should take and the response you want, then test the result and note its limits.',
     takeaway: 'Focus on solving one single friction point exceptionally well before adding complex features.',
     youtubeVideoId: 'qIUZ_C5ki3g',
   }
@@ -65,9 +65,9 @@ export default function LessonPreview({ slug, userId }: { slug: string; userId?:
   const [curriculumOpen, setCurriculumOpen] = useState(false)
   const title = course.lessons[current]
   const move = (index: number) => { setCurrent(index); setCompleted(false); setCurriculumOpen(false) }
-  return <main className="lesson-app"><header className="lesson-header"><Link href={`/courses/${slug}`} className="lesson-back"><ArrowLeft size={15} /><span>Course overview</span></Link><Brand /><button className="lesson-menu-button" onClick={() => setCurriculumOpen(!curriculumOpen)} aria-expanded={curriculumOpen} aria-label="Toggle course lessons">{curriculumOpen ? <X size={18} /> : <Menu size={18} />}</button></header><div className="lesson-layout"><aside className={curriculumOpen ? 'lesson-sidebar mobile-open' : 'lesson-sidebar'}><Link href={`/courses/${slug}`} className="lesson-course-title"><PanelLeftClose size={15} /><span>{course.course}</span></Link><div className="lesson-sidebar-label">COURSE CONTENT <span>{current + 1} / {course.lessons.length}</span></div><div className="lesson-progress-line"><span style={{ width: `${(current / course.lessons.length) * 100}%` }} /></div><div className="lesson-list">{course.lessons.map((lesson, index) => <button onClick={() => move(index)} className={index === current ? 'lesson-item selected' : 'lesson-item'} key={lesson}><span className={index < current ? 'lesson-state done' : 'lesson-state'}>{index < current ? <Check size={12} /> : index === current ? <Play size={11} /> : <Circle size={10} />}</span><span>{lesson}<small>LESSON {String(index + 1).padStart(2, '0')} · 6 MIN</small></span></button>)}</div><div className="lesson-sidebar-foot"><span className="lesson-avatar">{userId ? (userId[0] ?? 'I').toUpperCase() : 'I'}</span><div>{userId ? 'SIGNED IN' : 'PREVIEW MODE'}<small>{userId ? 'Progress saves when lessons are live' : 'Sign in to save your progress'}</small></div></div></aside><section className="lesson-main"><div className="lesson-mobile-course"><button onClick={() => setCurriculumOpen(!curriculumOpen)}><PanelLeftOpen size={14} /> Course contents <ChevronDown size={14} /></button><span>LESSON {String(current + 1).padStart(2, '0')} / {String(course.lessons.length).padStart(2, '0')}</span></div><div className="lesson-reading"><div className="lesson-breadcrumb"><span>{course.course}</span><span>/</span><span>LESSON {String(current + 1).padStart(2, '0')}</span></div><span className="lesson-type"><Play size={12} /> {course.youtubeVideoId ? 'VIDEO MASTERCLASS & TEXT GUIDE' : 'TEXT LESSON · 6 MIN READ'}</span>
+  return <main className="lesson-app"><header className="lesson-header"><Link href={`/courses/${slug}`} className="lesson-back"><ArrowLeft size={15} /><span>Course overview</span></Link><Brand /><button className="lesson-menu-button" onClick={() => setCurriculumOpen(!curriculumOpen)} aria-expanded={curriculumOpen} aria-label="Toggle course lessons">{curriculumOpen ? <X size={18} /> : <Menu size={18} />}</button></header><div className="lesson-layout"><aside className={curriculumOpen ? 'lesson-sidebar mobile-open' : 'lesson-sidebar'}><Link href={`/courses/${slug}`} className="lesson-course-title"><PanelLeftClose size={15} /><span>{course.course}</span></Link><div className="lesson-sidebar-label">LESSON POSITION <span>{current + 1} / {course.lessons.length}</span></div><div className="lesson-progress-line"><span style={{ width: `${(current / course.lessons.length) * 100}%` }} /></div><div className="lesson-list">{course.lessons.map((lesson, index) => <button onClick={() => move(index)} className={index === current ? 'lesson-item selected' : 'lesson-item'} key={lesson}><span className="lesson-state">{index === current ? <Play size={11} /> : String(index + 1).padStart(2, '0')}</span><span>{lesson}<small>LESSON {String(index + 1).padStart(2, '0')}</small></span></button>)}</div><div className="lesson-sidebar-foot"><span className="lesson-avatar">{userId ? (userId[0] ?? 'I').toUpperCase() : 'I'}</span><div>{userId ? 'SIGNED IN' : 'PREVIEW MODE'}<small>{userId ? 'Progress saves when lessons are live' : 'Sign in to save your progress'}</small></div></div></aside><section className="lesson-main"><div className="lesson-mobile-course"><button onClick={() => setCurriculumOpen(!curriculumOpen)}><PanelLeftOpen size={14} /> Course contents <ChevronDown size={14} /></button><span>LESSON {String(current + 1).padStart(2, '0')} / {String(course.lessons.length).padStart(2, '0')}</span></div><div className="lesson-reading"><div className="lesson-breadcrumb"><span>{course.course}</span><span>/</span><span>LESSON {String(current + 1).padStart(2, '0')}</span></div><span className="lesson-type"><Play size={12} /> {course.youtubeVideoId ? 'VIDEO MASTERCLASS & TEXT GUIDE' : 'TEXT LESSON'}</span>
 <h1>{title}</h1>
-<p className="lesson-lead">A practical foundation for working with AI thoughtfully , and getting more out of the tools you choose to use.</p>
+<p className="lesson-lead">Use this lesson to explore an idea, practise a skill and review the result for yourself.</p>
 {course.youtubeVideoId && (
   <div style={{ margin: '24px 0 28px' }}>
     <YouTubeEmbed videoId={course.youtubeVideoId} title={title} duration="1h 45m" />

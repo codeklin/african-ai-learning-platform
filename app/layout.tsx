@@ -14,11 +14,11 @@ const baloo2 = Baloo_2({
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://ituwa.africa'),
-  title: 'ituwaAfrica | AI tutorials don\'t help you. Practice, projects and systems do.',
-  description: 'Stop watching AI tutorials. ituwaAfrica gives you practical AI skills, real projects and systems that move your work forward. Start free.',
+  title: 'ituwaAfrica | Learn digital skills. Build real things.',
+  description: 'Learn AI, content creation, freelancing, YouTube, automation and app development through free lessons and practical projects. Ask about personal mentorship when you need guidance.',
   openGraph: {
-    title: 'ituwaAfrica | Practice, projects and AI systems that work',
-    description: 'Stop watching AI tutorials. ituwaAfrica gives you practical AI skills, real projects and systems that move your work forward.',
+    title: 'ituwaAfrica | Learn digital skills. Build real things.',
+    description: 'Start with free learning in AI, content creation, freelancing, YouTube, automation and app development. Get personal guidance when you need it.',
     type: 'website',
     images: [{ url: '/ituwaAfrica.png', width: 1200, height: 630, alt: 'ituwaAfrica' }],
   },
