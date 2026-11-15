@@ -2311,7 +2311,7 @@ a.skip-link:focus { top:0; }
   color: #2C1A12;
   margin: 0;
 }
-.hero--editorial h1 span {
+.hero--editorial h1 > span {
   color: #E86A58;
   font-family: Georgia, serif;
   font-style: italic;
@@ -2876,6 +2876,9 @@ a.skip-link:focus { top:0; }
   }
   .hero--editorial h1 span {
     display: inline;
+  }
+  .hero--editorial h1 > .hero-h1-secondary {
+    display: block;
   }
   /* Mobile: commanding primary line, bold tight subheadline */
   .hero-h1-primary {

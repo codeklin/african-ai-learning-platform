@@ -122,8 +122,10 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
         <section className="hero hero--editorial">
           <div className="hero-editorial-inner">
             <h1>
-              <strong className="hero-h1-primary">Learn <span className="hero-h1-ai">AI</span></strong>
-              <span className="hero-h1-secondary">Skills</span>
+              <strong className="hero-h1-primary">
+                Learn <span className="hero-h1-ai">AI</span> Skills
+              </strong>
+              <span className="hero-h1-secondary">Build real things.</span>
             </h1>
             <p>
               Learn AI, content creation, freelancing, YouTube, automation and app development through practical lessons and projects. Start with free training, then ask for personal guidance when you need help applying what you have learned.
