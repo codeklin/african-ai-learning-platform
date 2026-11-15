@@ -3540,3 +3540,13 @@ a.skip-link:focus { top:0; }
 }
 .detail-video-placeholder svg { color: #E86A58; opacity: 0.6; }
 .detail-video-placeholder p { margin: 0; font-size: 14px; line-height: 1.6; max-width: 320px; }
+
+/* Give each academy card a defined edge that contrasts with its fill. */
+.academy-card {
+  border: 1px solid transparent;
+}
+.academy-card.academy-lavender { border-color: #C6AED8; }
+.academy-card.academy-lime { border-color: #A8CCA9; }
+.academy-card.academy-coral { border-color: #E5A99B; }
+.academy-card.academy-blue { border-color: #AFC7E4; }
+.academy-card.academy-peach { border-color: #E8C994; }
