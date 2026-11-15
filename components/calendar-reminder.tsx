@@ -44,9 +44,9 @@ export default function CalendarReminder({
     const formatGDate = (d: Date) =>
       `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`
 
-    const title = encodeURIComponent(`Daily AI Practice: ${courseTitle}`)
+    const title = encodeURIComponent(`Daily course practice: ${courseTitle}`)
     const details = encodeURIComponent(
-      `Time for your 20-minute daily practical AI sprint on ituwaAfrica.\n\nOpen your lesson here:\n${courseUrl}\n\nRule: Watch, build one piece, and keep momentum.`
+      `Time for your 20-minute study block.\n\nOpen your course here:\n${courseUrl}`
     )
     const location = encodeURIComponent(courseUrl)
     const dates = `${formatGDate(start)}/${formatGDate(end)}`
@@ -83,13 +83,13 @@ export default function CalendarReminder({
       `DTSTART:${formatIcsDate(start)}`,
       `DTEND:${formatIcsDate(end)}`,
       'RRULE:FREQ=DAILY;COUNT=14',
-      `SUMMARY:Daily AI Practice: ${courseTitle}`,
-      `DESCRIPTION:Your 20-minute practical AI sprint on ituwaAfrica.\\n\\nContinue lesson:\\n${courseUrl}`,
+      `SUMMARY:Daily course practice: ${courseTitle}`,
+      `DESCRIPTION:Your 20-minute study block.\\n\\nOpen your course:\\n${courseUrl}`,
       `URL:${courseUrl}`,
       'STATUS:CONFIRMED',
       'BEGIN:VALARM',
       'ACTION:DISPLAY',
-      'DESCRIPTION:Reminder: Time for your daily AI lesson',
+      'DESCRIPTION:Time for your daily course practice',
       'TRIGGER:-PT5M',
       'END:VALARM',
       'END:VEVENT',
@@ -113,10 +113,10 @@ export default function CalendarReminder({
           <Calendar size={22} />
         </div>
         <div>
-          <span className="cal-reminder-kicker">RETENTION RHYTHM · 14-DAY SPRINT</span>
-          <h3 className="cal-reminder-title">Lock in 20 minutes a day</h3>
+          <span className="cal-reminder-kicker">STUDY PLANNER · OPTIONAL 14-DAY REMINDER</span>
+          <h3 className="cal-reminder-title">Choose a time for a study block</h3>
           <p className="cal-reminder-desc">
-            Consistency beats marathon sessions. Add a daily practice reminder to your phone calendar so your lock screen nudges you at your preferred study time.
+            Add a daily 20-minute study block to your calendar. Your calendar app controls whether and how it notifies you.
           </p>
         </div>
       </div>
@@ -170,11 +170,11 @@ export default function CalendarReminder({
       {hasDownloaded ? (
         <div className="cal-success-note">
           <CheckCircle2 size={16} />
-          <span>Reminder ready! Check your calendar app to confirm your 14-day sprint.</span>
+          <span>Calendar event opened or file downloaded. Confirm and save it in your calendar app to enable reminders.</span>
         </div>
       ) : (
         <span className="cal-foot-note">
-          No app download required. Integrates directly into your Google, iPhone, or Samsung calendar.
+          Google Calendar opens an event draft. Import the .ics file into another calendar app; notifications are controlled by that app.
         </span>
       )}
     </div>

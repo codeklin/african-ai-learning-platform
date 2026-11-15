@@ -271,7 +271,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
 
             {course?.youtubeVideoId && (
               <div className="detail-block course-video-block">
-                <div className="detail-section-kicker">03 / FREE INTRO VIDEO</div>
+                <div className="detail-section-kicker">03 / INTRO VIDEO</div>
                 <h2>Watch before you start.</h2>
                 <p>A free introduction to this course. Watch to decide if it&apos;s right for you, then jump in.</p>
                 <div style={{ marginTop: 16 }}>
@@ -285,26 +285,26 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
             )}
             {course && !course.youtubeVideoId && (
               <div className="detail-block course-video-block">
-                <div className="detail-section-kicker">03 / FREE INTRO VIDEO</div>
-                <h2>Video coming soon.</h2>
+                <div className="detail-section-kicker">03 / INTRO VIDEO</div>
+                <h2>Video not available yet.</h2>
                 <div className="detail-video-placeholder">
                   <Play size={32} />
-                  <p>An introduction video for this course will be added shortly. Chat with us on WhatsApp to get notified when it goes live.</p>
+                  <p>Ask us on WhatsApp whether an introduction video is planned for this course.</p>
                   <a
-                    href={`https://wa.me/2347031098097?text=Hi%2C%20notify%20me%20when%20the%20${encodeURIComponent(title)}%20intro%20video%20is%20live.`}
+                    href={`https://wa.me/2347031098097?text=Hi%2C%20is%20an%20intro%20video%20planned%20for%20the%20${encodeURIComponent(title)}%20course%3F`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="detail-whatsapp-cta"
                     style={{ marginTop: 8 }}
                   >
                     <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="18" height="18"><circle cx="16" cy="16" r="16" fill="#25D366"/><path d="M23.472 8.516A10.368 10.368 0 0 0 16.01 5.5C10.733 5.5 6.44 9.794 6.44 15.07c0 1.69.44 3.34 1.278 4.793L6.37 24.5l4.76-1.249a10.4 10.4 0 0 0 4.876 1.237h.004c5.275 0 9.57-4.294 9.57-9.57a9.52 9.52 0 0 0-2.108-6.402Zm-7.462 14.724h-.003a8.636 8.636 0 0 1-4.404-1.207l-.316-.187-3.274.858.874-3.19-.206-.327a8.63 8.63 0 0 1-1.323-4.617c0-4.77 3.882-8.65 8.655-8.65a8.598 8.598 0 0 1 6.118 2.534 8.598 8.598 0 0 1 2.531 6.12c-.002 4.771-3.882 8.666-8.652 8.666Zm4.747-6.483c-.26-.13-1.538-.759-1.776-.846-.238-.087-.41-.13-.583.13-.173.26-.67.846-.82 1.02-.152.173-.303.195-.563.065-.26-.13-1.098-.405-2.09-1.29-.773-.688-1.294-1.538-1.446-1.797-.152-.26-.016-.4.114-.53.117-.116.26-.302.39-.453.13-.152.173-.26.26-.433.086-.173.043-.325-.022-.455-.065-.13-.583-1.405-.8-1.924-.21-.505-.424-.436-.583-.444l-.497-.009c-.173 0-.455.065-.693.325-.238.26-.909.888-.909 2.165s.931 2.511 1.061 2.684c.13.173 1.832 2.797 4.44 3.922.62.268 1.104.428 1.482.548.622.198 1.19.17 1.637.103.499-.074 1.538-.629 1.754-1.236.217-.607.217-1.128.152-1.236-.065-.109-.238-.173-.498-.303Z" fill="#fff"/></svg>
-                    Notify me on WhatsApp
+                    Ask about the video on WhatsApp
                   </a>
                 </div>
               </div>
             )}
 
-            {/* Calendar Reminder Retention Feature */}
+            {/* Optional learner-created calendar reminder */}
             <div className="detail-block">
               <CalendarReminder courseTitle={title} courseSlug={slug} />
             </div>

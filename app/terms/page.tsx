@@ -53,8 +53,8 @@ export default function TermsPage() {
                 <a href="#overview">01. Educational Scope & Identity</a>
                 <a href="#eligibility">02. Account Creation & Integrity</a>
                 <a href="#ownership">03. Project Ownership & Content</a>
-                <a href="#learning">04. Learning Objects & Certificates</a>
-                <a href="#payments">05. Subscriptions, Fees & Cancellations</a>
+                <a href="#learning">04. Course Completion</a>
+                <a href="#payments">05. Course Fees & Payment Terms</a>
                 <a href="#creator">06. Creator Economy & YouTube Rules</a>
                 <a href="#conduct">07. Acceptable Conduct & Termination</a>
                 <a href="#liability">08. Disclaimers & Contact</a>
@@ -126,30 +126,21 @@ export default function TermsPage() {
 
             <section id="learning" className="legal-section">
               <div className="section-index-tag">04</div>
-              <h2>Learning Objects & Certificate Issuance</h2>
+              <h2>Course Completion & Certificates</h2>
               <p>
-                Certificates of completion are issued strictly based on verifiable, database-recorded completion of
-                required lessons, quizzes, and project assessments.
+                Lesson progress may be recorded for learning features available on the platform. The platform does not
+                currently issue certificates of completion.
               </p>
-              <ul>
-                <li>Certificates must be earned through individual effort and assessment.</li>
-                <li>We do not fabricate certificates or issue completion badges for unfinished coursework.</li>
-                <li>ituwaAfrica reserves the right to revoke any certificate obtained through automated bots, spoofed requests, or unauthorized work duplication.</li>
-              </ul>
             </section>
 
             <section id="payments" className="legal-section">
               <div className="section-index-tag">05</div>
-              <h2>Subscriptions, Fees & Fair Cancellation</h2>
+              <h2>Course Fees & Payment Terms</h2>
               <p>
-                Access to free starter modules requires only account registration. Access to advanced academies and
-                pro sprints is billed according to transparent, advertised fees in Nigerian Naira (NGN) or local currencies.
+                Paid course offers use direct bank transfer. This application does not provide in-app checkout or
+                subscription management. Before transferring funds, confirm the course fee, access period, any renewal
+                terms, cancellation and refund terms, and how enrollment is confirmed.
               </p>
-              <ul>
-                <li><strong>No Hidden Recurring Traps:</strong> Subscription billing dates and renewal intervals are clearly displayed prior to checkout.</li>
-                <li><strong>Cancellation:</strong> You may cancel recurring memberships at any time directly from your dashboard settings. Upon cancellation, your access remains active until the end of your prepaid billing period.</li>
-                <li><strong>Refund Policy:</strong> If you experience technical failure preventing course access within 7 days of purchase, contact support at <code>hello@ituwa.africa</code> for a full review.</li>
-              </ul>
             </section>
 
             <section id="creator" className="legal-section">

@@ -53,7 +53,7 @@ export default function PrivacyPage() {
                 <a href="#collection">02. Information We Collect</a>
                 <a href="#usage">03. How We Use Your Data</a>
                 <a href="#ai-integration">04. AI Integrations & Disclosures</a>
-                <a href="#security">05. Storage, Encryption & RLS</a>
+                <a href="#security">05. Data Storage & Security</a>
                 <a href="#rights">06. Your Legal Rights (NDPA)</a>
                 <a href="#retention">07. Data Retention & Deletion</a>
                 <a href="#contact">08. Contact the Data Protection Lead</a>
@@ -66,10 +66,7 @@ export default function PrivacyPage() {
             <section id="principles" className="legal-section">
               <div className="section-index-tag">01</div>
               <h2>Our Non-Negotiable Privacy Commitments</h2>
-              <p>
-                In alignment with Section 18 of the ituwaAfrica Business Bible, the following core principles are
-                absolute:
-              </p>
+              <p>These commitments describe how ituwaAfrica handles account and learning information.</p>
               <div className="privacy-card-grid">
                 <div className="privacy-stat-card">
                   <div className="privacy-icon-box">
@@ -82,15 +79,15 @@ export default function PrivacyPage() {
                   <div className="privacy-icon-box">
                     <Lock size={20} />
                   </div>
-                  <h4>Row-Level Security Protection</h4>
-                  <p>All database tables enforce strict Postgres Row-Level Security (RLS). You can only access your own private records.</p>
+                  <h4>Administrator access</h4>
+                  <p>Admin pages and actions check the signed-in account&apos;s assigned administrator role on the server.</p>
                 </div>
                 <div className="privacy-stat-card">
                   <div className="privacy-icon-box">
                     <ShieldCheck size={20} />
                   </div>
-                  <h4>No AI Identity Leakage</h4>
-                  <p>Student names, emails, and confidential project submissions are never transmitted to third-party AI APIs without explicit intent.</p>
+                  <h4>AI-assisted features</h4>
+                  <p>Text or other information you submit to an AI feature may be processed by the provider that supports it. Avoid submitting sensitive personal information.</p>
                 </div>
               </div>
             </section>
@@ -102,11 +99,13 @@ export default function PrivacyPage() {
                 We only collect data that directly supports your learning workflow:
               </p>
               <ul>
-                <li><strong>Account Credentials:</strong> Email address, encrypted authentication tokens, and user display name (via Supabase Auth).</li>
-                <li><strong>Learning Progress Records:</strong> Enrolled courses, completed lessons, timestamped quiz results, challenge streaks, and certificates issued.</li>
-                <li><strong>Learner Project Submissions:</strong> Form inputs, prompt drafts, and project portfolio files uploaded to Supabase Storage.</li>
-                <li><strong>Diagnostic & Preference Data:</strong> Responses to the Skill Assessment Quiz (`/quiz`) and onboarding preferences (e.g., study reminder slots).</li>
-                <li><strong>Billing References:</strong> Transaction identifiers and payment status provided by licensed payment processors. We never store raw credit card numbers or PINs on our servers.</li>
+                <li><strong>Account Information:</strong> Email address and display name managed through Supabase Auth.</li>
+                <li><strong>Learning Progress:</strong> Course enrollments and lesson-completion records where those features are available.</li>
+                <li><strong>Project Submissions:</strong> Project files submitted through available upload workflows may be stored using Supabase Storage.</li>
+                <li><strong>Assessment & Preferences:</strong> Skill-assessment answers are used in your browser to show a course recommendation. Your selected study time is stored in your browser and does not schedule a notification from ituwaAfrica.</li>
+                <li><strong>Calendar Reminders:</strong> If you choose a calendar option, an event draft is prepared for Google Calendar or an `.ics` file is downloaded for your calendar app. Your calendar provider handles its reminders.</li>
+                <li><strong>Course Payments:</strong> Paid course payments are made by direct bank transfer. Confirm course-specific payment and access details before transferring.</li>
+                <li><strong>Site Analytics:</strong> Vercel Analytics is enabled on production pages to measure website usage.</li>
               </ul>
             </section>
 
@@ -114,13 +113,11 @@ export default function PrivacyPage() {
               <div className="section-index-tag">03</div>
               <h2>How We Use Your Data</h2>
               <p>
-                Your information is processed under the following lawful bases under the Nigeria Data Protection Act (NDPA):
+                We use information to provide and maintain platform features, including:
               </p>
               <ul>
                 <li><strong>Course Delivery & Account Maintenance:</strong> Tracking your progress so you can pause and resume lessons across devices without losing your place.</li>
-                <li><strong>Honest Certification:</strong> Verifying lesson and assessment completion records to issue authentic, employer-verifiable certificates.</li>
-                <li><strong>Platform Improvements:</strong> Aggregated, anonymized learning analytics (e.g., which lessons are frequently re-read or have drop-offs) to improve curriculum quality.</li>
-                <li><strong>Important Account Notices:</strong> Sending critical security alerts, password resets, and optional study streak reminders.</li>
+                <li><strong>Account Messages:</strong> Sending password-reset messages and service notices. Calendar reminders are prepared only when you choose a calendar option.</li>
               </ul>
             </section>
 
@@ -128,26 +125,20 @@ export default function PrivacyPage() {
               <div className="section-index-tag">04</div>
               <h2>AI Integrations & Ethical Disclosures</h2>
               <p>
-                ituwaAfrica incorporates generative AI models (such as Google Gemini) to provide learning assistance and prompt analysis:
+                Some learning features use generative AI. Information submitted to an AI feature may be processed by the provider that supports that feature.
               </p>
               <ul>
-                <li><strong>Server-Side Processing Only:</strong> All AI interactions are processed through secure server-side route handlers. API keys are never exposed in browser bundles.</li>
-                <li><strong>No Personal Profile Transmission:</strong> When you use an AI learning assistant, only the exercise context and your immediate prompt query are sent to the model — your email, name, and account records are excluded.</li>
-                <li><strong>Human-in-the-Loop:</strong> AI tools on ituwaAfrica are designed to assist and teach you, not replace human judgment.</li>
+                <li>Do not submit sensitive personal information unless the feature specifically requires it.</li>
+                <li>The specific AI provider and its data-retention practices are not documented in this application. Avoid submitting personal or confidential details until those are disclosed for the feature.</li>
               </ul>
             </section>
 
             <section id="security" className="legal-section">
               <div className="section-index-tag">05</div>
-              <h2>Storage, Encryption & Data Security</h2>
+              <h2>Data Storage & Security</h2>
               <p>
-                We employ modern software architecture standards to protect your records:
+                ituwaAfrica uses Supabase Auth and Supabase-hosted services for accounts and platform records. Administrative actions check the signed-in account&apos;s assigned role on the server. Database access policies and infrastructure encryption settings depend on service configuration and have not been independently verified here.
               </p>
-              <ul>
-                <li>Encrypted data in transit via Transport Layer Security (TLS 1.3 / HTTPS).</li>
-                <li>Encrypted data at rest using Supabase / PostgreSQL hosted infrastructure.</li>
-                <li>Role-based access control: Administrative privileges are strictly enforced server-side using trusted role assignments, not client-side state.</li>
-              </ul>
             </section>
 
             <section id="rights" className="legal-section">
@@ -161,10 +152,9 @@ export default function PrivacyPage() {
                 <div>
                   <strong>Your Statutory Rights:</strong>
                   <ul>
-                    <li><strong>Right to Access:</strong> You may request a complete export of your personal profile and learning progress data.</li>
-                    <li><strong>Right to Rectification:</strong> You may update or correct inaccurate profile details from your Profile page.</li>
+                    <li><strong>Right to Access:</strong> You may request a copy of the account and learning information held about you by contacting <a href="mailto:ituwaafrica@gmail.com">ituwaafrica@gmail.com</a>.</li>
+                    <li><strong>Right to Rectification:</strong> Contact <a href="mailto:ituwaafrica@gmail.com">ituwaafrica@gmail.com</a> to request correction of inaccurate account details.</li>
                     <li><strong>Right to Erasure (&quot;Right to be Forgotten&quot;):</strong> You may request permanent deletion of your account and all associated submissions.</li>
-                    <li><strong>Right to Withdraw Consent:</strong> You may opt out of non-critical reminder emails at any time.</li>
                   </ul>
                 </div>
               </div>
