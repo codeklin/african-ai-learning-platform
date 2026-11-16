@@ -83,7 +83,7 @@ function SiteHeader({ isAuthenticated }: { isAuthenticated: boolean }) {
         <nav id="primary-navigation" className={open ? 'main-nav is-open' : 'main-nav'} aria-label="Main navigation">
           <Link onClick={() => setOpen(false)} href="/courses">Explore courses</Link>
           <Link onClick={() => setOpen(false)} href="/quiz">Skill Assessment</Link>
-          <a onClick={() => setOpen(false)} href="#academies">Academies</a>
+          <a onClick={() => setOpen(false)} href="#academies">Courses</a>
           <a onClick={() => setOpen(false)} href="#how-it-works">How it works</a>
           <a onClick={() => setOpen(false)} href="#pricing">Mentorship</a>
           <div className="nav-actions">
@@ -270,7 +270,7 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
                 <h3>{academy.title}</h3>
                 <p>{academy.detail}</p>
                 <div className="academy-bottom">
-                  <span>Explore courses</span>
+                  <span>Start {academy.title}</span>
                   <ArrowRight size={15} />
                 </div>
               </Link>
@@ -361,10 +361,10 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
                 </div>
                 <p className="price-tagline">Choose a practical skill to develop next.</p>
                 <ul>
-                  <li><Check size={15} /> AI Video Creation — US$4</li>
-                  <li><Check size={15} /> AI Web App Development — NGN 50,000</li>
-                  <li><Check size={15} /> YouTube Monetization — NGN 50,000</li>
-                  <li><Check size={15} /> AI Graphic Design — NGN 50,000</li>
+                  <li><Check size={15} /> AI Video Creation — $4 <span className="price-naira">≈ ₦6,400</span></li>
+                  <li><Check size={15} /> AI Graphic Design — $4 <span className="price-naira">≈ ₦6,400</span></li>
+                  <li><Check size={15} /> AI Web App Development — ₦20,000 <span className="price-naira">≈ $13</span></li>
+                  <li><Check size={15} /> YouTube Monetization — ₦10,000 <span className="price-naira">≈ $7</span></li>
                 </ul>
                 <Link className="price-btn--paid" href="/courses">
                   <span>View course details</span>
@@ -438,7 +438,7 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
               <span>EXPLORE</span>
               <Link href="/courses">Courses</Link>
               <Link href="/quiz">Skill Assessment</Link>
-              <a href="#academies">Academies</a>
+              <a href="#academies">Courses</a>
               <a href="#pricing">Mentorship</a>
             </div>
             <div>
