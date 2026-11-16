@@ -78,3 +78,31 @@ Curiosity is a skill. You don't need a massive plan or a technical background to
 ---
 
 *ituwaAfrica is committed to transparent, skill-first education. We teach practical craft and creative discipline. Professional success and income depend on continuous practice, individual effort, and client value.*
+
+## Current course lineup and bank transfers
+
+The initial catalogue has one free course, **AI Foundations**, and four paid courses:
+
+| Course | One-time price |
+|---|---:|
+| AI Video Creation | USD 4 |
+| AI Web App Development | NGN 50,000 |
+| YouTube Monetization | NGN 50,000 |
+| AI Graphic Design | NGN 50,000 |
+
+The four paid courses are currently in development and are offered as pre-orders. Learners see bank-transfer instructions after signing in and selecting **Buy course**. Transfer references are shared through WhatsApp. An administrator must verify the bank credit and record the enrollment; a receipt or learner message does not grant access. Lessons unlock only after the course is published and payment is verified. No release date is promised.
+
+The purchase panel shows the exact NGN transfer amount and an indicative USD/NGN equivalent. Rates come from [ExchangeRate-API Open Access](https://www.exchangerate-api.com), are cached for up to 24 hours, and are attributed in the purchase panel. USD equivalents are estimates, not guaranteed exchange or settlement rates.
+
+Configure these server-side environment variables in the local environment and Vercel before enabling purchase instructions:
+
+```env
+COURSE_PAYMENT_BANK_NAME=
+COURSE_PAYMENT_ACCOUNT_NUMBER=
+COURSE_PAYMENT_ACCOUNT_NAME=
+COURSE_PAYMENT_WHATSAPP_NUMBER=
+```
+
+Do not prefix these values with `NEXT_PUBLIC_`. The purchase endpoint returns them only to an authenticated learner after a course purchase action. If any value is missing or invalid, the purchase panel reports that instructions are not configured.
+
+Apply `supabase/migrations/003_course_focus_and_paid_access.sql` after the existing schema migrations, then apply `supabase/migrations/004_public_course_status_read.sql`. The latter grants the public course-status endpoint read access to only course slugs and statuses; row-level security continues to limit public reads to published courses. Migration `003` archives courses outside the initial lineup, records manual payment verification metadata, restricts paid enrollment to trusted admin actions, and prevents learners from changing their own account role.

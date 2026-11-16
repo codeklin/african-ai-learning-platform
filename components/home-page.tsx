@@ -19,38 +19,31 @@ const featuredAcademies = [
   },
   {
     number: '02',
-    title: 'AI Content Creation',
-    detail: 'Learn to create videos, images and written content with AI.',
+    title: 'AI Video Creation',
+    detail: 'Plan and produce original AI-assisted videos.',
     href: '/courses',
-    tone: 'lavender',
+    tone: 'orange',
   },
   {
     number: '03',
-    title: 'Creator Economy & YouTube',
-    detail: 'Learn how to start, manage and grow a YouTube channel or creator business.',
-    href: '/courses',
-    tone: 'lime',
-  },
-  {
-    number: '04',
-    title: 'AI Freelancing',
-    detail: 'Learn how to package and present digital services to clients.',
-    href: '/courses',
-    tone: 'peach',
-  },
-  {
-    number: '05',
-    title: 'AI Automation',
-    detail: 'Learn to automate repetitive tasks and connect digital tools.',
+    title: 'AI Web App Development',
+    detail: 'Build practical web apps with AI-assisted workflows.',
     href: '/courses',
     tone: 'blue',
   },
   {
-    number: '06',
-    title: 'AI App Development',
-    detail: 'Learn to build websites, apps and useful digital tools.',
+    number: '04',
+    title: 'YouTube Monetization',
+    detail: 'Understand creator revenue paths, policies, and original audience value.',
     href: '/courses',
     tone: 'lime',
+  },
+  {
+    number: '05',
+    title: 'AI Graphic Design',
+    detail: 'Create original visual assets with AI-assisted design workflows.',
+    href: '/courses',
+    tone: 'peach',
   },
 ]
 
@@ -68,7 +61,7 @@ const steps = [
   {
     number: '03',
     title: 'Get guidance if you need it',
-    text: 'Start with free learning. Ask about personal mentorship when you want feedback on your work.',
+    text: 'Start with free AI Foundations, then choose a one-time paid course when you are ready.',
   },
 ]
 
@@ -299,7 +292,7 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
               <h2>Learn something.<br /><span>Try it for yourself.</span></h2>
               <p>Use free lessons and practical exercises to learn at your own pace. Choose a course that fits what you want to do next.</p>
               <Link className="text-link" href="/courses">
-                <span>Explore free courses</span>
+                <span>Explore the courses</span>
                 <ArrowRight size={16} />
               </Link>
             </div>
@@ -325,9 +318,9 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
             {/* Section header */}
             <div className="pricing-header">
               <div className="eyebrow"><span className="eyebrow-line" /> LEARNING &amp; MENTORSHIP</div>
-              <h2>Start with free learning.<br /><span>Get personal guidance when you need it.</span></h2>
+              <h2>Start with free foundations.<br /><span>Build a specialist skill next.</span></h2>
               <p>
-                Learn through free tutorials, available courses and practical exercises. If you want help applying a skill, ask about one-to-one mentorship.
+                AI Foundations is free. Four focused courses are available as one-time purchases by bank transfer; their lessons are in development. Mentorship is a separate option.
               </p>
             </div>
 
@@ -337,25 +330,47 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
               {/* Free learning */}
               <div className="price-card price-card--free">
                 <div className="price-top">
-                  <span className="plan-label">FREE LEARNING</span>
+                  <span className="plan-label">AI FOUNDATIONS</span>
                   <span className="free-tag">START HERE</span>
                 </div>
                 <div className="price-amount">
                   <span className="price-val">Free</span>
                   <span className="price-period">to begin</span>
                 </div>
-                <p className="price-tagline">Learn and practise at your own pace.</p>
+                <p className="price-tagline">Start with a practical, free introduction to AI.</p>
                 <ul>
-                  <li><Check size={15} /> Free YouTube tutorials</li>
-                  <li><Check size={15} /> Available free courses on ituwaAfrica</li>
+                  <li><Check size={15} /> One free AI Foundations course</li>
                   <li><Check size={15} /> Practical lessons and exercises</li>
-                  <li><Check size={15} /> Six academies to explore</li>
+                  <li><Check size={15} /> A clear starting point before specialist courses</li>
                 </ul>
                 <Link className="price-btn--free" href="/courses">
-                  <span>Explore free courses</span>
+                  <span>Explore AI Foundations</span>
                   <ArrowRight size={15} />
                 </Link>
-                <small>Start with the free learning available on the platform.</small>
+                <small>No payment required for AI Foundations.</small>
+              </div>
+
+              <div className="price-card price-card--paid">
+                <div className="price-top">
+                  <span className="plan-label">SPECIALIST COURSES</span>
+                  <span className="paid-tag">ONE-TIME PAYMENT</span>
+                </div>
+                <div className="price-amount">
+                  <span className="price-val">4 courses</span>
+                  <span className="price-period">bank transfer</span>
+                </div>
+                <p className="price-tagline">Choose a practical skill to develop next.</p>
+                <ul>
+                  <li><Check size={15} /> AI Video Creation — US$4</li>
+                  <li><Check size={15} /> AI Web App Development — NGN 50,000</li>
+                  <li><Check size={15} /> YouTube Monetization — NGN 50,000</li>
+                  <li><Check size={15} /> AI Graphic Design — NGN 50,000</li>
+                </ul>
+                <Link className="price-btn--paid" href="/courses">
+                  <span>View course details</span>
+                  <ArrowRight size={15} />
+                </Link>
+                <small>Courses are in development. A live exchange rate is used for currency equivalents.</small>
               </div>
 
               {/* Personal mentorship */}
@@ -398,11 +413,11 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
             <em>Build something useful as you practise.</em>
           </h2>
           <p className="closing-cta-sub">
-            Explore free courses and practical lessons. Learn at your own pace, then ask for personal guidance if you need help with your next step.
+            Start with free AI Foundations, then explore one-time paid courses in video creation, web app development, YouTube monetization, and graphic design.
           </p>
           <div className="closing-cta-actions">
             <Link className="button button-dark" href={isAuthenticated ? "/dashboard" : "/courses"}>
-              <span>{isAuthenticated ? 'Go to your dashboard' : 'Start learning free'}</span>
+              <span>{isAuthenticated ? 'Go to your dashboard' : 'Start with AI Foundations'}</span>
               <ArrowRight size={16} />
             </Link>
             <Link className="button button-outline-warm" href="#academies">

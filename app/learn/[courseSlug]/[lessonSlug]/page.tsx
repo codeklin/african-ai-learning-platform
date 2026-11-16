@@ -1,11 +1,12 @@
 import { notFound, redirect } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, ArrowRight, Check, Clock3, Lock, Play } from 'lucide-react'
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient, createClient } from '@/lib/supabase/server'
 import Brand from '@/components/brand'
 import YouTubeEmbed from '@/components/youtube-embed'
 import LessonPreview from '@/components/lesson-preview'
-import type { Lesson, Course } from '@/lib/database.types'
+import type { Course, Enrollment, Lesson } from '@/lib/database.types'
+import { getCourseProduct } from '@/lib/course-products'
 
 // Static course slugs that are served from the legacy LessonPreview component
 // (until their lessons are seeded into the database)
@@ -43,8 +44,44 @@ export default async function LessonPage({
   // ── Validate slug format ──────────────────────────────────────
   if (!/^lesson-\d+$/.test(lessonSlug)) notFound()
 
+  const product = getCourseProduct(courseSlug)
+  const databaseSlug = product?.databaseSlug ?? courseSlug
+  let accessibleCourse = (await supabase
+    .from('courses')
+    .select('id, title, status, access')
+    .eq('slug', databaseSlug)
+    .maybeSingle()).data as Pick<Course, 'id' | 'title' | 'status' | 'access'> | null
+
+  if (!accessibleCourse && product?.price) {
+    const adminClient: any = await createAdminClient()
+    const { data: draftCourse } = await adminClient
+      .from('courses')
+      .select('id, title, status, access')
+      .eq('slug', databaseSlug)
+      .maybeSingle()
+    accessibleCourse = draftCourse as Pick<Course, 'id' | 'title' | 'status' | 'access'> | null
+  }
+
+  if (!accessibleCourse || accessibleCourse.status === 'archived') notFound()
+  if (accessibleCourse.status !== 'published') {
+    return <CourseInDevelopment courseTitle={accessibleCourse.title} courseSlug={courseSlug} />
+  }
+
+  if (accessibleCourse.access === 'paid') {
+    const { data: rawEnrollment } = await supabase
+      .from('enrollments')
+      .select('id, payment_verified_at')
+      .eq('user_id', user.id)
+      .eq('course_id', accessibleCourse.id)
+      .maybeSingle()
+    const enrollment = rawEnrollment as Pick<Enrollment, 'id' | 'payment_verified_at'> | null
+
+    if (!enrollment?.payment_verified_at) {
+      return <LockedLesson courseSlug={courseSlug} courseTitle={accessibleCourse.title} />
+    }
+  }
+
   // ── Legacy demo courses — serve existing LessonPreview ────────
-  // Once lessons are seeded into the DB, remove the slug from LEGACY_COURSES
   if (LEGACY_COURSES.includes(courseSlug)) {
     return <LessonPreview slug={courseSlug} userId={user.id} />
   }
@@ -63,15 +100,16 @@ export default async function LessonPage({
   // Access enforcement
   // free lessons → any authenticated user
   // paid lessons → must have an enrollment record
-  if (lesson.access_level === 'paid') {
-    const { data: enrollment } = await supabase
+  if (lesson.access_level === 'paid' || course.access === 'paid') {
+    const { data: rawEnrollment } = await supabase
       .from('enrollments')
-      .select('id')
+      .select('id, payment_verified_at')
       .eq('user_id', user.id)
       .eq('course_id', lesson.course_id)
       .single()
+    const enrollment = rawEnrollment as Pick<Enrollment, 'id' | 'payment_verified_at'> | null
 
-    if (!enrollment) {
+    if (!enrollment?.payment_verified_at) {
       return <LockedLesson courseSlug={courseSlug} courseTitle={course.title} />
     }
   }
@@ -211,7 +249,21 @@ export default async function LessonPage({
   )
 }
 
-/** Shown when a paid lesson is accessed without enrollment */
+function CourseInDevelopment({ courseTitle, courseSlug }: { courseTitle: string; courseSlug: string }) {
+  return (
+    <div className="lesson-locked">
+      <div className="lesson-locked-card">
+        <h1>{courseTitle} is in development</h1>
+        <p>Lessons will become available after the course is published. No release date is promised.</p>
+        <Link href={`/courses/${courseSlug}`} className="button button-dark">
+          View course details <ArrowRight size={15} />
+        </Link>
+      </div>
+    </div>
+  )
+}
+
+/** Shown when a paid lesson is accessed without verified enrollment */
 function LockedLesson({ courseSlug, courseTitle }: { courseSlug: string; courseTitle: string }) {
   return (
     <div className="lesson-locked">

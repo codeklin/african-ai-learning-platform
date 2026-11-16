@@ -1949,6 +1949,47 @@ a.skip-link:focus { top:0; }
 .legal-back-link:hover { color: #E86A58; }
 .legal-cta-btn { min-height: 40px !important; padding: 0 16px !important; font-size: 13px !important; }
 
+.catalog-purchase { display: flex; flex-direction: column; gap: 8px; margin-top: auto; }
+.catalog-purchase > strong { color: #2C1A12; font-size: 18px; font-weight: 800; }
+.catalog-purchase .catalog-open { width: 100%; }
+.course-purchase-backdrop { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 18px; background: rgba(44, 26, 18, .62); }
+.course-purchase-dialog { position: relative; width: min(100%, 520px); max-height: min(90vh, 760px); overflow-y: auto; padding: 30px; border: 1px solid #EADBCE; border-radius: 22px; background: #FAF5EE; box-shadow: 0 24px 80px rgba(44, 26, 18, .24); }
+.course-purchase-close { position: absolute; top: 16px; right: 16px; width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid #EADBCE; border-radius: 50%; background: #fff; color: #2C1A12; cursor: pointer; }
+.course-purchase-dialog h2 { margin: 12px 42px 10px 0; color: #2C1A12; font-size: clamp(24px, 5vw, 32px); line-height: 1.15; }
+.course-purchase-dialog > p { color: #6C5950; font-size: 14px; line-height: 1.6; }
+.course-purchase-amount { display: flex; flex-direction: column; gap: 4px; padding: 18px; margin: 20px 0 14px; border: 1px solid #EADBCE; border-radius: 16px; background: #fff; }
+.course-purchase-amount span:first-child { color: #6C5950; font-size: 13px; font-weight: 700; }
+.course-purchase-amount strong { color: #2C1A12; font-size: 30px; line-height: 1.2; }
+.course-purchase-amount span:last-child { color: #7C6E65; font-size: 13px; }
+.course-bank-details { padding: 0; margin: 0; border-top: 1px solid #EADBCE; }
+.course-bank-details > div { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid #EADBCE; }
+.course-bank-details dt { color: #7C6E65; font-size: 13px; }
+.course-bank-details dd { margin: 0; color: #2C1A12; font-size: 14px; font-weight: 750; text-align: right; overflow-wrap: anywhere; }
+.course-rate-note, .course-purchase-terms { color: #7C6E65; font-size: 12px !important; line-height: 1.55; }
+.course-rate-note a, .course-purchase-terms a { color: #2C1A12; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.course-purchase-warning { padding: 13px 15px; border-left: 3px solid #E86A58; background: #FDEEE9; color: #2C1A12 !important; }
+.course-purchase-whatsapp { width: 100%; justify-content: center; margin-top: 6px; text-decoration: none; }
+.course-purchase-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.course-purchase-state { padding: 16px; border: 1px solid #EADBCE; border-radius: 14px; background: #fff; }
+.course-purchase-error { padding: 16px; border: 1px solid #E7B3A9; border-radius: 14px; background: #FDEEE9; color: #2C1A12; }
+.course-purchase-error .button { min-height: 44px; margin-top: 6px; }
+@media (max-width: 600px) {
+  .course-purchase-dialog { padding: 24px 20px; border-radius: 18px; }
+  .course-purchase-dialog > .detail-section-kicker { padding-right: 36px; }
+  .course-bank-details > div { align-items: flex-start; }
+}
+.admin-manual-enrollment-note { margin: 0 0 16px; color: #6C5950; font-size: 14px; line-height: 1.55; }
+.admin-manual-enrollment-form { display: grid; grid-template-columns: minmax(220px, 1fr) minmax(220px, 1fr) auto; gap: 14px; align-items: end; }
+.admin-manual-enrollment-form label { display: flex; flex-direction: column; gap: 6px; color: #6C5950; font-size: 13px; font-weight: 700; }
+.admin-manual-enrollment-form input, .admin-manual-enrollment-form select { width: 100%; min-height: 44px; padding: 0 12px; border: 1px solid #EADBCE; border-radius: 10px; background: #fff; color: #2C1A12; font: inherit; }
+.admin-manual-enrollment-form .button { min-height: 44px; white-space: nowrap; }
+.admin-manual-enrollment-form .button:disabled { opacity: .65; cursor: wait; }
+.status-review { background: #FDF5E8; color: #815A10; }
+@media (max-width: 760px) {
+  .admin-manual-enrollment-form { grid-template-columns: 1fr; }
+  .admin-manual-enrollment-form .button { width: 100%; }
+}
+
 .legal-hero { padding: 56px 24px 44px; border-bottom: 1px solid #EADBCE; background: #FAF5EE; }
 .legal-hero-inner { max-width: 900px; margin: 0 auto; }
 .legal-kicker { font-size: 12px; font-weight: 800; letter-spacing: 1.2px; color: #E86A58; display: block; margin-bottom: 8px; }

@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache'
 import { createClient, createAdminClient } from '@/lib/supabase/server'
 import type { UserRole, CourseStatus, CourseAccess, LessonType, LessonAccess, Course } from '@/lib/database.types'
+import { PAID_COURSE_PRODUCTS } from '@/lib/course-products'
 
 async function assertSuperAdmin() {
   const supabase = await createClient()
@@ -164,4 +165,105 @@ export async function updateCourseStatusAction(courseId: string, newStatus: Cour
   revalidatePath('/admin/courses')
   revalidatePath('/courses')
   return { success: true }
+}
+
+export async function grantPaidCourseEnrollmentAction(input: {
+  email: unknown
+  courseSlug: unknown
+}) {
+  const adminUser = await assertSuperAdmin()
+
+  if (typeof input.email !== 'string' || typeof input.courseSlug !== 'string') {
+    return { success: false, error: 'Enter a learner email and select a paid course.' }
+  }
+
+  const email = input.email.trim().toLowerCase()
+  const courseProduct = PAID_COURSE_PRODUCTS.find(
+    (course) => course.slug === input.courseSlug
+  )
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !courseProduct) {
+    return { success: false, error: 'Enter a valid learner email and select a paid course.' }
+  }
+
+  const adminClient: any = await createAdminClient()
+  const { data: profile, error: profileError } = await adminClient
+    .from('profiles')
+    .select('id')
+    .eq('email', email)
+    .maybeSingle()
+
+  if (profileError) {
+    console.error('Unable to find a learner for manual course enrollment:', profileError)
+    return { success: false, error: 'Unable to find that learner account.' }
+  }
+  if (!profile) {
+    return { success: false, error: 'No learner account matches that email.' }
+  }
+
+  const { data: course, error: courseError } = await adminClient
+    .from('courses')
+    .select('id, access')
+    .eq('slug', courseProduct.databaseSlug)
+    .maybeSingle()
+
+  if (courseError) {
+    console.error('Unable to load a course for manual enrollment:', courseError)
+    return { success: false, error: 'Unable to load the selected course.' }
+  }
+  if (!course || course.access !== 'paid') {
+    return { success: false, error: 'The selected course is not configured as paid.' }
+  }
+
+  const { data: existingEnrollment, error: enrollmentCheckError } = await adminClient
+    .from('enrollments')
+    .select('id, payment_verified_at')
+    .eq('user_id', profile.id)
+    .eq('course_id', course.id)
+    .maybeSingle()
+
+  if (enrollmentCheckError) {
+    console.error('Unable to check an existing course enrollment:', enrollmentCheckError)
+    return { success: false, error: 'Unable to verify the learner enrollment.' }
+  }
+  if (existingEnrollment) {
+    if (existingEnrollment.payment_verified_at) {
+      return { success: true, alreadyEnrolled: true }
+    }
+
+    const { error: verificationError } = await adminClient
+      .from('enrollments')
+      .update({
+        payment_verified_at: new Date().toISOString(),
+        payment_verified_by: adminUser.id,
+      })
+      .eq('id', existingEnrollment.id)
+
+    if (verificationError) {
+      console.error('Unable to record manual payment verification:', verificationError)
+      return { success: false, error: 'Unable to record payment verification.' }
+    }
+
+    revalidatePath('/admin')
+    revalidatePath('/admin/courses')
+    revalidatePath('/dashboard')
+    return { success: true, alreadyEnrolled: true }
+  }
+
+  const { error: insertError } = await adminClient.from('enrollments').insert({
+    user_id: profile.id,
+    course_id: course.id,
+    payment_verified_at: new Date().toISOString(),
+    payment_verified_by: adminUser.id,
+  })
+
+  if (insertError) {
+    console.error('Unable to grant a manually verified course enrollment:', insertError)
+    return { success: false, error: 'Unable to record the enrollment.' }
+  }
+
+  revalidatePath('/admin')
+  revalidatePath('/admin/courses')
+  revalidatePath('/dashboard')
+  return { success: true, alreadyEnrolled: false }
 }

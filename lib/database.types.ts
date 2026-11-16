@@ -61,6 +61,8 @@ export interface Enrollment {
   course_id: string
   enrolled_at: string
   completed_at: string | null
+  payment_verified_at: string | null
+  payment_verified_by: string | null
 }
 
 export interface LessonProgress {
@@ -96,7 +98,8 @@ export interface Database {
       }
       enrollments: {
         Row: Enrollment
-        Insert: Omit<Enrollment, 'id'>
+        Insert: Omit<Enrollment, 'id' | 'payment_verified_at' | 'payment_verified_by'>
+          & Partial<Pick<Enrollment, 'payment_verified_at' | 'payment_verified_by'>>
         Update: Partial<Omit<Enrollment, 'id' | 'user_id' | 'course_id'>>
       }
       lesson_progress: {

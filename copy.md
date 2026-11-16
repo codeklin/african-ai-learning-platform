@@ -46,16 +46,15 @@
 
 ### Academies Section
 - **Eyebrow:** WHAT DO YOU NEED HELP WITH?
-- **H2:** Six ways to move your work forward.
-- **Subtext:** Not sure what to learn first? Pick the problem you want to solve and start there.
-- **Academy 1:** AI Freelancing & Client Services — Package real services that clients pay for. Build proposals, deliver work, and get repeat business. · Highest demand
-- **Academy 2:** Creator Economy & YouTube — Start a channel, grow without showing your face, and build media assets that earn over time. · New academy
-- **Academy 3:** AI Foundations & Prompt Craft — Understand what AI can and can't do. Learn to write prompts that get useful results on the first try. · Start here
-- **Academy 4:** AI Content Creation — Write faster, edit smarter, and produce content that sounds like you — not a machine. · Creative
-- **Academy 5:** AI Automation & Workflows — Save hours each week by connecting tools and automating the tasks you repeat every day. · In demand
-- **Academy 6:** AI App Development — Turn an idea into a working tool. Build, test, and ship lightweight AI-powered apps. · Build & ship
-- **Card CTA:** Explore academy →
-- **Coming soon label:** Coming soon
+- **H2:** Five practical courses to build focused skills.
+- **Subtext:** Start with free AI Foundations, then choose a specialist course.
+- **Course 1:** AI Foundations — Build a practical understanding of AI tools and prompts. · Free
+- **Course 2:** AI Video Creation — Plan and produce original AI-assisted videos. · USD 4, one-time
+- **Course 3:** AI Web App Development — Build a practical AI-powered web app. · NGN 50,000, one-time
+- **Course 4:** YouTube Monetization — Understand creator revenue paths and YouTube policies. · NGN 50,000, one-time
+- **Course 5:** AI Graphic Design — Create original visual assets with AI-assisted workflows. · NGN 50,000, one-time
+- **Card CTA:** Explore courses →
+- **Paid course status:** In development; no release date promised
 
 ### Courses Section
 - **Eyebrow:** SHORT LESSONS. SOMETHING TO SHOW.
@@ -120,49 +119,31 @@
 - **Page title:** Courses | ituwaAfrica
 - **Eyebrow:** COURSES THAT HELP WITH REAL WORK
 - **H1:** Find your next useful skill.
-- **Body:** Overwhelmed by choices? Start with a free course, build something practical, and decide what to learn next.
-- **Badge 1:** X Free Courses
-- **Badge 2:** 6 Learning Academies
+- **Body:** Start with free AI Foundations, then choose one of four paid specialist courses.
+- **Badge 1:** 1 Free Course
+- **Badge 2:** 4 Paid Courses
 - **Badge 3:** Self-Paced & Practical
 
 ### Toolbar
 - Search courses, skills, tools...
 - X course(s) found
-- **Filter chips:** All · AI Foundations · Creator Economy & YouTube · AI Content Creation · AI Automation · AI Freelancing · AI App Development
+- **Filter chips:** All · AI Foundations · AI Video Creation · AI Web App Development · Creator Economy & YouTube · AI Graphic Design
 
 ### Course Cards
-| # | Title | Academy | Level | Lessons | Duration | Access |
-|---|---|---|---|---|---|---|
-| 01 | Your AI Toolkit: A Practical Start | AI Foundations | Beginner | 8 | 2h 15m | Free |
-| 02 | Prompting for Better Work | AI Foundations | Beginner | 12 | 3h 10m | Free |
-| 03 | The Freelance AI Content Studio | AI Content Creation | Intermediate | 16 | 4h 30m | Free |
-| 04 | Build Your First AI Workflow | AI Automation | Intermediate | 10 | 3h 45m | Free |
-| 05 | AI for Your Freelance Business | AI Freelancing | Beginner | 14 | 4h | Free |
-| 06 | Build a Helpful AI App | AI App Development | Beginner to Intermediate | 8 | 1h 45m | Free |
-| 07 | YouTube Business Fundamentals | Creator Economy & YouTube | Beginner | 8 | 2h 30m | Free |
-| 08 | Starting a Faceless YouTube Channel | Creator Economy & YouTube | Beginner | 8 | 3h | Free |
-| 09 | YouTube Automation & Monetization Masterclass | Creator Economy & YouTube | Intermediate | 8 | 4h | Free |
-| 10 | AI-Powered YouTube Content Production | Creator Economy & YouTube | Intermediate | 8 | 3h 30m | Free |
-| 11 | YouTube Shorts Growth Strategy | Creator Economy & YouTube | Beginner | 8 | 2h 45m | Free |
-| 12 | YouTube SEO and Analytics | Creator Economy & YouTube | Intermediate | 8 | 3h | Free |
-| 13 | YouTube Monetization Policies and Copyright | Creator Economy & YouTube | Intermediate | 8 | 3h 15m | Free |
-| 14 | Building a Creator Business Beyond Ad Revenue | Creator Economy & YouTube | Intermediate | 8 | 3h 30m | Free |
+| # | Title | Academy | Level | Status | One-time price |
+|---|---|---|---|---|---|
+| 01 | AI Foundations | AI Foundations | Beginner | Published | Free |
+| 02 | AI Video Creation | AI Video Creation | Beginner to intermediate | In development | USD 4 |
+| 03 | AI Web App Development | AI Web App Development | Beginner to intermediate | In development | NGN 50,000 |
+| 04 | YouTube Monetization | Creator Economy & YouTube | Beginner to intermediate | In development | NGN 50,000 |
+| 05 | AI Graphic Design | AI Graphic Design | Beginner to intermediate | In development | NGN 50,000 |
 
 ### Course Descriptions
-- **01:** Too much AI talk and not sure what matters? Learn what the tools can do and try the basics for yourself.
-- **02:** Tired of vague answers? Learn how to give clear instructions and get a better first draft.
-- **03:** Turn a client brief into clear content and build samples you can show when pitching.
-- **04:** Stop repeating the same task by hand. Pick one routine job and build a simple workflow.
-- **05:** Not sure what to sell? Find one problem you can solve and turn it into a clear offer.
-- **06:** Watch the step-by-step masterclass on building a functional AI tool. Connect prompt logic, handle user input, and test live.
-- **07:** Want to start a channel but unsure how it earns? Learn the basics, costs, and realistic ways creators make money.
-- **08:** Want to make videos but not appear on camera? Plan a channel with its own clear point of view.
-- **09:** Save time on repeat tasks without handing over your creative decisions.
-- **10:** Use AI to get past the blank page, then shape the final video in your own voice.
-- **11:** Make short videos around what your audience cares about. Views are never guaranteed.
-- **12:** See what people search for, read your channel stats, and decide what to try next.
-- **13:** Know what you can use, what needs credit, and where to check the latest rules.
-- **14:** Ad income can be unpredictable. Explore services, products, and partnerships that fit your audience.
+- **01:** Build a practical understanding of AI tools, write clearer prompts, and apply what you learn to a real task.
+- **02:** Plan and produce original AI-assisted videos, with attention to storytelling, audience value, and disclosure.
+- **03:** Build a practical web app with AI, from problem definition through interface design, testing, and responsible API use.
+- **04:** Understand creator revenue paths, current YouTube requirements, copyright, and how to build original audience value. Monetization approval and income are not guaranteed.
+- **05:** Create original, useful visual assets with AI-assisted design workflows and prepare them for real projects.
 
 ### Card CTAs
 - Start course →
@@ -186,10 +167,10 @@
 ### Shared structure across all courses
 - **Breadcrumb:** Courses / [Academy name]
 - **Eyebrow:** [ACADEMY NAME]
-- **Detail badge:** Free
-- **CTA 1:** Start this course →
-- **CTA 2 (WhatsApp):** Chat on WhatsApp to enrol
-- **Demo note:** Demo preview · Progress is not saved
+- **Detail badge:** Free or one-time price
+- **CTA 1:** Start this course → for free course; Buy course → for paid course
+- **Paid purchase panel:** Show NGN transfer amount, account details, live USD/NGN rate timestamp and source, then WhatsApp reference link.
+- **Pre-order note:** Paid courses in development; no release date promised. Lessons unlock only after publication and manual payment verification.
 - **Section 01 kicker:** 01 / WHAT YOU'LL LEARN
 - **Section 01 H2:** Skills you can put to work.
 - **Section 02 kicker:** 02 / THE CURRICULUM · X LESSONS

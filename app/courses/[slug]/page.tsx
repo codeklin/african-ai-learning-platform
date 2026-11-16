@@ -8,6 +8,8 @@ import AppBottomNav from '@/components/app-bottom-nav'
 import YouTubeEmbed from '@/components/youtube-embed'
 import CalendarReminder from '@/components/calendar-reminder'
 import { createClient } from '@/lib/supabase/server'
+import { getCourseProduct } from '@/lib/course-products'
+import CoursePurchaseButton from '@/components/course-purchase-button'
 
 const creatorCourses: Record<string, { title: string; description: string }> = {
   'youtube-business-fundamentals': { title: 'YouTube Business Fundamentals', description: 'Understand the creator business model, audience value, rights, and realistic revenue paths.' },
@@ -21,6 +23,15 @@ const creatorCourses: Record<string, { title: string; description: string }> = {
 }
 
 const WHATSAPP_URL = 'https://wa.me/2347031098097?text=Hi%20ituwaAfrica%2C%20I%20want%20to%20learn%20more%20about%20this%20course.'
+
+function hasPublishedStatus(value: unknown): value is { status: 'published' } {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'status' in value &&
+    value.status === 'published'
+  )
+}
 
 const courses: Record<string, {
   title: string
@@ -128,12 +139,13 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>
 }): Promise<Metadata> {
   const { slug } = await params
+  const product = getCourseProduct(slug)
   const creator = creatorCourses[slug]
   const course = courses[slug as CourseSlug]
-  const title = creator?.title ?? course?.title
-  const description = creator?.description ?? course?.description
+  const title = product?.title ?? creator?.title ?? course?.title
+  const description = product?.description ?? creator?.description ?? course?.description
 
-  if (!title || !description) {
+  if (!product || !title || !description) {
     return { title: 'Course not found | ituwaAfrica' }
   }
 
@@ -150,23 +162,44 @@ export async function generateMetadata({
 
 export default async function CourseDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
+  const product = getCourseProduct(slug)
   const creator = creatorCourses[slug]
   const course = courses[slug as CourseSlug]
-  if (!creator && !course) notFound()
+  if (!product) notFound()
 
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   const isAuthenticated = !!user
+  const { data: databaseCourse, error: databaseCourseError } = await supabase
+    .from('courses')
+    .select('status')
+    .eq('slug', product.databaseSlug)
+    .maybeSingle()
+  if (databaseCourseError) {
+    console.error('Unable to load course availability:', databaseCourseError)
+  }
+  const isInDevelopment = !hasPublishedStatus(databaseCourse)
 
-  const title = creator?.title ?? course!.title
-  const academy = creator ? 'Creator Economy & YouTube' : course!.academy
-  const description = creator?.description ?? course!.description
-  const outcomes = creator ? ['Develop a channel concept grounded in audience needs', 'Create original video and thumbnail projects', 'Use analytics as feedback, not as a promise of results', 'Understand policy responsibilities and business models'] : course!.outcomes
-  const modules = creator ? [{ title: 'Strategy and foundations', lessons: creatorLessons.slice(0, 3) }, { title: 'Make and publish', lessons: creatorLessons.slice(3, 6) }, { title: 'Review and grow responsibly', lessons: creatorLessons.slice(6) }] : course!.modules
-  const lessonCount = creator ? 8 : course!.lessons
-  const duration = creator ? '3h' : course!.duration
-  const level = creator ? 'Beginner to intermediate' : course!.level
+  const title = product.title
+  const academy = product.academy
+  const description = product.description
+  const outcomes = course?.outcomes ?? (creator
+    ? ['Develop a channel concept grounded in audience needs', 'Create original video and thumbnail projects', 'Use analytics as feedback, not as a promise of results', 'Understand policy responsibilities and business models']
+    : [])
+  const modules = course?.modules ?? (creator
+    ? [{ title: 'Strategy and foundations', lessons: creatorLessons.slice(0, 3) }, { title: 'Make and publish', lessons: creatorLessons.slice(3, 6) }, { title: 'Review and grow responsibly', lessons: creatorLessons.slice(6) }]
+    : [])
+  const lessonCount = course?.lessons ?? (creator ? 8 : null)
+  const duration = course?.duration ?? (creator ? '3h' : null)
+  const level = product.level
   const lessonSlug = creator ? slug : slug
+  const price = product.price
+    ? new Intl.NumberFormat(product.price.currency === 'USD' ? 'en-US' : 'en-NG', {
+        style: 'currency',
+        currency: product.price.currency,
+        maximumFractionDigits: product.price.currency === 'USD' ? 2 : 0,
+      }).format(product.price.amount)
+    : null
 
   return (
     <main className={`detail-page ${isAuthenticated ? 'has-app-bottom-nav' : ''}`}>
@@ -204,14 +237,23 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
             <p>{description}</p>
             <div className="detail-meta">
               <span>{level}</span>
-              <span><Clock3 size={14} /> {duration}</span>
-              <span><Play size={14} /> {lessonCount} lessons</span>
-              <span className="detail-free">Free</span>
+              {duration && <span><Clock3 size={14} /> {duration}</span>}
+              {lessonCount !== null && <span><Play size={14} /> {lessonCount} lessons</span>}
+              <span className="detail-free">{price ? `One-time · ${price}` : 'Free'}</span>
             </div>
-            <Link href={`/learn/${lessonSlug}/lesson-1`} className="button button-dark">
-              Start this course <ArrowRight size={15} />
-            </Link>
-            <span className="detail-demo-note">Demo preview · Progress is not saved</span>
+            {product.price ? (
+              <CoursePurchaseButton course={product} className="button button-dark" />
+            ) : (
+              <Link href={`/learn/${lessonSlug}/lesson-1`} className="button button-dark">
+                Start this course <ArrowRight size={15} />
+              </Link>
+            )}
+            {isInDevelopment && (
+              <span className="detail-demo-note">
+                In development · lessons unlock after publication and manual payment verification
+              </span>
+            )}
+            {!product.price && <span className="detail-demo-note">Free course · Progress is saved when signed in</span>}
             {/* WhatsApp enquiry CTA */}
             <a
               href={`https://wa.me/2347031098097?text=Hi%20ituwaAfrica%2C%20I%27m%20interested%20in%20the%20${encodeURIComponent(title)}%20course.`}
@@ -238,38 +280,50 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
 
         <div className="detail-columns">
           <section className="detail-main">
-            <div className="detail-block">
-              <div className="detail-section-kicker">01 / WHAT YOU&apos;LL LEARN</div>
-              <h2>Skills you can put to work.</h2>
-              <ul className="outcomes-list">
-                {outcomes.map((outcome) => (
-                  <li key={outcome}>
-                    <span><Check size={14} /></span>
-                    {outcome}
-                  </li>
+            {outcomes.length > 0 && (
+              <div className="detail-block">
+                <div className="detail-section-kicker">01 / WHAT YOU&apos;LL LEARN</div>
+                <h2>Skills you can put to work.</h2>
+                <ul className="outcomes-list">
+                  {outcomes.map((outcome) => (
+                    <li key={outcome}>
+                      <span><Check size={14} /></span>
+                      {outcome}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {modules.length > 0 ? (
+              <div className="detail-block curriculum">
+                <div className="detail-section-kicker">
+                  02 / THE CURRICULUM{lessonCount !== null ? ` · ${lessonCount} LESSONS` : ''}
+                </div>
+                <h2>A clear path, one step at a time.</h2>
+                {modules.map((module, index) => (
+                  <details key={module.title} open={index === 0}>
+                    <summary>
+                      <span>{String(index + 1).padStart(2, '0')} / {module.title}</span>
+                      <span>{module.lessons.length} lessons</span>
+                    </summary>
+                    <ul>
+                      {module.lessons.map((lesson) => (
+                        <li key={lesson}>{lesson}</li>
+                      ))}
+                    </ul>
+                  </details>
                 ))}
-              </ul>
-            </div>
+              </div>
+            ) : (
+              <div className="detail-block">
+                <div className="detail-section-kicker">02 / CURRICULUM STATUS</div>
+                <h2>Course content is in development.</h2>
+                <p>The final lessons and course schedule will be published here when they are ready.</p>
+              </div>
+            )}
 
-            <div className="detail-block curriculum">
-              <div className="detail-section-kicker">02 / THE CURRICULUM · {lessonCount} LESSONS</div>
-              <h2>A clear path, one step at a time.</h2>
-              {modules.map((module, index) => (
-                <details key={module.title} open={index === 0}>
-                  <summary>
-                    <span>{String(index + 1).padStart(2, '0')} / {module.title}</span>
-                    <span>{module.lessons.length} lessons</span>
-                  </summary>
-                  <ul>
-                    {module.lessons.map((lesson) => (
-                      <li key={lesson}>{lesson}</li>
-                    ))}
-                  </ul>
-                </details>
-              ))}
-            </div>
-
-            {course?.youtubeVideoId && (
+            {course?.youtubeVideoId && !isInDevelopment && (
               <div className="detail-block course-video-block">
                 <div className="detail-section-kicker">03 / INTRO VIDEO</div>
                 <h2>Watch before you start.</h2>
@@ -283,7 +337,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
                 </div>
               </div>
             )}
-            {course && !course.youtubeVideoId && (
+            {course && !course.youtubeVideoId && !isInDevelopment && (
               <div className="detail-block course-video-block">
                 <div className="detail-section-kicker">03 / INTRO VIDEO</div>
                 <h2>Video not available yet.</h2>
@@ -305,9 +359,11 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
             )}
 
             {/* Optional learner-created calendar reminder */}
-            <div className="detail-block">
-              <CalendarReminder courseTitle={title} courseSlug={slug} />
-            </div>
+            {!isInDevelopment && (
+              <div className="detail-block">
+                <CalendarReminder courseTitle={title} courseSlug={slug} />
+              </div>
+            )}
 
             {creator && (
               <div className="creator-eligibility">
@@ -326,11 +382,15 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
             <div className="detail-aside-card">
               <div className="detail-section-kicker">03 / COURSE DETAILS</div>
               <h3>Made for practical progress.</h3>
-              <p>Work through short lessons, then apply each idea in a project of your own.</p>
+              <p>{isInDevelopment
+                ? 'Course lessons are being developed. Payment is manually verified before your enrollment is recorded.'
+                : 'Work through short lessons, then apply each idea in a project of your own.'}</p>
               <div className="aside-divider" />
               <span className="aside-label">WHAT YOU&apos;LL NEED</span>
               <p>
-                {creator
+                {isInDevelopment
+                  ? 'A browser and an account on the platform. Lesson access will unlock when this course is published.'
+                  : creator
                   ? 'A YouTube account is optional for course exercises. You can plan, draft, and review projects without publishing.'
                   : 'A web browser and access to a text-based AI assistant. Free tool options are suitable.'}
               </p>
@@ -354,7 +414,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
           </aside>
         </div>
 
-        {creator && <CreatorProjectStudio />}
+        {creator && !isInDevelopment && <CreatorProjectStudio />}
       </div>
 
       {/* Fixed bottom navigation for authenticated mobile users */}

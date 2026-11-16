@@ -21,7 +21,7 @@ interface LessonActivity {
 
 const lessonContent: Record<string, LessonCourseData> = {
   'ai-toolkit-practical-start': {
-    course: 'Your AI Toolkit: A Practical Start',
+    course: 'AI Foundations',
     lessons: ['What AI can (and cannot) do', 'A practical AI toolkit', 'Use AI with care and good judgement', 'Give your prompt a purpose', 'Add context that matters', 'Improve a first response', 'Build a personal workflow', 'Your first AI-assisted project'],
     body: 'AI tools can help with a first draft, but they do not know your situation unless you explain it. Give clear details, check the answer, and make the final call yourself.',
     takeaway: 'Use AI for a starting point. Your experience and judgement still matter.'

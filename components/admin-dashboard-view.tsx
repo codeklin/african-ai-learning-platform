@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import {
   Activity,
   ArrowRight,
@@ -32,14 +33,21 @@ import {
 } from 'lucide-react'
 import Brand from '@/components/brand'
 import { signOut } from '@/app/actions/auth'
-import { updateUserRoleAction, updateCourseStatusAction, createCourseAction } from '@/app/actions/admin'
+import {
+  updateUserRoleAction,
+  updateCourseStatusAction,
+  createCourseAction,
+  grantPaidCourseEnrollmentAction,
+} from '@/app/actions/admin'
 import type { Profile, Course, UserRole, CourseStatus, LessonType } from '@/lib/database.types'
+import { PAID_COURSE_PRODUCTS } from '@/lib/course-products'
 
 interface EnrollmentItem {
   id: string
   enrolled_at: string
   user_id: string
   course_id: string
+  payment_verified_at?: string | null
   profiles?: Partial<Profile> | null
   courses?: (Partial<Course> & { academy?: string | null }) | null
 }
@@ -67,6 +75,7 @@ export default function AdminDashboardView({
   adminUserEmail,
   initialTab = 'overview',
 }: AdminDashboardProps) {
+  const router = useRouter()
   const [activeTab, setActiveTab] = useState<TabType>(initialTab as TabType)
   const [users, setUsers] = useState(initialUsers)
   const [courses, setCourses] = useState(initialCourses)
@@ -77,6 +86,9 @@ export default function AdminDashboardView({
   const [updatingUserId, setUpdatingUserId] = useState<string | null>(null)
   const [updatingCourseId, setUpdatingCourseId] = useState<string | null>(null)
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
+  const [manualEnrollmentEmail, setManualEnrollmentEmail] = useState('')
+  const [manualEnrollmentCourse, setManualEnrollmentCourse] = useState(PAID_COURSE_PRODUCTS[0].slug)
+  const [isGrantingEnrollment, setIsGrantingEnrollment] = useState(false)
 
   // Course Creator Studio State
   const [isCreateCourseOpen, setIsCreateCourseOpen] = useState(false)
@@ -171,6 +183,7 @@ export default function AdminDashboardView({
           type: 'error',
         })
       }
+
     } catch (err: unknown) {
       setNotification({
         message: err instanceof Error ? err.message : 'Error changing status',
@@ -179,6 +192,38 @@ export default function AdminDashboardView({
     } finally {
       setUpdatingCourseId(null)
       setTimeout(() => setNotification(null), 4000)
+    }
+  }
+
+  const handleManualEnrollment = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setIsGrantingEnrollment(true)
+    try {
+      const result = await grantPaidCourseEnrollmentAction({
+        email: manualEnrollmentEmail,
+        courseSlug: manualEnrollmentCourse,
+      })
+
+      if (!result.success) {
+        setNotification({ message: result.error ?? 'Unable to record the enrollment.', type: 'error' })
+      } else {
+        setNotification({
+          message: result.alreadyEnrolled
+            ? 'This learner already has an enrollment record.'
+            : 'Verified payment recorded and course enrollment granted.',
+          type: 'success',
+        })
+        setManualEnrollmentEmail('')
+        router.refresh()
+      }
+    } catch (error: unknown) {
+      setNotification({
+        message: error instanceof Error ? error.message : 'Unable to record the enrollment.',
+        type: 'error',
+      })
+    } finally {
+      setIsGrantingEnrollment(false)
+      setTimeout(() => setNotification(null), 5000)
     }
   }
 
@@ -757,6 +802,45 @@ export default function AdminDashboardView({
               <section className="admin-panel-card">
                 <div className="panel-header-row">
                   <div>
+                    <span className="panel-kicker">MANUAL BANK TRANSFER</span>
+                    <h2 className="panel-title">Record a verified payment</h2>
+                  </div>
+                </div>
+                <p className="admin-manual-enrollment-note">
+                  Confirm the bank credit and match the learner&apos;s WhatsApp reference before granting access.
+                  This records the verifying administrator and timestamp.
+                </p>
+                <form className="admin-manual-enrollment-form" onSubmit={handleManualEnrollment}>
+                  <label>
+                    Learner account email
+                    <input
+                      type="email"
+                      required
+                      value={manualEnrollmentEmail}
+                      onChange={(event) => setManualEnrollmentEmail(event.target.value)}
+                      autoComplete="email"
+                    />
+                  </label>
+                  <label>
+                    Paid course
+                    <select
+                      value={manualEnrollmentCourse}
+                      onChange={(event) => setManualEnrollmentCourse(event.target.value)}
+                    >
+                      {PAID_COURSE_PRODUCTS.map((course) => (
+                        <option key={course.slug} value={course.slug}>{course.title}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <button type="submit" className="button button-dark" disabled={isGrantingEnrollment}>
+                    {isGrantingEnrollment ? 'Recording…' : 'Confirm payment and enroll'}
+                  </button>
+                </form>
+              </section>
+
+              <section className="admin-panel-card">
+                <div className="panel-header-row">
+                  <div>
                     <span className="panel-kicker">COURSE PROGRESSION</span>
                     <h2 className="panel-title">Recent enrollment records</h2>
                   </div>
@@ -810,8 +894,10 @@ export default function AdminDashboardView({
                             </span>
                           </td>
                           <td>
-                            <span className="enrollment-status-badge status-active">
-                              Enrolled
+                            <span className={`enrollment-status-badge ${e.courses?.access === 'paid' && !e.payment_verified_at ? 'status-review' : 'status-active'}`}>
+                              {e.courses?.access === 'paid'
+                                ? e.payment_verified_at ? 'Payment verified' : 'Review required'
+                                : 'Free enrollment'}
                             </span>
                           </td>
                         </tr>

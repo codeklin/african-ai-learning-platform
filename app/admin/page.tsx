@@ -59,7 +59,7 @@ export default async function AdminPage() {
     // only the columns rendered in the table
     adminClient
       .from('enrollments')
-      .select('id, enrolled_at, user_id, course_id, profiles(full_name, email), courses(title, academy)')
+      .select('id, enrolled_at, user_id, course_id, payment_verified_at, profiles(full_name, email), courses(title, academy, access)')
       .order('enrolled_at', { ascending: false })
       .limit(20),
     // only columns used in the courses grid

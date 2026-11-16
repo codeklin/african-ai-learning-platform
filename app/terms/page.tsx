@@ -137,9 +137,16 @@ export default function TermsPage() {
               <div className="section-index-tag">05</div>
               <h2>Course Fees & Payment Terms</h2>
               <p>
-                Paid course offers use direct bank transfer. This application does not provide in-app checkout or
-                subscription management. Before transferring funds, confirm the course fee, access period, any renewal
-                terms, cancellation and refund terms, and how enrollment is confirmed.
+                Paid courses use a one-time NGN bank transfer. Purchase instructions are shown after you select a course
+                and sign in; this application does not initiate or automatically verify bank transfers. An administrator
+                must confirm the bank credit before recording an enrollment. Do not treat a transfer receipt or message
+                as confirmation that access has been granted.
+              </p>
+              <p>
+                Courses labelled in development are pre-orders. Lessons become available only after the course is
+                published and payment is manually verified; no release date is promised unless stated on the course
+                page. Check the course status, amount, and cancellation or refund terms through the provided support
+                channel before transferring funds.
               </p>
             </section>
 

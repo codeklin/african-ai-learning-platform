@@ -34,7 +34,7 @@ export default async function AdminCoursesPage() {
       .limit(20),
     adminClient
       .from('enrollments')
-      .select('id, enrolled_at, user_id, course_id, profiles(full_name, email), courses(title, academy)')
+      .select('id, enrolled_at, user_id, course_id, payment_verified_at, profiles(full_name, email), courses(title, academy, access)')
       .order('enrolled_at', { ascending: false })
       .limit(20),
     adminClient.from('courses').select('id, title, slug, description, academy, status, access, created_at').order('created_at', { ascending: false }).limit(50),
