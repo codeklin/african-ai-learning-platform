@@ -16,7 +16,7 @@ import {
   Lightbulb,
   ListOrdered,
   Play,
-  Sparkles,
+  Terminal,
   X,
 } from 'lucide-react'
 import Brand from '@/components/brand'
@@ -396,7 +396,7 @@ export default function LessonPreview({ slug, userId }: { slug: string; userId?:
                 <BookOpen size={15} /><span>Lesson Guide</span>
               </button>
               <button type="button" onClick={() => setActiveTab('practice')} className={`lms-tab-btn ${activeTab === 'practice' ? 'active' : ''}`}>
-                <Sparkles size={15} /><span>Prompt &amp; Practice</span>
+                <Terminal size={15} /><span>Prompt &amp; Practice</span>
               </button>
               <button type="button" onClick={() => setActiveTab('quiz')} className={`lms-tab-btn ${activeTab === 'quiz' ? 'active' : ''}`}>
                 <CheckCircle2 size={15} /><span>Quick Check</span>
@@ -444,7 +444,7 @@ export default function LessonPreview({ slug, userId }: { slug: string; userId?:
                   </div>
                   <button type="button" onClick={() => setActiveTab('practice')} className="button button-outline-warm lms-switch-btn">
                     <span>View Prompt &amp; Tasks</span>
-                    <Sparkles size={14} />
+                    <Terminal size={14} />
                   </button>
                 </div>
 
@@ -467,7 +467,7 @@ export default function LessonPreview({ slug, userId }: { slug: string; userId?:
                   <div className="lms-prompt-container">
                     <div className="lms-prompt-header">
                       <div className="lms-prompt-title-row">
-                        <Sparkles size={15} className="lms-sparkle-icon" />
+                        <Terminal size={15} className="lms-sparkle-icon" />
                         <span>COPYABLE PRACTICE PROMPT</span>
                       </div>
                       <button

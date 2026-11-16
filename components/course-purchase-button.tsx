@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { ArrowRight, Check, X } from 'lucide-react'
+import { ArrowRight, Check, Copy, X } from 'lucide-react'
 import { useUser } from '@/hooks/use-user'
 import type { CourseProduct } from '@/lib/course-products'
 
@@ -55,7 +55,16 @@ export default function CoursePurchaseButton({
   const [error, setError] = useState<string | null>(null)
   const [purchaseInfo, setPurchaseInfo] = useState<PurchaseInfo | null>(null)
   const [requestVersion, setRequestVersion] = useState(0)
+  const [copiedAccount, setCopiedAccount] = useState(false)
   const closeButtonRef = useRef<HTMLButtonElement>(null)
+
+  const handleCopyAccount = async (accountNum: string) => {
+    try {
+      await navigator.clipboard.writeText(accountNum.replace(/\D/g, ''))
+      setCopiedAccount(true)
+      setTimeout(() => setCopiedAccount(false), 2000)
+    } catch {}
+  }
 
   useEffect(() => {
     if (!isOpen || !isAuthenticated) return
@@ -201,7 +210,33 @@ export default function CoursePurchaseButton({
                 <dl className="course-bank-details">
                   <div><dt>Bank</dt><dd>{purchaseInfo.bank.name}</dd></div>
                   <div><dt>Account name</dt><dd>{purchaseInfo.bank.accountName}</dd></div>
-                  <div><dt>Account number</dt><dd>{purchaseInfo.bank.accountNumber}</dd></div>
+                  <div>
+                    <dt>Account number</dt>
+                    <dd style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'flex-end' }}>
+                      <span style={{ fontSize: 16, letterSpacing: '0.04em' }}>{purchaseInfo.bank.accountNumber}</span>
+                      <button
+                        type="button"
+                        onClick={() => handleCopyAccount(purchaseInfo.bank.accountNumber)}
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: 4,
+                          padding: '4px 8px',
+                          borderRadius: 8,
+                          border: '1px solid #EADBCE',
+                          background: copiedAccount ? '#EEF7EE' : '#fff',
+                          color: copiedAccount ? '#3DA872' : '#2C1A12',
+                          fontSize: 11,
+                          fontWeight: 700,
+                          cursor: 'pointer',
+                        }}
+                        aria-label="Copy account number"
+                      >
+                        {copiedAccount ? <Check size={12} strokeWidth={3} /> : <Copy size={12} />}
+                        <span>{copiedAccount ? 'Copied' : 'Copy'}</span>
+                      </button>
+                    </dd>
+                  </div>
                 </dl>
 
                 {purchaseInfo.exchangeRate && purchaseInfo.exchangeRateUpdatedAt && (

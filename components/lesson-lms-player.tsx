@@ -20,7 +20,7 @@ import {
   Lock,
   Play,
   Share2,
-  Sparkles,
+  Terminal,
   X,
 } from 'lucide-react'
 import Brand from '@/components/brand'
@@ -270,7 +270,7 @@ export default function LessonLmsPlayer({
                 onClick={() => setActiveTab('practice')}
                 className={`lms-tab-btn ${activeTab === 'practice' ? 'active' : ''}`}
               >
-                <Sparkles size={15} />
+                <Terminal size={15} />
                 <span>Prompt & Practice</span>
               </button>
 
@@ -347,7 +347,7 @@ export default function LessonLmsPlayer({
                     className="button button-outline-warm lms-switch-btn"
                   >
                     <span>View Prompt & Tasks</span>
-                    <Sparkles size={14} />
+                    <Terminal size={14} />
                   </button>
                 </div>
               </div>
@@ -360,7 +360,7 @@ export default function LessonLmsPlayer({
                   <div className="lms-prompt-container">
                     <div className="lms-prompt-header">
                       <div className="lms-prompt-title-row">
-                        <Sparkles size={15} className="lms-sparkle-icon" />
+                        <Terminal size={15} className="lms-sparkle-icon" />
                         <span>TESTED COPYABLE PROMPT</span>
                       </div>
                       <button

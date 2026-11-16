@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, ArrowRight, Clock3, Play, Search, Sparkles, CheckCircle2, X } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Clock3, Play, Search, BookOpen, CheckCircle2, X } from 'lucide-react'
 import Brand from '@/components/brand'
 import AppBottomNav from '@/components/app-bottom-nav'
 import { useUser } from '@/hooks/use-user'
@@ -117,7 +117,7 @@ export default function CoursesPage() {
             <CheckCircle2 size={14} className="catalog-pill-icon" /> {freeCount} Free Course
           </span>
           <span className="catalog-count-pill">
-            <Sparkles size={14} className="catalog-pill-icon" /> {paidCount} Paid Courses
+            <BookOpen size={14} className="catalog-pill-icon" /> {paidCount} Paid Courses
           </span>
           <span className="catalog-count-pill">
             <Clock3 size={14} className="catalog-pill-icon" /> Self-Paced & Practical
