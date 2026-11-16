@@ -12,7 +12,7 @@ import {
 } from 'lucide-react'
 import Brand from '@/components/brand'
 import { useUser } from '@/hooks/use-user'
-import { getCourseProduct } from '@/lib/course-products'
+import { getCourseProduct, formatDualPrice } from '@/lib/course-products'
 
 type LearningPathKey =
   | 'foundations'
@@ -388,13 +388,8 @@ export default function QuizPage() {
     }
   }, [answers])
   const recommendedProduct = getCourseProduct(result.top.courseSlug)
-  const recommendedPrice = recommendedProduct?.price
-    ? new Intl.NumberFormat(recommendedProduct.price.currency === 'USD' ? 'en-US' : 'en-NG', {
-        style: 'currency',
-        currency: recommendedProduct.price.currency,
-        maximumFractionDigits: recommendedProduct.price.currency === 'USD' ? 2 : 0,
-      }).format(recommendedProduct.price.amount)
-    : null
+  const priceInfo = formatDualPrice(recommendedProduct?.price)
+  const recommendedPrice = priceInfo.isFree ? null : priceInfo.display
 
   return (
     <div className="quiz-shell">

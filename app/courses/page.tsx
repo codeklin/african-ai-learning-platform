@@ -6,7 +6,7 @@ import { ArrowLeft, ArrowRight, Clock3, Play, Search, BookOpen, CheckCircle2, X 
 import Brand from '@/components/brand'
 import AppBottomNav from '@/components/app-bottom-nav'
 import { useUser } from '@/hooks/use-user'
-import { COURSE_PRODUCTS, type CourseProduct } from '@/lib/course-products'
+import { COURSE_PRODUCTS, type CourseProduct, formatDualPrice } from '@/lib/course-products'
 import CoursePurchaseButton from '@/components/course-purchase-button'
 
 type CourseItem = CourseProduct
@@ -182,19 +182,9 @@ export default function CoursesPage() {
             const isFree = course.price === null
             const isInDevelopment =
               !isFree && courseStatuses[course.slug] !== 'published'
-            const USD_TO_NGN = 1600
-            const basePrice = course.price
-              ? new Intl.NumberFormat(course.price.currency === 'USD' ? 'en-US' : 'en-NG', {
-                  style: 'currency',
-                  currency: course.price.currency,
-                  maximumFractionDigits: 0,
-                }).format(course.price.amount)
-              : null
-            const equivalentPrice = course.price
-              ? course.price.currency === 'USD'
-                ? `≈ ₦${(course.price.amount * USD_TO_NGN).toLocaleString('en-NG')}`
-                : `≈ $${Math.ceil(course.price.amount / USD_TO_NGN)}`
-              : null
+            const priceInfo = formatDualPrice(course.price)
+            const basePrice = priceInfo.nairaText
+            const equivalentPrice = priceInfo.usdText
 
             return (
               <article key={course.title} className="catalog-card">

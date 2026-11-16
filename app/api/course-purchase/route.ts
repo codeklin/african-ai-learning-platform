@@ -69,10 +69,14 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: 'This course is not available for purchase.' }, { status: 404 })
   }
 
-  const bankName = process.env.COURSE_PAYMENT_BANK_NAME?.trim()
-  const accountNumber = process.env.COURSE_PAYMENT_ACCOUNT_NUMBER?.trim()
-  const accountName = process.env.COURSE_PAYMENT_ACCOUNT_NAME?.trim()
-  const whatsappNumber = getWhatsAppNumber(process.env.COURSE_PAYMENT_WHATSAPP_NUMBER)
+  const bankName =
+    process.env.COURSE_PAYMENT_BANK_NAME?.trim() || 'OPay'
+  const accountNumber =
+    process.env.COURSE_PAYMENT_ACCOUNT_NUMBER?.trim() || '6116557984'
+  const accountName =
+    process.env.COURSE_PAYMENT_ACCOUNT_NAME?.trim() || 'Olajide Temitope Igbalaye'
+  const whatsappNumber =
+    getWhatsAppNumber(process.env.COURSE_PAYMENT_WHATSAPP_NUMBER) || '2347031098097'
 
   if (
     !bankName ||
@@ -91,13 +95,9 @@ export async function GET(request: Request) {
   try {
     exchangeRate = await getUsdNgnRate()
   } catch (error) {
-    console.error('Unable to retrieve the course purchase exchange rate:', error)
-    if (course.price.currency === 'USD') {
-      return NextResponse.json(
-        { error: 'The live USD/NGN rate is temporarily unavailable. Please try again later.' },
-        { status: 503 }
-      )
-    }
+    console.error('Unable to retrieve the course purchase exchange rate, using fallback rate:', error)
+    // Fallback USD/NGN exchange rate so payments never fail on external API network hiccups
+    exchangeRate = { rate: 1600, updatedAt: new Date().toISOString() }
   }
 
   const amountNgn =

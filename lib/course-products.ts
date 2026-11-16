@@ -105,3 +105,54 @@ export function getCourseProduct(slug: string): CourseProduct | undefined {
       course.aliases?.includes(slug)
   )
 }
+
+/**
+ * Standard pricing formatter ensuring Naira appears first across the app,
+ * followed by its USD equivalent.
+ * e.g., "₦6,400 (≈ $4)" or "₦15,000 (≈ $9)" or "Free"
+ */
+export const USD_TO_NGN_RATE = 1600
+
+export function formatDualPrice(
+  price: CourseProduct['price'] | undefined,
+  options: { short?: boolean } = {}
+): {
+  display: string
+  nairaText: string
+  usdText: string | null
+  isFree: boolean
+} {
+  if (!price) {
+    return {
+      display: 'Free',
+      nairaText: 'Free',
+      usdText: null,
+      isFree: true,
+    }
+  }
+
+  let nairaAmount: number
+  let usdAmount: number
+
+  if (price.currency === 'USD') {
+    usdAmount = price.amount
+    nairaAmount = Math.round(price.amount * USD_TO_NGN_RATE)
+  } else {
+    nairaAmount = price.amount
+    usdAmount = Math.ceil(price.amount / USD_TO_NGN_RATE)
+  }
+
+  const nairaText = `₦${nairaAmount.toLocaleString('en-NG')}`
+  const usdText = `≈ $${usdAmount.toLocaleString('en-US')}`
+
+  const display = options.short
+    ? `${nairaText} (${usdText})`
+    : `${nairaText} · ${usdText}`
+
+  return {
+    display,
+    nairaText,
+    usdText,
+    isFree: false,
+  }
+}

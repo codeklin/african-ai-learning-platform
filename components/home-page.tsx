@@ -136,8 +136,8 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
                 <span>{isAuthenticated ? 'Go to your dashboard' : 'Start learning free'}</span>
                 <ArrowRight size={16} />
               </Link>
-              <Link className="button button-outline-warm hero-btn-quiz" href="#skill-assessment">
-                <span>Find your learning path</span>
+              <Link className="button button-outline-warm hero-btn-quiz" href="/quiz">
+                <span>Take skill assessment</span>
                 <ArrowRight size={15} />
               </Link>
             </div>
@@ -390,11 +390,11 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
                 </div>
                 <p className="price-tagline">Choose a practical skill to develop next.</p>
                 <ul>
-                  <li><Check size={15} /> AI Video Creation — $4 <span className="price-naira">≈ ₦6,400</span></li>
-                  <li><Check size={15} /> AI Content Marketing for Business — ₦15,000 <span className="price-naira">Exclusive</span></li>
-                  <li><Check size={15} /> AI App Development for Business — ₦20,000 <span className="price-naira">Exclusive</span></li>
-                  <li><Check size={15} /> YouTube Monetization — ₦50,000 <span className="price-naira">≈ $36</span></li>
-                  <li><Check size={15} /> AI Graphic Design — $4 <span className="price-naira">≈ ₦6,400</span></li>
+                  <li><Check size={15} /> AI Video Creation — ₦6,400 <span className="price-naira">≈ $4</span></li>
+                  <li><Check size={15} /> AI Content Marketing for Business — ₦15,000 <span className="price-naira">≈ $10</span></li>
+                  <li><Check size={15} /> AI Web App Development — ₦20,000 <span className="price-naira">≈ $13</span></li>
+                  <li><Check size={15} /> YouTube Monetization — ₦10,000 <span className="price-naira">≈ $7</span></li>
+                  <li><Check size={15} /> AI Graphic Design — ₦6,400 <span className="price-naira">≈ $4</span></li>
                 </ul>
                 <Link className="price-btn--paid" href="/courses">
                   <span>View course details</span>

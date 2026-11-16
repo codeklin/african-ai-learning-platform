@@ -8,7 +8,7 @@ import YouTubeEmbed from '@/components/youtube-embed'
 import CalendarReminder from '@/components/calendar-reminder'
 import CreatorProjectStudio from '@/components/creator-project-studio'
 import { createClient } from '@/lib/supabase/server'
-import { getCourseProduct } from '@/lib/course-products'
+import { getCourseProduct, formatDualPrice } from '@/lib/course-products'
 import CoursePurchaseButton from '@/components/course-purchase-button'
 import CourseModuleAccordion from '@/components/course-module-accordion'
 
@@ -223,13 +223,8 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
   const lessonCount = course?.lessons ?? (isCreator ? 8 : null)
   const duration = course?.duration ?? (isCreator ? '3h' : null)
 
-  const price = product.price
-    ? new Intl.NumberFormat(product.price.currency === 'USD' ? 'en-US' : 'en-NG', {
-        style: 'currency',
-        currency: product.price.currency,
-        maximumFractionDigits: product.price.currency === 'USD' ? 2 : 0,
-      }).format(product.price.amount)
-    : null
+  const priceInfo = formatDualPrice(product.price)
+  const price = priceInfo.isFree ? null : priceInfo.display
 
   const firstLessonPath = `/learn/${slug}/lesson-1`
   const waText = encodeURIComponent(`Hi ituwaAfrica, I'm interested in the ${title} course.`)

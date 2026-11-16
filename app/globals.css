@@ -3943,8 +3943,7 @@ a.skip-link:focus { top:0; }
 
 /* ── Top App Header Bar ──────────────────────────────────────────────────── */
 .lms-header {
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 80;
   display: flex;
   align-items: center;
@@ -4243,7 +4242,7 @@ a.skip-link:focus { top:0; }
 .lms-content-area {
   flex: 1;
   overflow-y: auto;
-  padding-bottom: 100px;
+  padding-bottom: 120px;
 }
 
 .lms-lesson-wrapper {
@@ -4802,13 +4801,6 @@ a.skip-link:focus { top:0; }
   padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
 }
 
-/* When AppBottomNav is present, the dock needs top margin */
-@media (max-width: 1023px) {
-  .lms-dock {
-    bottom: 68px; /* height of AppBottomNav on mobile */
-  }
-}
-
 .lms-dock-inner {
   display: flex;
   align-items: center;
@@ -5159,8 +5151,7 @@ button.lms-sidebar-item {
 
 /* ── App-style header ────────────────────────────────────────────────────── */
 .cdp-header {
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 80;
   display: flex;
   align-items: center;
@@ -5299,8 +5290,7 @@ button.lms-sidebar-item {
 
 /* ── Sticky bottom CTA ───────────────────────────────────────────────────── */
 .cdp-sticky-cta {
-  position: sticky;
-  bottom: 0;
+  position: relative;
   z-index: 70;
   background: rgba(250, 245, 238, 0.98);
   backdrop-filter: blur(14px);
@@ -5311,7 +5301,9 @@ button.lms-sidebar-item {
 }
 
 @media (max-width: 1023px) {
-  .cdp-sticky-cta { bottom: 68px; }
+  .has-app-bottom-nav .cdp-sticky-cta {
+    margin-bottom: 84px; /* clearance above floating AppBottomNav */
+  }
 }
 
 .cdp-sticky-cta-inner {
