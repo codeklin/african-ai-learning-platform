@@ -14,11 +14,7 @@ const LEGACY_COURSES = [
   'ai-toolkit-practical-start',
   'prompting-better-work',
   'ai-content-marketing-for-business',
-  'ai-video-creation',
-  'ai-web-app-development',
   'build-a-helpful-ai-app',
-  'ai-graphic-design',
-  'youtube-monetization',
   'youtube-business-fundamentals',
   'starting-a-faceless-youtube-channel',
   'youtube-automation-monetization-masterclass',
@@ -274,7 +270,10 @@ export default async function LessonPage({
   }
 
   // ── Access enforcement ─────────────────────────────────────────
-  if (lesson.access_level === 'paid' || lesson.courses.access === 'paid') {
+  // Individual lesson access_level is the source of truth.
+  // A lesson marked 'free' is accessible to any authenticated user even inside a paid course
+  // (allowing freebie / preview lessons within paid courses as configured in the database).
+  if (lesson.access_level === 'paid') {
     const { data: rawEnrollment } = await supabase
       .from('enrollments')
       .select('id, payment_verified_at')

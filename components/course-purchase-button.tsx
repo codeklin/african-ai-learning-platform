@@ -169,8 +169,9 @@ export default function CoursePurchaseButton({
             <span className="detail-section-kicker">BANK TRANSFER · ONE-TIME PAYMENT</span>
             <h2 id="course-purchase-title">Buy {course.title}</h2>
             <p id="course-purchase-description">
-              This course is in development. Access will be available after the lessons are
-              published and an admin manually confirms your transfer. No release date is promised.
+              Transfer the exact naira amount to the account below, then send your transfer
+              reference via WhatsApp. Access is granted after an admin manually verifies your
+              payment — usually within 24 hours.
             </p>
 
             {authLoading ? (
