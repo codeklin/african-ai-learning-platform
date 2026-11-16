@@ -209,11 +209,25 @@ export default async function CourseDetailPage({
 
   const { data: databaseCourse, error: databaseCourseError } = await supabase
     .from('courses')
-    .select('status')
+    .select('id, status')
     .eq('slug', product.databaseSlug)
     .maybeSingle()
   if (databaseCourseError) console.error('Unable to load course availability:', databaseCourseError)
   const isInDevelopment = !hasPublishedStatus(databaseCourse)
+  let isEnrolled = false
+  if (user && product.price && databaseCourse) {
+    const { data: enrollment, error: enrollmentError } = await supabase
+      .from('enrollments')
+      .select('payment_verified_at')
+      .eq('user_id', user.id)
+      .eq('course_id', databaseCourse.id)
+      .maybeSingle()
+    if (enrollmentError) {
+      console.error('Unable to load learner course access:', enrollmentError)
+    } else {
+      isEnrolled = !!enrollment?.payment_verified_at
+    }
+  }
 
   const title = product.title
   const academy = product.academy
@@ -283,7 +297,11 @@ export default async function CourseDetailPage({
         {/* Primary Action Button placed prominently right in the Hero */}
         <div className="cdp-hero-action-box">
           {product.price ? (
-            <CoursePurchaseButton course={product} className="cdp-cta-btn" />
+            <CoursePurchaseButton
+              course={product}
+              className="cdp-cta-btn"
+              isEnrolled={isEnrolled}
+            />
           ) : (
             <Link href={firstLessonPath} className="cdp-cta-btn cdp-cta-btn-free">
               Start now <ArrowRight size={15} />
@@ -418,7 +436,11 @@ export default async function CourseDetailPage({
             </span>
           </div>
           {product.price ? (
-            <CoursePurchaseButton course={product} className="cdp-cta-btn" />
+            <CoursePurchaseButton
+              course={product}
+              className="cdp-cta-btn"
+              isEnrolled={isEnrolled}
+            />
           ) : (
             <Link href={firstLessonPath} className={`cdp-cta-btn cdp-cta-btn-free`}>
               Start now <ArrowRight size={15} />

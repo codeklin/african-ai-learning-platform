@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { getCourseProduct, getActivePrice, MANUAL_BANK_TRANSFER_ENABLED } from '@/lib/course-products'
-import { getUsdNgnRate } from '@/lib/exchange-rate'
+import { getUsdNgnRateWithFallback } from '@/lib/exchange-rate'
 
 export const dynamic = 'force-dynamic'
 
@@ -58,13 +58,7 @@ export async function GET(request: Request) {
     )
   }
 
-  let exchangeRate: { rate: number; updatedAt: string } | null = null
-  try {
-    exchangeRate = await getUsdNgnRate()
-  } catch (error) {
-    console.error('Unable to retrieve the course purchase exchange rate, using fallback rate:', error)
-    exchangeRate = { rate: 1600, updatedAt: new Date().toISOString() }
-  }
+  const exchangeRate = await getUsdNgnRateWithFallback()
 
   const amountNgn =
     activePrice.currency === 'NGN'

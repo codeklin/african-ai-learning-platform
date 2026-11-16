@@ -45,9 +45,11 @@ function isPurchaseInfo(value: unknown): value is PurchaseInfo {
 export default function CoursePurchaseButton({
   course,
   className = 'catalog-open',
+  isEnrolled = false,
 }: {
   course: CourseProduct
   className?: string
+  isEnrolled?: boolean
 }) {
   const { isAuthenticated, loading: authLoading } = useUser()
   const [isOpen, setIsOpen] = useState(false)
@@ -175,18 +177,24 @@ export default function CoursePurchaseButton({
 
   return (
     <>
-      <button
-        type="button"
-        className={className}
-        disabled={authLoading}
-        onClick={() => {
-          setIsBankTransfer(false)
-          setPaystackError(null)
-          setIsOpen(true)
-        }}
-      >
-        Buy course <ArrowRight size={16} />
-      </button>
+      {isEnrolled ? (
+        <Link href={`/learn/${course.slug}/lesson-1`} className={className}>
+          Start course <ArrowRight size={16} />
+        </Link>
+      ) : (
+        <button
+          type="button"
+          className={className}
+          disabled={authLoading}
+          onClick={() => {
+            setIsBankTransfer(false)
+            setPaystackError(null)
+            setIsOpen(true)
+          }}
+        >
+          Buy course <ArrowRight size={16} />
+        </button>
+      )}
 
       {isOpen && (
         <div

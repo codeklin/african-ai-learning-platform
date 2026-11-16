@@ -32,6 +32,7 @@ export default function CoursesPage() {
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [searchQuery, setSearchQuery] = useState('')
   const [courseStatuses, setCourseStatuses] = useState<Record<string, 'published' | 'in-development'>>({})
+  const [enrolledCourseSlugs, setEnrolledCourseSlugs] = useState<string[]>([])
 
   useEffect(() => {
     const controller = new AbortController()
@@ -42,12 +43,21 @@ export default function CoursesPage() {
         if (!data || typeof data !== 'object') throw new Error('Course status response was invalid.')
 
         const statuses: Record<string, 'published' | 'in-development'> = {}
-        for (const [slug, status] of Object.entries(data)) {
-          if (status === 'published' || status === 'in-development') {
-            statuses[slug] = status
+        if ('courseStatuses' in data && data.courseStatuses && typeof data.courseStatuses === 'object') {
+          for (const [slug, status] of Object.entries(data.courseStatuses)) {
+            if (status === 'published' || status === 'in-development') {
+              statuses[slug] = status
+            }
           }
         }
         setCourseStatuses(statuses)
+        if (
+          'enrolledCourseSlugs' in data &&
+          Array.isArray(data.enrolledCourseSlugs) &&
+          data.enrolledCourseSlugs.every((slug) => typeof slug === 'string')
+        ) {
+          setEnrolledCourseSlugs(data.enrolledCourseSlugs)
+        }
       })
       .catch((error: unknown) => {
         if (error instanceof DOMException && error.name === 'AbortError') return
@@ -251,7 +261,10 @@ export default function CoursesPage() {
                           Pre-order · lessons unlock after publication
                         </span>
                       )}
-                      <CoursePurchaseButton course={course} />
+                      <CoursePurchaseButton
+                        course={course}
+                        isEnrolled={enrolledCourseSlugs.includes(course.slug)}
+                      />
                     </div>
                   )}
                 </div>

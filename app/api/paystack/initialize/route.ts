@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createAdminClient, createClient } from '@/lib/supabase/server'
 import { getCourseProduct, getActivePrice } from '@/lib/course-products'
-import { getUsdNgnRate } from '@/lib/exchange-rate'
+import { getUsdNgnRateWithFallback } from '@/lib/exchange-rate'
 import { getAppUrl, initializePaystackTransaction } from '@/lib/paystack'
 
 export const dynamic = 'force-dynamic'
@@ -75,7 +75,7 @@ export async function POST(request: Request) {
     if (activePrice.currency === 'NGN') {
       amountNgn = activePrice.amount
     } else {
-      const { rate } = await getUsdNgnRate()
+      const { rate } = await getUsdNgnRateWithFallback()
       amountNgn = Math.ceil(activePrice.amount * rate)
     }
   } catch (error) {

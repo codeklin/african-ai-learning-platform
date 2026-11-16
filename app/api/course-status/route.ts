@@ -17,9 +17,10 @@ function isPublishedCourse(value: unknown): value is { slug: string; status: 'pu
 
 export async function GET() {
   const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
   const { data: courses, error } = await supabase
     .from('courses')
-    .select('slug, status')
+    .select('id, slug, status')
     .in('slug', PAID_COURSE_PRODUCTS.map((course) => course.databaseSlug))
 
   if (error) {
@@ -43,7 +44,47 @@ export async function GET() {
     })
   )
 
-  return NextResponse.json(courseStatuses, {
+  const courseIdsBySlug = new Map(
+    courseRows
+      .filter(
+        (course): course is { id: string; slug: string; status: string } =>
+          typeof course === 'object' &&
+          course !== null &&
+          'id' in course &&
+          typeof course.id === 'string' &&
+          'slug' in course &&
+          typeof course.slug === 'string' &&
+          'status' in course &&
+          typeof course.status === 'string'
+      )
+      .map((course) => [course.slug, course.id])
+  )
+
+  let enrolledCourseSlugs: string[] = []
+  if (user) {
+    const { data: enrollments, error: enrollmentError } = await supabase
+      .from('enrollments')
+      .select('course_id')
+      .eq('user_id', user.id)
+      .not('payment_verified_at', 'is', null)
+
+    if (enrollmentError) {
+      console.error('Unable to load learner course access:', enrollmentError)
+      return NextResponse.json(
+        { error: 'Course access could not be refreshed.' },
+        { status: 503 }
+      )
+    }
+
+    const enrolledCourseIds = new Set((enrollments ?? []).map((enrollment) => enrollment.course_id))
+    enrolledCourseSlugs = [...courseIdsBySlug]
+      .filter(([, courseId]) => enrolledCourseIds.has(courseId))
+      .map(([slug]) => {
+        return PAID_COURSE_PRODUCTS.find((product) => product.databaseSlug === slug)?.slug ?? slug
+      })
+  }
+
+  return NextResponse.json({ courseStatuses, enrolledCourseSlugs }, {
     headers: { 'Cache-Control': 'no-store' },
   })
 }
