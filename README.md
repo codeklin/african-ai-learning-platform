@@ -73,23 +73,23 @@ Curiosity is a skill. You don't need a massive plan or a technical background to
 
 *ituwaAfrica is committed to transparent, skill-first education. We teach practical craft and creative discipline. Professional success and income depend on continuous practice, individual effort, and client value.*
 
-## Current course lineup and bank transfers
+## Course payments
 
-The catalogue has one free course, **AI Foundations**, and five paid specialist courses:
+The catalogue has one free course, **AI Foundations**, and five paid specialist courses. The checkout uses Paystack-hosted checkout; the server calculates the amount from the course catalogue, initializes the transaction with Paystack, verifies the transaction server-to-server, and grants access only after a verified successful payment. A signed Paystack webhook at `/api/paystack/webhook` provides the retryable fulfillment path. The browser return alone never grants course access.
 
-| Course | One-time price |
-|---|---:|
-| AI Video Creation | USD 4 |
-| AI Content Marketing for Business (exclusive) | NGN 15,000 |
-| AI App Development for Business (exclusive) | NGN 20,000 |
-| YouTube Monetization | NGN 50,000 |
-| AI Graphic Design | USD 4 |
+| Course | Standard price | Current launch price |
+|---|---:|---:|
+| AI Video Creation | USD 4 | NGN 1,000 |
+| AI Content Marketing for Business | NGN 15,000 | NGN 1,000 |
+| AI Web App Development | NGN 20,000 | NGN 1,000 |
+| YouTube Monetization | NGN 10,000 | NGN 1,000 |
+| AI Graphic Design | USD 4 | NGN 1,000 |
 
-The five paid courses are currently in development and are offered as pre-orders. AI Content Marketing for Business is NGN 15,000; AI App Development for Business is NGN 20,000. Learners see bank-transfer instructions after signing in and selecting **Buy course**. Transfer references are shared through WhatsApp. An administrator must verify the bank credit and record the enrollment; a receipt or learner message does not grant access. Lessons unlock only after the course is published and payment is verified. No release date is promised.
+The current launch prices are controlled by `LAUNCH_PROMO_ACTIVE` in `lib/course-products.ts`. When a standard price is in USD, checkout converts it to NGN using ExchangeRate-API, cached for up to 24 hours. USD amounts are estimates, not guaranteed settlement rates. The five paid courses are currently in development and are offered as pre-orders; lessons unlock only after the course is published and payment is verified. No release date is promised.
 
-The purchase panel shows the exact NGN transfer amount and an indicative USD/NGN equivalent. Rates come from [ExchangeRate-API Open Access](https://www.exchangerate-api.com), are cached for up to 24 hours, and are attributed in the purchase panel. USD equivalents are estimates, not guaranteed exchange or settlement rates.
+Set the Paystack **test** secret key in your local environment and Vercel. Keep the key server-side; do not use a `NEXT_PUBLIC_` prefix. `NEXT_PUBLIC_APP_URL` must be the canonical HTTPS origin of the deployed app (localhost is permitted for local development). In the Paystack dashboard, configure the webhook URL as `https://<your-app-domain>/api/paystack/webhook`. Paystack signs webhooks using the API secret key; the app validates the `x-paystack-signature` HMAC before processing events. Use test keys until the business account is approved and test transactions, callbacks, and webhook delivery have all been confirmed.
 
-Configure these server-side environment variables in the local environment and Vercel before enabling purchase instructions:
+Bank transfer remains an optional fallback. Configure these values server-side to show it:
 
 ```env
 COURSE_PAYMENT_BANK_NAME=
@@ -98,6 +98,6 @@ COURSE_PAYMENT_ACCOUNT_NAME=
 COURSE_PAYMENT_WHATSAPP_NUMBER=
 ```
 
-Do not prefix these values with `NEXT_PUBLIC_`. The purchase endpoint returns them only to an authenticated learner after a course purchase action. If any value is missing or invalid, the purchase panel reports that instructions are not configured.
+Do not prefix these values with `NEXT_PUBLIC_`. If any transfer detail is missing or invalid, the app does not show bank transfer instructions.
 
-Apply `supabase/migrations/003_course_focus_and_paid_access.sql` after the existing schema migrations, then apply `supabase/migrations/004_public_course_status_read.sql`, `supabase/migrations/005_business_content_marketing_course.sql`, and `supabase/migrations/006_update_content_marketing_course.sql`. Migration `004` grants the public course-status endpoint read access to only course slugs and statuses; row-level security continues to limit public reads to published courses. Migration `003` archives courses outside the initial lineup, records manual payment verification metadata, restricts paid enrollment to trusted admin actions, and prevents learners from changing their own account role. Migration `005` adds the business content marketing course and aligns the existing app course metadata without publishing either course. Migration `006` updates its course description and does not publish it.
+Apply `supabase/migrations/011_paystack_course_payments.sql` after the existing schema and course migrations. It creates the RLS-protected payment ledger used for transaction references, amounts, statuses, and provider IDs. Only the server-side service role can create or update payment records; learners and admins can read only the rows permitted by the table policies.

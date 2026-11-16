@@ -8,10 +8,7 @@
 
 # ── Environment — NEVER commit secrets ───────────────────────────
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*
 # Allow the example file (no real values)
 !.env.example
 

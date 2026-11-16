@@ -1,48 +1,9 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { getCourseProduct, getActivePrice } from '@/lib/course-products'
+import { getUsdNgnRate } from '@/lib/exchange-rate'
 
 export const dynamic = 'force-dynamic'
-
-interface ExchangeRateResponse {
-  result?: unknown
-  base_code?: unknown
-  rates?: unknown
-  time_last_update_utc?: unknown
-}
-
-async function getUsdNgnRate(): Promise<{ rate: number; updatedAt: string }> {
-  const response = await fetch('https://open.er-api.com/v6/latest/USD', {
-    next: { revalidate: 86400 },
-    signal: AbortSignal.timeout(8000),
-  })
-
-  if (!response.ok) {
-    throw new Error(`Exchange-rate service returned ${response.status}`)
-  }
-
-  const data = (await response.json()) as ExchangeRateResponse
-  const rates =
-    data.rates && typeof data.rates === 'object'
-      ? (data.rates as Record<string, unknown>)
-      : null
-  const rate = rates?.NGN
-  const updatedAt = data.time_last_update_utc
-
-  if (
-    data.result !== 'success' ||
-    data.base_code !== 'USD' ||
-    typeof rate !== 'number' ||
-    !Number.isFinite(rate) ||
-    rate <= 0 ||
-    typeof updatedAt !== 'string' ||
-    !Number.isFinite(Date.parse(updatedAt))
-  ) {
-    throw new Error('Exchange-rate response did not contain a valid USD/NGN rate')
-  }
-
-  return { rate, updatedAt }
-}
 
 function getWhatsAppNumber(value: string | undefined): string | null {
   const digits = value?.replace(/\D/g, '')
@@ -75,14 +36,10 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: 'This course is not available for purchase.' }, { status: 404 })
   }
 
-  const bankName =
-    process.env.COURSE_PAYMENT_BANK_NAME?.trim() || 'OPay'
-  const accountNumber =
-    process.env.COURSE_PAYMENT_ACCOUNT_NUMBER?.trim() || '6116557984'
-  const accountName =
-    process.env.COURSE_PAYMENT_ACCOUNT_NAME?.trim() || 'Olajide Temitope Igbalaye'
-  const whatsappNumber =
-    getWhatsAppNumber(process.env.COURSE_PAYMENT_WHATSAPP_NUMBER) || '2347031098097'
+  const bankName = process.env.COURSE_PAYMENT_BANK_NAME?.trim()
+  const accountNumber = process.env.COURSE_PAYMENT_ACCOUNT_NUMBER?.trim()
+  const accountName = process.env.COURSE_PAYMENT_ACCOUNT_NAME?.trim()
+  const whatsappNumber = getWhatsAppNumber(process.env.COURSE_PAYMENT_WHATSAPP_NUMBER)
 
   if (
     !bankName ||
@@ -102,7 +59,6 @@ export async function GET(request: Request) {
     exchangeRate = await getUsdNgnRate()
   } catch (error) {
     console.error('Unable to retrieve the course purchase exchange rate, using fallback rate:', error)
-    // Fallback USD/NGN exchange rate so payments never fail on external API network hiccups
     exchangeRate = { rate: 1600, updatedAt: new Date().toISOString() }
   }
 

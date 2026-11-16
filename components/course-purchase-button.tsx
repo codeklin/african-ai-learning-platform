@@ -52,7 +52,10 @@ export default function CoursePurchaseButton({
   const { isAuthenticated, loading: authLoading } = useUser()
   const [isOpen, setIsOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [isPaystackLoading, setIsPaystackLoading] = useState(false)
+  const [isBankTransfer, setIsBankTransfer] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [paystackError, setPaystackError] = useState<string | null>(null)
   const [purchaseInfo, setPurchaseInfo] = useState<PurchaseInfo | null>(null)
   const [requestVersion, setRequestVersion] = useState(0)
   const [copiedAccount, setCopiedAccount] = useState(false)
@@ -66,8 +69,47 @@ export default function CoursePurchaseButton({
     } catch {}
   }
 
+  const handlePaystackCheckout = async () => {
+    setIsPaystackLoading(true)
+    setPaystackError(null)
+
+    try {
+      const response = await fetch('/api/paystack/initialize', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug: course.slug }),
+      })
+      const result: unknown = await response.json()
+
+      if (
+        !response.ok ||
+        !result ||
+        typeof result !== 'object' ||
+        !('authorizationUrl' in result) ||
+        typeof result.authorizationUrl !== 'string'
+      ) {
+        throw new Error(
+          result && typeof result === 'object' && 'error' in result && typeof result.error === 'string'
+            ? result.error
+            : 'Unable to start Paystack checkout.'
+        )
+      }
+
+      const checkoutUrl = new URL(result.authorizationUrl)
+      if (checkoutUrl.protocol !== 'https:' || checkoutUrl.hostname !== 'checkout.paystack.com') {
+        throw new Error('Paystack returned an invalid checkout address.')
+      }
+      window.location.assign(checkoutUrl.toString())
+    } catch (checkoutError: unknown) {
+      setPaystackError(
+        checkoutError instanceof Error ? checkoutError.message : 'Unable to start Paystack checkout.'
+      )
+      setIsPaystackLoading(false)
+    }
+  }
+
   useEffect(() => {
-    if (!isOpen || !isAuthenticated) return
+    if (!isOpen || !isAuthenticated || !isBankTransfer) return
 
     const controller = new AbortController()
     setIsLoading(true)
@@ -100,7 +142,7 @@ export default function CoursePurchaseButton({
       })
 
     return () => controller.abort()
-  }, [course.slug, isAuthenticated, isOpen, requestVersion])
+  }, [course.slug, isAuthenticated, isBankTransfer, isOpen, requestVersion])
 
   useEffect(() => {
     if (!isOpen) return
@@ -137,7 +179,11 @@ export default function CoursePurchaseButton({
         type="button"
         className={className}
         disabled={authLoading}
-        onClick={() => setIsOpen(true)}
+        onClick={() => {
+          setIsBankTransfer(false)
+          setPaystackError(null)
+          setIsOpen(true)
+        }}
       >
         Buy course <ArrowRight size={16} />
       </button>
@@ -166,12 +212,11 @@ export default function CoursePurchaseButton({
               <X size={20} />
             </button>
 
-            <span className="detail-section-kicker">BANK TRANSFER · ONE-TIME PAYMENT</span>
+            <span className="detail-section-kicker">SECURE CHECKOUT · ONE-TIME PAYMENT</span>
             <h2 id="course-purchase-title">Buy {course.title}</h2>
             <p id="course-purchase-description">
-              Transfer the exact naira amount to the account below, then send your transfer
-              reference via WhatsApp. Access is granted after an admin manually verifies your
-              payment — usually within 24 hours.
+              Complete your payment securely with Paystack. We verify payment directly with the
+              provider before granting course access.
             </p>
 
             {authLoading ? (
@@ -188,9 +233,9 @@ export default function CoursePurchaseButton({
                   </Link>
                 </div>
               </div>
-            ) : isLoading ? (
+            ) : isBankTransfer && isLoading ? (
               <p className="course-purchase-state">Loading current transfer instructions…</p>
-            ) : error ? (
+            ) : isBankTransfer && error ? (
               <div className="course-purchase-error" role="alert">
                 <p>{error}</p>
                 <button type="button" className="button button-outline-warm" onClick={() => {
@@ -200,7 +245,7 @@ export default function CoursePurchaseButton({
                   Try again
                 </button>
               </div>
-            ) : purchaseInfo ? (
+            ) : isBankTransfer && purchaseInfo ? (
               <>
                 <div className="course-purchase-amount">
                   <span>Transfer this amount in naira</span>
@@ -272,7 +317,45 @@ export default function CoursePurchaseButton({
                 <p className="course-purchase-terms">
                   Review the <Link href="/terms" target="_blank">payment terms</Link> before transferring.
                 </p>
+                <button
+                  type="button"
+                  className="button button-outline-warm"
+                  onClick={() => {
+                    setIsBankTransfer(false)
+                    setError(null)
+                  }}
+                >
+                  Back to Paystack checkout
+                </button>
               </>
+            ) : !isBankTransfer ? (
+              <div className="course-purchase-state">
+                <p>Pay securely by card, bank transfer, or another method available in Paystack checkout.</p>
+                {paystackError && <p className="course-purchase-error" role="alert">{paystackError}</p>}
+                <button
+                  type="button"
+                  className="button button-dark"
+                  disabled={isPaystackLoading}
+                  onClick={handlePaystackCheckout}
+                >
+                  {isPaystackLoading ? 'Connecting to Paystack…' : 'Continue to Paystack'}
+                  {!isPaystackLoading && <ArrowRight size={16} />}
+                </button>
+                <button
+                  type="button"
+                  className="button button-outline-warm"
+                  onClick={() => {
+                    setIsBankTransfer(true)
+                    setPurchaseInfo(null)
+                    setRequestVersion((version) => version + 1)
+                  }}
+                >
+                  Pay by bank transfer instead
+                </button>
+                <p className="course-purchase-terms">
+                  Review the <Link href="/terms" target="_blank">payment terms</Link> before paying.
+                </p>
+              </div>
             ) : null}
           </section>
         </div>

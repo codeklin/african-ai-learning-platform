@@ -53,13 +53,18 @@ interface EnrollmentItem {
   courses?: (Partial<Course> & { academy?: string | null }) | null
 }
 
+type AdminCourse = Pick<
+  Course,
+  'id' | 'title' | 'slug' | 'description' | 'academy' | 'status' | 'access' | 'created_at'
+>
+
 interface AdminDashboardProps {
   userCount: number
   enrollmentCount: number
   courseCount: number
   users: Array<Partial<Profile> & { id: string }>
   enrollments: EnrollmentItem[]
-  courses: Course[]
+  courses: AdminCourse[]
   adminUserEmail: string
   initialTab?: string
 }

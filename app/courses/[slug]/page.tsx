@@ -188,8 +188,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
-export default async function CourseDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function CourseDetailPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ slug: string }>
+  searchParams?: Promise<{ payment?: string | string[] }>
+}) {
   const { slug } = await params
+  const query = searchParams ? await searchParams : {}
+  const paymentStatus = Array.isArray(query.payment) ? query.payment[0] : query.payment
   const product = getCourseProduct(slug)
   const creator = creatorCourses[slug]
   const course = courses[slug as CourseSlug]
@@ -289,6 +297,22 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
 
       {/* ── Body Content ── */}
       <div className="cdp-body">
+        {paymentStatus === 'success' && (
+          <p className="course-purchase-state" role="status">
+            Payment confirmed. Your course access is ready.
+          </p>
+        )}
+        {paymentStatus === 'not-complete' && (
+          <p className="course-purchase-state" role="status">
+            The payment was not completed. You can try Paystack again or choose bank transfer.
+          </p>
+        )}
+        {paymentStatus === 'processing' && (
+          <p className="course-purchase-state" role="status">
+            We could not confirm the payment yet. Please check your dashboard shortly or contact support.
+          </p>
+        )}
+
         {/* What you will learn */}
         {outcomes.length > 0 && (
           <div className="cdp-section">

@@ -65,6 +65,21 @@ export interface Enrollment {
   payment_verified_by: string | null
 }
 
+export interface CoursePayment {
+  id: string
+  user_id: string
+  course_id: string
+  reference: string
+  amount_kobo: number
+  currency: 'NGN'
+  customer_email: string
+  status: 'pending' | 'initialized' | 'successful' | 'failed'
+  provider_transaction_id: number | null
+  paid_at: string | null
+  created_at: string
+  updated_at: string
+}
+
 export interface LessonProgress {
   id: string
   user_id: string
@@ -84,39 +99,75 @@ export interface AccessCode {
   created_at: string
 }
 
+type SupabaseRecord<T> = T & Record<string, unknown>
+
 export interface Database {
   public: {
     Tables: {
       profiles: {
-        Row: Profile
-        Insert: Omit<Profile, 'created_at' | 'updated_at'>
-        Update: Partial<Omit<Profile, 'id' | 'created_at' | 'updated_at'>>
+        Row: SupabaseRecord<Profile>
+        Insert: SupabaseRecord<Omit<Profile, 'created_at' | 'updated_at'>>
+        Update: SupabaseRecord<Partial<Omit<Profile, 'id' | 'created_at' | 'updated_at'>>>
+        Relationships: []
       }
       courses: {
-        Row: Course
-        Insert: Omit<Course, 'id' | 'created_at' | 'updated_at'>
-        Update: Partial<Omit<Course, 'id' | 'created_at' | 'updated_at'>>
+        Row: SupabaseRecord<Course>
+        Insert: SupabaseRecord<Omit<Course, 'id' | 'created_at' | 'updated_at'>>
+        Update: SupabaseRecord<Partial<Omit<Course, 'id' | 'created_at' | 'updated_at'>>>
+        Relationships: []
       }
       modules: {
-        Row: Module
-        Insert: Omit<Module, 'id' | 'created_at' | 'updated_at'>
-        Update: Partial<Omit<Module, 'id' | 'created_at' | 'updated_at'>>
+        Row: SupabaseRecord<Module>
+        Insert: SupabaseRecord<Omit<Module, 'id' | 'created_at' | 'updated_at'>>
+        Update: SupabaseRecord<Partial<Omit<Module, 'id' | 'created_at' | 'updated_at'>>>
+        Relationships: []
       }
       lessons: {
-        Row: Lesson
-        Insert: Omit<Lesson, 'id' | 'created_at' | 'updated_at'>
-        Update: Partial<Omit<Lesson, 'id' | 'created_at' | 'updated_at'>>
+        Row: SupabaseRecord<Lesson>
+        Insert: SupabaseRecord<Omit<Lesson, 'id' | 'created_at' | 'updated_at'>>
+        Update: SupabaseRecord<Partial<Omit<Lesson, 'id' | 'created_at' | 'updated_at'>>>
+        Relationships: []
       }
       enrollments: {
-        Row: Enrollment
-        Insert: Omit<Enrollment, 'id' | 'payment_verified_at' | 'payment_verified_by'>
-          & Partial<Pick<Enrollment, 'payment_verified_at' | 'payment_verified_by'>>
-        Update: Partial<Omit<Enrollment, 'id' | 'user_id' | 'course_id'>>
+        Row: SupabaseRecord<Enrollment>
+        Insert: SupabaseRecord<
+          Omit<Enrollment, 'id' | 'enrolled_at' | 'completed_at' | 'payment_verified_at' | 'payment_verified_by'>
+          & Partial<Pick<Enrollment, 'enrolled_at' | 'completed_at' | 'payment_verified_at' | 'payment_verified_by'>>
+        >
+        Update: SupabaseRecord<Partial<Omit<Enrollment, 'id' | 'user_id' | 'course_id'>>>
+        Relationships: [
+          {
+            foreignKeyName: 'enrollments_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'enrollments_course_id_fkey'
+            columns: ['course_id']
+            isOneToOne: false
+            referencedRelation: 'courses'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      course_payments: {
+        Row: SupabaseRecord<CoursePayment>
+        Insert: SupabaseRecord<
+          Omit<CoursePayment, 'id' | 'created_at' | 'updated_at' | 'provider_transaction_id' | 'paid_at'>
+          & Partial<Pick<CoursePayment, 'provider_transaction_id' | 'paid_at'>>
+        >
+        Update: SupabaseRecord<
+          Partial<Omit<CoursePayment, 'id' | 'user_id' | 'course_id' | 'reference' | 'amount_kobo' | 'currency' | 'customer_email'>>
+        >
+        Relationships: []
       }
       lesson_progress: {
-        Row: LessonProgress
-        Insert: Omit<LessonProgress, 'id'>
-        Update: Partial<Omit<LessonProgress, 'id'>>
+        Row: SupabaseRecord<LessonProgress>
+        Insert: SupabaseRecord<Omit<LessonProgress, 'id'>>
+        Update: SupabaseRecord<Partial<Omit<LessonProgress, 'id'>>>
+        Relationships: []
       }
     }
     Views: Record<string, never>
