@@ -1,21 +1,21 @@
 import { notFound, redirect } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, ArrowRight, Check, Clock3, Lock, Play } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Lock } from 'lucide-react'
 import { createAdminClient, createClient } from '@/lib/supabase/server'
-import Brand from '@/components/brand'
-import YouTubeEmbed from '@/components/youtube-embed'
 import LessonPreview from '@/components/lesson-preview'
-import type { Course, Enrollment, Lesson } from '@/lib/database.types'
+import LessonLmsPlayer from '@/components/lesson-lms-player'
+import type { Course, Enrollment, Lesson, Module, LessonProgress } from '@/lib/database.types'
 import { getCourseProduct } from '@/lib/course-products'
+import type { LessonInteractiveMeta, ModuleGroup, SiblingLessonItem } from '@/components/lesson-lms-player'
 
-// Static course slugs that are served from the legacy LessonPreview component
+// Static course slugs served from the legacy LessonPreview component
 // (until their lessons are seeded into the database)
 const LEGACY_COURSES = [
-  'ai-toolkit-practical-start',
   'prompting-better-work',
+  'ai-video-creation',
   'ai-web-app-development',
   'build-a-helpful-ai-app',
-  'ai-content-marketing-for-business',
+  'ai-graphic-design',
   'youtube-monetization',
   'youtube-business-fundamentals',
   'starting-a-faceless-youtube-channel',
@@ -27,6 +27,170 @@ const LEGACY_COURSES = [
   'building-a-creator-business-beyond-ad-revenue',
 ]
 
+// ── Interactive metadata per lesson slug ──────────────────────────────────────
+// Add prompt/practice/quiz data here as lessons are written.
+const LESSON_INTERACTIVE_META: Record<string, LessonInteractiveMeta> = {
+  'lesson-01': {
+    prompt: `I need your help as my AI assistant. I am a [your profession or role] in [your city/country].
+My task today: [describe a real work task you want help with].
+Please give me a clear, practical response that I can apply immediately.`,
+    practiceTask: 'Have a real conversation with an AI assistant about a task you do every week.',
+    checklist: [
+      'Open ChatGPT, Gemini or Copilot on your phone or laptop',
+      'Describe your profession and location clearly',
+      'State a specific task you need help with',
+      'Read the response and ask a follow-up question',
+      'Save one useful output to your notes',
+    ],
+    quiz: {
+      question: 'What does "AI" stand for in the context of this course?',
+      options: [
+        'Automated Interface',
+        'Artificial Intelligence',
+        'Automated Information',
+        'Advanced Internet',
+      ],
+      correctIndex: 1,
+      explanation:
+        'AI stands for Artificial Intelligence — computer systems designed to perform tasks that normally require human thinking, such as writing, answering questions and generating images.',
+    },
+  },
+  'lesson-02': {
+    prompt: `Act as a professional writing assistant. Help me write a [type of content] about [topic].
+Tone: [formal / conversational / persuasive].
+Target audience: [describe your audience].
+Length: approximately [number] words.
+Include a compelling opening and a clear call to action at the end.`,
+    practiceTask: 'Write a short professional message or email using the prompt above.',
+    checklist: [
+      'Choose a real writing task (email, caption, proposal, report)',
+      'Fill in all the brackets in the prompt with real values',
+      'Paste the customised prompt into your AI assistant',
+      'Review the output and request one improvement',
+      'Copy the final version to your clipboard',
+    ],
+    quiz: {
+      question: 'What is the most important element to include when prompting an AI to write for you?',
+      options: [
+        'Your name and contact details',
+        'The audience, tone and purpose',
+        'The exact number of characters you want',
+        'Your subscription plan',
+      ],
+      correctIndex: 1,
+      explanation:
+        'Specifying your audience, desired tone and purpose gives the AI the context it needs to produce relevant, useful content instead of a generic response.',
+    },
+  },
+  'lesson-03': {
+    prompt: `I need to solve this problem: [describe the challenge].
+My constraints are: [time / budget / tools available].
+Please suggest three practical solutions, rank them by ease of implementation, and explain the first step for each.`,
+    practiceTask: 'Use AI to break down a real challenge you are facing at work or in your business.',
+    checklist: [
+      'Write down one real challenge you are currently facing',
+      'Fill in the prompt with that challenge and your constraints',
+      'Get three solutions from your AI assistant',
+      'Pick the most practical one and ask for a detailed action plan',
+      'Save the action plan somewhere you can revisit it',
+    ],
+    quiz: {
+      question: 'Which of the following makes an AI prompt more effective?',
+      options: [
+        'Using lots of technical jargon',
+        'Keeping it as short as possible at all times',
+        'Providing context, constraints and a clear goal',
+        'Starting every prompt with "Hello"',
+      ],
+      correctIndex: 2,
+      explanation:
+        'Context, constraints and a clear goal allow the AI to focus its response. Without these, responses tend to be vague and hard to apply directly.',
+    },
+  },
+  'lesson-04': {
+    prompt: `You are my business research assistant. Research this topic for me: [topic].
+Summarise the key facts in bullet points.
+Then give me three actionable insights I can apply to [my business / my work / my project].
+Keep the language simple and practical.`,
+    practiceTask: 'Use AI to research one topic that is relevant to your work or business right now.',
+    checklist: [
+      'Pick a topic you need to understand better (market, skill, tool, regulation)',
+      'Paste the customised prompt into your AI assistant',
+      'Review the bullet-point summary carefully',
+      'Ask one follow-up question to go deeper on the most useful insight',
+      'Write one sentence about how you will act on this',
+    ],
+    quiz: {
+      question: 'Why should you always verify AI-generated research with other sources?',
+      options: [
+        'AI assistants are always wrong',
+        'AI can produce confident but inaccurate information',
+        'Verification is a legal requirement',
+        'AI cannot access the internet',
+      ],
+      correctIndex: 1,
+      explanation:
+        'AI models can generate plausible-sounding information that is outdated or factually incorrect. Cross-checking with trusted sources protects the quality of your work.',
+    },
+  },
+  'lesson-05': {
+    prompt: `I want to improve my productivity on this daily task: [describe the task].
+Currently I spend about [time] on it each day.
+Please help me create a simple AI-assisted workflow I can follow step by step to do this task faster and better.`,
+    practiceTask: 'Map out one repetitive task in your work that AI can help you do faster.',
+    checklist: [
+      'Identify one task you repeat at least three times per week',
+      'Paste the prompt with your task details',
+      'Review the AI workflow suggestion',
+      'Test the first two steps of the workflow today',
+      'Note down how much time you saved',
+    ],
+    quiz: {
+      question: 'What is a "workflow" in the context of using AI tools?',
+      options: [
+        'A type of AI model',
+        'A step-by-step process that uses AI at specific points to get work done',
+        'A subscription plan for AI tools',
+        'A way to train your own AI',
+      ],
+      correctIndex: 1,
+      explanation:
+        'An AI workflow is a structured sequence of steps where AI tools assist at specific points, making recurring tasks faster, more consistent and less mentally draining.',
+    },
+  },
+  'lesson-06': {
+    prompt: `I want to create content for my [business / personal brand / employer] on the topic: [topic].
+My target audience is: [describe them].
+Please generate five content ideas with a headline and a one-sentence description for each.
+Format them as a numbered list.`,
+    practiceTask: 'Generate a week of content ideas for your business or social media using this prompt.',
+    checklist: [
+      'Choose a topic relevant to your audience or niche',
+      'Fill in your audience description clearly',
+      'Generate five ideas using the prompt',
+      'Pick your favourite two ideas',
+      'Ask AI to draft the first piece of content for one of them',
+    ],
+    quiz: {
+      question: 'What is the best way to use AI for content creation?',
+      options: [
+        'Post everything the AI writes without editing',
+        'Use AI to generate a first draft and then add your own voice and facts',
+        'Only use AI for captions, never for long content',
+        'Ask AI to copy content from other creators',
+      ],
+      correctIndex: 1,
+      explanation:
+        'AI is best used as a starting point. Adding your personal voice, real examples and accurate information transforms a generic draft into authentic content that builds trust.',
+    },
+  },
+}
+
+// Fallback: derive a lightweight meta if no entry exists for the slug
+function getInteractiveMeta(lessonSlug: string): LessonInteractiveMeta | undefined {
+  return LESSON_INTERACTIVE_META[lessonSlug]
+}
+
 export default async function LessonPage({
   params,
 }: {
@@ -34,38 +198,38 @@ export default async function LessonPage({
 }) {
   const { courseSlug, lessonSlug } = await params
 
-  // ── Authentication check ──────────────────────────────────────
-  // Video content and lesson progress require a registered account.
+  // ── Authentication check ───────────────────────────────────────
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) {
-    // Preserve the destination so we can redirect back after login
     redirect(`/login?next=/learn/${courseSlug}/${lessonSlug}`)
   }
 
-  // ── Validate slug format ──────────────────────────────────────
+  // ── Validate slug format ───────────────────────────────────────
   if (!/^lesson-\d+$/.test(lessonSlug)) notFound()
 
   const product = getCourseProduct(courseSlug)
   const databaseSlug = product?.databaseSlug ?? courseSlug
+
   let accessibleCourse = (await supabase
     .from('courses')
-    .select('id, title, status, access')
+    .select('id, title, slug, status, access, academy')
     .eq('slug', databaseSlug)
-    .maybeSingle()).data as Pick<Course, 'id' | 'title' | 'status' | 'access'> | null
+    .maybeSingle()).data as Pick<Course, 'id' | 'title' | 'slug' | 'status' | 'access' | 'academy'> | null
 
   if (!accessibleCourse && product?.price) {
     const adminClient: any = await createAdminClient()
     const { data: draftCourse } = await adminClient
       .from('courses')
-      .select('id, title, status, access')
+      .select('id, title, slug, status, access, academy')
       .eq('slug', databaseSlug)
       .maybeSingle()
-    accessibleCourse = draftCourse as Pick<Course, 'id' | 'title' | 'status' | 'access'> | null
+    accessibleCourse = draftCourse as Pick<Course, 'id' | 'title' | 'slug' | 'status' | 'access' | 'academy'> | null
   }
 
   if (!accessibleCourse || accessibleCourse.status === 'archived') notFound()
+
   if (accessibleCourse.status !== 'published') {
     return <CourseInDevelopment courseTitle={accessibleCourse.title} courseSlug={courseSlug} />
   }
@@ -84,7 +248,7 @@ export default async function LessonPage({
     }
   }
 
-  // ── Database-driven lesson lookup ─────────────────────────────
+  // ── Database-driven lesson lookup ──────────────────────────────
   const { data: lesson } = await supabase
     .from('lessons')
     .select('*, courses(*)')
@@ -100,12 +264,8 @@ export default async function LessonPage({
     notFound()
   }
 
-  const course = lesson.courses
-
-  // Access enforcement
-  // free lessons → any authenticated user
-  // paid lessons → must have an enrollment record
-  if (lesson.access_level === 'paid' || course.access === 'paid') {
+  // ── Access enforcement ─────────────────────────────────────────
+  if (lesson.access_level === 'paid' || lesson.courses.access === 'paid') {
     const { data: rawEnrollment } = await supabase
       .from('enrollments')
       .select('id, payment_verified_at')
@@ -115,142 +275,99 @@ export default async function LessonPage({
     const enrollment = rawEnrollment as Pick<Enrollment, 'id' | 'payment_verified_at'> | null
 
     if (!enrollment?.payment_verified_at) {
-      return <LockedLesson courseSlug={courseSlug} courseTitle={course.title} />
+      return <LockedLesson courseSlug={courseSlug} courseTitle={lesson.courses.title} />
     }
   }
 
-  // Fetch sibling lessons for prev/next navigation
-  type SiblingLesson = Pick<Lesson, 'id' | 'slug' | 'title' | 'position' | 'access_level'>
+  // ── Fetch modules for this course ──────────────────────────────
+  const { data: rawModules } = await supabase
+    .from('modules')
+    .select('id, title, position')
+    .eq('course_id', accessibleCourse.id)
+    .order('position', { ascending: true })
+  const dbModules = (rawModules ?? []) as Pick<Module, 'id' | 'title' | 'position'>[]
+
+  // ── Fetch all published lessons in this course ─────────────────
+  type SiblingRow = Pick<Lesson, 'id' | 'slug' | 'title' | 'position' | 'access_level' | 'module_id'>
   const { data: rawSiblings } = await supabase
     .from('lessons')
-    .select('id, slug, title, position, access_level')
-    .eq('course_id', lesson.course_id)
+    .select('id, slug, title, position, access_level, module_id')
+    .eq('course_id', accessibleCourse.id)
     .eq('status', 'published')
     .order('position', { ascending: true })
-  const siblings = rawSiblings as SiblingLesson[] | null
+  const allLessons: SiblingLessonItem[] = (rawSiblings ?? []) as SiblingLessonItem[]
 
-  const currentIdx = siblings?.findIndex((s) => s.id === lesson.id) ?? 0
-  const prev = siblings?.[currentIdx - 1] ?? null
-  const next = siblings?.[currentIdx + 1] ?? null
+  // ── Fetch completed lesson IDs for this user + course ─────────
+  const { data: rawProgress } = await supabase
+    .from('lesson_progress')
+    .select('lesson_id')
+    .eq('user_id', user.id)
+    .eq('course_id', accessibleCourse.id)
+  const completedLessonIds: string[] = (rawProgress ?? []).map(
+    (r: Pick<LessonProgress, 'lesson_id'>) => r.lesson_id
+  )
+
+  // ── Build module groups (group lessons under their module) ─────
+  const moduleMap = new Map<string, ModuleGroup>()
+  for (const mod of dbModules) {
+    moduleMap.set(mod.id, { id: mod.id, title: mod.title, position: mod.position, lessons: [] })
+  }
+
+  // Lessons without a module_id go into a catch-all group
+  const ungroupedLessons: SiblingLessonItem[] = []
+  for (const lesson of allLessons) {
+    if (lesson.module_id && moduleMap.has(lesson.module_id)) {
+      moduleMap.get(lesson.module_id)!.lessons.push(lesson)
+    } else {
+      ungroupedLessons.push(lesson)
+    }
+  }
+
+  let modules: ModuleGroup[] = Array.from(moduleMap.values()).filter((m) => m.lessons.length > 0)
+
+  // If there are ungrouped lessons or no modules at all, create a catch-all module
+  if (ungroupedLessons.length > 0 || modules.length === 0) {
+    modules.push({
+      id: 'ungrouped',
+      title: accessibleCourse.title,
+      position: 999,
+      lessons: ungroupedLessons.length > 0 ? ungroupedLessons : allLessons,
+    })
+  }
+
+  modules.sort((a, b) => a.position - b.position)
+
+  // ── Prev / next navigation ─────────────────────────────────────
+  const currentIdx = allLessons.findIndex((s) => s.id === lesson.id)
+  const prevLesson = allLessons[currentIdx - 1] ?? null
+  const nextLesson = allLessons[currentIdx + 1] ?? null
+
+  // ── Interactive metadata ───────────────────────────────────────
+  const interactiveMeta = getInteractiveMeta(lessonSlug)
+
+  // ── Normalise course object for the player ─────────────────────
+  const courseForPlayer = {
+    id: accessibleCourse.id,
+    title: accessibleCourse.title,
+    slug: accessibleCourse.slug ?? courseSlug,
+    academy: accessibleCourse.academy ?? 'AI Academy',
+    access: accessibleCourse.access,
+  }
 
   return (
-    <div className="lesson-app">
-      <header className="lesson-header">
-        <Link href={`/courses/${courseSlug}`} className="lesson-back">
-          <ArrowLeft size={15} /><span>Course overview</span>
-        </Link>
-        <Brand />
-        <span className="lesson-header-progress" aria-label="Lesson position in course">
-          {currentIdx + 1} / {siblings?.length ?? 1}
-        </span>
-      </header>
-
-      <div className="lesson-layout">
-        {/* Sidebar */}
-        <aside className="lesson-sidebar">
-          <Link href={`/courses/${courseSlug}`} className="lesson-course-title">
-            <span>{course.title}</span>
-          </Link>
-          <div className="lesson-sidebar-label">
-            LESSON POSITION
-            <span>{currentIdx + 1} / {siblings?.length ?? 1}</span>
-          </div>
-          <div className="lesson-progress-line">
-            <span style={{ width: `${((currentIdx + 1) / (siblings?.length ?? 1)) * 100}%` }} />
-          </div>
-          <div className="lesson-list">
-            {siblings?.map((s, i) => (
-              <Link
-                key={s.id}
-                href={`/learn/${courseSlug}/${s.slug}`}
-                className={s.id === lesson.id ? 'lesson-item selected' : 'lesson-item'}
-              >
-                <span className={s.id === lesson.id ? 'lesson-state current' : 'lesson-state'}>
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <span>
-                  {s.title}
-                  <small>LESSON {String(i + 1).padStart(2, '0')}</small>
-                </span>
-                {s.access_level === 'paid' && i > currentIdx && (
-                  <Lock size={12} className="lesson-lock-icon" aria-label="Paid lesson" />
-                )}
-              </Link>
-            ))}
-          </div>
-        </aside>
-
-        {/* Main content */}
-        <section className="lesson-main">
-          <div className="lesson-reading">
-            <div className="lesson-breadcrumb">
-              <span>{course.title}</span>
-              <span>/</span>
-              <span>LESSON {String(currentIdx + 1).padStart(2, '0')}</span>
-            </div>
-
-            <span className="lesson-type">
-              {lesson.lesson_type === 'video' || lesson.lesson_type === 'mixed'
-                ? <><Play size={12} /> VIDEO LESSON</>
-                : <><Clock3 size={12} /> TEXT LESSON · {lesson.read_time_min ?? 6} MIN</>
-              }
-            </span>
-
-            <h1>{lesson.title}</h1>
-
-            {/* ── YouTube video (free, registered users only) ── */}
-            {lesson.youtube_video_id && (
-              <div className="lesson-video-wrap">
-                <YouTubeEmbed
-                  videoId={lesson.youtube_video_id}
-                  title={lesson.title}
-                  duration={lesson.video_duration}
-                />
-                <p className="lesson-video-note">
-                  This video is part of your free course materials.
-                  Sign in is required to access it.
-                </p>
-              </div>
-            )}
-
-            {/* Text body */}
-            {lesson.body && (
-              <>
-                <div className="lesson-rule" />
-                <p className="lesson-lead">{lesson.body}</p>
-              </>
-            )}
-
-            {lesson.takeaway && (
-              <div className="lesson-callout">
-                <div>
-                  <b>Key takeaway</b>
-                  <p>{lesson.takeaway}</p>
-                </div>
-              </div>
-            )}
-
-            {/* Navigation */}
-            <div className="lesson-pagination">
-              {prev ? (
-                <Link href={`/learn/${courseSlug}/${prev.slug}`} className="lesson-nav-btn">
-                  <ArrowLeft size={14} /> Previous
-                </Link>
-              ) : <span />}
-              {next ? (
-                <Link href={`/learn/${courseSlug}/${next.slug}`} className="lesson-nav-btn lesson-nav-btn--next">
-                  Next <ArrowRight size={14} />
-                </Link>
-              ) : (
-                <Link href={`/courses/${courseSlug}`} className="lesson-nav-btn lesson-nav-btn--next">
-                  Finish course <Check size={14} />
-                </Link>
-              )}
-            </div>
-          </div>
-        </section>
-      </div>
-    </div>
+    <LessonLmsPlayer
+      course={courseForPlayer}
+      lesson={lesson}
+      modules={modules}
+      allLessons={allLessons}
+      completedLessonIds={completedLessonIds}
+      currentIdx={currentIdx >= 0 ? currentIdx : 0}
+      prevLesson={prevLesson}
+      nextLesson={nextLesson}
+      courseSlug={courseSlug}
+      lessonSlug={lessonSlug}
+      interactiveMeta={interactiveMeta}
+    />
   )
 }
 
@@ -268,7 +385,6 @@ function CourseInDevelopment({ courseTitle, courseSlug }: { courseTitle: string;
   )
 }
 
-/** Shown when a paid lesson is accessed without verified enrollment */
 function LockedLesson({ courseSlug, courseTitle }: { courseSlug: string; courseTitle: string }) {
   return (
     <div className="lesson-locked">
@@ -276,7 +392,7 @@ function LockedLesson({ courseSlug, courseTitle }: { courseSlug: string; courseT
         <Lock size={32} className="lesson-locked-icon" aria-hidden="true" />
         <h1>This lesson is available to enrolled learners</h1>
         <p>
-        Review <strong>{courseTitle}</strong> to see its lessons and available access options.
+          Review <strong>{courseTitle}</strong> to see its lessons and available access options.
         </p>
         <Link href={`/courses/${courseSlug}`} className="button button-dark">
           View course <ArrowRight size={15} />
