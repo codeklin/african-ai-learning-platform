@@ -7,7 +7,7 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import PasswordField from '@/components/password-field'
 
-export default function SignUpForm() {
+export default function SignUpForm({ redirectTo }: { redirectTo: string }) {
   const router                              = useRouter()
   const [fullName, setFullName]             = useState('')
   const [email, setEmail]                   = useState('')
@@ -41,7 +41,7 @@ export default function SignUpForm() {
       password,
       options: {
         data: { full_name: fullName.trim() },
-        emailRedirectTo: `${window.location.origin}/auth/callback`,
+        emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(redirectTo)}`,
       },
     })
 
@@ -53,7 +53,7 @@ export default function SignUpForm() {
 
     // When email verification is disabled in Supabase, a session is automatically established
     if (data?.session) {
-      router.push('/dashboard')
+      router.push(redirectTo)
       router.refresh()
       return
     }
@@ -70,7 +70,10 @@ export default function SignUpForm() {
         <p>
           Your account for <strong>{email}</strong> is ready. You can now log in straight away and start learning.
         </p>
-        <Link href={`/login?email=${encodeURIComponent(email)}`} className="button button-dark auth-submit">
+        <Link
+          href={`/login?email=${encodeURIComponent(email)}&next=${encodeURIComponent(redirectTo)}`}
+          className="button button-dark auth-submit"
+        >
           Log in straight away <ArrowRight size={16} aria-hidden="true" />
         </Link>
       </div>
@@ -160,7 +163,7 @@ export default function SignUpForm() {
 
       <p className="auth-switch">
         Already have an account?{' '}
-        <Link href="/login">Sign in</Link>
+        <Link href={`/login?next=${encodeURIComponent(redirectTo)}`}>Sign in</Link>
       </p>
     </form>
   )

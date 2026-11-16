@@ -7,7 +7,7 @@ import { ArrowRight } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import PasswordField from '@/components/password-field'
 
-export default function LoginForm() {
+export default function LoginForm({ redirectTo }: { redirectTo: string }) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [email, setEmail]       = useState(searchParams.get('email') || '')
@@ -33,7 +33,7 @@ export default function LoginForm() {
       return
     }
 
-    router.push('/dashboard')
+    router.push(redirectTo)
     router.refresh()
   }
 
@@ -95,7 +95,7 @@ export default function LoginForm() {
 
       <p className="auth-switch">
         Don&apos;t have an account?{' '}
-        <Link href="/signup">Create one for free</Link>
+        <Link href={`/signup?next=${encodeURIComponent(redirectTo)}`}>Create one for free</Link>
       </p>
     </form>
   )
