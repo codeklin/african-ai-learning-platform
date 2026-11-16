@@ -31,7 +31,7 @@ Make sense of the tools everyone is talking about. Understand what AI can and ca
 Create videos people actually want to watch. Learn how to launch faceless channels, craft engaging video scripts with AI assistance, understand YouTube SEO and analytics, and build sustainable creator businesses beyond ad revenue.
 
 ### 3. AI Content Marketing for Business
-Research an audience, clarify a business message, and plan useful, original content tied to a practical goal. This is an exclusive specialist course.
+Turn a client brief into audience-focused social captions, ad copy, and email campaigns with AI assistance. Refine the work through a repeatable content workflow and build portfolio-ready samples. This is an exclusive specialist course.
 
 ### 4. AI App Development for Business
 Identify a real customer problem, build a focused AI app prototype, and test whether it offers practical value. This is an exclusive specialist course.
@@ -80,12 +80,12 @@ The catalogue has one free course, **AI Foundations**, and five paid specialist 
 | Course | One-time price |
 |---|---:|
 | AI Video Creation | USD 4 |
-| AI Content Marketing for Business (exclusive) | NGN 20,000 |
+| AI Content Marketing for Business (exclusive) | NGN 15,000 |
 | AI App Development for Business (exclusive) | NGN 20,000 |
-| YouTube Monetization | NGN 10,000 |
+| YouTube Monetization | NGN 50,000 |
 | AI Graphic Design | USD 4 |
 
-The five paid courses are currently in development and are offered as pre-orders. The NGN 20,000 content marketing price is configured to match the app development course and should be confirmed by the business owner before launch. Learners see bank-transfer instructions after signing in and selecting **Buy course**. Transfer references are shared through WhatsApp. An administrator must verify the bank credit and record the enrollment; a receipt or learner message does not grant access. Lessons unlock only after the course is published and payment is verified. No release date is promised.
+The five paid courses are currently in development and are offered as pre-orders. AI Content Marketing for Business is NGN 15,000; AI App Development for Business is NGN 20,000. Learners see bank-transfer instructions after signing in and selecting **Buy course**. Transfer references are shared through WhatsApp. An administrator must verify the bank credit and record the enrollment; a receipt or learner message does not grant access. Lessons unlock only after the course is published and payment is verified. No release date is promised.
 
 The purchase panel shows the exact NGN transfer amount and an indicative USD/NGN equivalent. Rates come from [ExchangeRate-API Open Access](https://www.exchangerate-api.com), are cached for up to 24 hours, and are attributed in the purchase panel. USD equivalents are estimates, not guaranteed exchange or settlement rates.
 
@@ -100,4 +100,4 @@ COURSE_PAYMENT_WHATSAPP_NUMBER=
 
 Do not prefix these values with `NEXT_PUBLIC_`. The purchase endpoint returns them only to an authenticated learner after a course purchase action. If any value is missing or invalid, the purchase panel reports that instructions are not configured.
 
-Apply `supabase/migrations/003_course_focus_and_paid_access.sql` after the existing schema migrations, then apply `supabase/migrations/004_public_course_status_read.sql` and `supabase/migrations/005_business_content_marketing_course.sql`. Migration `004` grants the public course-status endpoint read access to only course slugs and statuses; row-level security continues to limit public reads to published courses. Migration `003` archives courses outside the initial lineup, records manual payment verification metadata, restricts paid enrollment to trusted admin actions, and prevents learners from changing their own account role. Migration `005` adds the business content marketing course and aligns the existing app course metadata without publishing either course.
+Apply `supabase/migrations/003_course_focus_and_paid_access.sql` after the existing schema migrations, then apply `supabase/migrations/004_public_course_status_read.sql`, `supabase/migrations/005_business_content_marketing_course.sql`, and `supabase/migrations/006_update_content_marketing_course.sql`. Migration `004` grants the public course-status endpoint read access to only course slugs and statuses; row-level security continues to limit public reads to published courses. Migration `003` archives courses outside the initial lineup, records manual payment verification metadata, restricts paid enrollment to trusted admin actions, and prevents learners from changing their own account role. Migration `005` adds the business content marketing course and aligns the existing app course metadata without publishing either course. Migration `006` updates its course description and does not publish it.

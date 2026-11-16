@@ -2,8 +2,9 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
-import { ArrowLeft, ArrowRight, Check, ChevronDown, Menu, PanelLeftClose, PanelLeftOpen, Play, Sparkles, X } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BookOpen, Check, ChevronDown, Menu, PanelLeftClose, PanelLeftOpen, Play, ShieldCheck, X } from 'lucide-react'
 import Brand from '@/components/brand'
+import AppBottomNav from '@/components/app-bottom-nav'
 import YouTubeEmbed from '@/components/youtube-embed'
 
 interface LessonCourseData {
@@ -36,20 +37,20 @@ const lessonContent: Record<string, LessonCourseData> = {
     course: 'AI Content Marketing for Business',
     lessons: [
       'Research customer questions and needs',
-      'Choose a business goal and audience',
-      'Clarify the offer and its value',
-      'Choose channels that fit the audience',
-      'Build a useful content plan',
-      'Write a clear campaign brief',
-      'Use AI for research and first drafts',
-      'Check claims, rights and originality',
-      'Adapt content for each channel',
-      'Choose practical campaign measures',
-      'Review results without overclaiming',
-      'Present a sample campaign to a client',
+      'Choose an audience, goal, and offer',
+      'Turn a client brief into a content plan',
+      'Choose channels and plan content formats',
+      'Draft social media captions for an audience',
+      'Write ad copy with a clear, supportable message',
+      'Write email campaigns with a useful next step',
+      'Use AI to draft in a consistent brand voice',
+      'Check facts, rights, originality, and tone',
+      'Create a repeatable content workflow',
+      'Review campaign signals and revise content',
+      'Package campaign work into a portfolio sample',
     ],
-    body: 'Content marketing helps a business communicate useful information to a defined audience. Start with a real customer need and a clear business goal. AI can support research and drafting, but people must check facts, rights, tone and whether the content is genuinely useful.',
-    takeaway: 'A campaign is not successful just because it produced many posts. Connect the content to a real audience need and a measurable business objective.',
+    body: 'Turn a client brief into useful content for a defined audience and business goal. Use AI to support research and first drafts for social media captions, ad copy, and email campaigns. Adapt each format to its channel, then check facts, rights, brand voice, and audience value before presenting the work.',
+    takeaway: 'AI can help you draft faster, but a useful campaign still needs your review for accuracy, originality, rights, and fit for the audience.',
   },
   'build-a-helpful-ai-app': {
     course: 'AI App Development for Business',
@@ -93,17 +94,17 @@ const lessonActivities: Record<string, LessonActivity[]> = {
   ],
   'ai-content-marketing-for-business': [
     { task: 'Choose a business and list three questions its customers ask.', result: 'A short audience-research note based on real customer language.' },
-    { task: 'Choose one customer group and one business goal for a sample campaign.', result: 'A focused audience and goal statement.' },
-    { task: 'Describe the offer, who it helps and the value it provides.', result: 'A clear positioning statement without unsupported claims.' },
-    { task: 'Compare two channels based on audience use and business capacity.', result: 'A reasoned channel choice for the sample campaign.' },
-    { task: 'Plan three useful content pieces that answer customer questions.', result: 'A small content plan tied to the selected audience.' },
-    { task: 'Write a campaign brief with audience, goal, message and action.', result: 'A concise brief another person could use to create content.' },
-    { task: 'Use an AI tool to suggest content angles, then verify the source facts.', result: 'A checked set of original angles rather than unverified claims.' },
-    { task: 'Review a draft for factual accuracy, rights and audience value.', result: 'A corrected draft with unsupported or copied material removed.' },
-    { task: 'Adapt one idea for two channels without simply duplicating it.', result: 'Two channel-appropriate pieces with a consistent message.' },
-    { task: 'Choose one meaningful signal for the campaign goal.', result: 'A measurement note that avoids treating reach as guaranteed.' },
-    { task: 'Review sample campaign data and state what it can and cannot show.', result: 'A careful recommendation based on evidence and its limits.' },
-    { task: 'Present the campaign, sample content and rationale to a business owner.', result: 'A client-ready campaign sample with a clear scope and next step.' },
+    { task: 'Choose a customer group, one business goal, and the offer the campaign will support.', result: 'A brief audience, goal, and offer statement without unsupported claims.' },
+    { task: 'Turn a sample client brief into an audience, goal, key message, and deliverables.', result: 'A focused content plan that makes the client request actionable.' },
+    { task: 'Compare channels based on audience use, goal, and the business’s capacity.', result: 'A reasoned channel and content-format choice for the campaign.' },
+    { task: 'Draft a social caption that answers a customer question and fits its platform.', result: 'An original social caption with a clear audience and purpose.' },
+    { task: 'Write a short ad variant with one clear message and a supportable claim.', result: 'Ad copy with a specific call to action and no unverified promises.' },
+    { task: 'Draft an email campaign with a useful subject line, message, and next step.', result: 'An audience-focused email draft with a clear purpose.' },
+    { task: 'Use AI to create a first draft, then edit it to match a supplied brand voice.', result: 'A refined draft that sounds consistent with the brand and audience.' },
+    { task: 'Check campaign copy for factual claims, permissions, originality, and tone.', result: 'Reviewed content with unsupported claims and rights concerns flagged.' },
+    { task: 'Map the steps from brief and research through drafting, review, and delivery.', result: 'A repeatable content workflow with clear quality-check points.' },
+    { task: 'Choose a campaign signal and review sample results against the stated goal.', result: 'A careful note on what the results show and what they do not prove.' },
+    { task: 'Select the brief, drafts, review notes, and rationale to show your process.', result: 'A portfolio-ready campaign sample with clear scope and evidence of your decisions.' },
   ],
   'build-a-helpful-ai-app': [
     { task: 'Name a user, the problem they have and how you know it matters.', result: 'A problem statement grounded in a specific user need.' },
@@ -151,7 +152,7 @@ export default function LessonPreview({ slug, userId }: { slug: string; userId?:
   const title = course.lessons[current]
   const move = (index: number) => { setCurrent(index); setCompleted(false); setCurriculumOpen(false) }
   return (
-    <main className="lesson-app">
+    <main className={userId ? 'lesson-app lesson-app-authenticated' : 'lesson-app'}>
       <header className="lesson-header">
         <Link href={`/courses/${slug}`} className="lesson-back">
           <ArrowLeft size={15} />
@@ -175,10 +176,10 @@ export default function LessonPreview({ slug, userId }: { slug: string; userId?:
             <span>{course.course}</span>
           </Link>
           <div className="lesson-sidebar-label">
-            LESSON <span>{current + 1} / {course.lessons.length}</span>
+            COURSE OUTLINE <span>{current + 1} / {course.lessons.length}</span>
           </div>
           <div className="lesson-progress-line">
-            <span style={{ width: `${(current / course.lessons.length) * 100}%` }} />
+            <span style={{ width: `${((current + 1) / course.lessons.length) * 100}%` }} />
           </div>
           <div className="lesson-list">
             {course.lessons.map((lesson, index) => (
@@ -220,9 +221,15 @@ export default function LessonPreview({ slug, userId }: { slug: string; userId?:
               <span>LESSON {String(current + 1).padStart(2, '0')}</span>
             </div>
             <span className="lesson-type">
-              <Play size={12} /> {course.youtubeVideoId ? 'VIDEO MASTERCLASS & TEXT GUIDE' : 'TEXT LESSON'}
+              {course.youtubeVideoId ? <Play size={12} /> : <BookOpen size={12} />}
+              {course.youtubeVideoId ? 'VIDEO MASTERCLASS & TEXT GUIDE' : 'TEXT LESSON'}
             </span>
-            <h1>{title}</h1>
+            <div className="lesson-title-row">
+              <h1>{title}</h1>
+              <span className="lesson-title-index" aria-label={`Lesson ${current + 1}`}>
+                {String(current + 1).padStart(2, '0')}
+              </span>
+            </div>
             <p className="lesson-lead">Read the short lesson, then complete the task below.</p>
             {course.youtubeVideoId && (
               <div style={{ margin: '24px 0 28px' }}>
@@ -234,7 +241,7 @@ export default function LessonPreview({ slug, userId }: { slug: string; userId?:
             <h2>What to know</h2>
             <p>{course.body}</p>
             <div className="lesson-callout">
-              <span><Sparkles size={15} /></span>
+              <span><ShieldCheck size={15} /></span>
               <div>
                 <b>Keep in mind</b>
                 <p>{course.takeaway}</p>
@@ -277,7 +284,42 @@ export default function LessonPreview({ slug, userId }: { slug: string; userId?:
             </p>
           </div>
         </section>
+
+        <aside className="lesson-learning-rail" aria-label="Lesson guide">
+          <section className="lesson-rail-card lesson-rail-progress">
+            <div className="lesson-rail-kicker">LEARNING PATH</div>
+            <div className="lesson-rail-count">
+              <strong>{String(current + 1).padStart(2, '0')}</strong>
+              <span>OF {String(course.lessons.length).padStart(2, '0')}</span>
+            </div>
+            <div
+              className="lesson-rail-progress-track"
+              role="progressbar"
+              aria-label="Current position in course"
+              aria-valuenow={current + 1}
+              aria-valuemin={1}
+              aria-valuemax={course.lessons.length}
+            >
+              <span style={{ width: `${((current + 1) / course.lessons.length) * 100}%` }} />
+            </div>
+            <p>Lesson position only. Completion is not saved in this preview.</p>
+          </section>
+
+          <section className="lesson-rail-card">
+            <div className="lesson-rail-kicker">YOUR DELIVERABLE</div>
+            <p className="lesson-rail-deliverable">{activity.result}</p>
+          </section>
+
+          <section className="lesson-rail-note">
+            <ShieldCheck size={17} aria-hidden="true" />
+            <div>
+              <strong>Keep your judgement in the loop</strong>
+              <p>{course.takeaway}</p>
+            </div>
+          </section>
+        </aside>
       </div>
+      {userId && <AppBottomNav active="courses" />}
     </main>
   )
 }

@@ -321,6 +321,7 @@ export default function QuizPage() {
   const { user } = useUser()
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [answers, setAnswers] = useState<Record<number, number>>({})
+  const [selectedOptionIndex, setSelectedOptionIndex] = useState<number | null>(null)
   const [isCompleted, setIsCompleted] = useState(false)
 
   const currentQuestion = quizQuestions[currentQuestionIndex]
@@ -329,8 +330,10 @@ export default function QuizPage() {
   const handleSelectOption = (optionIndex: number) => {
     const updatedAnswers = { ...answers, [currentQuestionIndex]: optionIndex }
     setAnswers(updatedAnswers)
+    setSelectedOptionIndex(optionIndex)
 
     if (currentQuestionIndex < quizQuestions.length - 1) {
+      setSelectedOptionIndex(null)
       setCurrentQuestionIndex((prev) => prev + 1)
     } else {
       setIsCompleted(true)
@@ -339,12 +342,14 @@ export default function QuizPage() {
 
   const handlePrevious = () => {
     if (currentQuestionIndex > 0) {
+      setSelectedOptionIndex(null)
       setCurrentQuestionIndex((prev) => prev - 1)
     }
   }
 
   const handleRestart = () => {
     setAnswers({})
+    setSelectedOptionIndex(null)
     setCurrentQuestionIndex(0)
     setIsCompleted(false)
   }
@@ -418,66 +423,84 @@ export default function QuizPage() {
       <main className="quiz-main">
         {!isCompleted ? (
           <div className="quiz-card-container">
-            {/* Progress */}
-            <div className="quiz-progress-wrap" aria-label={`Question ${currentQuestionIndex + 1} of ${quizQuestions.length}`}>
-              <div className="quiz-progress-meta">
-                <span className="quiz-step-count">
-                  {currentQuestionIndex + 1} of {quizQuestions.length}
-                </span>
-                <span className="quiz-step-percent">{progressPercent}%</span>
+            <aside className="quiz-editorial-rail" aria-label="Assessment approach">
+              <span className="quiz-rail-kicker">ITUWA AFRICA / FIELD GUIDE</span>
+              <div className="quiz-method-map" aria-hidden="true">
+                <span className="quiz-method-line" />
+                <span className="quiz-method-node quiz-method-node--task">01</span>
+                <span className="quiz-method-node quiz-method-node--context">02</span>
+                <span className="quiz-method-node quiz-method-node--judgement">03</span>
+                <span className="quiz-method-label quiz-method-label--task">TASK</span>
+                <span className="quiz-method-label quiz-method-label--context">CONTEXT</span>
+                <span className="quiz-method-label quiz-method-label--judgement">JUDGEMENT</span>
               </div>
-              <div className="quiz-progress-track">
-                <div
-                  className="quiz-progress-fill"
-                  style={{ width: `${progressPercent}%` }}
-                  role="progressbar"
-                  aria-valuenow={progressPercent}
-                  aria-valuemin={0}
-                  aria-valuemax={100}
-                />
+              <span className="quiz-rail-index">PRACTICAL AI / {String(currentQuestionIndex + 1).padStart(2, '0')}</span>
+              <h2>Start with the work you want to do.</h2>
+              <p>This short assessment connects your interests to a practical learning direction. No technical background needed.</p>
+              <div className="quiz-rail-rule" />
+              <p className="quiz-rail-footnote">A useful outcome begins with a real task, the right context and your own judgement.</p>
+            </aside>
+
+            <div className="quiz-card-column">
+              <div className="quiz-progress-wrap" aria-label={`Question ${currentQuestionIndex + 1} of ${quizQuestions.length}`}>
+                <div className="quiz-progress-meta">
+                  <span className="quiz-step-count">
+                    QUESTION {String(currentQuestionIndex + 1).padStart(2, '0')} / {String(quizQuestions.length).padStart(2, '0')}
+                  </span>
+                  <span className="quiz-step-percent">{progressPercent}%</span>
+                </div>
+                <div className="quiz-progress-track">
+                  <div
+                    className="quiz-progress-fill"
+                    style={{ width: `${progressPercent}%` }}
+                    role="progressbar"
+                    aria-valuenow={progressPercent}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                  />
+                </div>
               </div>
-            </div>
 
-            {/* Question Card */}
-            <div className="quiz-question-card">
-              <span className="quiz-kicker">{currentQuestion.kicker}</span>
-              <h1 className="quiz-question-title">{currentQuestion.title}</h1>
-              <p className="quiz-question-subtitle">{currentQuestion.subtitle}</p>
+              <div className="quiz-question-card">
+                <span className="quiz-kicker">{currentQuestion.kicker}</span>
+                <h1 className="quiz-question-title">{currentQuestion.title}</h1>
+                <p className="quiz-question-subtitle">{currentQuestion.subtitle}</p>
 
-              <div className="quiz-options-list">
-                {currentQuestion.options.map((option, idx) => {
-                  const isSelected = answers[currentQuestionIndex] === idx
-                  return (
-                    <button
-                      key={idx}
-                      type="button"
-                      onClick={() => handleSelectOption(idx)}
-                      className={`quiz-option-btn ${isSelected ? 'selected' : ''}`}
-                    >
-                      <div className="quiz-option-index">
-                        {String(idx + 1).padStart(2, '0')}
-                      </div>
-                      <div className="quiz-option-content">
-                        <h3>{option.label}</h3>
-                        <p>{option.subtext}</p>
-                      </div>
-                      <div className="quiz-option-indicator">
-                        <ChevronRight size={18} />
-                      </div>
+                <div className="quiz-options-list">
+                  {currentQuestion.options.map((option, idx) => {
+                    const isSelected = selectedOptionIndex === idx
+                    return (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => handleSelectOption(idx)}
+                        className={`quiz-option-btn ${isSelected ? 'selected' : ''}`}
+                      >
+                        <div className="quiz-option-index">
+                          {String(idx + 1).padStart(2, '0')}
+                        </div>
+                        <div className="quiz-option-content">
+                          <h3>{option.label}</h3>
+                          <p>{option.subtext}</p>
+                        </div>
+                        <div className="quiz-option-indicator">
+                          <ChevronRight size={18} />
+                        </div>
+                      </button>
+                    )
+                  })}
+                </div>
+
+                <div className="quiz-nav-footer">
+                  {currentQuestionIndex > 0 ? (
+                    <button type="button" onClick={handlePrevious} className="quiz-prev-btn">
+                      <ArrowLeft size={16} /> Previous
                     </button>
-                  )
-                })}
-              </div>
-
-              <div className="quiz-nav-footer">
-                {currentQuestionIndex > 0 ? (
-                  <button type="button" onClick={handlePrevious} className="quiz-prev-btn">
-                    <ArrowLeft size={16} /> Previous
-                  </button>
-                ) : (
-                  <span className="quiz-note-text">Free assessment. No payment details needed.</span>
-                )}
-                <span className="quiz-confidential-note">Your answers are not saved by this assessment.</span>
+                  ) : (
+                    <span className="quiz-note-text">Free assessment. No payment details needed.</span>
+                  )}
+                  <span className="quiz-confidential-note">Your answers are not saved by this assessment.</span>
+                </div>
               </div>
             </div>
           </div>

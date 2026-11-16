@@ -50,7 +50,7 @@
 - **Subtext:** Start with free AI Foundations, then choose a specialist course.
 - **Course 1:** AI Foundations — Build a practical understanding of AI tools and prompts. · Free
 - **Course 2:** AI Video Creation — Plan and produce original AI-assisted videos. · USD 4, one-time
-- **Course 3:** AI Content Marketing for Business — Plan useful, original content around an audience and business goal. · NGN 20,000, one-time · Exclusive
+- **Course 3:** AI Content Marketing for Business — Turn a client brief into audience-focused social captions, ad copy, and email campaigns with AI assistance. · NGN 15,000, one-time · Exclusive
 - **Course 4:** YouTube Monetization — Understand creator revenue paths and YouTube policies. · NGN 50,000, one-time
 - **Course 5:** AI Graphic Design — Create original visual assets with AI-assisted design techniques. · USD 4, one-time
 - **Card CTA:** Explore courses →
@@ -134,15 +134,15 @@
 |---|---|---|---|---|---|
 | 01 | AI Foundations | AI Foundations | Beginner | Published | Free |
 | 02 | AI Video Creation | AI Video Creation | Beginner to intermediate | In development | USD 4 |
-| 03 | AI Content Marketing for Business | AI Content Marketing | Beginner to intermediate | In development | NGN 20,000 · Exclusive |
+| 03 | AI Content Marketing for Business | AI Content Marketing | Beginner to intermediate | In development | NGN 15,000 · Exclusive |
 | 04 | AI App Development for Business | AI App Development | Beginner to intermediate | In development | NGN 20,000 · Exclusive |
-| 05 | YouTube Monetization | Creator Economy & YouTube | Beginner to intermediate | In development | NGN 10,000 |
+| 05 | YouTube Monetization | Creator Economy & YouTube | Beginner to intermediate | In development | NGN 50,000 |
 | 06 | AI Graphic Design | AI Graphic Design | Beginner to intermediate | In development | USD 4 |
 
 ### Course Descriptions
 - **01:** Build a practical understanding of AI tools, write clearer prompts, and apply what you learn to a real task.
 - **02:** Plan and produce original AI-assisted videos, with attention to storytelling, audience value, and disclosure.
-- **03:** Research an audience, shape a clear business message, and create original AI-assisted marketing content tied to a practical goal.
+- **03:** Turn a client brief into audience-focused social captions, ad copy, and email campaigns with AI assistance; refine the work through a repeatable workflow and build portfolio-ready samples.
 - **04:** Identify a real customer problem, build a focused AI-powered app prototype, and test whether it offers practical value.
 - **05:** Understand creator revenue paths, current YouTube requirements, copyright, and how to build original audience value. Monetisation and income are not guaranteed.
 - **06:** Create original, useful visual assets with AI-assisted design techniques and prepare them for real projects.
@@ -216,12 +216,12 @@
 - **Module 4:** Portfolio & pitching — Choosing your best samples · Writing a simple case study · Pitching your content service · Your first content brief project
 
 ### Course: AI Content Marketing for Business
-- **Description:** Help a business reach the right people with clear positioning, useful content and practical measurement. Use AI to support research and production while keeping the message accurate, original and audience-focused.
-- **Outcomes:** Research an audience and its needs · Position a business and clarify its message · Create original AI-assisted content for selected channels · Review campaign signals against a stated business goal
-- **Module 1:** Know the audience and offer — Research customer questions and needs · Choose a business goal and audience · Clarify the offer and its value
-- **Module 2:** Plan useful content — Choose channels that fit the audience · Build a content plan around customer needs · Write a clear campaign brief
-- **Module 3:** Create with AI, edit with judgement — Use AI to support research and first drafts · Check claims, rights and originality · Adapt content for each channel
-- **Module 4:** Publish, learn and present your work — Choose practical campaign measures · Review results without overclaiming · Present a sample campaign to a client
+- **Description:** Turn a client brief into useful, audience-focused social captions, ad copy, and email campaigns. Use AI to support research and drafting, then refine the content through a repeatable workflow and build portfolio-ready samples.
+- **Outcomes:** Research an audience and turn a client brief into a focused content plan · Write social media captions, ad copy, and email campaigns with AI assistance · Build a repeatable content workflow with accuracy, rights, originality, and tone checks · Review campaign signals and assemble portfolio-ready samples
+- **Module 1:** Understand the brief and audience — Research customer questions and needs · Choose an audience, goal, and offer · Turn a client brief into a content plan
+- **Module 2:** Plan and draft campaign content — Choose channels and plan content formats · Draft social media captions for an audience · Write ad copy with a clear, supportable message
+- **Module 3:** Create and review with AI — Write email campaigns with a useful next step · Use AI to draft in a consistent brand voice · Check facts, rights, originality, and tone
+- **Module 4:** Build a workflow and portfolio — Create a repeatable content workflow · Review campaign signals and revise content · Package campaign work into a portfolio sample
 
 ### Course: AI for Your Freelance Business
 - **Description:** Not sure what to sell? Find one problem clients pay to solve, build a clear service offer around it, and use AI to deliver it efficiently.

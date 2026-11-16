@@ -391,9 +391,9 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
                 <p className="price-tagline">Choose a practical skill to develop next.</p>
                 <ul>
                   <li><Check size={15} /> AI Video Creation — $4 <span className="price-naira">≈ ₦6,400</span></li>
-                  <li><Check size={15} /> AI Content Marketing for Business — ₦20,000 <span className="price-naira">Exclusive</span></li>
+                  <li><Check size={15} /> AI Content Marketing for Business — ₦15,000 <span className="price-naira">Exclusive</span></li>
                   <li><Check size={15} /> AI App Development for Business — ₦20,000 <span className="price-naira">Exclusive</span></li>
-                  <li><Check size={15} /> YouTube Monetization — ₦10,000 <span className="price-naira">≈ $7</span></li>
+                  <li><Check size={15} /> YouTube Monetization — ₦50,000 <span className="price-naira">≈ $36</span></li>
                   <li><Check size={15} /> AI Graphic Design — $4 <span className="price-naira">≈ ₦6,400</span></li>
                 </ul>
                 <Link className="price-btn--paid" href="/courses">
