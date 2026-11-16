@@ -373,8 +373,8 @@ export default async function CourseDetailPage({
               <ShieldAlert size={18} color="#2C1A12" />
             </div>
             <div className="cdp-dev-notice-body">
-              <b>Course in active development</b>
-              <p>Lessons unlock after the course is published and your payment is manually verified. No release date is promised.</p>
+              <b>Content being added</b>
+              <p>You can lock in the ₦1,000 launch price now. Lessons unlock as content is published. No release date is promised.</p>
             </div>
           </div>
         )}

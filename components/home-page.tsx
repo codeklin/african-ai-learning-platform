@@ -7,6 +7,7 @@ import { ArrowRight, ArrowUpRight, Check, MessageCircle } from 'lucide-react'
 import Brand from '@/components/brand'
 import AppBottomNav from '@/components/app-bottom-nav'
 import { useUser } from '@/hooks/use-user'
+import { PAID_COURSE_PRODUCTS, getActivePrice, formatDualPrice } from '@/lib/course-products'
 import type { User } from '@supabase/supabase-js'
 
 const featuredAcademies = [
@@ -349,7 +350,7 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
               <div className="eyebrow"><span className="eyebrow-line" /> LEARNING &amp; MENTORSHIP</div>
               <h2>Start with free foundations.<br /><span>Build a specialist skill next.</span></h2>
               <p>
-                AI Foundations is free. Five specialist courses are available as one-time purchases through Paystack; their lessons are in development. Content Marketing and App Development are exclusive business courses. Mentorship is a separate option.
+                AI Foundations is free. Five specialist courses are available as one-time purchases through Paystack at a ₦1,000 launch price. Content Marketing and App Development are exclusive business courses. Mentorship is a separate option.
               </p>
             </div>
 
@@ -390,17 +391,21 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
                 </div>
                 <p className="price-tagline">Choose a practical skill to develop next.</p>
                 <ul>
-                  <li><Check size={15} /> AI Video Creation : ₦6,400 <span className="price-naira">≈ $4</span></li>
-                  <li><Check size={15} /> AI Content Marketing for Business : ₦15,000 <span className="price-naira">≈ $10</span></li>
-                  <li><Check size={15} /> AI Web App Development : ₦20,000 <span className="price-naira">≈ $13</span></li>
-                  <li><Check size={15} /> YouTube Monetization : ₦10,000 <span className="price-naira">≈ $7</span></li>
-                  <li><Check size={15} /> AI Graphic Design : ₦6,400 <span className="price-naira">≈ $4</span></li>
+                  {PAID_COURSE_PRODUCTS.map((course) => {
+                    const p = formatDualPrice(getActivePrice(course))
+                    return (
+                      <li key={course.slug}>
+                        <Check size={15} /> {course.title} : {p.nairaText}
+                        {p.usdText && <span className="price-naira"> {p.usdText}</span>}
+                      </li>
+                    )
+                  })}
                 </ul>
                 <Link className="price-btn--paid" href="/courses">
                   <span>View course details</span>
                   <ArrowRight size={15} />
                 </Link>
-                <small>Courses are in development. A live exchange rate is used for currency equivalents.</small>
+                <small>Some course content is still being added. A live exchange rate is used for currency equivalents.</small>
               </div>
 
               {/* Personal mentorship */}

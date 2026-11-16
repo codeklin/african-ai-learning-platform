@@ -118,7 +118,7 @@ export default function CoursesPage() {
           <em>one course at a time.</em>
         </h1>
         <p>
-          Start with free AI foundations or choose from five paid specialist courses, including exclusive business courses in content marketing and app development. Paid courses are currently in development.
+          Start with free AI Foundations or choose from five specialist courses — available now at a ₦1,000 launch price through Paystack. Lessons unlock immediately after payment is confirmed.
         </p>
 
         {/* Feature badges bar */}
@@ -219,7 +219,7 @@ export default function CoursesPage() {
                   <div className="catalog-card-top">
                     <span className="catalog-academy-badge">{course.academy}</span>
                     <span className={isFree ? 'access-free' : 'access-soon'}>
-                      {isFree ? 'Free' : isInDevelopment ? 'In development' : 'Published'}
+                      {isFree ? 'Free' : isInDevelopment ? 'Pre-order' : 'Available'}
                     </span>
                   </div>
 
@@ -258,7 +258,7 @@ export default function CoursesPage() {
                       )}
                       {isInDevelopment && (
                         <span className="catalog-development-note">
-                          Pre-order · lessons unlock after publication
+                          Lessons unlock after the course publishes
                         </span>
                       )}
                       <CoursePurchaseButton

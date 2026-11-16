@@ -386,8 +386,8 @@ function CourseInDevelopment({ courseTitle, courseSlug }: { courseTitle: string;
   return (
     <div className="lesson-locked">
       <div className="lesson-locked-card">
-        <h1>{courseTitle} is in development</h1>
-        <p>Lessons will become available after the course is published. No release date is promised.</p>
+        <h1>Content coming soon</h1>
+        <p>Your enrollment is confirmed. Lessons for {courseTitle} will appear here as they are published.</p>
         <Link href={`/courses/${courseSlug}`} className="button button-dark">
           View course details <ArrowRight size={15} />
         </Link>
