@@ -1,12 +1,14 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import PasswordField from '@/components/password-field'
 
 export default function SignUpForm() {
+  const router                              = useRouter()
   const [fullName, setFullName]             = useState('')
   const [email, setEmail]                   = useState('')
   const [password, setPassword]             = useState('')
@@ -34,7 +36,7 @@ export default function SignUpForm() {
 
     setLoading(true)
     const supabase = createClient()
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -44,8 +46,15 @@ export default function SignUpForm() {
     })
 
     if (error) {
-      setError('We could not create your account. Please try again.')
+      setError(error.message || 'We could not create your account. Please try again.')
       setLoading(false)
+      return
+    }
+
+    // When email verification is disabled in Supabase, a session is automatically established
+    if (data?.session) {
+      router.push('/dashboard')
+      router.refresh()
       return
     }
 
@@ -57,13 +66,12 @@ export default function SignUpForm() {
     return (
       <div className="auth-success" role="status" aria-live="polite">
         <CheckCircle2 size={36} className="auth-success-icon" aria-hidden="true" />
-        <h2>Check your email</h2>
+        <h2>Account created successfully!</h2>
         <p>
-          We sent a confirmation link to <strong>{email}</strong>.
-          Click it to activate your account and start learning.
+          Your account for <strong>{email}</strong> is ready. You can now log in straight away and start learning.
         </p>
-        <Link href="/login" className="button button-dark auth-submit">
-          Back to sign in <ArrowRight size={16} aria-hidden="true" />
+        <Link href={`/login?email=${encodeURIComponent(email)}`} className="button button-dark auth-submit">
+          Log in straight away <ArrowRight size={16} aria-hidden="true" />
         </Link>
       </div>
     )

@@ -231,7 +231,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
       }).format(product.price.amount)
     : null
 
-  const firstLessonPath = `/learn/${slug}/lesson-01`
+  const firstLessonPath = `/learn/${slug}/lesson-1`
   const waText = encodeURIComponent(`Hi ituwaAfrica, I'm interested in the ${title} course.`)
   const waHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${waText}`
 

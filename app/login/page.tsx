@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { redirect } from 'next/navigation'
 import AuthHeader from '@/components/auth-header'
 import LoginForm from './login-form'
@@ -29,7 +30,9 @@ export default async function LoginPage() {
             <div className="auth-card-body">
               <h1 className="auth-heading">Welcome back</h1>
               <p className="auth-sub">Sign in to continue learning</p>
-              <LoginForm />
+              <Suspense fallback={<div className="auth-spinner" />}>
+                <LoginForm />
+              </Suspense>
             </div>
           </div>
 

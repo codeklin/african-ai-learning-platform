@@ -30,7 +30,7 @@ const LEGACY_COURSES = [
 // ── Interactive metadata per lesson slug ──────────────────────────────────────
 // Add prompt/practice/quiz data here as lessons are written.
 const LESSON_INTERACTIVE_META: Record<string, LessonInteractiveMeta> = {
-  'lesson-01': {
+  'lesson-1': {
     prompt: `I need your help as my AI assistant. I am a [your profession or role] in [your city/country].
 My task today: [describe a real work task you want help with].
 Please give me a clear, practical response that I can apply immediately.`,
@@ -55,7 +55,7 @@ Please give me a clear, practical response that I can apply immediately.`,
         'AI stands for Artificial Intelligence — computer systems designed to perform tasks that normally require human thinking, such as writing, answering questions and generating images.',
     },
   },
-  'lesson-02': {
+  'lesson-2': {
     prompt: `Act as a professional writing assistant. Help me write a [type of content] about [topic].
 Tone: [formal / conversational / persuasive].
 Target audience: [describe your audience].
@@ -82,7 +82,7 @@ Include a compelling opening and a clear call to action at the end.`,
         'Specifying your audience, desired tone and purpose gives the AI the context it needs to produce relevant, useful content instead of a generic response.',
     },
   },
-  'lesson-03': {
+  'lesson-3': {
     prompt: `I need to solve this problem: [describe the challenge].
 My constraints are: [time / budget / tools available].
 Please suggest three practical solutions, rank them by ease of implementation, and explain the first step for each.`,
@@ -107,7 +107,7 @@ Please suggest three practical solutions, rank them by ease of implementation, a
         'Context, constraints and a clear goal allow the AI to focus its response. Without these, responses tend to be vague and hard to apply directly.',
     },
   },
-  'lesson-04': {
+  'lesson-4': {
     prompt: `You are my business research assistant. Research this topic for me: [topic].
 Summarise the key facts in bullet points.
 Then give me three actionable insights I can apply to [my business / my work / my project].
@@ -133,7 +133,7 @@ Keep the language simple and practical.`,
         'AI models can generate plausible-sounding information that is outdated or factually incorrect. Cross-checking with trusted sources protects the quality of your work.',
     },
   },
-  'lesson-05': {
+  'lesson-5': {
     prompt: `I want to improve my productivity on this daily task: [describe the task].
 Currently I spend about [time] on it each day.
 Please help me create a simple AI-assisted workflow I can follow step by step to do this task faster and better.`,
@@ -158,7 +158,7 @@ Please help me create a simple AI-assisted workflow I can follow step by step to
         'An AI workflow is a structured sequence of steps where AI tools assist at specific points, making recurring tasks faster, more consistent and less mentally draining.',
     },
   },
-  'lesson-06': {
+  'lesson-6': {
     prompt: `I want to create content for my [business / personal brand / employer] on the topic: [topic].
 My target audience is: [describe them].
 Please generate five content ideas with a headline and a one-sentence description for each.
@@ -186,9 +186,16 @@ Format them as a numbered list.`,
   },
 }
 
-// Fallback: derive a lightweight meta if no entry exists for the slug
+// Support both 'lesson-1' and 'lesson-01' aliases for interactive meta
 function getInteractiveMeta(lessonSlug: string): LessonInteractiveMeta | undefined {
-  return LESSON_INTERACTIVE_META[lessonSlug]
+  if (LESSON_INTERACTIVE_META[lessonSlug]) {
+    return LESSON_INTERACTIVE_META[lessonSlug]
+  }
+  // If slug is lesson-01, check lesson-1; if lesson-1, check lesson-01
+  const num = lessonSlug.replace('lesson-', '')
+  const unpadded = `lesson-${parseInt(num, 10)}`
+  const padded = `lesson-${num.padStart(2, '0')}`
+  return LESSON_INTERACTIVE_META[unpadded] ?? LESSON_INTERACTIVE_META[padded]
 }
 
 export default async function LessonPage({

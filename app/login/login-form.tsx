@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
@@ -9,7 +9,8 @@ import PasswordField from '@/components/password-field'
 
 export default function LoginForm() {
   const router = useRouter()
-  const [email, setEmail]       = useState('')
+  const searchParams = useSearchParams()
+  const [email, setEmail]       = useState(searchParams.get('email') || '')
   const [password, setPassword] = useState('')
   const [loading, setLoading]   = useState(false)
   const [error, setError]       = useState<string | null>(null)
