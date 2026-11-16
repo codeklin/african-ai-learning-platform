@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { getCourseProduct } from '@/lib/course-products'
+import { getCourseProduct, getActivePrice } from '@/lib/course-products'
 
 export const dynamic = 'force-dynamic'
 
@@ -69,6 +69,12 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: 'This course is not available for purchase.' }, { status: 404 })
   }
 
+  // Use launch price when promo is active
+  const activePrice = getActivePrice(course)
+  if (!activePrice) {
+    return NextResponse.json({ error: 'This course is not available for purchase.' }, { status: 404 })
+  }
+
   const bankName =
     process.env.COURSE_PAYMENT_BANK_NAME?.trim() || 'OPay'
   const accountNumber =
@@ -101,10 +107,10 @@ export async function GET(request: Request) {
   }
 
   const amountNgn =
-    course.price.currency === 'NGN'
-      ? course.price.amount
+    activePrice.currency === 'NGN'
+      ? activePrice.amount
       : exchangeRate
-        ? Math.ceil(course.price.amount * exchangeRate.rate)
+        ? Math.ceil(activePrice.amount * exchangeRate.rate)
         : null
 
   if (amountNgn === null) {
@@ -115,10 +121,10 @@ export async function GET(request: Request) {
   }
 
   const usdEquivalent =
-    course.price.currency === 'USD'
-      ? course.price.amount
+    activePrice.currency === 'USD'
+      ? activePrice.amount
       : exchangeRate
-        ? Math.round((course.price.amount / exchangeRate.rate) * 100) / 100
+        ? Math.round((activePrice.amount / exchangeRate.rate) * 100) / 100
         : null
   const formattedNgn = new Intl.NumberFormat('en-NG', {
     maximumFractionDigits: 0,

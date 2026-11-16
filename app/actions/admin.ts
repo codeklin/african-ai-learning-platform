@@ -5,6 +5,13 @@ import { createClient, createAdminClient } from '@/lib/supabase/server'
 import type { UserRole, CourseStatus, CourseAccess, LessonType, LessonAccess, Course } from '@/lib/database.types'
 import { PAID_COURSE_PRODUCTS } from '@/lib/course-products'
 
+// Generates a human-readable code: ITUWA-XXXX-XXXX (uppercase, no ambiguous chars)
+function generateAccessCode(): string {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
+  const seg = (n: number) => Array.from({ length: n }, () => chars[Math.floor(Math.random() * chars.length)]).join('')
+  return `ITUWA-${seg(4)}-${seg(4)}`
+}
+
 async function assertSuperAdmin() {
   const supabase = await createClient()
   const {
@@ -262,8 +269,96 @@ export async function grantPaidCourseEnrollmentAction(input: {
     return { success: false, error: 'Unable to record the enrollment.' }
   }
 
+  // Generate a one-time access code the admin can send to the learner
+  const code = generateAccessCode()
+  const { error: codeError } = await adminClient.from('access_codes').insert({
+    code,
+    course_id: course.id,
+    user_id: profile.id,
+    created_by: adminUser.id,
+    expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+  })
+
+  if (codeError) {
+    console.error('Enrollment granted but access code generation failed:', codeError)
+    // Enrollment already written — don't fail the whole action
+  }
+
   revalidatePath('/admin')
   revalidatePath('/admin/courses')
   revalidatePath('/dashboard')
-  return { success: true, alreadyEnrolled: false }
+  return { success: true, alreadyEnrolled: false, accessCode: codeError ? null : code }
+}
+
+export async function redeemAccessCodeAction(input: { code: unknown; courseSlug: unknown }) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { success: false, error: 'Sign in to redeem an access code.' }
+
+  if (typeof input.code !== 'string' || typeof input.courseSlug !== 'string') {
+    return { success: false, error: 'Invalid code format.' }
+  }
+
+  const code = input.code.trim().toUpperCase()
+  if (!/^ITUWA-[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(code)) {
+    return { success: false, error: "That code doesn't look right. Check the format and try again." }
+  }
+
+  const adminClient: any = await createAdminClient()
+
+  const { data: accessCode, error: lookupError } = await adminClient
+    .from('access_codes')
+    .select('id, course_id, user_id, redeemed_at, expires_at')
+    .eq('code', code)
+    .maybeSingle()
+
+  if (lookupError) {
+    console.error('Access code lookup failed:', lookupError)
+    return { success: false, error: 'Unable to verify that code right now. Try again shortly.' }
+  }
+  if (!accessCode) {
+    return { success: false, error: 'Code not found. Double-check and try again.' }
+  }
+  if (accessCode.user_id !== user.id) {
+    return { success: false, error: 'This code was issued to a different account.' }
+  }
+  if (accessCode.redeemed_at) {
+    return { success: false, error: 'This code has already been used.' }
+  }
+  if (new Date(accessCode.expires_at) < new Date()) {
+    return { success: false, error: 'This code has expired. Contact support.' }
+  }
+
+  // Mark redeemed
+  const { error: redeemError } = await adminClient
+    .from('access_codes')
+    .update({ redeemed_at: new Date().toISOString() })
+    .eq('id', accessCode.id)
+
+  if (redeemError) {
+    console.error('Failed to mark access code as redeemed:', redeemError)
+    return { success: false, error: 'Unable to redeem that code. Try again.' }
+  }
+
+  // Upsert enrollment with payment verified
+  const { error: enrollError } = await adminClient
+    .from('enrollments')
+    .upsert(
+      {
+        user_id: user.id,
+        course_id: accessCode.course_id,
+        payment_verified_at: new Date().toISOString(),
+        payment_verified_by: adminClient.id,
+      },
+      { onConflict: 'user_id,course_id' }
+    )
+
+  if (enrollError) {
+    console.error('Access code redeemed but enrollment upsert failed:', enrollError)
+    return { success: false, error: 'Code accepted but enrollment failed. Contact support.' }
+  }
+
+  revalidatePath('/courses')
+  revalidatePath('/dashboard')
+  return { success: true }
 }

@@ -30,6 +30,8 @@ import {
   Eye,
   Sliders,
   AlertCircle,
+  Copy,
+  Check,
 } from 'lucide-react'
 import Brand from '@/components/brand'
 import { signOut } from '@/app/actions/auth'
@@ -87,6 +89,8 @@ export default function AdminDashboardView({
   const [manualEnrollmentEmail, setManualEnrollmentEmail] = useState('')
   const [manualEnrollmentCourse, setManualEnrollmentCourse] = useState(PAID_COURSE_PRODUCTS[0].slug)
   const [isGrantingEnrollment, setIsGrantingEnrollment] = useState(false)
+  const [generatedAccessCode, setGeneratedAccessCode] = useState<string | null>(null)
+  const [copiedCode, setCopiedCode] = useState(false)
 
   // Course Creator Studio State
   const [isCreateCourseOpen, setIsCreateCourseOpen] = useState(false)
@@ -166,6 +170,7 @@ export default function AdminDashboardView({
   const handleManualEnrollment = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsGrantingEnrollment(true)
+    setGeneratedAccessCode(null)
     try {
       const result = await grantPaidCourseEnrollmentAction({
         email: manualEnrollmentEmail,
@@ -177,10 +182,13 @@ export default function AdminDashboardView({
       } else {
         setNotification({
           message: result.alreadyEnrolled
-            ? 'This learner already has an enrollment record.'
-            : 'Verified payment recorded and course enrollment granted.',
+            ? 'This learner already has a verified enrollment.'
+            : 'Enrollment granted. Send the access code below to the learner.',
           type: 'success',
         })
+        if (!result.alreadyEnrolled && result.accessCode) {
+          setGeneratedAccessCode(result.accessCode)
+        }
         setManualEnrollmentEmail('')
         router.refresh()
       }
@@ -191,7 +199,7 @@ export default function AdminDashboardView({
       })
     } finally {
       setIsGrantingEnrollment(false)
-      setTimeout(() => setNotification(null), 5000)
+      setTimeout(() => setNotification(null), 8000)
     }
   }
 
@@ -777,6 +785,28 @@ export default function AdminDashboardView({
                     {isGrantingEnrollment ? 'Recording…' : 'Confirm payment and enroll'}
                   </button>
                 </form>
+
+                {generatedAccessCode && (
+                  <div className="access-code-result">
+                    <span className="access-code-label">ACCESS CODE — send this to the learner</span>
+                    <div className="access-code-box">
+                      <code className="access-code-value">{generatedAccessCode}</code>
+                      <button
+                        type="button"
+                        className="access-code-copy"
+                        onClick={() => {
+                          navigator.clipboard.writeText(generatedAccessCode)
+                          setCopiedCode(true)
+                          setTimeout(() => setCopiedCode(false), 2000)
+                        }}
+                      >
+                        {copiedCode ? <Check size={14} strokeWidth={3} /> : <Copy size={14} />}
+                        {copiedCode ? 'Copied' : 'Copy'}
+                      </button>
+                    </div>
+                    <p className="access-code-note">Valid for 7 days. The learner enters this on the course page to unlock access.</p>
+                  </div>
+                )}
               </section>
 
               <section className="admin-panel-card">

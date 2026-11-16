@@ -12,7 +12,7 @@ import {
 } from 'lucide-react'
 import Brand from '@/components/brand'
 import { useUser } from '@/hooks/use-user'
-import { getCourseProduct, formatDualPrice } from '@/lib/course-products'
+import { getCourseProduct, formatDualPrice, getActivePrice } from '@/lib/course-products'
 
 type LearningPathKey =
   | 'foundations'
@@ -388,7 +388,7 @@ export default function QuizPage() {
     }
   }, [answers])
   const recommendedProduct = getCourseProduct(result.top.courseSlug)
-  const priceInfo = formatDualPrice(recommendedProduct?.price)
+  const priceInfo = formatDualPrice(recommendedProduct ? getActivePrice(recommendedProduct) : undefined)
   const recommendedPrice = priceInfo.isFree ? null : priceInfo.display
 
   return (

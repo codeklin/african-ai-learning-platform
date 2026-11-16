@@ -73,6 +73,17 @@ export interface LessonProgress {
   completed_at: string
 }
 
+export interface AccessCode {
+  id: string
+  code: string
+  course_id: string
+  user_id: string
+  created_by: string
+  redeemed_at: string | null
+  expires_at: string
+  created_at: string
+}
+
 export interface Database {
   public: {
     Tables: {

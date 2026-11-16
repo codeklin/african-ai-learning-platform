@@ -8,9 +8,10 @@ import YouTubeEmbed from '@/components/youtube-embed'
 import CalendarReminder from '@/components/calendar-reminder'
 import CreatorProjectStudio from '@/components/creator-project-studio'
 import { createClient } from '@/lib/supabase/server'
-import { getCourseProduct, formatDualPrice } from '@/lib/course-products'
+import { getCourseProduct, formatDualPrice, getActivePrice } from '@/lib/course-products'
 import CoursePurchaseButton from '@/components/course-purchase-button'
 import CourseModuleAccordion from '@/components/course-module-accordion'
+import AccessCodeRedeemer from '@/components/access-code-redeemer'
 
 const creatorCourses: Record<string, { title: string; description: string }> = {
   'youtube-business-fundamentals': { title: 'YouTube Business Fundamentals', description: 'Understand the creator business model, audience value, rights, and realistic revenue paths.' },
@@ -223,7 +224,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
   const lessonCount = course?.lessons ?? (isCreator ? 8 : null)
   const duration = course?.duration ?? (isCreator ? '3h' : null)
 
-  const priceInfo = formatDualPrice(product.price)
+  const priceInfo = formatDualPrice(getActivePrice(product))
   const price = priceInfo.isFree ? null : priceInfo.display
 
   const firstLessonPath = `/learn/${slug}/lesson-1`
@@ -279,6 +280,9 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
             <Link href={firstLessonPath} className="cdp-cta-btn cdp-cta-btn-free">
               Start now <ArrowRight size={15} />
             </Link>
+          )}
+          {product.price && isAuthenticated && (
+            <AccessCodeRedeemer courseSlug={slug} />
           )}
         </div>
       </section>

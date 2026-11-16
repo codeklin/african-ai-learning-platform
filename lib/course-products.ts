@@ -9,9 +9,13 @@ export interface CourseProduct {
   symbol: string
   tone: 'lilac' | 'green' | 'orange' | 'blue' | 'peach' | 'lavender'
   price: { currency: 'USD' | 'NGN'; amount: number } | null
+  launchPrice?: { currency: 'USD' | 'NGN'; amount: number }
   exclusive?: boolean
   inDevelopment: boolean
 }
+
+// Flip to false when the launch promo ends
+export const LAUNCH_PROMO_ACTIVE = true
 
 export const COURSE_PRODUCTS: CourseProduct[] = [
   {
@@ -36,6 +40,7 @@ export const COURSE_PRODUCTS: CourseProduct[] = [
     symbol: '02',
     tone: 'orange',
     price: { currency: 'USD', amount: 4 },
+    launchPrice: { currency: 'NGN', amount: 1_000 },
     inDevelopment: true,
   },
   {
@@ -48,6 +53,7 @@ export const COURSE_PRODUCTS: CourseProduct[] = [
     symbol: '03',
     tone: 'peach',
     price: { currency: 'NGN', amount: 15_000 },
+    launchPrice: { currency: 'NGN', amount: 1_000 },
     exclusive: true,
     inDevelopment: true,
   },
@@ -62,6 +68,7 @@ export const COURSE_PRODUCTS: CourseProduct[] = [
     symbol: '04',
     tone: 'blue',
     price: { currency: 'NGN', amount: 20_000 },
+    launchPrice: { currency: 'NGN', amount: 1_000 },
     exclusive: true,
     inDevelopment: true,
   },
@@ -76,6 +83,7 @@ export const COURSE_PRODUCTS: CourseProduct[] = [
     symbol: '05',
     tone: 'green',
     price: { currency: 'NGN', amount: 10_000 },
+    launchPrice: { currency: 'NGN', amount: 1_000 },
     inDevelopment: true,
   },
   {
@@ -88,6 +96,7 @@ export const COURSE_PRODUCTS: CourseProduct[] = [
     symbol: '06',
     tone: 'peach',
     price: { currency: 'USD', amount: 4 },
+    launchPrice: { currency: 'NGN', amount: 1_000 },
     inDevelopment: true,
   },
 ]
@@ -107,9 +116,18 @@ export function getCourseProduct(slug: string): CourseProduct | undefined {
 }
 
 /**
+ * Returns the price that should be charged right now.
+ * When LAUNCH_PROMO_ACTIVE and a launchPrice exists, that takes precedence.
+ */
+export function getActivePrice(product: CourseProduct): CourseProduct['price'] {
+  if (LAUNCH_PROMO_ACTIVE && product.launchPrice) return product.launchPrice
+  return product.price
+}
+
+/**
  * Standard pricing formatter ensuring Naira appears first across the app,
  * followed by its USD equivalent.
- * e.g., "₦6,400 (≈ $4)" or "₦15,000 (≈ $9)" or "Free"
+ * e.g., "₦1,000 (≈ $1)" or "₦15,000 (≈ $9)" or "Free"
  */
 export const USD_TO_NGN_RATE = 1600
 

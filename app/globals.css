@@ -1980,6 +1980,25 @@ a.skip-link:focus { top:0; }
   .course-bank-details > div { align-items: flex-start; }
 }
 .admin-manual-enrollment-note { margin: 0 0 16px; color: #6C5950; font-size: 14px; line-height: 1.55; }
+
+/* Access code result box — shown after granting enrollment */
+.access-code-result { margin-top: 20px; padding: 18px; border: 1.5px solid #3DA872; border-radius: 14px; background: #EEF7EE; }
+.access-code-label { display: block; font-size: 11px; font-weight: 800; letter-spacing: .8px; color: #1E663B; margin-bottom: 10px; }
+.access-code-box { display: flex; align-items: center; gap: 12px; }
+.access-code-value { font-family: 'Courier New', monospace; font-size: 20px; font-weight: 800; letter-spacing: .12em; color: #2C1A12; background: #fff; border: 1px solid #EADBCE; border-radius: 10px; padding: 10px 16px; flex: 1; }
+.access-code-copy { display: inline-flex; align-items: center; gap: 6px; padding: 10px 16px; border: 1px solid #3DA872; border-radius: 10px; background: #fff; color: #1E663B; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; font-family: inherit; }
+.access-code-note { margin: 10px 0 0; font-size: 12px; color: #3A7A54; }
+
+/* Access code redeemer on course detail page */
+.redeem-form { margin-top: 14px; }
+.redeem-label { display: block; font-size: 12px; font-weight: 700; color: #6C5950; margin-bottom: 8px; letter-spacing: .3px; }
+.redeem-row { display: flex; gap: 8px; }
+.redeem-input { flex: 1; min-height: 46px; padding: 0 14px; border: 1.5px solid #EADBCE; border-radius: 12px; background: #fff; color: #2C1A12; font: inherit; font-size: 14px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.redeem-input:focus { outline: none; border-color: #2C1A12; }
+.redeem-btn { display: inline-flex; align-items: center; gap: 6px; min-height: 46px; padding: 0 18px; border: none; border-radius: 12px; background: #2C1A12; color: #fff; font: inherit; font-size: 13px; font-weight: 800; cursor: pointer; white-space: nowrap; }
+.redeem-btn:disabled { opacity: .5; cursor: not-allowed; }
+.redeem-error { margin-top: 8px; font-size: 13px; color: #C0392B; }
+.redeem-success { display: flex; align-items: center; gap: 8px; margin-top: 14px; padding: 12px 16px; border-radius: 12px; background: #EEF7EE; color: #1E663B; font-size: 14px; font-weight: 700; }
 .admin-manual-enrollment-form { display: grid; grid-template-columns: minmax(220px, 1fr) minmax(220px, 1fr) auto; gap: 14px; align-items: end; }
 .admin-manual-enrollment-form label { display: flex; flex-direction: column; gap: 6px; color: #6C5950; font-size: 13px; font-weight: 700; }
 .admin-manual-enrollment-form input, .admin-manual-enrollment-form select { width: 100%; min-height: 44px; padding: 0 12px; border: 1px solid #EADBCE; border-radius: 10px; background: #fff; color: #2C1A12; font: inherit; }
@@ -3747,6 +3766,8 @@ a.skip-link:focus { top:0; }
 .catalog-price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px; }
 .catalog-price-main { font-size: 18px; font-weight: 800; color: #2C1A12; }
 .catalog-price-equiv { font-size: 13px; font-weight: 600; color: #7C6E65; }
+.catalog-launch-badge { display: inline-block; padding: 3px 8px; border-radius: 6px; background: #FFBA38; color: #2C1A12; font-size: 10px; font-weight: 800; letter-spacing: .6px; }
+.catalog-development-note { font-size: 11px; font-weight: 600; color: #9C8880; }
 
 /* Training-library lesson layout */
 .lesson-app { min-height: 100vh; color: #2C1A12; background: #FAF5EE; }

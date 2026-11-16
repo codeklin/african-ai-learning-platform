@@ -6,7 +6,7 @@ import { ArrowLeft, ArrowRight, Clock3, Play, Search, BookOpen, CheckCircle2, X 
 import Brand from '@/components/brand'
 import AppBottomNav from '@/components/app-bottom-nav'
 import { useUser } from '@/hooks/use-user'
-import { COURSE_PRODUCTS, type CourseProduct, formatDualPrice } from '@/lib/course-products'
+import { COURSE_PRODUCTS, type CourseProduct, formatDualPrice, getActivePrice, LAUNCH_PROMO_ACTIVE } from '@/lib/course-products'
 import CoursePurchaseButton from '@/components/course-purchase-button'
 
 type CourseItem = CourseProduct
@@ -182,7 +182,7 @@ export default function CoursesPage() {
             const isFree = course.price === null
             const isInDevelopment =
               !isFree && courseStatuses[course.slug] !== 'published'
-            const priceInfo = formatDualPrice(course.price)
+            const priceInfo = formatDualPrice(getActivePrice(course))
             const basePrice = priceInfo.nairaText
             const equivalentPrice = priceInfo.usdText
 
@@ -243,6 +243,9 @@ export default function CoursesPage() {
                         <strong className="catalog-price-main">{basePrice}</strong>
                         <span className="catalog-price-equiv">{equivalentPrice}</span>
                       </div>
+                      {LAUNCH_PROMO_ACTIVE && course.launchPrice && (
+                        <span className="catalog-launch-badge">LAUNCH PRICE</span>
+                      )}
                       {isInDevelopment && (
                         <span className="catalog-development-note">
                           Pre-order · lessons unlock after publication
