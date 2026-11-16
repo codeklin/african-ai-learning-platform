@@ -34,12 +34,11 @@ import {
 import Brand from '@/components/brand'
 import { signOut } from '@/app/actions/auth'
 import {
-  updateUserRoleAction,
   updateCourseStatusAction,
   createCourseAction,
   grantPaidCourseEnrollmentAction,
 } from '@/app/actions/admin'
-import type { Profile, Course, UserRole, CourseStatus, LessonType } from '@/lib/database.types'
+import type { Profile, Course, CourseStatus, LessonType } from '@/lib/database.types'
 import { PAID_COURSE_PRODUCTS } from '@/lib/course-products'
 
 interface EnrollmentItem {
@@ -83,7 +82,6 @@ export default function AdminDashboardView({
   const [roleFilter, setRoleFilter] = useState<'all' | 'learner' | 'instructor' | 'admin'>('all')
   const [searchCourseQuery, setSearchCourseQuery] = useState('')
   const [isExporting, setIsExporting] = useState(false)
-  const [updatingUserId, setUpdatingUserId] = useState<string | null>(null)
   const [updatingCourseId, setUpdatingCourseId] = useState<string | null>(null)
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
   const [manualEnrollmentEmail, setManualEnrollmentEmail] = useState('')
@@ -132,36 +130,6 @@ export default function AdminDashboardView({
         (c.academy && c.academy.toLowerCase().includes(q))
     )
   }, [courses, searchCourseQuery])
-
-  // Change user role action
-  const handleRoleChange = async (userId: string, newRole: UserRole) => {
-    setUpdatingUserId(userId)
-    try {
-      const res = await updateUserRoleAction(userId, newRole)
-      if (res.success) {
-        setUsers((prev) =>
-          prev.map((u) => (u.id === userId ? { ...u, role: newRole } : u))
-        )
-        setNotification({
-          message: `User role updated to ${newRole.toUpperCase()}.`,
-          type: 'success',
-        })
-      } else {
-        setNotification({
-          message: res.error ?? 'Failed to update role',
-          type: 'error',
-        })
-      }
-    } catch (err: unknown) {
-      setNotification({
-        message: err instanceof Error ? err.message : 'Error updating user role',
-        type: 'error',
-      })
-    } finally {
-      setUpdatingUserId(null)
-      setTimeout(() => setNotification(null), 4000)
-    }
-  }
 
   // Toggle course status action
   const handleCourseStatusToggle = async (courseId: string, currentStatus: CourseStatus) => {
@@ -698,7 +666,6 @@ export default function AdminDashboardView({
                         <th>Learner Name</th>
                         <th>Email Address</th>
                         <th>Role Permission</th>
-                        <th>Change Role</th>
                         <th>Joined</th>
                       </tr>
                     </thead>
@@ -722,19 +689,6 @@ export default function AdminDashboardView({
                             </span>
                           </td>
                           <td>
-                            <select
-                              value={u.role ?? 'learner'}
-                              onChange={(e) => handleRoleChange(u.id, e.target.value as UserRole)}
-                              disabled={updatingUserId === u.id}
-                              className="super-admin-role-select"
-                              aria-label={`Change role for ${u.email}`}
-                            >
-                              <option value="learner">Learner</option>
-                              <option value="instructor">Instructor</option>
-                              <option value="admin">Administrator</option>
-                            </select>
-                          </td>
-                          <td>
                             <span className="table-date">
                               {u.created_at
                                 ? new Date(u.created_at).toLocaleDateString('en-GB')
@@ -745,7 +699,7 @@ export default function AdminDashboardView({
                       ))}
                       {filteredUsers.length === 0 && (
                         <tr>
-                          <td colSpan={5} className="admin-table-empty">
+                          <td colSpan={4} className="admin-table-empty">
                             No learners match your search criteria.
                           </td>
                         </tr>
@@ -773,19 +727,6 @@ export default function AdminDashboardView({
                         </span>
                       </div>
                       <div className="mobile-user-card-foot">
-                        <div className="mobile-role-selector">
-                          <span>Set Role:</span>
-                          <select
-                            value={u.role ?? 'learner'}
-                            onChange={(e) => handleRoleChange(u.id, e.target.value as UserRole)}
-                            disabled={updatingUserId === u.id}
-                            className="super-admin-role-select"
-                          >
-                            <option value="learner">Learner</option>
-                            <option value="instructor">Instructor</option>
-                            <option value="admin">Administrator</option>
-                          </select>
-                        </div>
                       </div>
                     </div>
                   ))}
