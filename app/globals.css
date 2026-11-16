@@ -1180,13 +1180,13 @@ a.skip-link:focus { top:0; }
   left: 16px;
   right: 16px;
   height: 64px;
-  background: #2C1A12;
-  border-radius: 20px;
-  border: none;
+  background: #ffffff;
+  border-radius: 28px;
+  border: 1.5px solid #2C1A12;
   padding: 0 8px;
   padding-bottom: env(safe-area-inset-bottom, 0px);
   z-index: 50;
-  box-shadow: 0 8px 32px rgba(44, 26, 18, 0.35), 0 2px 8px rgba(44, 26, 18, 0.2);
+  box-shadow: 0 4px 24px rgba(44, 26, 18, 0.10), 0 1px 4px rgba(44, 26, 18, 0.07);
 }
 .app-bottom-nav { display: none; }
 .app-bottom-nav-item {
@@ -1197,18 +1197,18 @@ a.skip-link:focus { top:0; }
   gap: 4px;
   flex: 1;
   padding: 10px 6px;
-  color: rgba(255, 255, 255, 0.5);
+  color: #9C8880;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.3px;
   transition: color .15s, transform .1s;
   position: relative;
-  border-radius: 14px;
+  border-radius: 20px;
 }
 .app-bottom-nav-item:active { transform: scale(.88); }
 .app-bottom-nav-item--active {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.1);
+  color: #2C1A12;
+  background: #F5EDFA;
 }
 .app-bottom-nav-icon { position: relative; display: flex; align-items: center; justify-content: center; }
 .app-bottom-nav-dot {
