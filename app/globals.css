@@ -1962,9 +1962,9 @@ a.skip-link:focus { top:0; }
 .course-purchase-amount strong { color: #2C1A12; font-size: 30px; line-height: 1.2; }
 .course-purchase-amount span:last-child { color: #7C6E65; font-size: 13px; }
 .course-bank-details { padding: 0; margin: 0; border-top: 1px solid #EADBCE; }
-.course-bank-details > div { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid #EADBCE; }
-.course-bank-details dt { color: #7C6E65; font-size: 13px; }
-.course-bank-details dd { margin: 0; color: #2C1A12; font-size: 14px; font-weight: 750; text-align: right; overflow-wrap: anywhere; }
+.course-bank-details > div { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #EADBCE; }
+.course-bank-details dt { color: #7C6E65; font-size: 13px; flex-shrink: 0; }
+.course-bank-details dd { margin: 0; color: #2C1A12; font-size: 14px; font-weight: 750; text-align: right; overflow-wrap: anywhere; min-width: 0; }
 .course-rate-note, .course-purchase-terms { color: #7C6E65; font-size: 12px !important; line-height: 1.55; }
 .course-rate-note a, .course-purchase-terms a { color: #2C1A12; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 .course-purchase-warning { padding: 13px 15px; border-left: 3px solid #E86A58; background: #FDEEE9; color: #2C1A12 !important; }
@@ -1973,8 +1973,9 @@ a.skip-link:focus { top:0; }
 .course-purchase-state { padding: 16px; border: 1px solid #EADBCE; border-radius: 14px; background: #fff; }
 .course-purchase-error { padding: 16px; border: 1px solid #E7B3A9; border-radius: 14px; background: #FDEEE9; color: #2C1A12; }
 .course-purchase-error .button { min-height: 44px; margin-top: 6px; }
-@media (max-width: 600px) {
-  .course-purchase-dialog { padding: 24px 20px; border-radius: 18px; }
+@media (max-width: 720px) {
+  .course-purchase-backdrop { padding: 12px; }
+  .course-purchase-dialog { padding: 24px 18px; border-radius: 18px; }
   .course-purchase-dialog > .detail-section-kicker { padding-right: 36px; }
   .course-bank-details > div { align-items: flex-start; }
 }

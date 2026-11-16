@@ -213,7 +213,7 @@ export default function CoursePurchaseButton({
                   <div><dt>Account name</dt><dd>{purchaseInfo.bank.accountName}</dd></div>
                   <div>
                     <dt>Account number</dt>
-                    <dd style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'flex-end' }}>
+                    <dd style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'flex-end', flexWrap: 'wrap', minWidth: 0 }}>
                       <span style={{ fontSize: 16, letterSpacing: '0.04em' }}>{purchaseInfo.bank.accountNumber}</span>
                       <button
                         type="button"
