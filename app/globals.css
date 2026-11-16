@@ -3715,3 +3715,8 @@ a.skip-link:focus { top:0; }
     justify-content: center;
   }
 }
+
+/* Course card dual-currency price */
+.catalog-price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px; }
+.catalog-price-main { font-size: 18px; font-weight: 800; color: #2C1A12; }
+.catalog-price-equiv { font-size: 13px; font-weight: 600; color: #7C6E65; }

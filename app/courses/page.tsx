@@ -181,12 +181,18 @@ export default function CoursesPage() {
             const isFree = course.price === null
             const isInDevelopment =
               !isFree && courseStatuses[course.slug] !== 'published'
+            const USD_TO_NGN = 1600
             const basePrice = course.price
               ? new Intl.NumberFormat(course.price.currency === 'USD' ? 'en-US' : 'en-NG', {
                   style: 'currency',
                   currency: course.price.currency,
                   maximumFractionDigits: 0,
                 }).format(course.price.amount)
+              : null
+            const equivalentPrice = course.price
+              ? course.price.currency === 'USD'
+                ? `≈ ₦${(course.price.amount * USD_TO_NGN).toLocaleString('en-NG')}`
+                : `≈ $${Math.ceil(course.price.amount / USD_TO_NGN)}`
               : null
 
             return (
@@ -239,7 +245,10 @@ export default function CoursesPage() {
                     </Link>
                   ) : (
                     <div className="catalog-purchase">
-                      <strong>{basePrice}</strong>
+                      <div className="catalog-price-row">
+                        <strong className="catalog-price-main">{basePrice}</strong>
+                        <span className="catalog-price-equiv">{equivalentPrice}</span>
+                      </div>
                       {isInDevelopment && (
                         <span className="catalog-development-note">
                           Pre-order · lessons unlock after publication
