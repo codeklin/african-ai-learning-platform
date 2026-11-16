@@ -1,6 +1,7 @@
 export interface CourseProduct {
   slug: string
   databaseSlug: string
+  aliases?: string[]
   title: string
   academy: string
   description: string
@@ -51,11 +52,12 @@ export const COURSE_PRODUCTS: CourseProduct[] = [
     inDevelopment: true,
   },
   {
-    slug: 'build-a-helpful-ai-app',
-    databaseSlug: 'build-helpful-ai-app',
-    title: 'AI App Development for Business',
+    slug: 'ai-web-app-development',
+    databaseSlug: 'ai-web-app-development',
+    aliases: ['build-a-helpful-ai-app', 'build-helpful-ai-app'],
+    title: 'AI Web App Development',
     academy: 'AI App Development',
-    description: 'Identify a real customer problem, build a focused AI-powered app prototype, and test whether it offers practical value.',
+    description: 'Learn how to build a simple, useful web app with AI assistance, from problem definition and interface planning to testing and deployment.',
     level: 'Beginner to intermediate',
     symbol: '04',
     tone: 'blue',
@@ -65,14 +67,15 @@ export const COURSE_PRODUCTS: CourseProduct[] = [
   },
   {
     slug: 'youtube-monetization',
-    databaseSlug: 'youtube-automation-monetization-masterclass',
+    databaseSlug: 'youtube-monetization',
+    aliases: ['youtube-automation-monetization-masterclass'],
     title: 'YouTube Monetization',
     academy: 'Creator Economy & YouTube',
     description: 'Understand creator revenue paths, current YouTube requirements, copyright, and how to build original audience value.',
     level: 'Beginner to intermediate',
     symbol: '05',
     tone: 'green',
-    price: { currency: 'NGN', amount: 50_000 },
+    price: { currency: 'NGN', amount: 10_000 },
     inDevelopment: true,
   },
   {
@@ -96,6 +99,9 @@ export const PAID_COURSE_PRODUCTS = COURSE_PRODUCTS.filter(
 
 export function getCourseProduct(slug: string): CourseProduct | undefined {
   return COURSE_PRODUCTS.find(
-    (course) => course.slug === slug || course.databaseSlug === slug
+    (course) =>
+      course.slug === slug ||
+      course.databaseSlug === slug ||
+      course.aliases?.includes(slug)
   )
 }

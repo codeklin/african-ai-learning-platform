@@ -17,8 +17,8 @@ const TIME_SLOTS = [
 ]
 
 export default function CalendarReminder({
-  courseTitle = 'Build a Helpful AI App',
-  courseSlug = 'build-a-helpful-ai-app',
+  courseTitle = 'AI Web App Development',
+  courseSlug = 'ai-web-app-development',
   recommendedDurationMinutes = 20,
 }: CalendarReminderProps) {
   const [selectedSlotId, setSelectedSlotId] = useState('evening')

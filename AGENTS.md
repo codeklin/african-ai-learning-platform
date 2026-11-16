@@ -315,4 +315,17 @@ YouTube policies change. Policy-dependent course material must include its sourc
 Students must be taught to create original and valuable content, even when using AI-assisted production tools.
 Practical assignments must assess content originality, audience value, production quality and policy compliance.
 
+22. Official Course Lineup, Slugs, and Pricing Standards
+The platform defines six core course offerings:
+1. AI Foundations — slug: `ai-toolkit-practical-start` | Access: Free | Status: Published.
+2. AI Video Creation — slug: `ai-video-creation` | Price: $4 | Access: Paid | Status: Draft.
+3. AI Content Marketing for Business — slug: `ai-content-marketing-for-business` | Price: ₦15,000 | Access: Paid | Status: Draft.
+4. AI Web App Development — slug: `ai-web-app-development` | Price: ₦20,000 | Access: Paid | Status: Draft.
+5. YouTube Monetization — slug: `youtube-monetization` | Price: ₦10,000 | Access: Paid | Status: Draft.
+6. AI Graphic Design — slug: `ai-graphic-design` | Price: $4 | Access: Paid | Status: Draft.
+
+Database & Query Integrity:
+- Database slugs must match primary URL slugs.
+- Because lessons enforce UNIQUE(course_id, slug), lesson queries must ALWAYS filter by both `course_id` and `slug` (never by `slug` alone).
+
 Never mark a feature complete solely because its interface has been built.

@@ -13,6 +13,7 @@ import { getCourseProduct } from '@/lib/course-products'
 const LEGACY_COURSES = [
   'ai-toolkit-practical-start',
   'prompting-better-work',
+  'ai-web-app-development',
   'build-a-helpful-ai-app',
   'ai-content-marketing-for-business',
   'youtube-monetization',
@@ -83,19 +84,21 @@ export default async function LessonPage({
     }
   }
 
-  // ── Legacy demo courses — serve existing LessonPreview ────────
-  if (LEGACY_COURSES.includes(courseSlug)) {
-    return <LessonPreview slug={courseSlug} userId={user.id} />
-  }
-
-  // ── Database-driven lesson ────────────────────────────────────
+  // ── Database-driven lesson lookup ─────────────────────────────
   const { data: lesson } = await supabase
     .from('lessons')
     .select('*, courses(*)')
+    .eq('course_id', accessibleCourse.id)
     .eq('slug', lessonSlug)
-    .single() as { data: (Lesson & { courses: Course }) | null }
+    .maybeSingle() as { data: (Lesson & { courses: Course }) | null }
 
-  if (!lesson || lesson.status !== 'published') notFound()
+  // Fallback to legacy LessonPreview if database lesson not yet seeded
+  if (!lesson || lesson.status !== 'published') {
+    if (LEGACY_COURSES.includes(courseSlug)) {
+      return <LessonPreview slug={courseSlug} userId={user.id} />
+    }
+    notFound()
+  }
 
   const course = lesson.courses
 

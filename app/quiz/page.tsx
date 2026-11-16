@@ -296,8 +296,8 @@ const academyProfiles: Record<LearningPathKey, AcademyResult> = {
     tagline: 'Plan and prototype an AI-powered app, then test whether it helps someone do something useful.',
     description:
       'Your answers point toward app development. Focus on one real user problem, make a small working prototype and test it with realistic examples. A prototype is a learning project, not a promise of business success or income.',
-    recommendedCourse: 'AI App Development for Business',
-    courseSlug: 'build-a-helpful-ai-app',
+    recommendedCourse: 'AI Web App Development',
+    courseSlug: 'ai-web-app-development',
     keySkills: ['Problem validation', 'Product scope', 'AI app prototyping', 'Testing and iteration'],
     firstProject: 'Describe one customer problem, sketch the smallest app that could help and write three test cases.',
     tone: 'peach',

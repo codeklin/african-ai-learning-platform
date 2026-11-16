@@ -71,10 +71,10 @@ const tracks: TrackOption[] = [
   },
   {
     id: 'appDevelopment',
-    title: 'AI App Development for Business',
+    title: 'AI Web App Development',
     subtitle: 'Build and test a focused app prototype around a real customer problem.',
-    firstCourse: 'AI App Development for Business',
-    firstCourseSlug: 'build-a-helpful-ai-app',
+    firstCourse: 'AI Web App Development',
+    firstCourseSlug: 'ai-web-app-development',
     tone: 'peach',
     practiceGoal: 'Define a user problem and plan a small app prototype.',
     focusLabel: 'Product building',

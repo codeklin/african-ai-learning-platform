@@ -59,9 +59,9 @@ const practiceIdeas: PracticeIdea[] = [
   {
     id: 'practice-4',
     title: 'Define a small app idea',
-    academy: 'AI App Development for Business',
+    academy: 'AI Web App Development',
     description: 'Name a user, a problem they face and one outcome a simple app prototype could help them achieve.',
-    courseSlug: 'build-a-helpful-ai-app',
+    courseSlug: 'ai-web-app-development',
     tone: 'blue',
   },
 ]
