@@ -312,7 +312,7 @@ button { color: inherit; font: inherit; }
   .project-card-two { top: 68px; }
 
   .pricing-inner { padding-top: 52px; padding-bottom: 52px; }
-  .pricing-cards-grid { grid-template-columns: 1fr; gap: 20px; }
+  .pricing-cards-grid, .pricing-cards-column { flex-direction: column; gap: 20px; }
   .pricing-copy h2 { font-size: 32px; }
   .price-card { padding: 22px; border-radius: 18px; }
   .closing-cta { min-height: 280px; padding: 40px 20px; }
@@ -1404,7 +1404,7 @@ a.skip-link:focus { top:0; }
 
   /* Pricing dark section */
   .pricing-inner { padding-top: 52px; padding-bottom: 52px; }
-  .pricing-cards-grid { grid-template-columns: 1fr; gap: 18px; }
+  .pricing-cards-grid, .pricing-cards-column { flex-direction: column; gap: 18px; }
   .pricing-header { margin-bottom: 36px; }
 
 
@@ -2704,22 +2704,24 @@ a.skip-link:focus { top:0; }
 .pricing-cards-column,
 .pricing-cards-grid {
   display: flex;
-  flex-direction: column;
-  gap: 28px;
-  max-width: 580px;
-  margin: 0 auto;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 16px;
   width: 100%;
 }
 .price-card--free {
+  flex: 1;
   border: 1px solid #543426;
   background: #392218;
 }
 .price-card--paid {
+  flex: 1;
   border: 2px solid #FFBA38;
   background: #3f2515;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 186, 56, 0.2);
 }
 .price-card--mentorship {
+  flex: 1;
   border: 1.5px solid rgba(232, 106, 88, 0.5);
   background: #382116;
   box-shadow: 0 16px 44px rgba(0, 0, 0, 0.45);
@@ -3604,6 +3606,30 @@ a.skip-link:focus { top:0; }
   font-weight: 600;
   color: #7C6E65;
   margin-left: 4px;
+}
+
+.catalog-exclusive-badge {
+  display: inline-flex;
+  width: fit-content;
+  margin: 5px 0 0;
+  padding: 3px 9px;
+  border: 1px solid #E8C994;
+  border-radius: 9999px;
+  background: #FDF5E8;
+  color: #75451F;
+  font-size: 12px;
+  font-weight: 750;
+  line-height: 1.4;
+}
+.detail-exclusive-badge {
+  display: inline-flex;
+  padding: 4px 9px;
+  border: 1px solid #E8C994;
+  border-radius: 9999px;
+  background: #FDF5E8;
+  color: #75451F;
+  font-size: 12px;
+  font-weight: 750;
 }
 
 /* Homepage assessment prompt directly follows the hero. */

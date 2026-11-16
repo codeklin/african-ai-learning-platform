@@ -26,22 +26,29 @@ const featuredAcademies = [
   },
   {
     number: '03',
-    title: 'AI Web App Development',
-    detail: 'Build practical web apps with AI-assisted workflows.',
+    title: 'AI Content Marketing',
+    detail: 'Help a business reach the right audience with useful, original content.',
+    href: '/courses',
+    tone: 'peach',
+  },
+  {
+    number: '04',
+    title: 'AI App Development',
+    detail: 'Build and test a useful AI-powered product for a real business problem.',
     href: '/courses',
     tone: 'blue',
   },
   {
-    number: '04',
+    number: '05',
     title: 'YouTube Monetization',
     detail: 'Understand creator revenue paths, policies, and original audience value.',
     href: '/courses',
     tone: 'lime',
   },
   {
-    number: '05',
+    number: '06',
     title: 'AI Graphic Design',
-    detail: 'Create original visual assets with AI-assisted design workflows.',
+    detail: 'Create original visual assets for real client and business needs.',
     href: '/courses',
     tone: 'peach',
   },
@@ -276,10 +283,10 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
         <section id="academies" className="section academies-section">
           <div className="section-heading">
             <div>
-              <div className="eyebrow"><span className="eyebrow-line" /> SIX PRACTICAL LEARNING AREAS</div>
+              <div className="eyebrow"><span className="eyebrow-line" /> PRACTICAL SKILLS FOR REAL WORK</div>
               <h2>Choose what you want<br />to learn and make.</h2>
             </div>
-            <p>Explore practical lessons and projects across AI, content, freelancing, YouTube, automation and app development.</p>
+            <p>Explore practical lessons and projects in AI foundations, content marketing, app development, freelancing, video creation and YouTube.</p>
           </div>
           <div className="academy-grid">
             {featuredAcademies.map((academy) => (
@@ -342,7 +349,7 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
               <div className="eyebrow"><span className="eyebrow-line" /> LEARNING &amp; MENTORSHIP</div>
               <h2>Start with free foundations.<br /><span>Build a specialist skill next.</span></h2>
               <p>
-                AI Foundations is free. Four focused courses are available as one-time purchases by bank transfer; their lessons are in development. Mentorship is a separate option.
+                AI Foundations is free. Five specialist courses are available as one-time purchases by bank transfer; their lessons are in development. Content Marketing and App Development are exclusive business courses. Mentorship is a separate option.
               </p>
             </div>
 
@@ -378,15 +385,16 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
                   <span className="paid-tag">ONE-TIME PAYMENT</span>
                 </div>
                 <div className="price-amount">
-                  <span className="price-val">4 courses</span>
+                  <span className="price-val">5 courses</span>
                   <span className="price-period">bank transfer</span>
                 </div>
                 <p className="price-tagline">Choose a practical skill to develop next.</p>
                 <ul>
                   <li><Check size={15} /> AI Video Creation — $4 <span className="price-naira">≈ ₦6,400</span></li>
-                  <li><Check size={15} /> AI Graphic Design — $4 <span className="price-naira">≈ ₦6,400</span></li>
-                  <li><Check size={15} /> AI Web App Development — ₦20,000 <span className="price-naira">≈ $13</span></li>
+                  <li><Check size={15} /> AI Content Marketing for Business — ₦20,000 <span className="price-naira">Exclusive</span></li>
+                  <li><Check size={15} /> AI App Development for Business — ₦20,000 <span className="price-naira">Exclusive</span></li>
                   <li><Check size={15} /> YouTube Monetization — ₦10,000 <span className="price-naira">≈ $7</span></li>
+                  <li><Check size={15} /> AI Graphic Design — $4 <span className="price-naira">≈ ₦6,400</span></li>
                 </ul>
                 <Link className="price-btn--paid" href="/courses">
                   <span>View course details</span>
@@ -435,7 +443,7 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
             <em>Build something useful as you practise.</em>
           </h2>
           <p className="closing-cta-sub">
-            Start with free AI Foundations, then explore one-time paid courses in video creation, web app development, YouTube monetization, and graphic design.
+            Start with free AI Foundations, then explore specialist courses in content marketing, app development, video creation, YouTube monetization and graphic design.
           </p>
           <div className="closing-cta-actions">
             <Link className="button button-dark" href={isAuthenticated ? "/dashboard" : "/courses"}>

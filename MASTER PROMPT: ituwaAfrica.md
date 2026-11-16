@@ -14,14 +14,14 @@ Do not simply replace a few headlines. Inspect the entire codebase, understand t
 
 ## 1. BUSINESS CONTEXT
 
-ituwaAfrica teaches practical digital skills through six academies:
+ituwaAfrica teaches practical digital skills through free foundations and paid specialist courses:
 
 1. AI Foundations
-2. AI Content Creation
-3. Creator Economy & YouTube
-4. AI Freelancing
-5. AI Automation
-6. AI App Development
+2. AI Content Marketing for Business
+3. AI App Development for Business
+4. Creator Economy & YouTube
+5. AI Video Creation
+6. AI Graphic Design
 
 The primary audience is freelancers and aspiring freelancers in Nigeria and across Africa, including students, working professionals, creators and people exploring digital skills.
 
@@ -37,10 +37,10 @@ People should be able to:
 
 - Learn through free YouTube tutorials.
 - Access available free courses on ituwaAfrica.
-- Explore the six academies.
+- Explore the available practical skill areas.
 - Follow practical lessons.
 - Complete exercises and projects.
-- Understand tools, workflows and their limitations.
+- Understand AI tools and their limitations.
 - Develop useful digital skills at their own pace.
 
 The free content must be genuinely useful.
@@ -49,9 +49,17 @@ Never write copy that makes free learning sound inferior, deliberately incomplet
 
 Do not imply that someone must purchase mentorship to gain useful knowledge.
 
-### OFFER B: PAID PERSONAL MENTORSHIP
+### OFFER B: PAID SPECIALIST COURSES
 
-The paid offer is personal, one-on-one mentorship with the founder.
+The paid catalogue includes specialist courses in AI video creation, AI content marketing for business, AI app development for business, YouTube monetisation and AI graphic design.
+
+AI Content Marketing for Business and AI App Development for Business are exclusive specialist courses. Their lessons are in development; do not imply that they are already available to study or promise a release date.
+
+Describe course prices and availability accurately from the course catalogue. Payment does not guarantee clients, employment, audience growth, platform monetisation or income.
+
+### OFFER C: PERSONAL MENTORSHIP
+
+Personal mentorship is a separate, one-on-one service with the founder.
 
 People pay because they want more than general information.
 
@@ -80,7 +88,7 @@ The central message should be:
 
 Supporting explanation:
 
-"ituwaAfrica helps you learn AI, content creation, freelancing, YouTube, automation and app development through practical lessons and projects. Start with free training. When you need personal help applying what you've learned, work directly with a mentor."
+"ituwaAfrica helps businesses, freelancers, creators and individuals build practical AI skills through lessons and projects. Start with free AI foundations, then explore specialist courses in content marketing, app development, video creation, YouTube and graphic design."
 
 This positioning must be reflected throughout the product.
 
@@ -89,7 +97,7 @@ A visitor should understand within five seconds:
 1. What ituwaAfrica is.
 2. What they can learn.
 3. What they can access for free.
-4. Why they might pay.
+4. What paid specialist courses offer.
 5. What personal mentorship means.
 
 ## 3. IMPORTANT AUDIENCE AND CULTURAL CONTEXT
@@ -124,7 +132,7 @@ Where technical terms are necessary, explain them simply.
 Every headline, paragraph, course description and CTA should communicate a clear idea.
 
 Prefer:
-- Build your first automated workflow.
+- Plan a useful business campaign with AI assistance.
 - Learn to create professional content with AI.
 - Plan your first YouTube channel.
 - Create a freelance service proposal.
@@ -192,34 +200,34 @@ Reduce unnecessary use of:
 
 Use direct descriptions instead.
 
-## 5. ACADEMY MESSAGING
+## 5. COURSE AND SKILL-AREA MESSAGING
 
-Keep all six academies.
+Keep the six current skill areas aligned with the course catalogue.
 
 Use simple descriptions:
 
 **AI Foundations**
 Understand AI and learn how to use it for everyday tasks.
 
-**AI Content Creation**
-Learn to create videos, images and written content with AI.
+**AI Content Marketing for Business**
+Research an audience and create useful, original content tied to a business goal.
+
+**AI App Development for Business**
+Identify a real customer problem, build a focused app prototype and test its value.
 
 **Creator Economy & YouTube**
-Learn how to start, manage and grow a YouTube channel or creator business.
+Create original work, understand platform policies and explore realistic creator revenue paths.
 
 **AI Freelancing**
 Learn how to package and present digital services to clients.
 
-**AI Automation**
-Learn to automate repetitive tasks and connect digital tools.
-
-**AI App Development**
-Learn to build websites, apps and useful digital tools.
+**AI Video Creation and AI Graphic Design**
+Create original visual work with AI-assisted tools, with attention to audience value and rights.
 
 Important YouTube structure:
 
-- Introductory YouTube content creation belongs inside AI Content Creation.
-- Advanced channel strategy, YouTube business, automation, growth and monetisation belong inside the separate Creator Economy & YouTube academy.
+- Video production and visual design are distinct skill areas from YouTube channel strategy and creator business.
+- Explain current policy requirements accurately; never imply that course completion guarantees monetisation.
 
 Do not merge these academies.
 
@@ -253,10 +261,10 @@ Prefer:
 "Choose a channel topic, plan your first videos and create a realistic publishing schedule."
 
 Instead of:
-"Become an automation expert."
+"Earn money quickly by using AI."
 
 Prefer:
-"Build and test a workflow that automates one repetitive task."
+"Build a practical campaign sample and learn how it can support a business goal. Results depend on the audience, offer and execution."
 
 For YouTube courses, maintain accurate explanations of copyright, reused content, monetisation policies and YouTube Partner Program eligibility.
 
@@ -268,7 +276,7 @@ Rewrite the homepage around this messaging hierarchy:
 
 1. Simple explanation of ituwaAfrica.
 2. Clear primary CTA to start free learning.
-3. Explanation of the six academies.
+3. Explanation of the free starting course and specialist courses.
 4. What learners can make or practise.
 5. How free learning works.
 6. Personal mentorship explanation.
@@ -281,7 +289,7 @@ Headline:
 "Learn digital skills. Build real things."
 
 Supporting copy:
-"Learn AI, content creation, freelancing, YouTube, automation and app development through practical lessons and projects. Start with free training, then get personal guidance when you're ready to go deeper."
+"Learn practical AI skills for business, freelance and creator work. Start with free foundations, then explore specialist courses in content marketing, app development, video creation, YouTube and graphic design."
 
 Primary CTA:
 "Start learning free"

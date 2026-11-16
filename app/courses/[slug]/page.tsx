@@ -14,7 +14,8 @@ import CoursePurchaseButton from '@/components/course-purchase-button'
 const creatorCourses: Record<string, { title: string; description: string }> = {
   'youtube-business-fundamentals': { title: 'YouTube Business Fundamentals', description: 'Understand the creator business model, audience value, rights, and realistic revenue paths.' },
   'starting-a-faceless-youtube-channel': { title: 'Starting a Faceless YouTube Channel', description: 'Develop an original channel concept without appearing on camera.' },
-  'youtube-automation-monetization-masterclass': { title: 'YouTube Automation & Monetization Masterclass', description: 'Design responsible repeatable workflows while keeping creative decisions and quality human-led.' },
+  'youtube-monetization': { title: 'YouTube Monetization', description: 'Understand creator revenue paths, current YouTube requirements, copyright, and how to build original audience value.' },
+  'youtube-automation-monetization-masterclass': { title: 'YouTube Monetization', description: 'Understand creator revenue paths, current YouTube requirements, copyright, and how to build original audience value.' },
   'ai-powered-youtube-content-production': { title: 'AI-Powered YouTube Content Production', description: 'Use AI responsibly for ideation and production while creating meaningfully original work.' },
   'youtube-shorts-growth-strategy': { title: 'YouTube Shorts Growth Strategy', description: 'Plan short-form experiments around audience needs without promising reach or growth.' },
   'youtube-seo-and-analytics': { title: 'YouTube SEO and Analytics', description: 'Use search intent and channel analytics to make evidence-informed creative decisions.' },
@@ -52,8 +53,8 @@ const courses: Record<string, {
     lessons: 8,
     youtubeVideoId: '',
     description: 'New to AI and tired of the buzzwords? Learn what these tools can do, where they fall short, and how to use one on a task you already have.',
-    outcomes: ['Know what these tools can and cannot do', 'Choose a tool for the job instead of chasing every new one', 'Give clear instructions to get a better first draft', 'Make a simple workflow for a task you do often'],
-    modules: [{ title: 'Getting oriented', lessons: ['What AI can (and cannot) do', 'A practical AI toolkit', 'Use AI with care and good judgement'] }, { title: 'Working with prompts', lessons: ['Give your prompt a purpose', 'Add context that matters', 'Improve a first response'] }, { title: 'Put it into practice', lessons: ['Build a personal workflow', 'Your first AI-assisted project'] }],
+    outcomes: ['Know what these tools can and cannot do', 'Choose a tool for a useful task', 'Give clear instructions to get a better first draft', 'Create and review a practical AI-assisted work sample'],
+    modules: [{ title: 'Getting oriented', lessons: ['What AI can (and cannot) do', 'A practical AI toolkit', 'Use AI with care and good judgement'] }, { title: 'Working with prompts', lessons: ['Give your prompt a purpose', 'Add context that matters', 'Improve a first response'] }, { title: 'Put it into practice', lessons: ['Apply AI to a useful task', 'Your first AI-assisted project'] }],
   },
   'prompting-better-work': {
     title: 'Prompting for Better Work',
@@ -74,27 +75,28 @@ const courses: Record<string, {
     lessons: 16,
     youtubeVideoId: '',
     description: 'Turn a client brief into clear, finished content and build a portfolio of samples you can show when pitching new work.',
-    outcomes: ['Turn a vague brief into a clear content brief', 'Use AI to draft copy you then shape into your own voice', 'Build a repeatable content production workflow', 'Create portfolio samples that show your process'],
+    outcomes: ['Turn a vague brief into a clear content brief', 'Use AI to draft copy you then shape into your own voice', 'Build a consistent content production process', 'Create portfolio samples that show your process'],
     modules: [
       { title: 'The content brief', lessons: ['What clients actually need', 'Turning a brief into a clear task', 'Research and reference gathering'] },
       { title: 'Drafting with AI', lessons: ['Writing your first draft prompt', 'Editing AI output into your voice', 'Structuring long-form content'] },
-      { title: 'Production workflow', lessons: ['Building a repeatable content pipeline', 'Quality checks before delivery', 'Packaging your work for clients'] },
+      { title: 'Content production', lessons: ['Planning a repeatable content pipeline', 'Quality checks before delivery', 'Packaging your work for clients'] },
       { title: 'Portfolio & pitching', lessons: ['Choosing your best samples', 'Writing a simple case study', 'Pitching your content service', 'Your first content brief project'] },
     ],
   },
-  'build-your-first-ai-workflow': {
-    title: 'Build Your First AI Workflow',
-    academy: 'AI Automation',
-    level: 'Intermediate',
-    duration: '3h 45m',
-    lessons: 10,
+  'ai-content-marketing-for-business': {
+    title: 'AI Content Marketing for Business',
+    academy: 'AI Content Marketing',
+    level: 'Beginner to intermediate',
+    duration: '4h',
+    lessons: 12,
     youtubeVideoId: '',
-    description: 'Stop repeating the same task by hand. Pick one routine job, map out the steps, and build a simple automated workflow using AI tools.',
-    outcomes: ['Identify tasks worth automating in your work', 'Map a task from trigger to output', 'Connect AI tools into a working chain', 'Test and hand off your first workflow'],
+    description: 'Help a business reach the right people with clear positioning, useful content and practical measurement. Use AI to support research and production while keeping the message accurate, original and audience-focused.',
+    outcomes: ['Research an audience and its needs', 'Position a business and clarify its message', 'Create original AI-assisted content for selected channels', 'Review campaign signals against a stated business goal'],
     modules: [
-      { title: 'Think in workflows', lessons: ['What makes a task automatable?', 'Mapping trigger → action → output', 'Picking your first workflow target'] },
-      { title: 'Build it', lessons: ['Connecting tools without code', 'Prompt chains and conditional steps', 'Testing your workflow end to end'] },
-      { title: 'Ship it', lessons: ['Handling errors and edge cases', 'Documenting your workflow', 'Sharing and handing off to a client', 'Your workflow showcase project'] },
+      { title: 'Know the audience and offer', lessons: ['Research customer questions and needs', 'Choose a business goal and audience', 'Clarify the offer and its value'] },
+      { title: 'Plan useful content', lessons: ['Choose channels that fit the audience', 'Build a content plan around customer needs', 'Write a clear campaign brief'] },
+      { title: 'Create with AI, edit with judgement', lessons: ['Use AI to support research and first drafts', 'Check claims, rights and originality', 'Adapt content for each channel'] },
+      { title: 'Publish, learn and present your work', lessons: ['Choose practical campaign measures', 'Review results without overclaiming', 'Present a sample campaign to a client'] },
     ],
   },
   'ai-for-your-freelance-business': {
@@ -109,23 +111,23 @@ const courses: Record<string, {
     modules: [
       { title: 'Your service offer', lessons: ['Finding a problem a potential client may need help with', 'Naming and scoping your service', 'Pricing for value, not hours'] },
       { title: 'Getting clients', lessons: ['Writing a clear service page', 'Pitching in DMs and emails', 'Your first proposal template'] },
-      { title: 'Delivering with AI', lessons: ['Onboarding a client', 'Using AI in your delivery workflow', 'Quality control before you send'] },
+      { title: 'Delivering with AI', lessons: ['Onboarding a client', 'Using AI to support delivery', 'Quality control before you send'] },
       { title: 'Building your practice', lessons: ['Asking for feedback on completed work', 'Following up professionally', 'Building your freelance portfolio', 'Your first client project'] },
     ],
   },
   'build-a-helpful-ai-app': {
-    title: 'Build a Helpful AI App',
+    title: 'AI App Development for Business',
     academy: 'AI App Development',
     level: 'Beginner to Intermediate',
     duration: '1h 45m Masterclass',
     lessons: 8,
     youtubeVideoId: 'qIUZ_C5ki3g',
-    description: 'Follow a practical build to connect user input, prompt instructions and a simple interface, then test how the tool responds.',
-    outcomes: ['Connect user input to a structured prompt', 'Design an interface for a specific task', 'Test how the tool responds to sample inputs', 'Describe the tool and its limitations in a project overview'],
+    description: 'Identify a real customer problem, build a focused AI-powered app prototype, and test whether it offers practical value to a business or its customers.',
+    outcomes: ['Validate a problem with a defined user', 'Scope an AI app around one useful outcome', 'Build a mobile-friendly prototype', 'Test responses, costs, privacy and limitations'],
     modules: [
-      { title: 'Core concept and logic', lessons: ['Identify a problem someone may need solved', 'Design the input-to-output steps', 'Write prompts for structured responses'] },
-      { title: 'Live App Build Walkthrough', lessons: ['Build a Helpful AI App Masterclass (Video)', 'Handling API calls, keys, and edge errors', 'Deploying to a live mobile-friendly link'] },
-      { title: 'Testing and portfolio', lessons: ['Test sample inputs and review the results', 'Create a project overview for your portfolio'] },
+      { title: 'Find a real business problem', lessons: ['Identify a user and unmet need', 'Check the problem with example scenarios', 'Define a useful first version'] },
+      { title: 'Design and build the product', lessons: ['Plan user inputs and helpful outputs', 'Build a mobile-friendly app prototype', 'Handle API keys, limits and errors safely'] },
+      { title: 'Test and present the product', lessons: ['Test realistic and edge-case inputs', 'Review privacy, cost and answer quality', 'Present the product, its limits and next steps'] },
     ],
   },
 }
@@ -239,6 +241,7 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
               <span>{level}</span>
               {duration && <span><Clock3 size={14} /> {duration}</span>}
               {lessonCount !== null && <span><Play size={14} /> {lessonCount} lessons</span>}
+              {product.exclusive && <span className="detail-exclusive-badge">Exclusive</span>}
               <span className="detail-free">{price ? `One-time · ${price}` : 'Free'}</span>
             </div>
             {product.price ? (

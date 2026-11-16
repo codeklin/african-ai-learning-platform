@@ -14,6 +14,8 @@ const LEGACY_COURSES = [
   'ai-toolkit-practical-start',
   'prompting-better-work',
   'build-a-helpful-ai-app',
+  'ai-content-marketing-for-business',
+  'youtube-monetization',
   'youtube-business-fundamentals',
   'starting-a-faceless-youtube-channel',
   'youtube-automation-monetization-masterclass',

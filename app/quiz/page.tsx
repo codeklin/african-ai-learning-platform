@@ -12,18 +12,19 @@ import {
 } from 'lucide-react'
 import Brand from '@/components/brand'
 import { useUser } from '@/hooks/use-user'
+import { getCourseProduct } from '@/lib/course-products'
+
+type LearningPathKey =
+  | 'foundations'
+  | 'freelance'
+  | 'creator'
+  | 'contentMarketing'
+  | 'appDevelopment'
 
 interface QuestionOption {
   label: string
   subtext: string
-  scores: {
-    foundations?: number
-    creator?: number
-    freelance?: number
-    content?: number
-    automation?: number
-    apps?: number
-  }
+  scores: Partial<Record<LearningPathKey, number>>
 }
 
 interface Question {
@@ -37,202 +38,199 @@ interface Question {
 const quizQuestions: Question[] = [
   {
     id: 1,
-    kicker: '01 / WHAT YOU WANT TO LEARN',
-    title: 'What would you like to learn or make?',
-    subtitle: 'Choose the activity you want to try first.',
+    kicker: '01 / THE OPPORTUNITY',
+    title: 'How would you like to use AI to create value?',
+    subtitle: 'Choose the kind of work you would most like to get paid to do.',
     options: [
       {
-        label: 'Use AI for everyday tasks',
-        subtext: 'Try AI on a task you already do.',
-        scores: { foundations: 4, content: 1 },
+        label: 'Help a business reach and serve customers',
+        subtext: 'Plan useful marketing content around a real audience and business goal.',
+        scores: { contentMarketing: 5, freelance: 1 },
       },
       {
-        label: 'Create content with AI',
-        subtext: 'Use AI for ideas or a first draft, then make the content your own.',
-        scores: { content: 4, creator: 2 },
+        label: 'Offer a useful service to clients',
+        subtext: 'Build a clear service and create a sample that shows what you can do.',
+        scores: { freelance: 5, contentMarketing: 1 },
       },
       {
-        label: 'Plan a YouTube channel',
-        subtext: 'Choose an audience and plan original videos with AI support.',
-        scores: { creator: 4 },
+        label: 'Create original content for an audience',
+        subtext: 'Develop videos or other media that give people a reason to watch.',
+        scores: { creator: 5, contentMarketing: 1 },
       },
       {
-        label: 'Offer a digital service',
-        subtext: 'Use AI to shape a service idea and answer a sample client brief.',
-        scores: { freelance: 4, content: 1 },
+        label: 'Build a digital product for a real problem',
+        subtext: 'Make and test an AI-powered app or tool people can use.',
+        scores: { appDevelopment: 5 },
       },
       {
-        label: 'Use AI tools on a repeated task',
-        subtext: 'Plan the steps and test where a tool might help.',
-        scores: { automation: 4 },
-      },
-      {
-        label: 'Build a simple AI app',
-        subtext: 'Plan what people enter, what the app does and what it returns.',
-        scores: { apps: 4 },
+        label: 'Learn the basics before choosing a direction',
+        subtext: 'Get comfortable with AI and try it on useful everyday work.',
+        scores: { foundations: 5 },
       },
     ],
   },
   {
     id: 2,
-    kicker: '02 / WHERE YOU ARE NOW',
-    title: 'How much have you used AI tools?',
-    subtitle: 'Your answer helps us suggest where to start.',
+    kicker: '02 / WHO YOU WANT TO HELP',
+    title: 'Who would you most like your work to benefit?',
+    subtitle: 'Think about a customer, client, audience or problem you care about.',
     options: [
       {
-        label: "I'm new to AI tools",
-        subtext: "I have used them little or not at all.",
-        scores: { foundations: 4, creator: 1 },
+        label: 'A small business that needs more customers',
+        subtext: 'Help it explain its value and communicate with the right people.',
+        scores: { contentMarketing: 4, freelance: 2 },
       },
       {
-        label: 'I use AI sometimes',
-        subtext: 'I want to get more useful answers and check them well.',
-        scores: { content: 3, freelance: 3, creator: 2 },
+        label: 'A client with a specific digital task',
+        subtext: 'Understand what they need and deliver a useful service.',
+        scores: { freelance: 4, appDevelopment: 1 },
       },
       {
-        label: "I've connected tools before",
-        subtext: 'I know how to make tools work together.',
-        scores: { automation: 4, apps: 2 },
+        label: 'People who share an interest or community',
+        subtext: 'Make original content that informs, helps or entertains them.',
+        scores: { creator: 4, contentMarketing: 1 },
       },
       {
-        label: 'I want to build an app',
-        subtext: 'I want to make and test a simple digital tool.',
-        scores: { apps: 4, automation: 2 },
+        label: 'People struggling with a problem I can solve',
+        subtext: 'Create a useful digital tool and learn from people who try it.',
+        scores: { appDevelopment: 4, freelance: 1 },
+      },
+      {
+        label: 'Myself, while I learn what AI can do',
+        subtext: 'Start with practical foundations before settling on a market.',
+        scores: { foundations: 4 },
       },
     ],
   },
   {
     id: 3,
-    kicker: '03 / YOUR TIME',
-    title: 'How much time can you study each week?',
-    subtitle: 'Choose what fits your schedule now.',
+    kicker: '03 / YOUR STARTING POINT',
+    title: 'What do you already have to build on?',
+    subtitle: 'There is no wrong answer; this helps us suggest a realistic first project.',
     options: [
       {
-        label: '1 to 2 hours',
-        subtext: 'Time for a few lessons or practice.',
-        scores: { foundations: 3, creator: 2 },
+        label: 'A business, product or service idea',
+        subtext: 'I want to attract customers or present an offer more clearly.',
+        scores: { contentMarketing: 3, appDevelopment: 1 },
       },
       {
-        label: '3 to 5 hours',
-        subtext: 'Time to study and practise regularly.',
-        scores: { content: 3, freelance: 3, creator: 2 },
+        label: 'Experience I could offer to a client',
+        subtext: 'I want to turn what I know into a useful paid service.',
+        scores: { freelance: 4 },
       },
       {
-        label: '6 or more hours',
-        subtext: 'I have extra time to study and practise.',
-        scores: { freelance: 4, automation: 3, apps: 3 },
+        label: 'A topic or community I care about',
+        subtext: 'I want to create original content and find my audience.',
+        scores: { creator: 4, contentMarketing: 1 },
+      },
+      {
+        label: 'An idea for a tool people might use',
+        subtext: 'I want to test the idea by making a simple app.',
+        scores: { appDevelopment: 4 },
+      },
+      {
+        label: 'I am still exploring',
+        subtext: 'I would benefit from learning the fundamentals first.',
+        scores: { foundations: 4 },
       },
     ],
   },
   {
     id: 4,
-    kicker: '04 / YOUR STYLE',
-    title: 'What kind of work do you enjoy?',
-    subtitle: 'Choose the kind of task you like doing.',
+    kicker: '04 / THE WORK',
+    title: 'Which kind of project sounds most interesting?',
+    subtitle: 'Choose the result you would be proud to show someone.',
     options: [
       {
-        label: 'Writing stories or making videos',
-        subtext: 'I like making things people can read or watch.',
-        scores: { creator: 4, content: 3 },
+        label: 'A marketing plan and content for a business',
+        subtext: 'A clear audience, message, channel plan and sample campaign.',
+        scores: { contentMarketing: 4, freelance: 1 },
       },
       {
-        label: 'Solving a client problem',
-        subtext: 'I like finding out what someone needs and suggesting a solution.',
-        scores: { freelance: 4, content: 2 },
+        label: 'A service offer and example client deliverable',
+        subtext: 'A focused offer with a sample that demonstrates its value.',
+        scores: { freelance: 4 },
       },
       {
-        label: 'Finding a better way to do a task',
-        subtext: 'I like organising steps and choosing useful tools.',
-        scores: { automation: 4, apps: 1 },
+        label: 'A video or content series for a specific audience',
+        subtext: 'Original ideas shaped around what that audience values.',
+        scores: { creator: 4, contentMarketing: 1 },
       },
       {
-        label: 'Writing and research',
-        subtext: 'I like finding information and explaining it clearly.',
-        scores: { content: 4, foundations: 2 },
+        label: 'A working prototype of a simple AI app',
+        subtext: 'A small tool tested with realistic example inputs.',
+        scores: { appDevelopment: 4 },
+      },
+      {
+        label: 'A practical AI project for my own work',
+        subtext: 'A useful first result while I build confidence with AI.',
+        scores: { foundations: 4 },
       },
     ],
   },
   {
     id: 5,
-    kicker: '05 / HOW YOU LIKE TO LEARN',
-    title: 'What helps you learn?',
-    subtitle: 'Choose the kind of help you want most.',
+    kicker: '05 / YOUR EXPERIENCE',
+    title: 'Where are you with AI today?',
+    subtitle: 'We use this to make the recommendation more useful, not to judge your ability.',
     options: [
       {
-        label: 'Practice activities',
-        subtext: 'I want to try the skill, not just read about it.',
-        scores: { foundations: 3, freelance: 3, automation: 2 },
+        label: 'I am new and want a clear introduction',
+        subtext: 'I have used AI a little or not at all.',
+        scores: { foundations: 4 },
       },
       {
-        label: 'Clear explanations for beginners',
-        subtext: 'I want a simple explanation, one step at a time.',
-        scores: { foundations: 3, creator: 2, apps: 1 },
+        label: 'I use AI, but want to make better work with it',
+        subtext: 'I want to improve my output and check it carefully.',
+        scores: { freelance: 2, contentMarketing: 2, creator: 1 },
       },
       {
-        label: 'Examples related to real tasks',
-        subtext: 'I want to see how a skill works on a real task.',
-        scores: { freelance: 2, content: 3, automation: 2 },
+        label: 'I have a business or client and want to grow',
+        subtext: 'I want to use AI to support real commercial goals.',
+        scores: { contentMarketing: 3, freelance: 2 },
       },
       {
-        label: 'Guidance on choosing tools',
-        subtext: 'I want to know what a tool can and cannot do.',
-        scores: { foundations: 3, apps: 2, automation: 2 },
+        label: 'I have made content or grown an audience',
+        subtext: 'I want to create more useful original work.',
+        scores: { creator: 3, contentMarketing: 1 },
+      },
+      {
+        label: 'I have tried building a digital tool',
+        subtext: 'I want to learn how to make and test a more useful app.',
+        scores: { appDevelopment: 3 },
       },
     ],
   },
   {
     id: 6,
-    kicker: '06 / WHAT YOU WANT TO PRACTISE',
-    title: 'What would you like to try first?',
-    subtitle: 'Choose one practical task.',
+    kicker: '06 / YOUR NEXT MOVE',
+    title: 'What would you like to make first?',
+    subtitle: 'Pick the project you would be most motivated to finish.',
     options: [
       {
-        label: 'Plan a YouTube channel',
-        subtext: 'Choose an audience and outline one original video.',
-        scores: { creator: 5 },
+        label: 'A campaign idea for a business I know',
+        subtext: 'Turn its audience and goals into a useful content plan.',
+        scores: { contentMarketing: 5 },
       },
       {
-        label: 'Create a service offer',
-        subtext: 'Say what service you could provide and answer a sample brief.',
+        label: 'A service I could pitch to a potential client',
+        subtext: 'Describe the problem, deliverable and value clearly.',
         scores: { freelance: 5 },
       },
       {
-        label: 'Improve a task you repeat',
-        subtext: 'Write down the steps and test where AI might help.',
-        scores: { automation: 5 },
+        label: 'An original video concept for a real audience',
+        subtext: 'Plan something useful, distinctive and worth watching.',
+        scores: { creator: 5 },
       },
       {
-        label: 'Use AI to draft something',
-        subtext: 'Check the answer and improve it yourself.',
-        scores: { foundations: 4, content: 3 },
+        label: 'A small AI app that solves one clear problem',
+        subtext: 'Build a first version and test it with realistic examples.',
+        scores: { appDevelopment: 5 },
       },
       {
-        label: 'Build and test a simple AI app',
-        subtext: 'Choose what goes in and check what the app returns.',
-        scores: { apps: 5 },
-      },
-    ],
-  },
-  {
-    id: 7,
-    kicker: '07 / HOW YOU WORK',
-    title: 'How do you like to work?',
-    subtitle: 'Choose what sounds more like you.',
-    options: [
-      {
-        label: 'Mostly independent work',
-        subtext: 'I like to plan or make things on my own.',
-        scores: { creator: 3, automation: 3, apps: 2 },
-      },
-      {
-        label: 'Working with clients or a team',
-        subtext: 'I like talking with people and solving problems together.',
-        scores: { freelance: 4, content: 2 },
-      },
-      {
-        label: 'I want to learn the basics first',
-        subtext: 'I will choose a direction later.',
-        scores: { foundations: 4 },
+        label: 'A practical AI project to build my confidence',
+        subtext: 'Start small and learn how to use AI responsibly.',
+        scores: { foundations: 5 },
       },
     ],
   },
@@ -246,102 +244,75 @@ interface AcademyResult {
   description: string
   recommendedCourse: string
   courseSlug: string
-  duration: string
-  lessonsCount: number
   keySkills: string[]
-  firstSprint: string
+  firstProject: string
   tone: string
 }
 
-const academyProfiles: Record<string, AcademyResult> = {
+const academyProfiles: Record<LearningPathKey, AcademyResult> = {
   creator: {
     key: 'creator',
-    title: 'Creator Economy & YouTube Academy',
-    archetype: 'YouTube channel planner',
-    tagline: 'Use AI to plan original videos and learn how YouTube channels work.',
+    title: 'Creator business',
+    archetype: 'Build an audience-led creator business',
+    tagline: 'Create original content around an audience need and explore responsible ways to build a creator business.',
     description:
-      'Based on your answers, this may be a useful place to start. Learn about your audience, plan original videos with AI support and check YouTube rules.',
-    recommendedCourse: 'YouTube Business Fundamentals',
-    courseSlug: 'youtube-business-fundamentals',
-    duration: '2h 30m',
-    lessonsCount: 8,
-    keySkills: ['Audience research', 'Video planning', 'Original content', 'Policy awareness'],
-    firstSprint: 'Choose an audience and outline one original video idea.',
+      'Your answers point toward creator skills. Start by understanding an audience, developing original content and learning about revenue options and platform rules. Views, monetisation and income are never guaranteed.',
+    recommendedCourse: 'YouTube Monetization',
+    courseSlug: 'youtube-monetization',
+    keySkills: ['Audience research', 'Original video planning', 'Creator revenue options', 'Copyright and platform policies'],
+    firstProject: 'Choose a specific audience, write down a need they have and outline one original video that addresses it.',
     tone: 'lavender',
   },
   freelance: {
     key: 'freelance',
-    title: 'AI Freelancing Academy',
-    archetype: 'Digital service planner',
-    tagline: 'Use AI to plan a digital service and answer a sample client brief.',
+    title: 'Freelance services',
+    archetype: 'Shape a service clients can understand',
+    tagline: 'Use AI to clarify a client problem, define a useful deliverable and create a sample of your work.',
     description:
-      'Based on your answers, this may be a useful place to start. Use AI to shape a service idea, make a sample and answer a practice brief. This course does not guarantee clients, a job or income.',
-    recommendedCourse: 'AI for Your Freelance Business',
-    courseSlug: 'ai-for-your-freelance-business',
-    duration: '4h 00m',
-    lessonsCount: 14,
-    keySkills: ['Service planning', 'Brief writing', 'Sample work', 'Clear proposals'],
-    firstSprint: 'Draft a service offer and a sample response to a client brief.',
+      'Your answers point toward client work. A strong starting point is a clearly scoped service supported by a sample deliverable. This can help you show your skills, but does not guarantee clients, employment or income.',
+    recommendedCourse: 'AI Content Marketing for Business',
+    courseSlug: 'ai-content-marketing-for-business',
+    keySkills: ['Client problem discovery', 'Service positioning', 'Campaign samples', 'Clear proposals'],
+    firstProject: 'Choose a local business, identify one communication challenge and draft a sample content idea you could offer as a service.',
     tone: 'coral',
   },
-  automation: {
-    key: 'automation',
-    title: 'AI Automation Academy',
-    archetype: 'Task automation learner',
-    tagline: 'Use AI tools to help with a task you repeat.',
+  contentMarketing: {
+    key: 'contentMarketing',
+    title: 'AI content marketing',
+    archetype: 'Help a business earn attention and trust',
+    tagline: 'Use audience insight and AI-assisted creation to make useful, original marketing content.',
     description:
-      'Based on your answers, this may be a useful place to start. List the steps in a repeated task, try connecting tools and check the result before using it.',
-    recommendedCourse: 'Build Your First AI Workflow',
-    courseSlug: 'build-your-first-ai-workflow',
-    duration: '3h 45m',
-    lessonsCount: 10,
-    keySkills: ['Task steps', 'Connecting tools', 'Testing results', 'Checking errors'],
-    firstSprint: 'List the steps in one repeated task and test where a tool might help.',
-    tone: 'blue',
+      'Your answers point toward business content marketing. Learn to connect audience needs to a clear message, make original content with AI assistance, and review results against a business goal. Marketing results are not guaranteed.',
+    recommendedCourse: 'AI Content Marketing for Business',
+    courseSlug: 'ai-content-marketing-for-business',
+    keySkills: ['Audience and customer research', 'Positioning and messaging', 'Content planning', 'Distribution and measurement'],
+    firstProject: 'Pick a business and audience, then outline one useful campaign with a clear goal and a sample post.',
+    tone: 'orange',
   },
-  content: {
-    key: 'content',
-    title: 'AI Content Creation Academy',
-    archetype: 'AI content creator',
-    tagline: 'Use AI for content ideas and drafts. Edit the final work in your own voice.',
+  appDevelopment: {
+    key: 'appDevelopment',
+    title: 'AI app development',
+    archetype: 'Build a digital product around a real problem',
+    tagline: 'Plan and prototype an AI-powered app, then test whether it helps someone do something useful.',
     description:
-      'Based on your answers, this may be a useful place to start. Turn a brief into a draft with AI, edit it and check the final work.',
-    recommendedCourse: 'The Freelance AI Content Studio',
-    courseSlug: 'freelance-ai-content-studio',
-    duration: '4h 30m',
-    lessonsCount: 16,
-    keySkills: ['Brief writing', 'AI-assisted drafting', 'Editing', 'Content review'],
-    firstSprint: 'Create and edit a short content sample from a brief.',
-    tone: 'lime',
-  },
-  apps: {
-    key: 'apps',
-    title: 'AI App Development Academy',
-    archetype: 'AI app builder',
-    tagline: 'Plan, build and test a simple app that uses AI.',
-    description:
-      'Based on your answers, this may be a useful place to start. Plan what people enter, what your app does and how to test its answers.',
-    recommendedCourse: 'Build a Helpful AI App',
+      'Your answers point toward app development. Focus on one real user problem, make a small working prototype and test it with realistic examples. A prototype is a learning project, not a promise of business success or income.',
+    recommendedCourse: 'AI App Development for Business',
     courseSlug: 'build-a-helpful-ai-app',
-    duration: '1h 45m',
-    lessonsCount: 8,
-    keySkills: ['Input and output', 'Prompt structure', 'Interface planning', 'Testing'],
-    firstSprint: 'Choose what goes into a simple app and test its answers.',
+    keySkills: ['Problem validation', 'Product scope', 'AI app prototyping', 'Testing and iteration'],
+    firstProject: 'Describe one customer problem, sketch the smallest app that could help and write three test cases.',
     tone: 'peach',
   },
   foundations: {
     key: 'foundations',
-    title: 'AI Foundations Academy',
-    archetype: 'AI beginner',
-    tagline: 'Learn what AI can do and try it on an everyday task.',
+    title: 'AI foundations',
+    archetype: 'Build a useful starting point',
+    tagline: 'Learn what AI can and cannot do before choosing a way to apply it.',
     description:
-      'Based on your answers, this may be a useful place to start. Learn what AI tools can and cannot do, give clear instructions and check the answers.',
+      'Your answers suggest starting with the essentials. Learn to choose a tool for a task, give it useful context and check its output before using it in business or client work.',
     recommendedCourse: 'Your AI Toolkit: A Practical Start',
     courseSlug: 'ai-toolkit-practical-start',
-    duration: '2h 15m',
-    lessonsCount: 8,
-    keySkills: ['Clear instructions', 'Tool selection', 'Reviewing responses', 'Everyday practice'],
-    firstSprint: 'Choose an everyday task and try it with an AI tool.',
+    keySkills: ['AI fundamentals', 'Clear instructions', 'Output review', 'Responsible use'],
+    firstProject: 'Choose a real task from your work or business, use AI to make a first draft and check it before relying on it.',
     tone: 'lavender',
   },
 }
@@ -379,13 +350,12 @@ export default function QuizPage() {
   }
 
   const result = useMemo(() => {
-    const scores: Record<string, number> = {
+    const scores: Record<LearningPathKey, number> = {
       foundations: 0,
-      creator: 0,
       freelance: 0,
-      content: 0,
-      automation: 0,
-      apps: 0,
+      creator: 0,
+      contentMarketing: 0,
+      appDevelopment: 0,
     }
 
     Object.entries(answers).forEach(([qIdxStr, optionIdx]) => {
@@ -393,22 +363,33 @@ export default function QuizPage() {
       const q = quizQuestions[qIdx]
       if (q && q.options[optionIdx]) {
         const optionScores = q.options[optionIdx].scores
-        Object.entries(optionScores).forEach(([key, val]) => {
-          scores[key] = (scores[key] || 0) + (val || 0)
-        })
+        for (const key of Object.keys(optionScores) as LearningPathKey[]) {
+          const value = optionScores[key]
+          if (value !== undefined) scores[key] += value
+        }
       }
     })
 
-    const sortedAcademies = Object.entries(scores).sort((a, b) => b[1] - a[1])
-    const topKey = sortedAcademies[0]?.[0] || 'foundations'
-    const runnerUpKey = sortedAcademies[1]?.[0] || 'creator'
+    const sortedAcademies = (Object.keys(scores) as LearningPathKey[])
+      .map((key) => [key, scores[key]] as const)
+      .sort((a, b) => b[1] - a[1])
+    const topKey = sortedAcademies[0]?.[0] ?? 'foundations'
+    const runnerUpKey = sortedAcademies[1]?.[0] ?? 'creator'
 
     return {
-      top: academyProfiles[topKey] || academyProfiles.foundations,
-      runnerUp: academyProfiles[runnerUpKey] || academyProfiles.creator,
+      top: academyProfiles[topKey],
+      runnerUp: academyProfiles[runnerUpKey],
       scores,
     }
   }, [answers])
+  const recommendedProduct = getCourseProduct(result.top.courseSlug)
+  const recommendedPrice = recommendedProduct?.price
+    ? new Intl.NumberFormat(recommendedProduct.price.currency === 'USD' ? 'en-US' : 'en-NG', {
+        style: 'currency',
+        currency: recommendedProduct.price.currency,
+        maximumFractionDigits: recommendedProduct.price.currency === 'USD' ? 2 : 0,
+      }).format(recommendedProduct.price.amount)
+    : null
 
   return (
     <div className="quiz-shell">
@@ -505,7 +486,7 @@ export default function QuizPage() {
           <div className="quiz-result-container">
             {/* Result Tag + Restart */}
             <div className="quiz-result-badge-row">
-              <span className="quiz-result-tag">A SUGGESTED LEARNING AREA</span>
+              <span className="quiz-result-tag">YOUR SUGGESTED SKILL DIRECTION</span>
               <button type="button" onClick={handleRestart} className="quiz-restart-btn">
                 <RotateCcw size={14} /> Retake
               </button>
@@ -542,20 +523,24 @@ export default function QuizPage() {
                     <span className="quiz-course-kicker">SUGGESTED FIRST COURSE</span>
                     <h3>{result.top.recommendedCourse}</h3>
                     <p className="quiz-course-details">
-                      {result.top.lessonsCount} lessons · {result.top.duration}
+                      {recommendedProduct?.price
+                        ? `Exclusive specialist course · one-time ${recommendedPrice}`
+                        : 'Free course'}
                     </p>
                   </div>
-                  <span className="quiz-free-tag">Free to start</span>
+                  <span className="quiz-free-tag">
+                    {recommendedProduct?.price ? 'Exclusive' : 'Free'}
+                  </span>
                 </div>
 
-                {/* First Sprint */}
+                {/* First project */}
                 <div className="quiz-first-sprint-box">
                   <div className="sprint-icon-box">
                     <BookOpen size={18} />
                   </div>
                   <div>
-                    <strong>Try this first:</strong>
-                    <p>{result.top.firstSprint}</p>
+                    <strong>Your first project:</strong>
+                    <p>{result.top.firstProject}</p>
                   </div>
                 </div>
 
@@ -601,8 +586,8 @@ export default function QuizPage() {
               <div className="guarantee-item">
                 <span className="guarantee-num">02</span>
                 <div>
-                  <h4>Free courses to explore</h4>
-                  <p>Review course outlines before deciding what you want to study.</p>
+                  <h4>Choose with the full picture</h4>
+                  <p>Review course details, price and availability before deciding what to study.</p>
                 </div>
               </div>
               <div className="guarantee-item">

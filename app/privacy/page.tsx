@@ -96,12 +96,12 @@ export default function PrivacyPage() {
               <div className="section-index-tag">02</div>
               <h2>Information We Collect</h2>
               <p>
-                We only collect data that directly supports your learning workflow:
+                We only collect data that directly supports your learning experience:
               </p>
               <ul>
                 <li><strong>Account Information:</strong> Email address and display name managed through Supabase Auth.</li>
                 <li><strong>Learning Progress:</strong> Course enrollments and lesson-completion records where those features are available.</li>
-                <li><strong>Project Submissions:</strong> Project files submitted through available upload workflows may be stored using Supabase Storage.</li>
+                <li><strong>Project Submissions:</strong> Project files submitted through available features may be stored using Supabase Storage.</li>
                 <li><strong>Assessment & Preferences:</strong> Skill-assessment answers are used in your browser to show a course recommendation. Your selected study time is stored in your browser and does not schedule a notification from ituwaAfrica.</li>
                 <li><strong>Calendar Reminders:</strong> If you choose a calendar option, an event draft is prepared for Google Calendar or an `.ics` file is downloaded for your calendar app. Your calendar provider handles its reminders.</li>
                 <li><strong>Course Payments:</strong> Paid course payments are made by direct bank transfer. Confirm course-specific payment and access details before transferring.</li>

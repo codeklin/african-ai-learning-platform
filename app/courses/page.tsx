@@ -17,7 +17,8 @@ const categories = [
   'All',
   'AI Foundations',
   'AI Video Creation',
-  'AI Web App Development',
+  'AI Content Marketing',
+  'AI App Development',
   'Creator Economy & YouTube',
   'AI Graphic Design',
 ]
@@ -107,7 +108,7 @@ export default function CoursesPage() {
           <em>one course at a time.</em>
         </h1>
         <p>
-          Start with a free AI foundations course or choose one of four paid, practical courses. Paid courses are currently in development.
+          Start with free AI foundations or choose from five paid specialist courses, including exclusive business courses in content marketing and app development. Paid courses are currently in development.
         </p>
 
         {/* Feature badges bar */}
@@ -223,6 +224,9 @@ export default function CoursesPage() {
                   </div>
 
                   <h2><Link href={courseLink}>{course.title}</Link></h2>
+                  {course.exclusive && (
+                    <span className="catalog-exclusive-badge">Exclusive specialist course</span>
+                  )}
 
                   <p>{course.description}</p>
 

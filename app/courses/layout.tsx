@@ -3,11 +3,11 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Practical digital skills courses | ituwaAfrica',
   description:
-    'Explore free courses in AI, content creation, freelancing, YouTube, automation and app development. Learn at your own pace through practical lessons and projects.',
+    'Learn AI foundations, content marketing, app development, freelancing, video creation and YouTube through practical lessons and projects.',
   openGraph: {
     title: 'Practical digital skills courses | ituwaAfrica',
     description:
-      'Explore free courses in AI, content creation, freelancing, YouTube, automation and app development.',
+      'Explore practical courses in AI foundations, content marketing, app development, freelancing, video creation and YouTube.',
   },
 }
 

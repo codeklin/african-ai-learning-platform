@@ -69,7 +69,7 @@ The platform should move customers through five stages:
 Stage 1: Awareness
 The learner understands what AI can do.
 Stage 2: Knowledge
-The learner understands selected AI tools and workflows.
+The learner understands selected AI tools and how to apply them to practical work.
 Stage 3: Practical competence
 The learner can complete useful tasks independently.
 Stage 4: Demonstrated ability
@@ -77,7 +77,7 @@ The learner has completed projects and built a portfolio.
 Stage 5: Commercial readiness
 The learner understands how to package and deliver a digital service.
 The platform provides education and guidance. It does not guarantee customers, income or employment.
-7. Product Architecture: Five Academies
+7. Product Architecture: Practical AI Skills
 Academy 1: AI Foundations
 Objective: Build AI literacy and practical tool proficiency.
 Course ideas:
@@ -86,17 +86,15 @@ ChatGPT for Everyday Work.
 Gemini and Claude for Productivity.
 Prompt Engineering Fundamentals.
 AI Research and Fact Checking.
-Building Effective AI Workflows.
-Academy 2: AI Content Creation
-Objective: Help learners create professional digital content using AI.
+Responsible AI use for real business and client tasks.
+Academy 2: AI Content Marketing for Business
+Objective: Help businesses communicate useful, original content to a defined audience and support practical business goals.
 Course ideas:
-AI Image Generation.
-AI Video Generation.
-AI UGC Advertising.
-AI Social Media Content.
-AI Copywriting.
-AI Storytelling.
-AI Voice and Audio Production.
+Audience and customer research.
+Business positioning and messaging.
+Content planning and campaign briefs.
+AI-assisted drafting with human review.
+Channel selection and measurement.
 Academy 3: AI Freelancing
 Objective: Help learners turn practical digital skills into freelance services.
 Course ideas:
@@ -109,18 +107,15 @@ Packaging Freelance Services.
 Building a Freelance Portfolio.
 Client Outreach and Proposals.
 Delivering Client Projects.
-Academy 4: AI Automation
-Objective: Teach practical automation and AI-enabled business systems.
+Academy 4: Creator Economy & YouTube
+Objective: Help creators make original work, understand platform policies and explore realistic revenue models.
 Course ideas:
-Automation Fundamentals.
-No-Code Automation.
-Business Workflow Design.
-Lead Capture and Management.
-AI Agents Fundamentals.
-Customer Support Automation.
-Selling Automation Services.
-Academy 5: AI App Development
-Objective: Help learners build useful software with AI-assisted development.
+Original video planning and production.
+Audience research and channel strategy.
+Copyright and platform policy.
+Advertising and alternative revenue models.
+Academy 5: AI App Development for Business
+Objective: Help learners identify business or customer problems, prototype useful software and test it responsibly.
 Course ideas:
 Introduction to Vibe Coding.
 Building Websites with AI.
@@ -130,6 +125,13 @@ Connecting AI APIs.
 Building SaaS Products.
 Deploying Applications.
 Product Monetization.
+Academy 6: AI Video Creation and Graphic Design
+Objective: Help creators and businesses make original, useful visual content with AI-assisted tools.
+Course ideas:
+AI video planning and production.
+Storytelling and audience value.
+AI-assisted graphic design.
+Originality, rights and disclosure.
 8. Learning Methodology
 Every course should follow a repeatable learning framework.
 Explain: Teach the concept in simple language.

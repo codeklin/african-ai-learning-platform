@@ -15,10 +15,10 @@ const baloo2 = Baloo_2({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://ituwa.africa'),
   title: 'ituwaAfrica | Learn digital skills. Build real things.',
-  description: 'Learn AI, content creation, freelancing, YouTube, automation and app development through free lessons and practical projects. Ask about personal mentorship when you need guidance.',
+  description: 'Learn AI, content marketing, app development, freelancing, video creation and YouTube through practical lessons and projects. Start with free foundations.',
   openGraph: {
     title: 'ituwaAfrica | Learn digital skills. Build real things.',
-    description: 'Start with free learning in AI, content creation, freelancing, YouTube, automation and app development. Get personal guidance when you need it.',
+    description: 'Build practical skills in AI, content marketing, app development, freelancing, video creation and YouTube. Start with free foundations.',
     type: 'website',
     images: [{ url: '/ituwaAfrica.png', width: 1200, height: 630, alt: 'ituwaAfrica' }],
   },

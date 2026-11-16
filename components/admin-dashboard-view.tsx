@@ -1120,9 +1120,10 @@ export default function AdminDashboardView({
                           <option value="Creator Economy & YouTube">Creator Economy & YouTube</option>
                           <option value="AI Foundations">AI Foundations</option>
                           <option value="AI Freelancing">AI Freelancing</option>
-                          <option value="AI Automation">AI Automation</option>
-                          <option value="AI Content Creation">AI Content Creation</option>
-                          <option value="AI App Development">AI App Development</option>
+                          <option value="AI Content Marketing">AI Content Marketing for Business</option>
+                          <option value="AI App Development">AI App Development for Business</option>
+                          <option value="AI Video Creation">AI Video Creation</option>
+                          <option value="AI Graphic Design">AI Graphic Design</option>
                         </select>
                       </div>
 

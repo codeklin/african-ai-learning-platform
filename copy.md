@@ -35,8 +35,8 @@
 - **Eyebrow:** WHO THIS IS BUILT FOR
 - **H2:** Built for the African professional who is tired of watching.
 - **Card 1 label:** FOR THE FREELANCER
-- **Card 1 body:** You want to offer AI services to clients — but you don't know what to charge, what to promise, or how to deliver. This academy gives you the workflow.
-- **Card 1 proof:** ₦50K – ₦250K / BRIEF
+- **Card 1 body:** You want to offer useful AI-enabled services to clients. Learn to identify a client need, define a clear deliverable and practise with a sample.
+- **Card 1 proof:** PRACTICAL CLIENT PROJECTS
 - **Card 2 label:** FOR THE CREATOR
 - **Card 2 body:** You want to start a YouTube channel and earn from it — without showing your face or hiring a team. We teach the full system.
 - **Card 2 proof:** 4+ HOURS RECLAIMED
@@ -50,9 +50,9 @@
 - **Subtext:** Start with free AI Foundations, then choose a specialist course.
 - **Course 1:** AI Foundations — Build a practical understanding of AI tools and prompts. · Free
 - **Course 2:** AI Video Creation — Plan and produce original AI-assisted videos. · USD 4, one-time
-- **Course 3:** AI Web App Development — Build a practical AI-powered web app. · NGN 50,000, one-time
+- **Course 3:** AI Content Marketing for Business — Plan useful, original content around an audience and business goal. · NGN 20,000, one-time · Exclusive
 - **Course 4:** YouTube Monetization — Understand creator revenue paths and YouTube policies. · NGN 50,000, one-time
-- **Course 5:** AI Graphic Design — Create original visual assets with AI-assisted workflows. · NGN 50,000, one-time
+- **Course 5:** AI Graphic Design — Create original visual assets with AI-assisted design techniques. · USD 4, one-time
 - **Card CTA:** Explore courses →
 - **Paid course status:** In development; no release date promised
 
@@ -119,31 +119,33 @@
 - **Page title:** Courses | ituwaAfrica
 - **Eyebrow:** COURSES THAT HELP WITH REAL WORK
 - **H1:** Find your next useful skill.
-- **Body:** Start with free AI Foundations, then choose one of four paid specialist courses.
+- **Body:** Start with free AI Foundations, then choose one of five paid specialist courses.
 - **Badge 1:** 1 Free Course
-- **Badge 2:** 4 Paid Courses
+- **Badge 2:** 5 Paid Courses
 - **Badge 3:** Self-Paced & Practical
 
 ### Toolbar
 - Search courses, skills, tools...
 - X course(s) found
-- **Filter chips:** All · AI Foundations · AI Video Creation · AI Web App Development · Creator Economy & YouTube · AI Graphic Design
+- **Filter chips:** All · AI Foundations · AI Video Creation · AI Content Marketing · AI App Development · Creator Economy & YouTube · AI Graphic Design
 
 ### Course Cards
 | # | Title | Academy | Level | Status | One-time price |
 |---|---|---|---|---|---|
 | 01 | AI Foundations | AI Foundations | Beginner | Published | Free |
 | 02 | AI Video Creation | AI Video Creation | Beginner to intermediate | In development | USD 4 |
-| 03 | AI Web App Development | AI Web App Development | Beginner to intermediate | In development | NGN 50,000 |
-| 04 | YouTube Monetization | Creator Economy & YouTube | Beginner to intermediate | In development | NGN 50,000 |
-| 05 | AI Graphic Design | AI Graphic Design | Beginner to intermediate | In development | NGN 50,000 |
+| 03 | AI Content Marketing for Business | AI Content Marketing | Beginner to intermediate | In development | NGN 20,000 · Exclusive |
+| 04 | AI App Development for Business | AI App Development | Beginner to intermediate | In development | NGN 20,000 · Exclusive |
+| 05 | YouTube Monetization | Creator Economy & YouTube | Beginner to intermediate | In development | NGN 10,000 |
+| 06 | AI Graphic Design | AI Graphic Design | Beginner to intermediate | In development | USD 4 |
 
 ### Course Descriptions
 - **01:** Build a practical understanding of AI tools, write clearer prompts, and apply what you learn to a real task.
 - **02:** Plan and produce original AI-assisted videos, with attention to storytelling, audience value, and disclosure.
-- **03:** Build a practical web app with AI, from problem definition through interface design, testing, and responsible API use.
-- **04:** Understand creator revenue paths, current YouTube requirements, copyright, and how to build original audience value. Monetization approval and income are not guaranteed.
-- **05:** Create original, useful visual assets with AI-assisted design workflows and prepare them for real projects.
+- **03:** Research an audience, shape a clear business message, and create original AI-assisted marketing content tied to a practical goal.
+- **04:** Identify a real customer problem, build a focused AI-powered app prototype, and test whether it offers practical value.
+- **05:** Understand creator revenue paths, current YouTube requirements, copyright, and how to build original audience value. Monetisation and income are not guaranteed.
+- **06:** Create original, useful visual assets with AI-assisted design techniques and prepare them for real projects.
 
 ### Card CTAs
 - Start course →
@@ -193,10 +195,10 @@
 
 ### Course: Your AI Toolkit: A Practical Start
 - **Description:** New to AI and tired of the buzzwords? Learn what these tools can do, where they fall short, and how to use one on a task you already have.
-- **Outcomes:** Know what these tools can and cannot do · Choose a tool for the job instead of chasing every new one · Give clear instructions to get a better first draft · Make a simple workflow for a task you do often
+- **Outcomes:** Know what these tools can and cannot do · Choose a tool for a useful task · Give clear instructions to get a better first draft · Create and review a practical AI-assisted work sample
 - **Module 1:** Getting oriented — What AI can (and cannot) do · A practical AI toolkit · Use AI with care and good judgement
 - **Module 2:** Working with prompts — Give your prompt a purpose · Add context that matters · Improve a first response
-- **Module 3:** Put it into practice — Build a personal workflow · Your first AI-assisted project
+- **Module 3:** Put it into practice — Apply AI to a useful task · Your first AI-assisted project
 
 ### Course: Prompting for Better Work
 - **Description:** Getting answers that sound right but do not help? Learn how to give a tool the details it needs and check its work.
@@ -207,25 +209,26 @@
 
 ### Course: The Freelance AI Content Studio
 - **Description:** Turn a client brief into clear, finished content and build a portfolio of samples you can show when pitching new work.
-- **Outcomes:** Turn a vague brief into a clear content brief · Use AI to draft copy you then shape into your own voice · Build a repeatable content production workflow · Create portfolio samples that show your process
+- **Outcomes:** Turn a vague brief into a clear content brief · Use AI to draft copy you then shape into your own voice · Build a consistent content production process · Create portfolio samples that show your process
 - **Module 1:** The content brief — What clients actually need · Turning a brief into a clear task · Research and reference gathering
 - **Module 2:** Drafting with AI — Writing your first draft prompt · Editing AI output into your voice · Structuring long-form content
-- **Module 3:** Production workflow — Building a repeatable content pipeline · Quality checks before delivery · Packaging your work for clients
+- **Module 3:** Content production — Planning a repeatable content pipeline · Quality checks before delivery · Packaging your work for clients
 - **Module 4:** Portfolio & pitching — Choosing your best samples · Writing a simple case study · Pitching your content service · Your first content brief project
 
-### Course: Build Your First AI Workflow
-- **Description:** Stop repeating the same task by hand. Pick one routine job, map out the steps, and build a simple automated workflow using AI tools.
-- **Outcomes:** Identify tasks worth automating in your work · Map a task from trigger to output · Connect AI tools into a working chain · Test and hand off your first workflow
-- **Module 1:** Think in workflows — What makes a task automatable? · Mapping trigger → action → output · Picking your first workflow target
-- **Module 2:** Build it — Connecting tools without code · Prompt chains and conditional steps · Testing your workflow end to end
-- **Module 3:** Ship it — Handling errors and edge cases · Documenting your workflow · Sharing and handing off to a client · Your workflow showcase project
+### Course: AI Content Marketing for Business
+- **Description:** Help a business reach the right people with clear positioning, useful content and practical measurement. Use AI to support research and production while keeping the message accurate, original and audience-focused.
+- **Outcomes:** Research an audience and its needs · Position a business and clarify its message · Create original AI-assisted content for selected channels · Review campaign signals against a stated business goal
+- **Module 1:** Know the audience and offer — Research customer questions and needs · Choose a business goal and audience · Clarify the offer and its value
+- **Module 2:** Plan useful content — Choose channels that fit the audience · Build a content plan around customer needs · Write a clear campaign brief
+- **Module 3:** Create with AI, edit with judgement — Use AI to support research and first drafts · Check claims, rights and originality · Adapt content for each channel
+- **Module 4:** Publish, learn and present your work — Choose practical campaign measures · Review results without overclaiming · Present a sample campaign to a client
 
 ### Course: AI for Your Freelance Business
 - **Description:** Not sure what to sell? Find one problem clients pay to solve, build a clear service offer around it, and use AI to deliver it efficiently.
 - **Outcomes:** Find a service you can offer and explain its value · Write a one-page service offer that clients understand · Use AI to cut delivery time without cutting quality · Handle your first client brief end to end
 - **Module 1:** Your service offer — Finding a problem clients pay for · Naming and scoping your service · Pricing for value, not hours
 - **Module 2:** Getting clients — Writing a clear service page · Pitching in DMs and emails · Your first proposal template
-- **Module 3:** Delivering with AI — Onboarding a client · Using AI in your delivery workflow · Quality control before you send
+- **Module 3:** Delivering with AI — Onboarding a client · Using AI to support delivery · Quality control before you send
 - **Module 4:** Growing it — Getting a testimonial · Turning one client into two · Building your freelance portfolio · Your first client project
 
 ### Course: Build a Helpful AI App
@@ -367,58 +370,31 @@
 - **Body:** 7 quick questions to match you to the right academy and first course.
 - **CTA:** Start the assessment →
 
-### Questions (7 total)
-1. What best describes your current work situation?
-   - I'm a freelancer or looking to freelance
-   - I work a 9-5 and want extra income
-   - I run a small business
-   - I'm a student or recent graduate
-   - I'm exploring and not sure yet
-
-2. What's your primary goal right now?
-   - Earn money from AI skills
-   - Build a YouTube channel or creator business
-   - Automate tasks and save time
-   - Learn AI for general career growth
-   - Build an app or tool
-
-3. How much time can you dedicate to learning weekly?
-   - Less than 2 hours
-   - 2–4 hours
-   - 4–6 hours
-   - More than 6 hours
-
-4. What's your current experience with AI tools?
-   - Complete beginner — haven't tried any
-   - I've tried ChatGPT or similar a few times
-   - I use AI tools occasionally for work
-   - I use AI tools regularly and want to go deeper
-
-5. What kind of output excites you most?
-   - A service I can sell to clients
-   - A YouTube channel earning ad revenue
-   - A repeatable workflow saving me hours
-   - A portfolio of written or creative work
-   - A working app or tool
-
-6. How do you prefer to learn?
-   - Short focused videos
-   - Text-based reading and exercises
-   - Mixed: video + written practice
-   - Project-first: show me the output then explain
-
-7. What's your device situation?
-   - Mostly on mobile (Android or iPhone)
-   - Desktop/laptop
-   - Both equally
+### Questions (6 total)
+1. How would you like to use AI to create value?
+   - Help a business reach and serve customers
+   - Offer a useful service to clients
+   - Create original content for an audience
+   - Build a digital product for a real problem
+   - Learn the basics before choosing a direction
+2. Who would you most like your work to benefit?
+3. What do you already have to build on?
+4. Which kind of project sounds most interesting?
+5. Where are you with AI today?
+6. What would you like to make first?
+   - A campaign idea for a business I know
+   - A service I could pitch to a potential client
+   - An original video concept for a real audience
+   - A small AI app that solves one clear problem
+   - A practical AI project to build my confidence
 
 ### Result page
-- **Kicker:** YOUR LEARNING MATCH
-- **H2:** [Academy name matched]
-- **Body:** Based on your answers, this is the best place for you to start.
-- **Primary CTA:** Start your matched course →
-- **Secondary:** Or explore → [runner-up academy]
-- **Link:** Take the assessment again
+- **Kicker:** YOUR SUGGESTED SKILL DIRECTION
+- **H2:** [Commercial skill direction matched]
+- **Body:** A practical course recommendation and a first project idea, without promises of clients, employment, views, monetisation or income.
+- **Primary CTA:** View suggested course →
+- **Secondary:** Browse all courses
+- **Link:** Retake the assessment
 
 ---
 

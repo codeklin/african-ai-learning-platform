@@ -11,15 +11,11 @@ import {
   CheckCircle2,
   Clock,
   Compass,
-  Flame,
   LayoutDashboard,
-  Sparkles,
-  Target,
-  Trophy,
-  Zap,
 } from 'lucide-react'
 import Brand from '@/components/brand'
 import { useUser } from '@/hooks/use-user'
+import { getCourseProduct } from '@/lib/course-products'
 
 interface TrackOption {
   id: string
@@ -37,8 +33,8 @@ const tracks: TrackOption[] = [
     id: 'creator',
     title: 'Creator Economy & YouTube',
     subtitle: 'Use AI to plan original videos and learn how YouTube channels work.',
-    firstCourse: 'YouTube Business Fundamentals',
-    firstCourseSlug: 'youtube-business-fundamentals',
+    firstCourse: 'YouTube Monetization',
+    firstCourseSlug: 'youtube-monetization',
     tone: 'lavender',
     practiceGoal: 'Plan an original channel concept and outline a useful video.',
     focusLabel: 'Channel planning',
@@ -57,41 +53,31 @@ const tracks: TrackOption[] = [
     id: 'freelance',
     title: 'AI Freelancing',
     subtitle: 'Use AI to plan a digital service and answer a sample client brief.',
-    firstCourse: 'AI for Your Freelance Business',
-    firstCourseSlug: 'ai-for-your-freelance-business',
+    firstCourse: 'AI Content Marketing for Business',
+    firstCourseSlug: 'ai-content-marketing-for-business',
     tone: 'amber',
-    practiceGoal: 'Draft a service offer and a sample response to a client brief.',
-    focusLabel: 'Service planning',
+    practiceGoal: 'Draft a service offer and a sample campaign for a client.',
+    focusLabel: 'Client services',
   },
   {
-    id: 'automation',
-    title: 'AI Automation',
-    subtitle: 'Connect AI tools to help with a task you repeat.',
-    firstCourse: 'Build Your First AI Workflow',
-    firstCourseSlug: 'build-your-first-ai-workflow',
-    tone: 'jade',
-    practiceGoal: 'Pick a task you repeat, connect tools and test the result.',
-    focusLabel: 'Task automation',
+    id: 'contentMarketing',
+    title: 'AI Content Marketing for Business',
+    subtitle: 'Help a business reach the right audience with useful, original content.',
+    firstCourse: 'AI Content Marketing for Business',
+    firstCourseSlug: 'ai-content-marketing-for-business',
+    tone: 'peach',
+    practiceGoal: 'Plan a sample campaign around a customer need and business goal.',
+    focusLabel: 'Business marketing',
   },
   {
-    id: 'content',
-    title: 'AI Content Creation',
-    subtitle: 'Use AI for ideas and drafts. Edit the final work in your own voice.',
-    firstCourse: 'The Freelance AI Content Studio',
-    firstCourseSlug: 'freelance-ai-content-studio',
-    tone: 'lime',
-    practiceGoal: 'Create and edit a content sample from a brief.',
-    focusLabel: 'Content production',
-  },
-  {
-    id: 'apps',
-    title: 'AI App Development',
-    subtitle: 'Plan, build and test a simple app that uses AI.',
-    firstCourse: 'Build a Helpful AI App',
+    id: 'appDevelopment',
+    title: 'AI App Development for Business',
+    subtitle: 'Build and test a focused app prototype around a real customer problem.',
+    firstCourse: 'AI App Development for Business',
     firstCourseSlug: 'build-a-helpful-ai-app',
     tone: 'peach',
-    practiceGoal: 'Plan a simple AI app and test it with sample inputs.',
-    focusLabel: 'App prototyping',
+    practiceGoal: 'Define a user problem and plan a small app prototype.',
+    focusLabel: 'Product building',
   },
 ]
 
@@ -115,6 +101,14 @@ function OnboardingContent() {
   }, [searchParams])
 
   const selectedTrack = tracks.find((t) => t.id === selectedTrackId) || tracks[0]
+  const selectedProduct = getCourseProduct(selectedTrack.firstCourseSlug)
+  const selectedPrice = selectedProduct?.price
+    ? new Intl.NumberFormat(selectedProduct.price.currency === 'USD' ? 'en-US' : 'en-NG', {
+        style: 'currency',
+        currency: selectedProduct.price.currency,
+        maximumFractionDigits: selectedProduct.price.currency === 'USD' ? 2 : 0,
+      }).format(selectedProduct.price.amount)
+    : null
 
   const handleFinishOnboarding = () => {
     setIsFinishing(true)
@@ -296,7 +290,7 @@ function OnboardingContent() {
 
                 <div className="ready-metrics-strip">
                   <div className="ready-metric">
-                    <Target size={16} />
+                    <BookOpen size={16} />
                     <span>Weekly goal: <strong>{weeklyTarget} lessons</strong></span>
                   </div>
                   <div className="ready-metric">
@@ -316,7 +310,12 @@ function OnboardingContent() {
                 <h3>{selectedTrack.firstCourse}</h3>
                 <p>Open the course to see what you will learn and try.</p>
                 <div className="starter-free-badge">
-                  <CheckCircle2 size={15} /> Free course
+                  <CheckCircle2 size={15} />
+                  {selectedProduct?.exclusive
+                    ? `Exclusive · ${selectedPrice}`
+                    : selectedPrice
+                      ? `Paid · ${selectedPrice}`
+                      : 'Free course'}
                 </div>
                 <Link className="text-link" href={`/courses/${selectedTrack.firstCourseSlug}`}>
                   View suggested course <ArrowRight size={15} />

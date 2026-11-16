@@ -8,6 +8,7 @@ export interface CourseProduct {
   symbol: string
   tone: 'lilac' | 'green' | 'orange' | 'blue' | 'peach' | 'lavender'
   price: { currency: 'USD' | 'NGN'; amount: number } | null
+  exclusive?: boolean
   inDevelopment: boolean
 }
 
@@ -37,25 +38,39 @@ export const COURSE_PRODUCTS: CourseProduct[] = [
     inDevelopment: true,
   },
   {
-    slug: 'build-a-helpful-ai-app',
-    databaseSlug: 'build-helpful-ai-app',
-    title: 'AI Web App Development',
-    academy: 'AI Web App Development',
-    description: 'Build a practical web app with AI, from problem definition through interface design, testing, and responsible API use.',
+    slug: 'ai-content-marketing-for-business',
+    databaseSlug: 'ai-content-marketing-for-business',
+    title: 'AI Content Marketing for Business',
+    academy: 'AI Content Marketing',
+    description: 'Research an audience, shape a clear business message, and create original AI-assisted marketing content tied to a practical goal.',
     level: 'Beginner to intermediate',
     symbol: '03',
-    tone: 'blue',
+    tone: 'peach',
     price: { currency: 'NGN', amount: 20_000 },
+    exclusive: true,
     inDevelopment: true,
   },
   {
-    slug: 'youtube-automation-monetization-masterclass',
+    slug: 'build-a-helpful-ai-app',
+    databaseSlug: 'build-helpful-ai-app',
+    title: 'AI App Development for Business',
+    academy: 'AI App Development',
+    description: 'Identify a real customer problem, build a focused AI-powered app prototype, and test whether it offers practical value.',
+    level: 'Beginner to intermediate',
+    symbol: '04',
+    tone: 'blue',
+    price: { currency: 'NGN', amount: 20_000 },
+    exclusive: true,
+    inDevelopment: true,
+  },
+  {
+    slug: 'youtube-monetization',
     databaseSlug: 'youtube-automation-monetization-masterclass',
     title: 'YouTube Monetization',
     academy: 'Creator Economy & YouTube',
     description: 'Understand creator revenue paths, current YouTube requirements, copyright, and how to build original audience value.',
     level: 'Beginner to intermediate',
-    symbol: '04',
+    symbol: '05',
     tone: 'green',
     price: { currency: 'NGN', amount: 10_000 },
     inDevelopment: true,
@@ -65,9 +80,9 @@ export const COURSE_PRODUCTS: CourseProduct[] = [
     databaseSlug: 'ai-graphic-design',
     title: 'AI Graphic Design',
     academy: 'AI Graphic Design',
-    description: 'Create original, useful visual assets with AI-assisted design workflows and prepare them for real projects.',
+    description: 'Create original, useful visual assets with AI-assisted design techniques and prepare them for real projects.',
     level: 'Beginner to intermediate',
-    symbol: '05',
+    symbol: '06',
     tone: 'peach',
     price: { currency: 'USD', amount: 4 },
     inDevelopment: true,
