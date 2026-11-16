@@ -89,6 +89,7 @@ export default function LessonLmsPlayer({
   const [copiedPrompt, setCopiedPrompt] = useState(false)
   const [checkedItems, setCheckedItems] = useState<Record<number, boolean>>({})
   const [completedIds, setCompletedIds] = useState<string[]>(initialCompletedIds)
+  const [progressError, setProgressError] = useState<string | null>(null)
   const [isPending, startTransition] = useTransition()
 
   // Quiz state
@@ -97,8 +98,10 @@ export default function LessonLmsPlayer({
 
   const isCurrentLessonCompleted = completedIds.includes(lesson.id)
   const totalLessons = allLessons.length || 1
-  const completedCount = completedIds.length
+  const validLessonIds = new Set(allLessons.map((item) => item.id))
+  const completedCount = new Set(completedIds.filter((id) => validLessonIds.has(id))).size
   const progressPercent = Math.min(100, Math.round((completedCount / totalLessons) * 100))
+  const isCourseCompleted = completedCount === totalLessons
 
   const handleCopyPrompt = async () => {
     if (!interactiveMeta?.prompt) return
@@ -117,6 +120,7 @@ export default function LessonLmsPlayer({
 
   const handleToggleComplete = () => {
     const newStatus = !isCurrentLessonCompleted
+    setProgressError(null)
 
     // Optimistic UI update
     setCompletedIds((prev) =>
@@ -124,20 +128,26 @@ export default function LessonLmsPlayer({
     )
 
     startTransition(async () => {
-      const res = await toggleLessonProgressAction({
-        lessonId: lesson.id,
-        courseId: course.id,
-        completed: newStatus,
-        courseSlug,
-        lessonSlug,
-      })
-      if (!res.success) {
-        // Revert on failure
+      try {
+        const res = await toggleLessonProgressAction({
+          lessonId: lesson.id,
+          courseId: course.id,
+          completed: newStatus,
+          courseSlug,
+          lessonSlug,
+        })
+        if (!res.success) {
+          setCompletedIds((prev) =>
+            newStatus ? prev.filter((id) => id !== lesson.id) : [...prev, lesson.id]
+          )
+          setProgressError(res.error ?? 'Unable to save lesson progress. Please try again.')
+        }
+      } catch (error) {
+        console.error('Unable to update lesson progress:', error)
         setCompletedIds((prev) =>
           newStatus ? prev.filter((id) => id !== lesson.id) : [...prev, lesson.id]
         )
-      } else if (newStatus && nextLesson) {
-        // Smoothly offer transition or let user advance
+        setProgressError('Unable to save lesson progress. Please try again.')
       }
     })
   }
@@ -172,7 +182,7 @@ export default function LessonLmsPlayer({
           >
             <ListOrdered size={14} className="lms-trigger-icon" />
             <span className="lms-trigger-text">
-              {currentIdx + 1}/{totalLessons}
+              Lesson {currentIdx + 1}/{totalLessons}
             </span>
             <span className="lms-trigger-pct">{progressPercent}%</span>
             <ChevronDown size={13} className="lms-trigger-caret" />
@@ -547,6 +557,11 @@ export default function LessonLmsPlayer({
 
       {/* ── 5. Sticky Bottom Action Dock (Native Mobile Dock) ── */}
       <footer className="lms-dock">
+        {progressError && (
+          <p className="lms-dock-error" role="alert">
+            {progressError}
+          </p>
+        )}
         <div className="lms-dock-inner">
           {/* Previous Button */}
           {prevLesson ? (
@@ -603,10 +618,10 @@ export default function LessonLmsPlayer({
             <Link
               href={`/courses/${courseSlug}`}
               className="lms-dock-nav-btn finish"
-              aria-label="Finish course"
+              aria-label={isCourseCompleted ? 'Finish course' : 'Return to course overview'}
             >
-              <span className="lms-dock-text">Finish</span>
-              <Award size={16} />
+              <span className="lms-dock-text">{isCourseCompleted ? 'Finish' : 'Course'}</span>
+              {isCourseCompleted ? <Award size={16} /> : <ArrowRight size={16} />}
             </Link>
           )}
         </div>

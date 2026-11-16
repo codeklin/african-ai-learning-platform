@@ -4063,7 +4063,7 @@ a.skip-link:focus { top:0; }
 }
 .lms-trigger-icon { color: #FFBA38; }
 .lms-trigger-pct {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   color: #3DA872;
 }
@@ -4830,6 +4830,17 @@ a.skip-link:focus { top:0; }
   gap: 8px;
   max-width: 760px;
   margin: 0 auto;
+}
+
+.lms-dock-error {
+  max-width: 760px;
+  margin: 0 auto 8px;
+  padding: 8px 12px;
+  border: 1px solid #E86A58;
+  border-radius: 10px;
+  background: #FDEEE9;
+  color: #2C1A12;
+  font-size: 13px;
 }
 
 /* Nav buttons — Prev / Next / Finish */

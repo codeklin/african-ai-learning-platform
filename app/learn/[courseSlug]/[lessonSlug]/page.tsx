@@ -311,9 +311,12 @@ export default async function LessonPage({
     .select('lesson_id')
     .eq('user_id', user.id)
     .eq('course_id', accessibleCourse.id)
-  const completedLessonIds: string[] = (rawProgress ?? []).map(
-    (r: Pick<LessonProgress, 'lesson_id'>) => r.lesson_id
-  )
+  const publishedLessonIds = new Set(allLessons.map((item) => item.id))
+  const completedLessonIds = [...new Set(
+    (rawProgress ?? [])
+      .map((r: Pick<LessonProgress, 'lesson_id'>) => r.lesson_id)
+      .filter((lessonId) => publishedLessonIds.has(lessonId))
+  )]
 
   // ── Build module groups (group lessons under their module) ─────
   const moduleMap = new Map<string, ModuleGroup>()

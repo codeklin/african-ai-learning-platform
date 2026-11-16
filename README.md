@@ -101,3 +101,5 @@ COURSE_PAYMENT_WHATSAPP_NUMBER=
 Do not prefix these values with `NEXT_PUBLIC_`. If any transfer detail is missing or invalid, the app does not show bank transfer instructions.
 
 Apply `supabase/migrations/011_paystack_course_payments.sql` after the existing schema and course migrations. It creates the RLS-protected payment ledger used for transaction references, amounts, statuses, and provider IDs. Only the server-side service role can create or update payment records; learners and admins can read only the rows permitted by the table policies.
+
+Apply `supabase/migrations/012_lesson_progress_permissions.sql` to allow authenticated learners to upsert and remove their own lesson-completion records. Row-level security restricts both operations to the learner's own records.
