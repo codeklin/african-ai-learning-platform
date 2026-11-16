@@ -11,7 +11,9 @@ import type { LessonInteractiveMeta, ModuleGroup, SiblingLessonItem } from '@/co
 // Static course slugs served from the legacy LessonPreview component
 // (until their lessons are seeded into the database)
 const LEGACY_COURSES = [
+  'ai-toolkit-practical-start',
   'prompting-better-work',
+  'ai-content-marketing-for-business',
   'ai-video-creation',
   'ai-web-app-development',
   'build-a-helpful-ai-app',
