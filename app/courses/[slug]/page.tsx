@@ -270,6 +270,17 @@ export default async function CourseDetailPage({ params }: { params: Promise<{ s
             ? <span className="cdp-meta-pill cdp-meta-pill-price">One-time · {price}</span>
             : <span className="cdp-meta-pill cdp-meta-pill-free">Free</span>}
         </div>
+
+        {/* Primary Action Button placed prominently right in the Hero */}
+        <div className="cdp-hero-action-box">
+          {product.price ? (
+            <CoursePurchaseButton course={product} className="cdp-cta-btn" />
+          ) : (
+            <Link href={firstLessonPath} className="cdp-cta-btn cdp-cta-btn-free">
+              Start now <ArrowRight size={15} />
+            </Link>
+          )}
+        </div>
       </section>
 
       {/* ── Body Content ── */}

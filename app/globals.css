@@ -4261,8 +4261,7 @@ a.skip-link:focus { top:0; }
   gap: 4px;
   padding: 14px 0 10px;
   border-bottom: 1px solid #EADBCE;
-  position: sticky;
-  top: 60px;
+  position: relative;
   background: #FAF5EE;
   z-index: 10;
 }
@@ -5205,9 +5204,13 @@ button.lms-sidebar-item {
 .cdp-hero {
   background: linear-gradient(160deg, #2C1A12 0%, #3D2518 100%);
   color: #FAF5EE;
-  padding: 36px 24px 110px; /* extra bottom for sticky CTA overlap */
+  padding: 36px 24px 48px;
   position: relative;
   overflow: hidden;
+}
+
+.cdp-hero-action-box {
+  margin-top: 24px;
 }
 
 .cdp-hero-eyebrow {
