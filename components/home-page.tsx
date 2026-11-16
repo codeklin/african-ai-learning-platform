@@ -129,8 +129,8 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
                 <span>{isAuthenticated ? 'Go to your dashboard' : 'Start learning free'}</span>
                 <ArrowRight size={16} />
               </Link>
-              <Link className="button button-outline-warm hero-btn-quiz" href="/courses">
-                <span>Explore courses</span>
+              <Link className="button button-outline-warm hero-btn-quiz" href="#skill-assessment">
+                <span>Find your learning path</span>
                 <ArrowRight size={15} />
               </Link>
             </div>
@@ -145,7 +145,29 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
           </div>
         </section>
 
-        {/* ── 2. Who It's For (Bespoke Editorial Showcase) ── */}
+        {/* ── 2. Skill assessment: visible immediately after the hero ── */}
+        <section
+          id="skill-assessment"
+          className="assessment-prompt"
+          aria-labelledby="assessment-prompt-title"
+        >
+          <div className="assessment-prompt-card">
+            <div className="assessment-prompt-index" aria-hidden="true">01</div>
+            <div className="assessment-prompt-copy">
+              <span className="assessment-prompt-kicker">A GOOD PLACE TO BEGIN</span>
+              <h2 id="assessment-prompt-title">Find a skill that fits what you want to do.</h2>
+              <p>
+                Answer a few questions about your interests and experience to get a course recommendation.
+              </p>
+            </div>
+            <Link href="/quiz" className="button button-dark assessment-prompt-action">
+              <span>Take the assessment</span>
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+          </div>
+        </section>
+
+        {/* ── 3. Who It's For (Bespoke Editorial Showcase) ── */}
         <section className="who-section">
           {/* Ambient blurred backdrop shapes */}
           <div className="who-ambient-blob who-ambient-blob--left" aria-hidden="true" />

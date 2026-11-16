@@ -3605,3 +3605,113 @@ a.skip-link:focus { top:0; }
   color: #7C6E65;
   margin-left: 4px;
 }
+
+/* Homepage assessment prompt directly follows the hero. */
+.assessment-prompt {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 18px 7.1% 46px;
+  scroll-margin-top: 96px;
+}
+.assessment-prompt-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 24px;
+  min-height: 192px;
+  overflow: hidden;
+  padding: 32px 38px;
+  border: 1px solid #EADBCE;
+  border-radius: 22px;
+  background:
+    radial-gradient(ellipse at 92% 8%, rgba(255, 186, 56, .18), transparent 34%),
+    #FDF5E8;
+}
+.assessment-prompt-index {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #EADBCE;
+  padding-right: 22px;
+  color: #E86A58;
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -2px;
+  line-height: 1;
+}
+.assessment-prompt-copy {
+  max-width: 660px;
+}
+.assessment-prompt-kicker {
+  display: block;
+  margin-bottom: 8px;
+  color: #8C5D35;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.1px;
+}
+.assessment-prompt-copy h2 {
+  margin: 0;
+  color: #452314;
+  font-size: clamp(24px, 3vw, 35px);
+  font-weight: 750;
+  letter-spacing: -1.2px;
+  line-height: 1.15;
+}
+.assessment-prompt-copy p {
+  max-width: 560px;
+  margin: 9px 0 0;
+  color: #634233;
+  font-size: 16px;
+  line-height: 1.55;
+}
+.assessment-prompt-action {
+  min-height: 50px;
+  padding: 0 21px;
+  white-space: nowrap;
+}
+.assessment-prompt-action:focus-visible,
+.hero-btn-quiz:focus-visible {
+  outline: 3px solid #E86A58;
+  outline-offset: 3px;
+}
+
+@media (max-width: 680px) {
+  .assessment-prompt {
+    padding: 12px 18px 30px;
+    scroll-margin-top: 84px;
+  }
+  .assessment-prompt-card {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    min-height: 0;
+    padding: 22px 20px;
+    border-radius: 18px;
+  }
+  .assessment-prompt-index {
+    justify-content: flex-start;
+    align-self: auto;
+    width: fit-content;
+    border-right: 0;
+    border-bottom: 1px solid #EADBCE;
+    padding: 0 0 8px;
+    font-size: 27px;
+    letter-spacing: -1px;
+  }
+  .assessment-prompt-copy h2 {
+    font-size: clamp(23px, 7vw, 30px);
+    letter-spacing: -.8px;
+  }
+  .assessment-prompt-copy p {
+    margin-top: 8px;
+    font-size: 15px;
+  }
+  .assessment-prompt-action {
+    width: 100%;
+    min-height: 50px;
+    margin-top: 4px;
+    justify-content: center;
+  }
+}
