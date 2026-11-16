@@ -141,7 +141,7 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json(
-      { error: 'Paystack checkout could not be started. Please try again or use bank transfer.' },
+      { error: 'Paystack checkout could not be started. Please try again.' },
       { status: 502 }
     )
   }

@@ -299,12 +299,14 @@ export default async function CourseDetailPage({
       <div className="cdp-body">
         {paymentStatus === 'success' && (
           <p className="course-purchase-state" role="status">
-            Payment confirmed. Your course access is ready.
+            {isInDevelopment
+              ? 'Payment confirmed and your enrollment is recorded. Lessons unlock when the course is published.'
+              : 'Payment confirmed. Your course access is ready.'}
           </p>
         )}
         {paymentStatus === 'not-complete' && (
           <p className="course-purchase-state" role="status">
-            The payment was not completed. You can try Paystack again or choose bank transfer.
+            The payment was not completed. You can try Paystack checkout again.
           </p>
         )}
         {paymentStatus === 'processing' && (

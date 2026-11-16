@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { getCourseProduct, getActivePrice } from '@/lib/course-products'
+import { getCourseProduct, getActivePrice, MANUAL_BANK_TRANSFER_ENABLED } from '@/lib/course-products'
 import { getUsdNgnRate } from '@/lib/exchange-rate'
 
 export const dynamic = 'force-dynamic'
@@ -14,6 +14,10 @@ function getWhatsAppNumber(value: string | undefined): string | null {
 }
 
 export async function GET(request: Request) {
+  if (!MANUAL_BANK_TRANSFER_ENABLED) {
+    return NextResponse.json({ error: 'Manual bank transfer is currently unavailable.' }, { status: 404 })
+  }
+
   const supabase = await createClient()
   const {
     data: { user },

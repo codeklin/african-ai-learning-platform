@@ -137,16 +137,14 @@ export default function TermsPage() {
               <div className="section-index-tag">05</div>
               <h2>Course Fees & Payment Terms</h2>
               <p>
-                Paid courses use a one-time NGN bank transfer. Purchase instructions are shown after you select a course
-                and sign in; this application does not initiate or automatically verify bank transfers. An administrator
-                must confirm the bank credit before recording an enrollment. Do not treat a transfer receipt or message
-                as confirmation that access has been granted.
+                Paid courses use a one-time payment through Paystack checkout. Payment is verified with the provider
+                before course access is granted. Payment methods offered within checkout depend on Paystack availability.
               </p>
               <p>
                 Courses labelled in development are pre-orders. Lessons become available only after the course is
-                published and payment is manually verified; no release date is promised unless stated on the course
-                page. Check the course status, amount, and cancellation or refund terms through the provided support
-                channel before transferring funds.
+                published and payment is verified; no release date is promised unless stated on the course page. Check
+                the course status, amount, and cancellation or refund terms through the provided support channel before
+                paying.
               </p>
             </section>
 

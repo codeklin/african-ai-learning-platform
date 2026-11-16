@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { ArrowRight, Check, Copy, X } from 'lucide-react'
 import { useUser } from '@/hooks/use-user'
-import type { CourseProduct } from '@/lib/course-products'
+import { MANUAL_BANK_TRANSFER_ENABLED, type CourseProduct } from '@/lib/course-products'
 
 interface PurchaseInfo {
   courseTitle: string
@@ -341,17 +341,19 @@ export default function CoursePurchaseButton({
                   {isPaystackLoading ? 'Connecting to Paystack…' : 'Continue to Paystack'}
                   {!isPaystackLoading && <ArrowRight size={16} />}
                 </button>
-                <button
-                  type="button"
-                  className="button button-outline-warm"
-                  onClick={() => {
-                    setIsBankTransfer(true)
-                    setPurchaseInfo(null)
-                    setRequestVersion((version) => version + 1)
-                  }}
-                >
-                  Pay by bank transfer instead
-                </button>
+                {MANUAL_BANK_TRANSFER_ENABLED && (
+                  <button
+                    type="button"
+                    className="button button-outline-warm"
+                    onClick={() => {
+                      setIsBankTransfer(true)
+                      setPurchaseInfo(null)
+                      setRequestVersion((version) => version + 1)
+                    }}
+                  >
+                    Pay by bank transfer instead
+                  </button>
+                )}
                 <p className="course-purchase-terms">
                   Review the <Link href="/terms" target="_blank">payment terms</Link> before paying.
                 </p>

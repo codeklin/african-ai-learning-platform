@@ -104,7 +104,7 @@ export default function PrivacyPage() {
                 <li><strong>Project Submissions:</strong> Project files submitted through available features may be stored using Supabase Storage.</li>
                 <li><strong>Assessment & Preferences:</strong> Skill-assessment answers are used in your browser to show a course recommendation. Your selected study time is stored in your browser and does not schedule a notification from ituwaAfrica.</li>
                 <li><strong>Calendar Reminders:</strong> If you choose a calendar option, an event draft is prepared for Google Calendar or an `.ics` file is downloaded for your calendar app. Your calendar provider handles its reminders.</li>
-                <li><strong>Course Payments:</strong> Paid course payments are made by direct bank transfer. Confirm course-specific payment and access details before transferring.</li>
+                <li><strong>Course Payments:</strong> Paystack processes course payments. We retain transaction and enrollment records needed to verify payments and provide course access.</li>
                 <li><strong>Site Analytics:</strong> Vercel Analytics is enabled on production pages to measure website usage.</li>
               </ul>
             </section>

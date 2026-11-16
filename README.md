@@ -89,7 +89,7 @@ The current launch prices are controlled by `LAUNCH_PROMO_ACTIVE` in `lib/course
 
 Set the Paystack **test** secret key in your local environment and Vercel. Keep the key server-side; do not use a `NEXT_PUBLIC_` prefix. `NEXT_PUBLIC_APP_URL` must be the canonical HTTPS origin of the deployed app (localhost is permitted for local development). In the Paystack dashboard, configure the webhook URL as `https://<your-app-domain>/api/paystack/webhook`. Paystack signs webhooks using the API secret key; the app validates the `x-paystack-signature` HMAC before processing events. Use test keys until the business account is approved and test transactions, callbacks, and webhook delivery have all been confirmed.
 
-Bank transfer remains an optional fallback. Configure these values server-side to show it:
+Manual bank transfer is currently disabled in the learner checkout. Paystack may offer bank transfer as a payment method within its hosted checkout. To re-enable the separate manual-transfer flow later, set `MANUAL_BANK_TRANSFER_ENABLED` to `true` in `lib/course-products.ts` and configure these values server-side:
 
 ```env
 COURSE_PAYMENT_BANK_NAME=

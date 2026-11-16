@@ -349,7 +349,7 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
               <div className="eyebrow"><span className="eyebrow-line" /> LEARNING &amp; MENTORSHIP</div>
               <h2>Start with free foundations.<br /><span>Build a specialist skill next.</span></h2>
               <p>
-                AI Foundations is free. Five specialist courses are available as one-time purchases by bank transfer; their lessons are in development. Content Marketing and App Development are exclusive business courses. Mentorship is a separate option.
+                AI Foundations is free. Five specialist courses are available as one-time purchases through Paystack; their lessons are in development. Content Marketing and App Development are exclusive business courses. Mentorship is a separate option.
               </p>
             </div>
 
@@ -386,7 +386,7 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
                 </div>
                 <div className="price-amount">
                   <span className="price-val">5 courses</span>
-                  <span className="price-period">bank transfer</span>
+                  <span className="price-period">Paystack checkout</span>
                 </div>
                 <p className="price-tagline">Choose a practical skill to develop next.</p>
                 <ul>

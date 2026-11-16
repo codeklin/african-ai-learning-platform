@@ -16,6 +16,7 @@ export interface CourseProduct {
 
 // Flip to false when the launch promo ends
 export const LAUNCH_PROMO_ACTIVE = true
+export const MANUAL_BANK_TRANSFER_ENABLED = false
 
 export const COURSE_PRODUCTS: CourseProduct[] = [
   {
