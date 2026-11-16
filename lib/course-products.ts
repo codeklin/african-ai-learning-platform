@@ -45,7 +45,7 @@ export const COURSE_PRODUCTS: CourseProduct[] = [
     level: 'Beginner to intermediate',
     symbol: '03',
     tone: 'blue',
-    price: { currency: 'NGN', amount: 50_000 },
+    price: { currency: 'NGN', amount: 20_000 },
     inDevelopment: true,
   },
   {
@@ -57,7 +57,7 @@ export const COURSE_PRODUCTS: CourseProduct[] = [
     level: 'Beginner to intermediate',
     symbol: '04',
     tone: 'green',
-    price: { currency: 'NGN', amount: 50_000 },
+    price: { currency: 'NGN', amount: 10_000 },
     inDevelopment: true,
   },
   {
@@ -69,7 +69,7 @@ export const COURSE_PRODUCTS: CourseProduct[] = [
     level: 'Beginner to intermediate',
     symbol: '05',
     tone: 'peach',
-    price: { currency: 'NGN', amount: 50_000 },
+    price: { currency: 'USD', amount: 4 },
     inDevelopment: true,
   },
 ]

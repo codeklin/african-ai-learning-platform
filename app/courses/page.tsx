@@ -185,7 +185,7 @@ export default function CoursesPage() {
               ? new Intl.NumberFormat(course.price.currency === 'USD' ? 'en-US' : 'en-NG', {
                   style: 'currency',
                   currency: course.price.currency,
-                  maximumFractionDigits: course.price.currency === 'USD' ? 2 : 0,
+                  maximumFractionDigits: 0,
                 }).format(course.price.amount)
               : null
 
