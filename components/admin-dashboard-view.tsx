@@ -572,7 +572,7 @@ export default function AdminDashboardView({
                                     {e.profiles?.full_name ?? 'Learner'}
                                   </b>
                                   <small className="table-user-email">
-                                    {e.profiles?.email ?? '—'}
+                                    {e.profiles?.email ?? ':'}
                                   </small>
                                 </div>
                               </div>
@@ -690,7 +690,7 @@ export default function AdminDashboardView({
                               <span className="table-avatar">
                                 {(u.full_name ?? u.email ?? '?')[0].toUpperCase()}
                               </span>
-                              <b className="table-user-name">{u.full_name ?? '—'}</b>
+                              <b className="table-user-name">{u.full_name ?? ':'}</b>
                             </div>
                           </td>
                           <td>
@@ -705,7 +705,7 @@ export default function AdminDashboardView({
                             <span className="table-date">
                               {u.created_at
                                 ? new Date(u.created_at).toLocaleDateString('en-GB')
-                                : '—'}
+                                : ':'}
                             </span>
                           </td>
                         </tr>
@@ -793,7 +793,7 @@ export default function AdminDashboardView({
 
                 {generatedAccessCode && (
                   <div className="access-code-result">
-                    <span className="access-code-label">ACCESS CODE — send this to the learner</span>
+                    <span className="access-code-label">ACCESS CODE : send this to the learner</span>
                     <div className="access-code-box">
                       <code className="access-code-value">{generatedAccessCode}</code>
                       <button
@@ -849,7 +849,7 @@ export default function AdminDashboardView({
                                   {e.profiles?.full_name ?? 'Learner'}
                                 </b>
                                 <small className="table-user-email">
-                                  {e.profiles?.email ?? '—'}
+                                  {e.profiles?.email ?? ':'}
                                 </small>
                               </div>
                             </div>

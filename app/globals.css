@@ -521,7 +521,7 @@ button { color: inherit; font: inherit; }
     align-items: center !important;
   }
 
-  /* Super Admin badge — sleek compact micro-pill */
+  /* Super Admin badge : sleek compact micro-pill */
   .dash-role-badge,
   .super-admin-badge {
     font-size: 12px !important;
@@ -536,7 +536,7 @@ button { color: inherit; font: inherit; }
     gap: 4px !important;
   }
 
-  /* Nav — scrollable icon-only row in the middle, takes remaining space */
+  /* Nav : scrollable icon-only row in the middle, takes remaining space */
   .dash-nav {
     flex-direction: row;
     gap: 2px;
@@ -563,7 +563,7 @@ button { color: inherit; font: inherit; }
     font-size: 0; /* collapse text */
   }
 
-  /* Hide ALL text and badges inside nav items — icon only */
+  /* Hide ALL text and badges inside nav items : icon only */
   .dash-nav-item > span,
   .dash-nav-item > small { display: none !important; }
 
@@ -600,7 +600,7 @@ button { color: inherit; font: inherit; }
   .dash-header { flex-direction: column; gap: 8px; align-items: flex-start; }
   .dash-greeting { font-size: 20px !important; }
 
-  /* ── Executive strip — hidden on mobile to eliminate clutter ── */
+  /* ── Executive strip : hidden on mobile to eliminate clutter ── */
   .super-admin-executive-strip {
     display: none !important;
   }
@@ -615,7 +615,7 @@ button { color: inherit; font: inherit; }
   .admin-tabs-nav { gap: 5px; margin-bottom: 12px; padding-bottom: 4px; }
   .admin-tab-btn { padding: 7px 11px; font-size: 12px; }
 
-  /* ── KPI metric cards — 2×2 ── */
+  /* ── KPI metric cards : 2×2 ── */
   .admin-stats-grid { grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
   .admin-metric-card { padding: 12px; border-radius: 12px; gap: 4px; }
   .metric-label { font-size: 12px !important; letter-spacing: 0.3px !important; }
@@ -725,7 +725,7 @@ button { color: inherit; font: inherit; }
 .academy-blue      .academy-blob { background: #4B7A94; animation-delay: 0.4s, 1.8s; }
 .academy-peach     .academy-blob { background: #D97E38; animation-delay: 2s, 0.7s; }
 
-/* Course art blob — used on course cards */
+/* Course art blob : used on course cards */
 .course-blob {
   position: absolute;
   inset: 0;
@@ -897,7 +897,7 @@ a.skip-link:focus { top:0; }
 .lesson-locked-card p { margin:0; color:#72727b; font-size:15px; line-height:1.6; }
 
 /* ═══════════════════════════════════════════════════════════════
-   APP SHELL — mobile-app-feel layout system
+   APP SHELL : mobile-app-feel layout system
    ═══════════════════════════════════════════════════════════════ */
 
 /* ── Design tokens ──────────────────────────────────────────────── */
@@ -974,7 +974,7 @@ a.skip-link:focus { top:0; }
 
 /* ── Mobile-only top bar ───────────────────────────────────────── */
 .app-topbar {
-  display: none; /* shown only on mobile — see media query */
+  display: none; /* shown only on mobile : see media query */
   align-items: center;
   justify-content: space-between;
   height: var(--app-topbar-h);
@@ -1174,7 +1174,7 @@ a.skip-link:focus { top:0; }
    MOBILE BOTTOM NAV
    ═══════════════════════════════════════════════════════════════ */
 .app-bottom-nav {
-  display: none; /* only shown on mobile — enabled in the ≤768px media query below */
+  display: none; /* only shown on mobile : enabled in the ≤768px media query below */
   position: fixed;
   bottom: 16px;
   left: 16px;
@@ -1265,7 +1265,7 @@ a.skip-link:focus { top:0; }
    MOBILE OVERRIDES  ≤768px
    ═══════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
-  /* Shell becomes single column — sidebar hidden */
+  /* Shell becomes single column : sidebar hidden */
   .app-shell { grid-template-columns: 1fr; }
   .app-sidebar { display: none; }
 
@@ -1289,7 +1289,7 @@ a.skip-link:focus { top:0; }
   .app-stats-row { padding: 14px 16px; }
   .app-stat-num  { font-size: 22px; }
 
-  /* Continue card — stack on tiny screens */
+  /* Continue card : stack on tiny screens */
   .app-continue-art { width: 60px; height: 60px; }
 
   /* Tiles go single column */
@@ -1397,7 +1397,7 @@ a.skip-link:focus { top:0; }
   .project-copy h2,
   .pricing-copy h2 { font-size: 32px; letter-spacing: -1.5px; }
 
-  /* Hero — single column, bigger CTA */
+  /* Hero : single column, bigger CTA */
   .hero { padding: 48px 20px 40px; gap: 28px; }
   .hero h1 { font-size: clamp(38px,10vw,56px); letter-spacing: -3px; }
   .button { min-height: 52px; border-radius: var(--app-radius-sm); }
@@ -1983,7 +1983,7 @@ a.skip-link:focus { top:0; }
 }
 .admin-manual-enrollment-note { margin: 0 0 16px; color: #6C5950; font-size: 14px; line-height: 1.55; }
 
-/* Access code result box — shown after granting enrollment */
+/* Access code result box : shown after granting enrollment */
 .access-code-result { margin-top: 20px; padding: 18px; border: 1.5px solid #3DA872; border-radius: 14px; background: #EEF7EE; }
 .access-code-label { display: block; font-size: 11px; font-weight: 800; letter-spacing: .8px; color: #1E663B; margin-bottom: 10px; }
 .access-code-box { display: flex; align-items: center; gap: 12px; }
@@ -2230,7 +2230,7 @@ a.skip-link:focus { top:0; }
 }
 
 @media (max-width: 768px) {
-  /* Profile hero card — stack vertically on mobile */
+  /* Profile hero card : stack vertically on mobile */
   .profile-hero-card {
     flex-direction: column;
     align-items: stretch;
@@ -2283,7 +2283,7 @@ a.skip-link:focus { top:0; }
    matches manifest.json background_color so the transition is instant.
    ═══════════════════════════════════════════════════════════════════ */
 
-/* The splash element — hidden by default in every browser context */
+/* The splash element : hidden by default in every browser context */
 #pwa-splash {
   display: none;
   position: fixed;
@@ -2384,7 +2384,7 @@ a.skip-link:focus { top:0; }
   margin-top: 6px;
 }
 
-/* "Stop watching AI hype." — bigger, commanding */
+/* "Stop watching AI hype." : bigger, commanding */
 .hero-h1-primary {
   display: block;
   font-size: clamp(56px, 8.2vw, 102px);
@@ -2410,7 +2410,7 @@ a.skip-link:focus { top:0; }
   text-underline-offset: 0.06em;
 }
 
-/* "Learn practical skills you can actually earn with." — editorial italic subheadline */
+/* "Learn practical skills you can actually earn with." : editorial italic subheadline */
 .hero-h1-secondary {
   display: block;
   font-size: clamp(30px, 4vw, 48px);
@@ -3549,7 +3549,7 @@ a.skip-link:focus { top:0; }
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   COURSE DETAIL — WHATSAPP CTAs & VIDEO PLACEHOLDER
+   COURSE DETAIL : WHATSAPP CTAs & VIDEO PLACEHOLDER
    ═══════════════════════════════════════════════════════════════════ */
 
 /* Primary WhatsApp button under hero CTA */
@@ -3950,7 +3950,7 @@ a.skip-link:focus { top:0; }
 
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   LMS APP — Mobile Learning Management System
+   LMS APP : Mobile Learning Management System
    Replicates a native mobile LMS (Duolingo / Coursera / Brilliant style)
    ═══════════════════════════════════════════════════════════════════════════ */
 
@@ -4843,7 +4843,7 @@ a.skip-link:focus { top:0; }
   font-size: 13px;
 }
 
-/* Nav buttons — Prev / Next / Finish */
+/* Nav buttons : Prev / Next / Finish */
 .lms-dock-nav-btn {
   display: flex;
   align-items: center;
@@ -5180,7 +5180,7 @@ button.lms-sidebar-item {
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
-   COURSE DETAIL PAGE — App-style redesign
+   COURSE DETAIL PAGE : App-style redesign
    ══════════════════════════════════════════════════════════════════════════ */
 
 /* ── App-style header ────────────────────────────────────────────────────── */

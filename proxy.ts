@@ -12,7 +12,7 @@ import { updateSession } from '@/lib/supabase/proxy'
  *  - Redirect already-authenticated users away from /login and /signup
  *
  * This is an optimistic UX layer only. All protected server components and
- * server actions re-verify the session and role independently — never rely
+ * server actions re-verify the session and role independently : never rely
  * solely on this file for security.
  */
 export async function proxy(request: NextRequest) {

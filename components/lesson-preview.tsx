@@ -240,7 +240,7 @@ Please help me understand the key concept with a practical example I can apply t
         'To watch a video without taking notes',
       ],
       correctIndex: 1,
-      explanation: 'Every lesson on this platform is designed around a practical deliverable — something you can apply, not just recall.',
+      explanation: 'Every lesson on this platform is designed around a practical deliverable : something you can apply, not just recall.',
     },
   }))
   return defaults

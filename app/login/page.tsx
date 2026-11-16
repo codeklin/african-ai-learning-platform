@@ -6,7 +6,7 @@ import { createClient } from '@/lib/supabase/server'
 import { getSafeRedirectPath } from '@/lib/auth-redirect'
 
 export const metadata = {
-  title: 'Sign in — ituwaAfrica',
+  title: 'Sign in : ituwaAfrica',
 }
 
 export default async function LoginPage({

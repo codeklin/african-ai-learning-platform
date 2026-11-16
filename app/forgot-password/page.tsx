@@ -2,7 +2,7 @@ import AuthHeader from '@/components/auth-header'
 import ForgotPasswordForm from './forgot-password-form'
 
 export const metadata = {
-  title: 'Reset your password — ituwaAfrica',
+  title: 'Reset your password : ituwaAfrica',
 }
 
 export default function ForgotPasswordPage() {

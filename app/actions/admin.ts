@@ -281,7 +281,7 @@ export async function grantPaidCourseEnrollmentAction(input: {
 
   if (codeError) {
     console.error('Enrollment granted but access code generation failed:', codeError)
-    // Enrollment already written — don't fail the whole action
+    // Enrollment already written : don't fail the whole action
   }
 
   revalidatePath('/admin')

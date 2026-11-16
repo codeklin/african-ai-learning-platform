@@ -2,7 +2,7 @@
 ## Universal Consistency Anchor for ituwaAfrica Avatar Production
 
 Use this exact prompt structure in Google Flow (or Kling, Runway Gen-3, Leonardo, Pika). 
-Keep all visual descriptors fixed — **only swap out the dialogue text inside the quotation marks for each 8-second clip**.
+Keep all visual descriptors fixed : **only swap out the dialogue text inside the quotation marks for each 8-second clip**.
 
 ---
 

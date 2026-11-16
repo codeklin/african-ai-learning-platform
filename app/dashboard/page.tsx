@@ -217,7 +217,7 @@ export default async function DashboardPage() {
                       key={en.id}
                       href={`/learn/${c.slug}/lesson-1`}
                       className="app-course-tile"
-                      aria-label={`${c.title} — ${done} completed lessons`}
+                      aria-label={`${c.title} : ${done} completed lessons`}
                     >
                       <div className="app-tile-art" style={{ background: bg }} aria-hidden="true">
                         <span className="app-tile-num">{String(i + 1).padStart(2, '0')}</span>

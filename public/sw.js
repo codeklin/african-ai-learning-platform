@@ -8,7 +8,7 @@
  *   immediately and posts a message to all clients so the app
  *   can reload silently or notify the user.
  *
- * CACHE_VERSION — bump this string on every deploy that needs a
+ * CACHE_VERSION : bump this string on every deploy that needs a
  * forced client refresh. The build pipeline can inject the commit
  * SHA here; for now it uses a timestamp set at install time.
  */

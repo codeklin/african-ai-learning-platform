@@ -64,7 +64,7 @@ Create original visual assets with AI-assisted design techniques and prepare the
 
 ## Start Where You Are. Build From There.
 
-Curiosity is a skill. You don't need a massive plan or a technical background to begin—you just need twenty minutes and a desire to make something useful.
+Curiosity is a skill. You don't need a massive plan or a technical background to begin:you just need twenty minutes and a desire to make something useful.
 
 - **[Explore Courses](https://ituwa.africa/courses)**  
 - **[Sign In to Your Dashboard](https://ituwa.africa/login)**

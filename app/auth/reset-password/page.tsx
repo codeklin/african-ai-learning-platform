@@ -2,7 +2,7 @@ import AuthHeader from '@/components/auth-header'
 import ResetPasswordForm from './reset-password-form'
 
 export const metadata = {
-  title: 'Set new password — ituwaAfrica',
+  title: 'Set new password : ituwaAfrica',
 }
 
 export default function ResetPasswordPage() {

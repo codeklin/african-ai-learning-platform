@@ -10,7 +10,7 @@ import type { Database } from '@/lib/database.types'
  * - This file provides optimistic redirects for UX (e.g. sending a
  *   visitor to /login instead of showing a broken dashboard).
  * - Authoritative permission checks happen AGAIN inside each server
- *   component and server action — never rely on this layer alone.
+ *   component and server action : never rely on this layer alone.
  */
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request })
@@ -36,7 +36,7 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
-  // IMPORTANT: always call getUser() — this is what refreshes the session
+  // IMPORTANT: always call getUser() : this is what refreshes the session
   // token in the cookie. Do not remove this call or move it after any
   // early-return logic.
   const {
@@ -59,7 +59,7 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  // /learn/* — video and lesson content requires a registered account.
+  // /learn/* : video and lesson content requires a registered account.
   // Preserve destination so the user lands on the correct lesson after login.
   if (pathname.startsWith('/learn') && !user) {
     const url = request.nextUrl.clone()
@@ -70,7 +70,7 @@ export async function updateSession(request: NextRequest) {
 
   // ── Role guard ────────────────────────────────────────────────
 
-  // /admin/* — role is read from the database, never from client state.
+  // /admin/* : role is read from the database, never from client state.
   // The server component also re-checks this independently.
   if (pathname.startsWith('/admin') && user) {
     const { data: rawProfile } = await supabase

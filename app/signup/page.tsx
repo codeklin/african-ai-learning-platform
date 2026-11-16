@@ -5,7 +5,7 @@ import { createClient } from '@/lib/supabase/server'
 import { getSafeRedirectPath } from '@/lib/auth-redirect'
 
 export const metadata = {
-  title: 'Create account — ituwaAfrica',
+  title: 'Create account : ituwaAfrica',
 }
 
 export default async function SignUpPage({

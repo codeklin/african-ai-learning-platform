@@ -1,4 +1,4 @@
-# ituwaAfrica — Full Copy Inventory
+# ituwaAfrica : Full Copy Inventory
 > Generated for analysis. All human-readable text across every page and component.
 
 ---
@@ -38,7 +38,7 @@
 - **Card 1 body:** You want to offer useful AI-enabled services to clients. Learn to identify a client need, define a clear deliverable and practise with a sample.
 - **Card 1 proof:** PRACTICAL CLIENT PROJECTS
 - **Card 2 label:** FOR THE CREATOR
-- **Card 2 body:** You want to start a YouTube channel and earn from it — without showing your face or hiring a team. We teach the full system.
+- **Card 2 body:** You want to start a YouTube channel and earn from it : without showing your face or hiring a team. We teach the full system.
 - **Card 2 proof:** 4+ HOURS RECLAIMED
 - **Card 3 label:** FOR THE SOLO HUSTLER
 - **Card 3 body:** You're exploring what AI can do for your work or small business. Start with foundations and build up at your own pace.
@@ -48,11 +48,11 @@
 - **Eyebrow:** WHAT DO YOU NEED HELP WITH?
 - **H2:** Five practical courses to build focused skills.
 - **Subtext:** Start with free AI Foundations, then choose a specialist course.
-- **Course 1:** AI Foundations — Build a practical understanding of AI tools and prompts. · Free
-- **Course 2:** AI Video Creation — Plan and produce original AI-assisted videos. · USD 4, one-time
-- **Course 3:** AI Content Marketing for Business — Turn a client brief into audience-focused social captions, ad copy, and email campaigns with AI assistance. · NGN 15,000, one-time · Exclusive
-- **Course 4:** YouTube Monetization — Understand creator revenue paths and YouTube policies. · NGN 50,000, one-time
-- **Course 5:** AI Graphic Design — Create original visual assets with AI-assisted design techniques. · USD 4, one-time
+- **Course 1:** AI Foundations : Build a practical understanding of AI tools and prompts. · Free
+- **Course 2:** AI Video Creation : Plan and produce original AI-assisted videos. · USD 4, one-time
+- **Course 3:** AI Content Marketing for Business : Turn a client brief into audience-focused social captions, ad copy, and email campaigns with AI assistance. · NGN 15,000, one-time · Exclusive
+- **Course 4:** YouTube Monetization : Understand creator revenue paths and YouTube policies. · NGN 50,000, one-time
+- **Course 5:** AI Graphic Design : Create original visual assets with AI-assisted design techniques. · USD 4, one-time
 - **Card CTA:** Explore courses →
 - **Paid course status:** In development; no release date promised
 
@@ -105,9 +105,9 @@
 
 ### Footer
 - Learn a skill. Try it out. Make work you can stand behind.
-- **Nav group 1:** EXPLORE — Courses · Skill Assessment · Academies · Pricing
-- **Nav group 2:** ITUWA AFRICA — Our approach · Get in touch · Log in
-- **Nav group 3:** LEGAL & TRUST — Terms of Service · Privacy Policy · Skill Quiz
+- **Nav group 1:** EXPLORE : Courses · Skill Assessment · Academies · Pricing
+- **Nav group 2:** ITUWA AFRICA : Our approach · Get in touch · Log in
+- **Nav group 3:** LEGAL & TRUST : Terms of Service · Privacy Policy · Skill Quiz
 - © 2026 ituwaAfrica. Made for real work.
 - Start where you are. Build from there.
 
@@ -196,54 +196,54 @@
 ### Course: Your AI Toolkit: A Practical Start
 - **Description:** New to AI and tired of the buzzwords? Learn what these tools can do, where they fall short, and how to use one on a task you already have.
 - **Outcomes:** Know what these tools can and cannot do · Choose a tool for a useful task · Give clear instructions to get a better first draft · Create and review a practical AI-assisted work sample
-- **Module 1:** Getting oriented — What AI can (and cannot) do · A practical AI toolkit · Use AI with care and good judgement
-- **Module 2:** Working with prompts — Give your prompt a purpose · Add context that matters · Improve a first response
-- **Module 3:** Put it into practice — Apply AI to a useful task · Your first AI-assisted project
+- **Module 1:** Getting oriented : What AI can (and cannot) do · A practical AI toolkit · Use AI with care and good judgement
+- **Module 2:** Working with prompts : Give your prompt a purpose · Add context that matters · Improve a first response
+- **Module 3:** Put it into practice : Apply AI to a useful task · Your first AI-assisted project
 
 ### Course: Prompting for Better Work
 - **Description:** Getting answers that sound right but do not help? Learn how to give a tool the details it needs and check its work.
 - **Outcomes:** Break a task into clear steps · Share the details that change the answer · Improve a first draft without starting over · Check answers before you rely on them
-- **Module 1:** The shape of a prompt — Start with the task · Add context and constraints · Describe the output you need
-- **Module 2:** Make it more useful — Work in small iterations · Ask for alternatives · Check what matters
-- **Module 3:** A repeatable practice — Create your prompt brief · Build a reusable template
+- **Module 1:** The shape of a prompt : Start with the task · Add context and constraints · Describe the output you need
+- **Module 2:** Make it more useful : Work in small iterations · Ask for alternatives · Check what matters
+- **Module 3:** A repeatable practice : Create your prompt brief · Build a reusable template
 
 ### Course: The Freelance AI Content Studio
 - **Description:** Turn a client brief into clear, finished content and build a portfolio of samples you can show when pitching new work.
 - **Outcomes:** Turn a vague brief into a clear content brief · Use AI to draft copy you then shape into your own voice · Build a consistent content production process · Create portfolio samples that show your process
-- **Module 1:** The content brief — What clients actually need · Turning a brief into a clear task · Research and reference gathering
-- **Module 2:** Drafting with AI — Writing your first draft prompt · Editing AI output into your voice · Structuring long-form content
-- **Module 3:** Content production — Planning a repeatable content pipeline · Quality checks before delivery · Packaging your work for clients
-- **Module 4:** Portfolio & pitching — Choosing your best samples · Writing a simple case study · Pitching your content service · Your first content brief project
+- **Module 1:** The content brief : What clients actually need · Turning a brief into a clear task · Research and reference gathering
+- **Module 2:** Drafting with AI : Writing your first draft prompt · Editing AI output into your voice · Structuring long-form content
+- **Module 3:** Content production : Planning a repeatable content pipeline · Quality checks before delivery · Packaging your work for clients
+- **Module 4:** Portfolio & pitching : Choosing your best samples · Writing a simple case study · Pitching your content service · Your first content brief project
 
 ### Course: AI Content Marketing for Business
 - **Description:** Turn a client brief into useful, audience-focused social captions, ad copy, and email campaigns. Use AI to support research and drafting, then refine the content through a repeatable workflow and build portfolio-ready samples.
 - **Outcomes:** Research an audience and turn a client brief into a focused content plan · Write social media captions, ad copy, and email campaigns with AI assistance · Build a repeatable content workflow with accuracy, rights, originality, and tone checks · Review campaign signals and assemble portfolio-ready samples
-- **Module 1:** Understand the brief and audience — Research customer questions and needs · Choose an audience, goal, and offer · Turn a client brief into a content plan
-- **Module 2:** Plan and draft campaign content — Choose channels and plan content formats · Draft social media captions for an audience · Write ad copy with a clear, supportable message
-- **Module 3:** Create and review with AI — Write email campaigns with a useful next step · Use AI to draft in a consistent brand voice · Check facts, rights, originality, and tone
-- **Module 4:** Build a workflow and portfolio — Create a repeatable content workflow · Review campaign signals and revise content · Package campaign work into a portfolio sample
+- **Module 1:** Understand the brief and audience : Research customer questions and needs · Choose an audience, goal, and offer · Turn a client brief into a content plan
+- **Module 2:** Plan and draft campaign content : Choose channels and plan content formats · Draft social media captions for an audience · Write ad copy with a clear, supportable message
+- **Module 3:** Create and review with AI : Write email campaigns with a useful next step · Use AI to draft in a consistent brand voice · Check facts, rights, originality, and tone
+- **Module 4:** Build a workflow and portfolio : Create a repeatable content workflow · Review campaign signals and revise content · Package campaign work into a portfolio sample
 
 ### Course: AI for Your Freelance Business
 - **Description:** Not sure what to sell? Find one problem clients pay to solve, build a clear service offer around it, and use AI to deliver it efficiently.
 - **Outcomes:** Find a service you can offer and explain its value · Write a one-page service offer that clients understand · Use AI to cut delivery time without cutting quality · Handle your first client brief end to end
-- **Module 1:** Your service offer — Finding a problem clients pay for · Naming and scoping your service · Pricing for value, not hours
-- **Module 2:** Getting clients — Writing a clear service page · Pitching in DMs and emails · Your first proposal template
-- **Module 3:** Delivering with AI — Onboarding a client · Using AI to support delivery · Quality control before you send
-- **Module 4:** Growing it — Getting a testimonial · Turning one client into two · Building your freelance portfolio · Your first client project
+- **Module 1:** Your service offer : Finding a problem clients pay for · Naming and scoping your service · Pricing for value, not hours
+- **Module 2:** Getting clients : Writing a clear service page · Pitching in DMs and emails · Your first proposal template
+- **Module 3:** Delivering with AI : Onboarding a client · Using AI to support delivery · Quality control before you send
+- **Module 4:** Growing it : Getting a testimonial · Turning one client into two · Building your freelance portfolio · Your first client project
 
 ### Course: Build a Helpful AI App
 - **Description:** Watch the step-by-step masterclass on building and shipping a functional AI tool. Learn how to connect prompt pipelines, structure user inputs, and test with real users.
 - **Outcomes:** Connect user inputs to structured prompt pipelines · Design functional UI prototypes that solve real business friction · Deploy and test your utility with actual users · Package and monetize single-purpose micro-tools
-- **Module 1:** Core Concept & Logic Architecture — Identify one high-demand business problem · Design the input-to-output pipeline · Prompt engineering for consistent structured responses
-- **Module 2:** Live App Build Walkthrough — Build a Helpful AI App Masterclass (Video) · Handling API calls, keys, and edge errors · Deploying to a live mobile-friendly link
-- **Module 3:** Packaging, Pricing & Portfolio — Testing with your first 5 real users · Creating your portfolio showcase asset
+- **Module 1:** Core Concept & Logic Architecture : Identify one high-demand business problem · Design the input-to-output pipeline · Prompt engineering for consistent structured responses
+- **Module 2:** Live App Build Walkthrough : Build a Helpful AI App Masterclass (Video) · Handling API calls, keys, and edge errors · Deploying to a live mobile-friendly link
+- **Module 3:** Packaging, Pricing & Portfolio : Testing with your first 5 real users · Creating your portfolio showcase asset
 
 ### YouTube Creator Courses (all 8 share this structure)
 - **Shared outcomes:** Develop a channel concept grounded in audience needs · Create original video and thumbnail projects · Use analytics as feedback, not as a promise of results · Understand policy responsibilities and business models
 - **Shared modules:**
-  - Module 1: Strategy and foundations — Define your audience and channel promise · Research topics and validate demand · Build a distinctive channel identity
-  - Module 2: Make and publish — Plan a useful publishing rhythm · Create an original video outline · Produce and package your video
-  - Module 3: Review and grow responsibly — Review audience signals and analytics · Evaluate rights, policy, and next steps
+  - Module 1: Strategy and foundations : Define your audience and channel promise · Research topics and validate demand · Build a distinctive channel identity
+  - Module 2: Make and publish : Plan a useful publishing rhythm · Create an original video outline · Produce and package your video
+  - Module 3: Review and grow responsibly : Review audience signals and analytics · Evaluate rights, policy, and next steps
 - **YPP disclaimer:** Learning completion is not YPP eligibility. Finishing lessons or projects confirms educational participation only. YouTube Partner Program eligibility depends on YouTube's current requirements and channel review. Thresholds and policies can change, and meeting a threshold does not guarantee acceptance, views, subscribers, monetization, or income.
 
 ---
@@ -400,19 +400,19 @@
 
 ## 9. ONBOARDING (`/onboarding`)
 
-### Step 1 — Track selection
+### Step 1 : Track selection
 - **Eyebrow:** LET'S GET YOU STARTED
 - **H1:** Which path fits your goals?
 - **Body:** Choose the academy that matches what you want to achieve. You can always switch later.
 - **CTA:** Continue →
 
-### Step 2 — Learning rhythm
+### Step 2 : Learning rhythm
 - **H1:** How often can you learn?
 - **Body:** Set a realistic weekly target. Even 2 lessons a week adds up fast.
 - **Options:** 2 lessons · 3 lessons · 5 lessons · Daily
 - **CTA:** Continue →
 
-### Step 3 — Reminder
+### Step 3 : Reminder
 - **H1:** Set a daily reminder.
 - **Body:** A nudge at the right time keeps momentum going.
 - **CTA:** Finish setup →
@@ -504,9 +504,9 @@
 ### Course Upload Modal
 - **Title:** Upload & Publish New Course
 - **Sub:** Add practical learning modules directly into the live PostgreSQL database.
-- **Section 01:** 01 / COURSE IDENTITY — Primary Metadata
+- **Section 01:** 01 / COURSE IDENTITY : Primary Metadata
 - **Fields:** Course Title · URL Slug (optional, auto-generated if left blank) · Academy Track · Access Level · Publishing Status · Course Summary & Outcomes
-- **Section 02:** 02 / STARTER MODULE & FIRST LESSON — First Practical Module (Optional)
+- **Section 02:** 02 / STARTER MODULE & FIRST LESSON : First Practical Module (Optional)
 - **Sub:** You can create the starter module now or add more lessons later.
 - **Fields:** Module Title · First Lesson Title · Lesson Format · YouTube Video ID · Lesson Content & Prompt Framework · Actionable Takeaway / Sprint Goal
 - **Submit:** Publish Course to Database
@@ -557,7 +557,7 @@
 - Home · Courses · Challenges · Profile
 
 ### Error / empty states
-- Access denied — You need administrator permissions to view this control panel.
+- Access denied : You need administrator permissions to view this control panel.
 - You haven't enrolled in any courses yet.
 - No courses match your search or filter. (Reset filters)
 - No learners match your search criteria.
@@ -569,7 +569,7 @@
 - Passwords do not match.
 - Password must be at least 8 characters.
 - An account with this email already exists.
-- Reset link sent — check your inbox.
+- Reset link sent : check your inbox.
 
 ### Password strength labels
 - Weak · Fair · Good · Strong

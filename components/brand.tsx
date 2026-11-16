@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 /**
- * Africa continent silhouette — inline SVG.
+ * Africa continent silhouette : inline SVG.
  * Used as the brand mark icon prefix.
  */
 export function AfricaIcon({ size = 14 }: { size?: number }) {

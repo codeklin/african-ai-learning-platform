@@ -1,4 +1,4 @@
--- ituwaAfrica — lessons table with YouTube video support
+-- ituwaAfrica : lessons table with YouTube video support
 -- Run after 001_initial_schema.sql
 
 create type lesson_access as enum ('free', 'paid', 'preview');
@@ -42,7 +42,7 @@ create table public.lessons (
   access_level     lesson_access not null default 'free',
   -- YouTube video fields
   youtube_video_id text,            -- e.g. "dQw4w9WgXcQ"
-  video_duration   text,            -- e.g. "12:34" — display only
+  video_duration   text,            -- e.g. "12:34" : display only
   -- Text content
   body             text,
   takeaway         text,

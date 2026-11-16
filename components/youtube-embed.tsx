@@ -13,9 +13,9 @@ interface YouTubeEmbedProps {
  * Accessible, privacy-enhanced YouTube embed.
  *
  * Rules:
- * - Uses youtube-nocookie.com — no tracking cookies until the user clicks play
+ * - Uses youtube-nocookie.com : no tracking cookies until the user clicks play
  * - Click-to-load pattern: shows a poster thumbnail first, only injects the
- *   iframe when the user deliberately presses Play — saves bandwidth for
+ *   iframe when the user deliberately presses Play : saves bandwidth for
  *   learners on mobile data
  * - Never autoplays
  * - Provides a visible, keyboard-focusable play button with proper aria labels

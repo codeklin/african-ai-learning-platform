@@ -83,7 +83,7 @@ export interface CoursePayment {
 export interface LessonProgress {
   id: string
   user_id: string
-  lesson_id: string  // uuid — FK to lessons.id
+  lesson_id: string  // uuid : FK to lessons.id
   course_id: string
   completed_at: string
 }

@@ -6,15 +6,15 @@ Expansion market: Africa.
 Core mission: Help learners acquire practical AI skills, complete projects and develop commercially useful capabilities.
 The application must prioritize learning outcomes, security, maintainability and accessibility.
 2. Core Technology
-Next.js App Router — pinned to 16.4.6 (do not upgrade without explicit instruction).
-TypeScript — 5.7.3.
+Next.js App Router : pinned to 16.4.6 (do not upgrade without explicit instruction).
+TypeScript : 5.7.3.
 Tailwind CSS v4.
-@supabase/supabase-js — 2.119.0.
-@supabase/ssr — 0.12.7 (use this for server-side Supabase clients in middleware, server components and route handlers; do not use the legacy auth-helpers package).
+@supabase/supabase-js : 2.119.0.
+@supabase/ssr : 0.12.7 (use this for server-side Supabase clients in middleware, server components and route handlers; do not use the legacy auth-helpers package).
 PostgreSQL (via Supabase).
 Supabase Auth.
 Supabase Storage.
-Baloo 2 (via next/font/google) — primary UI font, weights 400–800.
+Baloo 2 (via next/font/google) : primary UI font, weights 400–800.
 Zod.
 React Hook Form.
 Lucide icons.
@@ -27,7 +27,7 @@ Proxy (proxy.ts) → createServerClient from @supabase/ssr via lib/supabase/prox
 Client components → createBrowserClient from @supabase/ssr.
 Never instantiate createClient from @supabase/supabase-js directly in client components.
 Next.js 16 renames middleware.ts to proxy.ts and the export from middleware to proxy.
-Use proxy.ts at the project root (not middleware.ts — that convention is deprecated).
+Use proxy.ts at the project root (not middleware.ts : that convention is deprecated).
 The session helper lives in lib/supabase/proxy.ts (not lib/supabase/middleware.ts).
 3. Product Principles
 Always prioritize:
@@ -267,7 +267,7 @@ Maintain .env.example.
 Expected variables:
 NEXT_PUBLIC_SUPABASE_URL=          # Supabase project URL (safe to expose)
 NEXT_PUBLIC_SUPABASE_ANON_KEY=     # Supabase anon key (safe to expose)
-SUPABASE_SERVICE_ROLE_KEY=         # Service role key — server-side only, never NEXT_PUBLIC
+SUPABASE_SERVICE_ROLE_KEY=         # Service role key : server-side only, never NEXT_PUBLIC
 NEXT_PUBLIC_APP_URL=
 PAYSTACK_SECRET_KEY=
 PAYSTACK_PUBLIC_KEY=
@@ -279,7 +279,7 @@ GEMINI_API_KEY=
 EMAIL_PROVIDER_API_KEY=
 Only implement variables needed by enabled features.
 Never commit .env.local or production secrets.
-Never prefix secrets with NEXT_PUBLIC — that exposes them to the browser bundle.
+Never prefix secrets with NEXT_PUBLIC : that exposes them to the browser bundle.
 19. Documentation
 Update README.md when:
 Setup steps change.
@@ -316,13 +316,14 @@ Students must be taught to create original and valuable content, even when using
 Practical assignments must assess content originality, audience value, production quality and policy compliance.
 
 22. Official Course Lineup, Slugs, and Pricing Standards
-The platform defines six core course offerings:
-1. AI Foundations — slug: `ai-toolkit-practical-start` | Access: Free | Status: Published.
-2. AI Video Creation — slug: `ai-video-creation` | Price: $4 | Access: Paid | Status: Draft.
-3. AI Content Marketing for Business — slug: `ai-content-marketing-for-business` | Price: ₦15,000 | Access: Paid | Status: Draft.
-4. AI Web App Development — slug: `ai-web-app-development` | Price: ₦20,000 | Access: Paid | Status: Draft.
-5. YouTube Monetization — slug: `youtube-monetization` | Price: ₦10,000 | Access: Paid | Status: Draft.
-6. AI Graphic Design — slug: `ai-graphic-design` | Price: $4 | Access: Paid | Status: Draft.
+
+[!IMPORTANT] Never use em dashes (:) in any code, UI copy, database seed content, lesson body text, comments, or documentation. Use commas, colons, or periods instead.The platform defines six core course offerings:
+1. AI Foundations : slug: `ai-toolkit-practical-start` | Access: Free | Status: Published.
+2. AI Video Creation : slug: `ai-video-creation` | Price: $4 | Access: Paid | Status: Draft.
+3. AI Content Marketing for Business : slug: `ai-content-marketing-for-business` | Price: ₦15,000 | Access: Paid | Status: Draft.
+4. AI Web App Development : slug: `ai-web-app-development` | Price: ₦20,000 | Access: Paid | Status: Draft.
+5. YouTube Monetization : slug: `youtube-monetization` | Price: ₦10,000 | Access: Paid | Status: Draft.
+6. AI Graphic Design : slug: `ai-graphic-design` | Price: $4 | Access: Paid | Status: Draft.
 
 Database & Query Integrity:
 - Database slugs must match primary URL slugs.

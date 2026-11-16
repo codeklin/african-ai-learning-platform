@@ -39,7 +39,7 @@ export default function LoginForm({ redirectTo }: { redirectTo: string }) {
 
   return (
     <form onSubmit={handleSignIn} noValidate aria-label="Sign in form">
-      {/* Live error region — announced by screen readers immediately */}
+      {/* Live error region : announced by screen readers immediately */}
       <div
         role="alert"
         aria-live="assertive"

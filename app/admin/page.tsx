@@ -46,7 +46,7 @@ export default async function AdminPage() {
     { data: recentEnrollments },
     { data: allCourses },
   ] = await Promise.all([
-    // counts — head:true fetches zero rows, just the count
+    // counts : head:true fetches zero rows, just the count
     adminClient.from('profiles').select('id', { count: 'exact', head: true }),
     adminClient.from('enrollments').select('id', { count: 'exact', head: true }),
     adminClient.from('courses').select('id', { count: 'exact', head: true }).eq('status', 'published'),

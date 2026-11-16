@@ -60,7 +60,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={baloo2.variable}>
       <body className="antialiased">
-        {/* PWA splash — only visible when running as an installed PWA before JS loads.
+        {/* PWA splash : only visible when running as an installed PWA before JS loads.
             suppressHydrationWarning prevents the React hydration mismatch caused by
             the display:none style being applied by the inline script before hydration. */}
         <div id="pwa-splash" aria-hidden="true" suppressHydrationWarning>

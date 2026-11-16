@@ -35,7 +35,7 @@ export default function AccessCodeRedeemer({ courseSlug }: { courseSlug: string 
     return (
       <div className="redeem-success">
         <Check size={18} strokeWidth={3} />
-        <span>Access granted — loading your course…</span>
+        <span>Access granted : loading your course…</span>
       </div>
     )
   }

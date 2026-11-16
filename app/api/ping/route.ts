@@ -11,7 +11,7 @@ import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 
 export const runtime = 'nodejs'
-// Vercel Cron invokes this as a GET — no auth cookie needed here,
+// Vercel Cron invokes this as a GET : no auth cookie needed here,
 // so we use the service-role client directly (server-side only).
 
 export async function GET(request: Request) {
@@ -30,7 +30,7 @@ export async function GET(request: Request) {
       process.env.SUPABASE_SERVICE_ROLE_KEY!,
     )
 
-    // Minimal query — just count one row from profiles to wake the DB
+    // Minimal query : just count one row from profiles to wake the DB
     const { error } = await supabase
       .from('profiles')
       .select('id', { count: 'exact', head: true })

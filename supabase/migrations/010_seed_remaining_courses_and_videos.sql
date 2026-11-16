@@ -1,4 +1,4 @@
--- ituwaAfrica — Seed Lessons for Courses 2, 4, 5, 6 + YouTube Freebie Videos
+-- ituwaAfrica : Seed Lessons for Courses 2, 4, 5, 6 + YouTube Freebie Videos
 -- Run this in the Supabase SQL Editor AFTER migration 009.
 
 -- ═══════════════════════════════════════════════════════════════
@@ -39,7 +39,7 @@ values (
   'Writing a Short 45-Second Hook-and-Hold Script',
   2, 'video', 'free', 'published', 5,
   'smWSKscrJ1k',
-  'Structure a 3-part script optimized for vertical retention on Shorts, Reels, and TikTok. Part 1 — the Hook (0–4 seconds, ~10 words): stop the thumb scroll with a sharp question or statement. Part 2 — the Core Insight (5–35 seconds, ~60 words): deliver value in 3 distinct beats. Part 3 — the Takeaway and CTA (36–45 seconds, ~20 words): one clear lesson and one clear action.',
+  'Structure a 3-part script optimized for vertical retention on Shorts, Reels, and TikTok. Part 1 : the Hook (0–4 seconds, ~10 words): stop the thumb scroll with a sharp question or statement. Part 2 : the Core Insight (5–35 seconds, ~60 words): deliver value in 3 distinct beats. Part 3 : the Takeaway and CTA (36–45 seconds, ~20 words): one clear lesson and one clear action.',
   'Write your 45-second script in full before generating a single AI clip. 90 to 110 words is the target. If you cannot write it, you cannot film it.'
 )
 on conflict (course_id, slug) do update set
@@ -107,7 +107,7 @@ values (
   'lesson-5',
   'Maintaining Visual Consistency Across Scenes',
   5, 'text', 'paid', 'published', 4,
-  'Keep lighting, color palette, and character details identical across all 5 to 7 scenes. Technique: keep a fixed style seed or use image-to-video reference. Maintain identical color grade keywords in every scene prompt — for example, "warm amber lighting, cinematic natural contrast." If you change tools between scenes, re-describe the visual style word for word.',
+  'Keep lighting, color palette, and character details identical across all 5 to 7 scenes. Technique: keep a fixed style seed or use image-to-video reference. Maintain identical color grade keywords in every scene prompt : for example, "warm amber lighting, cinematic natural contrast." If you change tools between scenes, re-describe the visual style word for word.',
   'Visual consistency makes your video look professional and intentional. Inconsistency is the most common beginner mistake in AI video production.'
 )
 on conflict (course_id, slug) do update set
@@ -152,7 +152,7 @@ values (
   'lesson-7',
   'Bringing Clips and Voice Together in CapCut',
   7, 'text', 'paid', 'published', 5,
-  'Import your AI clips and voiceover audio into CapCut. Trim each clip so its action matches the spoken word at that moment. The core editing rule: cut on action. Never let a static scene linger for more than 3 to 4 seconds in short-form video. Mute the original clip audio. The voiceover drives the whole video — the visuals illustrate it.',
+  'Import your AI clips and voiceover audio into CapCut. Trim each clip so its action matches the spoken word at that moment. The core editing rule: cut on action. Never let a static scene linger for more than 3 to 4 seconds in short-form video. Mute the original clip audio. The voiceover drives the whole video : the visuals illustrate it.',
   'Cut on action. If the visuals and words do not match at every moment, viewers will scroll away.'
 )
 on conflict (course_id, slug) do update set
@@ -174,7 +174,7 @@ values (
   'lesson-8',
   'Adding Dynamic, Readable Subtitles',
   8, 'text', 'paid', 'published', 4,
-  'Auto-generate subtitles in CapCut, then style them for phone visibility. Font: bold clean Sans-serif (Montserrat or Bold Canvas). Size: large enough to read on a 5-inch phone screen without squinting. Position: safe zone in the middle-third of the screen — avoid the bottom area where TikTok and Reels captions, hearts, and share buttons cover text. Fix Nigerian proper noun spellings manually.',
+  'Auto-generate subtitles in CapCut, then style them for phone visibility. Font: bold clean Sans-serif (Montserrat or Bold Canvas). Size: large enough to read on a 5-inch phone screen without squinting. Position: safe zone in the middle-third of the screen : avoid the bottom area where TikTok and Reels captions, hearts, and share buttons cover text. Fix Nigerian proper noun spellings manually.',
   'Subtitles are accessibility, not decoration. 70% of social media videos are watched on mute. If your subtitles are small or mispositioned, your message is lost.'
 )
 on conflict (course_id, slug) do update set
@@ -271,7 +271,7 @@ values (
   'lesson-2',
   'Defining Inputs, Outputs, and User Flow',
   2, 'text', 'paid', 'published', 4,
-  'Map the exact 3-step user journey before writing a single line of code. Step 1 — Input: what does the user type or select? Step 2 — Processing: what calculation or logic runs? Step 3 — Output: what does the user see, copy, or share? Example: User enters gross amount and client type → app applies tax rate and fee formula → clean printable summary card with WhatsApp share button.',
+  'Map the exact 3-step user journey before writing a single line of code. Step 1 : Input: what does the user type or select? Step 2 : Processing: what calculation or logic runs? Step 3 : Output: what does the user see, copy, or share? Example: User enters gross amount and client type → app applies tax rate and fee formula → clean printable summary card with WhatsApp share button.',
   'Write your 3-step user flow on paper before opening any coding tool. If you cannot explain the flow in one sentence, the scope is still too vague.'
 )
 on conflict (course_id, slug) do update set
@@ -384,7 +384,7 @@ values (
   'Connecting a Basic Data Store or Supabase Table',
   7, 'text', 'paid', 'published', 5,
   'Set up a free Supabase PostgreSQL database to store user submissions and read saved records. Steps: create a Supabase project, define a simple table (id, created_at, user input columns), enable Row Level Security, and query it from your Next.js Server Component using the anon key. Never call the database directly from client components without RLS protection.',
-  'Supabase gives you a production-grade database for free. RLS is not optional — it is what prevents one user from reading another user''s data.'
+  'Supabase gives you a production-grade database for free. RLS is not optional : it is what prevents one user from reading another user''s data.'
 )
 on conflict (course_id, slug) do update set
   module_id = excluded.module_id,
@@ -523,7 +523,7 @@ values (
   'lesson-1',
   'How the YouTube Platform Actually Works',
   1, 'text', 'free', 'published', 4,
-  'YouTube''s algorithm does not push videos — viewers pull them. The algorithm simply follows what viewers click and keep watching. The two metrics that drive distribution are Click-Through Rate (CTR: how many people click your thumbnail when shown it) and Average View Duration (AVD: what percentage of your video viewers watch before leaving). A video with 10% CTR and 60% AVD will reach far more people than a video with 1% CTR and 20% AVD.',
+  'YouTube''s algorithm does not push videos : viewers pull them. The algorithm simply follows what viewers click and keep watching. The two metrics that drive distribution are Click-Through Rate (CTR: how many people click your thumbnail when shown it) and Average View Duration (AVD: what percentage of your video viewers watch before leaving). A video with 10% CTR and 60% AVD will reach far more people than a video with 1% CTR and 20% AVD.',
   'Optimize for clicks and watch time, not just upload frequency. One well-packaged video outperforms ten poorly packaged ones.'
 )
 on conflict (course_id, slug) do update set
@@ -591,7 +591,7 @@ values (
   'Crafting Titles That Spark Curiosity Honestly',
   4, 'text', 'paid', 'published', 4,
   'Write titles that generate genuine curiosity without misleading viewers (clickbait). The rule: your video must deliver on every promise made in the title within the first 60 seconds. Good title formulas: "How [result] without [common obstacle]", "[Number] [specific thing] that [specific audience] always gets wrong", "Why [counterintuitive claim] (explained simply)". Bad title: "You will not believe this!!!" Good title: "Why Nigerian Creators Get Demonetized (and how to avoid it)".',
-  'A title is a contract with the viewer. Break that contract and they leave — permanently. Write the title that the video actually delivers on.'
+  'A title is a contract with the viewer. Break that contract and they leave : permanently. Write the title that the video actually delivers on.'
 )
 on conflict (course_id, slug) do update set
   module_id = excluded.module_id,
@@ -634,7 +634,7 @@ values (
   'lesson-6',
   'Writing Video Scripts That Retain Viewers',
   6, 'text', 'paid', 'published', 5,
-  'Script a structured 5- to 8-minute video that hooks viewers, eliminates fluff, and keeps engagement high. Script structure: The Hook (0–30s) — confirm the title promise immediately, do not delay; The Meat (30s–6m) — deliver 3 actionable points with visual examples or demonstrations; The Payoff (6m–7m) — final synthesis and recommendation for the next video to watch. Remove every sentence that does not serve the viewer.',
+  'Script a structured 5- to 8-minute video that hooks viewers, eliminates fluff, and keeps engagement high. Script structure: The Hook (0–30s) : confirm the title promise immediately, do not delay; The Meat (30s–6m) : deliver 3 actionable points with visual examples or demonstrations; The Payoff (6m–7m) : final synthesis and recommendation for the next video to watch. Remove every sentence that does not serve the viewer.',
   'Every second of your script must earn its place. If a sentence does not teach, demonstrate, or progress, cut it.'
 )
 on conflict (course_id, slug) do update set
@@ -657,7 +657,7 @@ values (
   'lesson-7',
   'The YouTube Partner Program (YPP) Requirements',
   7, 'text', 'paid', 'published', 4,
-  'Understand official YPP thresholds: 1,000 subscribers and 4,000 public watch hours in the past 12 months (or 10 million Shorts views), plus an AdSense account and no active Community Guideline strikes. Important: thresholds change. Always verify current requirements directly on the official YouTube Help Center (support.google.com/youtube). Completing this course does not guarantee monetization approval — only original, policy-compliant content can do that.',
+  'Understand official YPP thresholds: 1,000 subscribers and 4,000 public watch hours in the past 12 months (or 10 million Shorts views), plus an AdSense account and no active Community Guideline strikes. Important: thresholds change. Always verify current requirements directly on the official YouTube Help Center (support.google.com/youtube). Completing this course does not guarantee monetization approval : only original, policy-compliant content can do that.',
   'Policy notice: YouTube monetization thresholds are reviewed periodically and may change. Always confirm current requirements at the official YouTube Help Center before making decisions.'
 )
 on conflict (course_id, slug) do update set
@@ -679,7 +679,7 @@ values (
   'lesson-8',
   'Copyright, Fair Use, and Avoiding Content Strikes',
   8, 'text', 'paid', 'published', 5,
-  'Understand copyright protection, fair use boundaries, and how to source music safely. Using popular commercial songs without a license will trigger Content ID claims or copyright strikes. Safe music sources: YouTube Studio Audio Library (free and license-cleared), Epidemic Sound (paid), or original music. Fair use does not protect you from Content ID claims — it is a legal defense, not a shield. When in doubt, do not use the music.',
+  'Understand copyright protection, fair use boundaries, and how to source music safely. Using popular commercial songs without a license will trigger Content ID claims or copyright strikes. Safe music sources: YouTube Studio Audio Library (free and license-cleared), Epidemic Sound (paid), or original music. Fair use does not protect you from Content ID claims : it is a legal defense, not a shield. When in doubt, do not use the music.',
   'A copyright strike can delete your channel. Source only from the YouTube Audio Library or confirmed royalty-free libraries. When in doubt, leave it out.'
 )
 on conflict (course_id, slug) do update set
@@ -724,7 +724,7 @@ values (
   'Disclosing AI-Generated and Altered Content',
   10, 'text', 'paid', 'published', 4,
   'Learn when and how to select the "Altered or synthetic content" label in YouTube Studio when uploading AI-generated media. The label is required when: realistic scenes depict people, places, or events that did not happen; a real person''s voice or face has been digitally generated; footage has been digitally altered to show something misleading. Hiding AI generation risks demonetization, content removal, or channel termination.',
-  'Disclosure is not weakness — it is compliance. Transparent channels build long-term audience trust. Hidden AI content puts your channel at existential risk.'
+  'Disclosure is not weakness : it is compliance. Transparent channels build long-term audience trust. Hidden AI content puts your channel at existential risk.'
 )
 on conflict (course_id, slug) do update set
   module_id = excluded.module_id,
@@ -769,7 +769,7 @@ values (
   'Reading YouTube Analytics as Learning Feedback',
   12, 'text', 'paid', 'published', 4,
   'Analyze audience retention graphs to find exactly where viewers drop off and improve your pacing for future videos. Key metrics: Impressions Click-Through Rate (aim for 4–10%), Average View Duration (aim for 40–60%), Top Traffic Sources (search vs. suggested vs. external). If viewers drop off in the first 30 seconds, your hook needs work. If they drop at 50%, your middle section lost them. Analytics tells you exactly what to fix.',
-  'Every video you upload is a free data point. Analyze the retention curve before scripting your next video — it shows you exactly what your audience wants more of.'
+  'Every video you upload is a free data point. Analyze the retention curve before scripting your next video : it shows you exactly what your audience wants more of.'
 )
 on conflict (course_id, slug) do update set
   module_id = excluded.module_id,
@@ -863,7 +863,7 @@ values (
   'lesson-3',
   'Typography and High-Contrast Readability',
   3, 'text', 'paid', 'published', 4,
-  'Pair 2 legible fonts and maintain strong contrast against backgrounds. Rule 1: never use more than 2 font families on a commercial flyer. Rule 2: dark text on light background, or light text on dark background. Never low-contrast gray on beige. Good pairs: Montserrat Bold (header) + Inter Regular (body); League Spartan (header) + Open Sans (body). Test legibility by zooming out to 25% — if you cannot read it clearly, your client''s customers cannot either.',
+  'Pair 2 legible fonts and maintain strong contrast against backgrounds. Rule 1: never use more than 2 font families on a commercial flyer. Rule 2: dark text on light background, or light text on dark background. Never low-contrast gray on beige. Good pairs: Montserrat Bold (header) + Inter Regular (body); League Spartan (header) + Open Sans (body). Test legibility by zooming out to 25% : if you cannot read it clearly, your client''s customers cannot either.',
   'Two fonts. High contrast. No exceptions. Every design that breaks this rule looks amateur at first glance.'
 )
 on conflict (course_id, slug) do update set
@@ -887,7 +887,7 @@ values (
   'Prompting AI for Specific Graphic Elements and Backgrounds',
   4, 'text', 'paid', 'published', 5,
   'Prompt image generators (Leonardo.ai, Recraft, Bing Image Creator) for isolated background textures, 3D icons, and realistic subjects without messy baked-in text. The critical rule: never ask AI generators to write text on your design. AI generates garbled, misspelled letters. Use AI only for the visual image, then add crisp correct text in Canva. Always append "no text, no letters, no words" to every prompt.',
-  'AI draws images. Canva writes text. Never combine the two tasks — always prompt visuals separately and add typography manually.'
+  'AI draws images. Canva writes text. Never combine the two tasks : always prompt visuals separately and add typography manually.'
 )
 on conflict (course_id, slug) do update set
   module_id = excluded.module_id,
@@ -908,7 +908,7 @@ values (
   'lesson-5',
   'Removing Backgrounds and Cleaning AI Artifacts',
   5, 'text', 'paid', 'published', 4,
-  'Cut out AI-generated subjects cleanly using free background removal tools: Canva free background remover, photoroom.com, or remove.bg. After removing the background, zoom in on edges — fingers, hair strands, bottle corners, fabric seams — and confirm the cutout is clean and not jagged or smudged. Download as PNG with transparent background. A clean cutout on a white design background looks professional; a messy one looks rushed.',
+  'Cut out AI-generated subjects cleanly using free background removal tools: Canva free background remover, photoroom.com, or remove.bg. After removing the background, zoom in on edges : fingers, hair strands, bottle corners, fabric seams : and confirm the cutout is clean and not jagged or smudged. Download as PNG with transparent background. A clean cutout on a white design background looks professional; a messy one looks rushed.',
   'Edge quality is what separates amateur cutouts from professional ones. Always zoom to 200% and inspect edges before using any cutout in a client design.'
 )
 on conflict (course_id, slug) do update set
@@ -953,7 +953,7 @@ values (
   'lesson-7',
   'Designing a Clean Promotional Event or Service Flyer',
   7, 'text', 'paid', 'published', 5,
-  'Combine an AI background, brand color blocks, clear typography, and a prominent WhatsApp CTA in Canva. Canvas size: A5 or 1080x1350 (Vertical Portrait for Instagram). Structure: top 40% — catchy AI visual or clean photo; middle 40% — headline, event or service name, key details in high contrast; bottom 20% — date, location, and green WhatsApp contact badge. Keep the design to 3 colors maximum.',
+  'Combine an AI background, brand color blocks, clear typography, and a prominent WhatsApp CTA in Canva. Canvas size: A5 or 1080x1350 (Vertical Portrait for Instagram). Structure: top 40% : catchy AI visual or clean photo; middle 40% : headline, event or service name, key details in high contrast; bottom 20% : date, location, and green WhatsApp contact badge. Keep the design to 3 colors maximum.',
   'Flyer structure is a formula, not a creative free-for-all. Top: attention. Middle: information. Bottom: action. Apply this order to every flyer you design.'
 )
 on conflict (course_id, slug) do update set
@@ -976,7 +976,7 @@ values (
   'Designing an Instagram or WhatsApp Square Post',
   8, 'text', 'paid', 'published', 4,
   'Balance margins, negative space, and single-offer clarity in a 1:1 square canvas (1080x1080). Rule of Margins: never place text closer than 60px from any edge. Allow the design to breathe. Each square post should communicate one single offer or message. If you are trying to put two offers on one square post, design two separate posts.',
-  'Negative space is not empty space — it is breathing room that draws attention to what matters. Respect the 60px margin rule on every edge.'
+  'Negative space is not empty space : it is breathing room that draws attention to what matters. Respect the 60px margin rule on every edge.'
 )
 on conflict (course_id, slug) do update set
   module_id = excluded.module_id,
@@ -1042,7 +1042,7 @@ values (
   'lesson-11',
   'Choosing the Right File Formats and Sizes',
   11, 'text', 'paid', 'published', 4,
-  'Export web-optimized, crisp files without blurry pixelation or bloated file sizes. Format guide: PNG — best for social media posts with sharp text and solid colors; JPEG — best for complex photographic images to keep file sizes small; PDF Print — best for flyers going to a physical print shop. For WhatsApp and Instagram: export PNG at 1x. For print: export PDF at 300 DPI. Never send a JPEG with low quality compression to a client for a printed flyer.',
+  'Export web-optimized, crisp files without blurry pixelation or bloated file sizes. Format guide: PNG : best for social media posts with sharp text and solid colors; JPEG : best for complex photographic images to keep file sizes small; PDF Print : best for flyers going to a physical print shop. For WhatsApp and Instagram: export PNG at 1x. For print: export PDF at 300 DPI. Never send a JPEG with low quality compression to a client for a printed flyer.',
   'The right format is part of a professional handover. Always ask the client where the design will be used before choosing your export format.'
 )
 on conflict (course_id, slug) do update set

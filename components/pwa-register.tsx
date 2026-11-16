@@ -41,7 +41,7 @@ export default function PwaRegister() {
         // Listen for the new SW activating
         navigator.serviceWorker.addEventListener('message', (event) => {
           if (event.data?.type === 'SW_UPDATED') {
-            console.log('[PWA] New version activated — reloading')
+            console.log('[PWA] New version activated : reloading')
             window.location.reload()
           }
         })
@@ -50,7 +50,7 @@ export default function PwaRegister() {
         const checkForUpdate = () => {
           if (registration) {
             registration.update().catch(() => {
-              // Silently ignore — offline or network error
+              // Silently ignore : offline or network error
             })
           }
         }

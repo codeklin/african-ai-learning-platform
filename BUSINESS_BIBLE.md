@@ -1,4 +1,4 @@
-ItuwaAfrica — BUSINESS BIBLE & TECHNICAL PROJECT DOCUMENTATION
+ItuwaAfrica: BUSINESS BIBLE & TECHNICAL PROJECT DOCUMENTATION
 Version: 1.0
 Status: Founding specification
 Initial market: Nigeria

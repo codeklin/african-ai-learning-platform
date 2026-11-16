@@ -327,7 +327,9 @@ export default function LessonLmsPlayer({
                 {lesson.body && (
                   <div className="lms-body-card">
                     <div className="lms-body-prose">
-                      <p>{lesson.body}</p>
+                      {lesson.body.split(/\n\n|\.\s+/).filter(Boolean).map((para, idx) => (
+                        <p key={idx}>{para.trim().replace(/:/g, ':')}</p>
+                      ))}
                     </div>
                   </div>
                 )}

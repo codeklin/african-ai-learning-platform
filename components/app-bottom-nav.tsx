@@ -13,7 +13,7 @@ const items: { id: NavItem; label: string; href: string; Icon: typeof LayoutDash
 ]
 
 /**
- * Fixed bottom navigation bar — only visible on mobile (≤768px).
+ * Fixed bottom navigation bar : only visible on mobile (≤768px).
  * Mirrors the standard Play Store / App Store app chrome pattern.
  */
 export default function AppBottomNav({ active }: { active: NavItem }) {

@@ -390,11 +390,11 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
                 </div>
                 <p className="price-tagline">Choose a practical skill to develop next.</p>
                 <ul>
-                  <li><Check size={15} /> AI Video Creation — ₦6,400 <span className="price-naira">≈ $4</span></li>
-                  <li><Check size={15} /> AI Content Marketing for Business — ₦15,000 <span className="price-naira">≈ $10</span></li>
-                  <li><Check size={15} /> AI Web App Development — ₦20,000 <span className="price-naira">≈ $13</span></li>
-                  <li><Check size={15} /> YouTube Monetization — ₦10,000 <span className="price-naira">≈ $7</span></li>
-                  <li><Check size={15} /> AI Graphic Design — ₦6,400 <span className="price-naira">≈ $4</span></li>
+                  <li><Check size={15} /> AI Video Creation : ₦6,400 <span className="price-naira">≈ $4</span></li>
+                  <li><Check size={15} /> AI Content Marketing for Business : ₦15,000 <span className="price-naira">≈ $10</span></li>
+                  <li><Check size={15} /> AI Web App Development : ₦20,000 <span className="price-naira">≈ $13</span></li>
+                  <li><Check size={15} /> YouTube Monetization : ₦10,000 <span className="price-naira">≈ $7</span></li>
+                  <li><Check size={15} /> AI Graphic Design : ₦6,400 <span className="price-naira">≈ $4</span></li>
                 </ul>
                 <Link className="price-btn--paid" href="/courses">
                   <span>View course details</span>
@@ -504,7 +504,7 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
         className="whatsapp-float"
         aria-label="Chat with us on WhatsApp"
       >
-        {/* WhatsApp SVG icon — no external dependency */}
+        {/* WhatsApp SVG icon : no external dependency */}
         <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <circle cx="16" cy="16" r="16" fill="#25D366"/>
           <path

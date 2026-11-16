@@ -1,4 +1,4 @@
--- ituwaAfrica — full schema (single-file, idempotent)
+-- ituwaAfrica : full schema (single-file, idempotent)
 -- Run this once in the Supabase SQL editor on a fresh project.
 -- Covers: auth, profiles, courses, modules, lessons,
 --         enrollments, lesson_progress, RLS, triggers, seed data.
@@ -35,7 +35,7 @@ exception when duplicate_object then null; end $$;
 -- 2. HELPER FUNCTIONS (table-independent only)
 -- ════════════════════════════════════════════════════════════════
 
--- updated_at stamp (no table dependency — safe to create early)
+-- updated_at stamp (no table dependency : safe to create early)
 create or replace function public.set_updated_at()
 returns trigger language plpgsql as $$
 begin
@@ -328,7 +328,7 @@ create policy "Paid lessons readable by enrolled users"
 -- ════════════════════════════════════════════════════════════════
 -- 8. LESSON PROGRESS
 -- ════════════════════════════════════════════════════════════════
--- lesson_id is a uuid FK to lessons — consistent with database.types.ts
+-- lesson_id is a uuid FK to lessons : consistent with database.types.ts
 create table if not exists public.lesson_progress (
   id           uuid        primary key default gen_random_uuid(),
   user_id      uuid        not null references public.profiles(id) on delete cascade,
@@ -515,7 +515,7 @@ values
 on conflict (slug) do nothing;
 
 
--- ── 9B. Modules — AI Toolkit course ─────────────────────────────
+-- ── 9B. Modules : AI Toolkit course ─────────────────────────────
 insert into public.modules (id, course_id, title, position)
 values
   ('22222222-0000-0000-0000-000000000001', '11111111-0000-0000-0000-000000000001', 'Getting oriented',      1),
@@ -523,7 +523,7 @@ values
   ('22222222-0000-0000-0000-000000000003', '11111111-0000-0000-0000-000000000001', 'Put it into practice',  3)
 on conflict do nothing;
 
--- Modules — Prompting for Better Work
+-- Modules : Prompting for Better Work
 insert into public.modules (id, course_id, title, position)
 values
   ('22222222-0000-0000-0000-000000000004', '11111111-0000-0000-0000-000000000002', 'The shape of a prompt',    1),
@@ -531,7 +531,7 @@ values
   ('22222222-0000-0000-0000-000000000006', '11111111-0000-0000-0000-000000000002', 'A repeatable practice',    3)
 on conflict do nothing;
 
--- Modules — YouTube Business Fundamentals (single module)
+-- Modules : YouTube Business Fundamentals (single module)
 insert into public.modules (id, course_id, title, position)
 values
   ('22222222-0000-0000-0000-000000000007', '11111111-0000-0000-0000-000000000007', 'Strategy and foundations',    1),
@@ -540,7 +540,7 @@ values
 on conflict do nothing;
 
 
--- ── 9C. Lessons — AI Toolkit (8 lessons) ────────────────────────
+-- ── 9C. Lessons : AI Toolkit (8 lessons) ────────────────────────
 insert into public.lessons (id, course_id, module_id, slug, title, position, lesson_type, access_level, status, read_time_min)
 values
   ('33333333-0000-0000-0000-000000000001', '11111111-0000-0000-0000-000000000001', '22222222-0000-0000-0000-000000000001', 'lesson-1', 'What AI can (and cannot) do',          1, 'text', 'free', 'published', 7),
@@ -553,7 +553,7 @@ values
   ('33333333-0000-0000-0000-000000000008', '11111111-0000-0000-0000-000000000001', '22222222-0000-0000-0000-000000000003', 'lesson-8', 'Your first AI-assisted project',      8, 'text', 'free', 'published', 10)
 on conflict (course_id, slug) do nothing;
 
--- Lessons — Prompting for Better Work (12 lessons)
+-- Lessons : Prompting for Better Work (12 lessons)
 insert into public.lessons (id, course_id, module_id, slug, title, position, lesson_type, access_level, status, read_time_min)
 values
   ('33333333-0000-0000-0000-000000000011', '11111111-0000-0000-0000-000000000002', '22222222-0000-0000-0000-000000000004', 'lesson-1',  'Start with the task',               1, 'text', 'free', 'published', 6),
@@ -570,7 +570,7 @@ values
   ('33333333-0000-0000-0000-000000000022', '11111111-0000-0000-0000-000000000002', '22222222-0000-0000-0000-000000000006', 'lesson-12', 'Your prompting practice review',    12, 'text', 'free', 'published', 8)
 on conflict (course_id, slug) do nothing;
 
--- Lessons — YouTube Business Fundamentals (8 lessons)
+-- Lessons : YouTube Business Fundamentals (8 lessons)
 insert into public.lessons (id, course_id, module_id, slug, title, position, lesson_type, access_level, status, read_time_min)
 values
   ('33333333-0000-0000-0000-000000000031', '11111111-0000-0000-0000-000000000007', '22222222-0000-0000-0000-000000000007', 'lesson-1', 'Define your audience and channel promise',    1, 'text', 'free', 'published', 7),

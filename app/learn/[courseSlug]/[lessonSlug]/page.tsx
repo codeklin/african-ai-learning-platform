@@ -50,7 +50,7 @@ Please give me a clear, practical response that I can apply immediately.`,
       ],
       correctIndex: 1,
       explanation:
-        'AI stands for Artificial Intelligence — computer systems designed to perform tasks that normally require human thinking, such as writing, answering questions and generating images.',
+        'AI stands for Artificial Intelligence : computer systems designed to perform tasks that normally require human thinking, such as writing, answering questions and generating images.',
     },
   },
   'lesson-2': {

@@ -21,7 +21,7 @@ export default function ForgotPasswordForm() {
       redirectTo: `${window.location.origin}/auth/reset-password`,
     })
 
-    // Always show the success state — avoids leaking whether the email exists
+    // Always show the success state : avoids leaking whether the email exists
     if (error && error.message !== 'For security purposes, you can only request this once every 60 seconds') {
       setError('Something went wrong. Please try again.')
       setLoading(false)

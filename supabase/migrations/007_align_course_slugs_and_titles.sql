@@ -1,4 +1,4 @@
--- ituwaAfrica — Align course slugs and titles to match curriculum standards
+-- ituwaAfrica : Align course slugs and titles to match curriculum standards
 -- Run this in the Supabase SQL editor.
 
 -- 1. Align Course 4: AI Web App Development (update slug from build-helpful-ai-app to ai-web-app-development)

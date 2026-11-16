@@ -13,7 +13,7 @@ export async function GET(request: Request) {
     const { error } = await supabase.auth.exchangeCodeForSession(code)
 
     if (!error) {
-      // Password reset emails land here with type=recovery — send to reset page
+      // Password reset emails land here with type=recovery : send to reset page
       if (type === 'recovery') {
         return NextResponse.redirect(new URL('/auth/reset-password', origin))
       }

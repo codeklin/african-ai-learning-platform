@@ -1,4 +1,4 @@
--- ituwaAfrica — Complete Curriculum Seeding Migration
+-- ituwaAfrica : Complete Curriculum Seeding Migration
 -- Run this in the Supabase SQL Editor.
 
 -- ── 1. MODULES ────────────────────────────────────────────────

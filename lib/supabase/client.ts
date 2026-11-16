@@ -3,7 +3,7 @@ import type { Database } from '@/lib/database.types'
 
 /**
  * Browser-side Supabase client for use in Client Components only.
- * Uses the anon key — RLS is enforced.
+ * Uses the anon key : RLS is enforced.
  */
 export function createClient() {
   return createBrowserClient<Database>(

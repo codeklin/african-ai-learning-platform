@@ -1,4 +1,4 @@
-# ituwaAfrica — Complete Course Curriculum & Production Manual
+# ituwaAfrica : Complete Course Curriculum & Production Manual
 **Official Master Document for All 6 Core Courses**
 *Platform: ituwaAfrica (https://ituwa.africa)*
 *Standards: Low-bandwidth, mobile-first, project-centered, simple English.*

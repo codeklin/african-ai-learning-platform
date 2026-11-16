@@ -3,7 +3,7 @@
 The initial course lineup is confirmed:
 
 - **Free:** AI Foundations.
-- **Paid, one-time purchase:** AI Video Creation — USD 4; AI Web App Development — NGN 50,000; YouTube Monetization — NGN 50,000; AI Graphic Design — NGN 50,000.
+- **Paid, one-time purchase:** AI Video Creation : USD 4; AI Web App Development : NGN 50,000; YouTube Monetization : NGN 50,000; AI Graphic Design : NGN 50,000.
 
 Paid courses may be pre-ordered while their content is in development. Learners must be told that no release date is promised and that lessons unlock only after publication and manual payment verification.
 
