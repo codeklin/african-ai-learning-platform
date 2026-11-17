@@ -26,34 +26,6 @@ const featuredAcademies = [
     href: '/courses/ai-video-creation',
     tone: 'orange',
   },
-  {
-    number: '03',
-    title: 'AI Content Marketing',
-    detail: 'Help a business reach the right audience with useful, original content.',
-    href: '/courses/ai-content-marketing-for-business',
-    tone: 'peach',
-  },
-  {
-    number: '04',
-    title: 'AI App Development',
-    detail: 'Build and test a useful AI-powered product for a real business problem.',
-    href: '/courses/ai-web-app-development',
-    tone: 'blue',
-  },
-  {
-    number: '05',
-    title: 'YouTube Monetization',
-    detail: 'Understand creator revenue paths, policies, and original audience value.',
-    href: '/courses/youtube-monetization',
-    tone: 'lime',
-  },
-  {
-    number: '06',
-    title: 'AI Graphic Design',
-    detail: 'Create original visual assets for real client and business needs.',
-    href: '/courses/ai-graphic-design',
-    tone: 'peach',
-  },
 ]
 
 const steps = [
@@ -362,13 +334,16 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
                 </div>
               </div>
               <div className="landing-book-preview">
-                <div className="landing-book-mockup">
-                  <div className="mockup-spine" />
-                  <span className="mockup-kicker">UniqueME 30-DAY SYSTEM</span>
-                  <h4>{BOOK_DATA.title}</h4>
-                  <small>By {BOOK_DATA.author}</small>
-                  <span className="mockup-price">{BOOK_DATA.price}</span>
-                </div>
+                <Link href="/book" className="landing-book-cover-link" aria-label={`Read more about ${BOOK_DATA.title}`}>
+                  <Image
+                    src={BOOK_DATA.coverImage}
+                    alt={BOOK_DATA.title}
+                    width={240}
+                    height={360}
+                    className="landing-book-cover-img"
+                    priority
+                  />
+                </Link>
               </div>
             </div>
           </div>
@@ -402,9 +377,9 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
                 </div>
                 <p className="price-tagline">Start with a practical, free introduction to AI.</p>
                 <ul>
-                  <li><Check size={15} /> One free AI Foundations course</li>
-                  <li><Check size={15} /> Practical lessons and exercises</li>
-                  <li><Check size={15} /> A clear starting point before specialist courses</li>
+                  <li><Check size={15} /> <span>One free AI Foundations course</span></li>
+                  <li><Check size={15} /> <span>Practical lessons and exercises</span></li>
+                  <li><Check size={15} /> <span>A clear starting point before specialist courses</span></li>
                 </ul>
                 <Link className="price-btn--free" href="/courses">
                   <span>Explore AI Foundations</span>
@@ -427,9 +402,15 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
                   {PAID_COURSE_PRODUCTS.map((course) => {
                     const p = formatDualPrice(getActivePrice(course))
                     return (
-                      <li key={course.slug}>
-                        <Check size={15} /> {course.title} : {p.nairaText}
-                        {p.usdText && <span className="price-naira"> {p.usdText}</span>}
+                      <li key={course.slug} className="price-course-row">
+                        <div className="price-course-info">
+                          <Check size={15} />
+                          <span>{course.title}</span>
+                        </div>
+                        <span className="price-course-tag">
+                          {p.nairaText}
+                          {p.usdText && <small className="price-usd-sub"> ({p.usdText})</small>}
+                        </span>
                       </li>
                     )
                   })}
@@ -453,9 +434,9 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
                 </div>
                 <p className="price-tagline">Work directly with a mentor on your learning goals.</p>
                 <ul>
-                  <li><MessageCircle size={15} /> Get help choosing a learning direction</li>
-                  <li><MessageCircle size={15} /> Ask for feedback on a project or draft</li>
-                  <li><MessageCircle size={15} /> Discuss how to apply a skill to a practical task</li>
+                  <li><MessageCircle size={15} /> <span>Get help choosing a learning direction</span></li>
+                  <li><MessageCircle size={15} /> <span>Ask for feedback on a project or draft</span></li>
+                  <li><MessageCircle size={15} /> <span>Discuss how to apply a skill to a practical task</span></li>
                 </ul>
                 <a
                   className="price-btn--mentorship"

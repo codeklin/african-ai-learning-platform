@@ -2729,7 +2729,7 @@ a.skip-link:focus { top:0; }
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  gap: 16px;
+  gap: 20px;
   width: 100%;
 }
 .price-card--free {
@@ -2748,6 +2748,25 @@ a.skip-link:focus { top:0; }
   border: 1.5px solid rgba(232, 106, 88, 0.5);
   background: #382116;
   box-shadow: 0 16px 44px rgba(0, 0, 0, 0.45);
+}
+
+/* Tablet & Mobile Single-Column Rule (≤980px) per AGENTS.md */
+@media (max-width: 980px) {
+  .pricing-cards-column,
+  .pricing-cards-grid {
+    flex-direction: column !important;
+    gap: 24px !important;
+    width: 100% !important;
+  }
+  .price-card--free,
+  .price-card--paid,
+  .price-card--mentorship,
+  .price-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: none !important;
+    box-sizing: border-box !important;
+  }
 }
 .paid-tag {
   padding: 5px 12px;
@@ -2790,6 +2809,119 @@ a.skip-link:focus { top:0; }
 .price-period {
   font-size: 14px;
   color: #C4B5A8;
+}
+
+.price-card ul {
+  list-style: none;
+  padding: 16px 0;
+  margin: 14px 0 16px;
+  border-top: 1px solid #543426;
+  border-bottom: 1px solid #543426;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.price-card li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #FAF5EE;
+}
+.price-card li svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: #3DA872;
+}
+.price-card--mentorship li svg {
+  color: #E86A58;
+}
+
+.price-course-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+.price-course-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+.price-course-info svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: #3DA872;
+}
+.price-course-info span {
+  font-size: 14px;
+  font-weight: 600;
+  color: #FAF5EE;
+  line-height: 1.4;
+  word-break: break-word;
+}
+.price-course-tag {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #FFBA38;
+  background: rgba(255, 186, 56, 0.12);
+  border: 1px solid rgba(255, 186, 56, 0.25);
+  padding: 3px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.price-usd-sub {
+  font-size: 11px;
+  font-weight: 600;
+  color: #C4B5A8;
+}
+
+@media (max-width: 680px) {
+  .pricing-section {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+  .pricing-inner {
+    padding-top: 48px !important;
+    padding-bottom: 100px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .price-card {
+    padding: 24px 18px !important;
+    border-radius: 20px !important;
+  }
+  .price-top {
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+  }
+  .price-amount {
+    margin: 10px 0 8px !important;
+    flex-wrap: wrap !important;
+    align-items: baseline !important;
+    gap: 6px !important;
+  }
+  .price-val {
+    font-size: clamp(30px, 8vw, 40px) !important;
+    letter-spacing: -1px !important;
+  }
+  .price-course-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .price-course-tag {
+    margin-left: 25px;
+  }
 }
 
 /* Senior UI/UX Button Hierarchy */
@@ -5945,48 +6077,28 @@ button.lms-sidebar-item {
 .landing-book-preview {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
-.landing-book-mockup {
-  width: 240px;
-  min-height: 320px;
-  background: #2C1A12;
-  color: #FAF5EE;
-  border-radius: 14px;
-  padding: 24px 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  box-shadow: 0 16px 40px rgba(44, 26, 18, 0.22);
-  border-left: 5px solid #E86A58;
+.landing-book-cover-link {
+  display: inline-block;
+  line-height: 0;
+  border-radius: 16px;
+  box-shadow: 0 18px 45px rgba(44, 26, 18, 0.28);
   transform: rotate(2deg);
-  transition: transform 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  overflow: hidden;
 }
-.landing-book-mockup:hover {
-  transform: rotate(0deg) scale(1.02);
+.landing-book-cover-link:hover {
+  transform: rotate(0deg) scale(1.03);
+  box-shadow: 0 24px 55px rgba(44, 26, 18, 0.38);
 }
-.mockup-kicker {
-  font-size: 10px;
-  font-weight: 800;
-  color: #FFBA38;
-  letter-spacing: 0.1em;
-}
-.landing-book-mockup h4 {
-  font-size: 20px;
-  font-weight: 800;
-  line-height: 1.25;
-  color: #FAF5EE;
-  margin: 12px 0 4px;
-}
-.landing-book-mockup small {
-  font-size: 12px;
-  color: #BDB0A4;
-}
-.mockup-price {
-  font-size: 18px;
-  font-weight: 800;
-  color: #FFBA38;
-  align-self: flex-end;
+.landing-book-cover-img {
+  width: 240px;
+  height: auto;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  display: block;
+  border-radius: 16px;
 }
 
 /* ── /book Dedicated Route Styling ── */
@@ -6486,6 +6598,9 @@ button.lms-sidebar-item {
   }
   .landing-book-preview {
     order: -1;
+  }
+  .landing-book-cover-img {
+    width: 200px;
   }
   .book-hero-inner {
     grid-template-columns: 1fr;
