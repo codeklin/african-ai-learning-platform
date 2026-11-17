@@ -426,7 +426,7 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
                 </ul>
                 <a
                   className="price-btn--mentorship"
-                  href="https://wa.me/2347031098097?text=Hi%2C%20I%27d%20like%20to%20ask%20about%20personal%20mentorship%20with%20ituwaAfrica."
+                  href="https://wa.me/2347018643642?text=Hi%2C%20I%27d%20like%20to%20ask%20about%20personal%20mentorship%20with%20ituwaAfrica."
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -503,7 +503,7 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
 
       {/* ── WhatsApp floating button ── */}
       <a
-        href="https://wa.me/2347031098097?text=Hi%20ituwaAfrica%2C%20I%20have%20a%20question."
+        href="https://wa.me/2347018643642?text=Hi%20ituwaAfrica%2C%20I%20have%20a%20question."
         target="_blank"
         rel="noopener noreferrer"
         className="whatsapp-float"

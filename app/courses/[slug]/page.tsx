@@ -167,7 +167,7 @@ const courses: Record<string, {
 type CourseSlug = keyof typeof courses
 const creatorLessons = ['Define your audience and channel promise', 'Research topics and validate demand', 'Build a distinctive channel identity', 'Plan a useful publishing rhythm', 'Create an original video outline', 'Produce and package your video', 'Review audience signals and analytics', 'Evaluate rights, policy, and next steps']
 
-const WHATSAPP_NUMBER = '2347031098097'
+const WHATSAPP_NUMBER = '2347018643642'
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
