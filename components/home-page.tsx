@@ -8,6 +8,7 @@ import Brand from '@/components/brand'
 import AppBottomNav from '@/components/app-bottom-nav'
 import { useUser } from '@/hooks/use-user'
 import { PAID_COURSE_PRODUCTS, getActivePrice, formatDualPrice } from '@/lib/course-products'
+import { BOOK_DATA } from '@/data/book'
 import type { User } from '@supabase/supabase-js'
 
 const featuredAcademies = [
@@ -91,6 +92,7 @@ function SiteHeader({ isAuthenticated }: { isAuthenticated: boolean }) {
         <nav id="primary-navigation" className={open ? 'main-nav is-open' : 'main-nav'} aria-label="Main navigation">
           <Link onClick={() => setOpen(false)} href="/courses">Explore courses</Link>
           <Link onClick={() => setOpen(false)} href="/quiz">Skill Assessment</Link>
+          <Link onClick={() => setOpen(false)} href="/book">Book</Link>
           <a onClick={() => setOpen(false)} href="#academies">Courses</a>
           <a onClick={() => setOpen(false)} href="#how-it-works">How it works</a>
           <a onClick={() => setOpen(false)} href="#pricing">Mentorship</a>
@@ -341,6 +343,37 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
           </div>
         </section>
 
+        {/* ── Book Teaser Section ── */}
+        <section className="landing-book-section">
+          <div className="section landing-book-inner">
+            <div className="landing-book-card">
+              <div className="landing-book-copy">
+                <span className="book-teaser-kicker">NEW PUBLICATION</span>
+                <h2>{BOOK_DATA.landingTeaser.headline}</h2>
+                <p>{BOOK_DATA.landingTeaser.body}</p>
+                <div className="landing-book-actions">
+                  <Link href="/book" className="button button-dark">
+                    <span>{BOOK_DATA.landingTeaser.buttonText}</span>
+                    <ArrowRight size={15} />
+                  </Link>
+                  <span className="landing-book-badge">
+                    {BOOK_DATA.formats} · {BOOK_DATA.price}
+                  </span>
+                </div>
+              </div>
+              <div className="landing-book-preview">
+                <div className="landing-book-mockup">
+                  <div className="mockup-spine" />
+                  <span className="mockup-kicker">UniqueME 30-DAY SYSTEM</span>
+                  <h4>{BOOK_DATA.title}</h4>
+                  <small>By {BOOK_DATA.author}</small>
+                  <span className="mockup-price">{BOOK_DATA.price}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* ── 5. Free learning and personal mentorship ── */}
         <section id="pricing" className="pricing-section">
           <div className="section pricing-inner">
@@ -473,6 +506,7 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
               <span>EXPLORE</span>
               <Link href="/courses">Courses</Link>
               <Link href="/quiz">Skill Assessment</Link>
+              <Link href="/book">Book</Link>
               <a href="#academies">Courses</a>
               <a href="#pricing">Mentorship</a>
             </div>
