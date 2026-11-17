@@ -77,7 +77,7 @@ export const BOOK_DATA: BookConfig = {
   subtitle: 'The UniqueME 30-Day System for Finding and Protecting Your Voice',
   author: 'Olajide Igbalaye',
   publisher: 'OlajideAI Labs, copyright 2026',
-  price: '$20',
+  price: '₦5,500 ($4)',
   formats: 'PDF and EPUB',
   coverImage: '/uniqueme-cover.png',
   authorImage: '/headshot.png',
@@ -93,7 +93,7 @@ export const BOOK_DATA: BookConfig = {
     headline: 'Stop sounding like everyone else.',
     subhead:
       'A 30-day system for finding your voice and protecting it, written by someone who copied people for results and got none.',
-    badge: '$20. PDF and EPUB. Instant download.',
+    badge: '₦5,500 ($4) · PDF and EPUB · Instant download',
   },
 
   sections: {
@@ -132,29 +132,30 @@ export const BOOK_DATA: BookConfig = {
 
     tableOfContents: {
       title: 'What Is Inside',
-      note: 'The 30-day blueprint broken down into daily practices, field tests, and voice boundaries.',
+      note: 'A preview of 3 core chapters from the 30-day blueprint. The complete digital package includes all 10 chapters, daily writing reps, and voice boundary exercises.',
       chapters: [
-        { number: 'Intro', title: 'Introduction', page: '5' },
-        { number: 'Guide', title: 'How to Use This Book', page: '7' },
-        { number: '01', title: 'The Noise Problem', page: '8' },
-        { number: '02', title: 'The Cost of Losing Your Voice', page: '12' },
-        { number: '03', title: 'Choose the Discomfort', page: '17' },
-        { number: '04', title: 'What Uniqueness Actually Means', page: '22' },
-        { number: '05', title: 'The School Nobody Offers', page: '27' },
-        { number: '06', title: 'The Voice Audit', page: '33' },
-        { number: '07', title: 'Building a Point of View', page: '38' },
-        { number: '08', title: 'Staying Distinct', page: '43' },
-        { number: '09', title: 'Turning Voice into Leverage', page: '48' },
-        { number: '10', title: 'The 30-Day UniqueME System', page: '53' },
-        { number: 'Close', title: 'Closing', page: '59' },
-        { number: 'Bio', title: 'About the Author', page: '62' },
+        {
+          number: '01',
+          title: 'The Noise Problem',
+          description: 'Why following standard writing advice makes your work disappear into the internet background.',
+        },
+        {
+          number: '06',
+          title: 'The Voice Audit',
+          description: 'A practical framework to detect when you are editing yourself to sound acceptable rather than honest.',
+        },
+        {
+          number: '10',
+          title: 'The 30-Day UniqueME System',
+          description: 'The step-by-step daily rep protocol to anchor your distinct tone into every post and pitch.',
+        },
       ],
     },
 
     authorBio: {
       title: 'About the Author',
       bio:
-        'Olajide Igbalaye is a software engineer, copywriter, and digital creator with over five years of experience building web applications and writing brand messaging for startups, businesses, and creators. After spending years testing internet formulas, creating content, and experiencing the fatigue of borrowed voices, he developed the UniqueME system to help professionals uncover, sharpen, and protect their distinct perspective in an era of automated noise. He is the founder of Gigsdev and OlajideAI Labs.',
+        'Olajide Igbalaye is a software engineer, copywriter, and digital creator with over 10 years of experience building digital products and writing brand messaging for startups, businesses, and creators. After spending years testing internet formulas, creating content, and experiencing the fatigue of borrowed voices, he developed the UniqueME system to help professionals uncover, sharpen, and protect their distinct perspective in an era of automated noise. He is the founder of Gigsdev and OlajideAI Labs.',
     },
 
     faq: {
@@ -186,7 +187,7 @@ export const BOOK_DATA: BookConfig = {
 
   landingTeaser: {
     headline: 'A book for people who are tired of sounding like everyone.',
-    body: 'Stop Sounding Like Everyone Else. A 30-day system for finding and protecting your voice. $20.',
+    body: 'Stop Sounding Like Everyone Else. A 30-day system for finding and protecting your voice. ₦5,500 ($4).',
     buttonText: 'See the book',
   },
 }

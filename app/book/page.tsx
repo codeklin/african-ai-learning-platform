@@ -4,7 +4,7 @@ import { BOOK_DATA } from '@/data/book'
 
 export const metadata: Metadata = {
   title: `${BOOK_DATA.title} | Book by ${BOOK_DATA.author}`,
-  description: `${BOOK_DATA.subtitle}. A 30-day system for finding and protecting your voice. Available in PDF and EPUB for $20.`,
+  description: `${BOOK_DATA.subtitle}. A 30-day system for finding and protecting your voice. Available in PDF and EPUB for ${BOOK_DATA.price}.`,
   openGraph: {
     title: `${BOOK_DATA.title} | ${BOOK_DATA.author}`,
     description: BOOK_DATA.subtitle,

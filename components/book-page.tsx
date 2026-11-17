@@ -96,7 +96,7 @@ export default function BookPageClient() {
                   rel="noopener noreferrer"
                   className="button button-dark book-store-btn"
                 >
-                  <span>Buy on Nestuge ($20)</span>
+                  <span>Buy on Nestuge ({BOOK_DATA.price})</span>
                   <ExternalLink size={15} />
                 </a>
               </div>
@@ -193,12 +193,20 @@ export default function BookPageClient() {
                     ? String(ch.number).padStart(2, '0')
                     : ch.number}
                 </span>
-                <span className="book-chapter-title">{ch.title}</span>
-                {ch.page && (
-                  <span className="book-chapter-page">p. {ch.page}</span>
-                )}
+                <div className="book-chapter-content">
+                  <span className="book-chapter-title">{ch.title}</span>
+                  {ch.description && (
+                    <p className="book-chapter-desc">{ch.description}</p>
+                  )}
+                </div>
               </div>
             ))}
+          </div>
+
+          <div className="book-chapters-more-note">
+            <span>
+              + Complete 10 chapters, daily field tests, writing worksheets, and voice boundaries included in the full package.
+            </span>
           </div>
         </div>
       </section>
@@ -300,7 +308,7 @@ export default function BookPageClient() {
               rel="noopener noreferrer"
               className="button button-dark"
             >
-              <span>Buy on Nestuge ($20)</span>
+              <span>Buy on Nestuge ({BOOK_DATA.price})</span>
               <ExternalLink size={14} />
             </a>
           </div>
