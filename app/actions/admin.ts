@@ -461,3 +461,100 @@ export async function updateLessonContentAction(payload: UpdateLessonPayload) {
   return { success: true }
 }
 
+export interface BulkLessonUpdateItem {
+  slug?: string
+  position?: number
+  title?: string
+  body?: string
+  takeaway?: string
+  youtubeVideoId?: string
+  accessLevel?: LessonAccess
+  readTimeMin?: number
+}
+
+export async function bulkUpsertCourseLessonsAction(
+  courseId: string,
+  courseSlug: string,
+  items: BulkLessonUpdateItem[]
+) {
+  await assertSuperAdmin()
+  const adminClient: any = await createAdminClient()
+
+  if (!items || items.length === 0) {
+    return { success: false, error: 'No lesson data provided for bulk update.' }
+  }
+
+  // Get current lessons for course to match by slug or position
+  const { data: existingLessons, error: fetchErr } = await adminClient
+    .from('lessons')
+    .select('id, slug, position, course_id, module_id')
+    .eq('course_id', courseId)
+
+  if (fetchErr) {
+    return { success: false, error: `Failed to fetch existing lessons: ${fetchErr.message}` }
+  }
+
+  const existingMapBySlug = new Map<string, any>()
+  const existingMapByPos = new Map<number, any>()
+  for (const l of existingLessons || []) {
+    if (l.slug) existingMapBySlug.set(l.slug.toLowerCase().trim(), l)
+    if (l.position) existingMapByPos.set(l.position, l)
+  }
+
+  let updatedCount = 0
+  const errors: string[] = []
+
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i]
+    const pos = item.position || (i + 1)
+    const slug = (item.slug || `lesson-${pos}`).toLowerCase().trim()
+
+    // Find existing lesson
+    const existing = existingMapBySlug.get(slug) || existingMapByPos.get(pos)
+
+    if (!existing) {
+      errors.push(`Lesson not found for slug "${slug}" or position ${pos}.`)
+      continue
+    }
+
+    const cleanTitle = item.title ? item.title.replace(/—/g, ':').trim() : undefined
+    const cleanBody = item.body ? item.body.replace(/—/g, ':').trim() : undefined
+    const cleanTakeaway = item.takeaway ? item.takeaway.replace(/—/g, ':').trim() : undefined
+
+    const updateFields: Record<string, any> = {
+      updated_at: new Date().toISOString(),
+    }
+
+    if (cleanTitle) updateFields.title = cleanTitle
+    if (cleanBody) updateFields.body = cleanBody
+    if (cleanTakeaway !== undefined) updateFields.takeaway = cleanTakeaway || null
+    if (item.youtubeVideoId !== undefined) updateFields.youtube_video_id = item.youtubeVideoId.trim() || null
+    if (item.accessLevel) updateFields.access_level = item.accessLevel
+    if (item.readTimeMin) updateFields.read_time_min = Number(item.readTimeMin)
+
+    const { error: updateErr } = await adminClient
+      .from('lessons')
+      .update(updateFields)
+      .eq('id', existing.id)
+      .eq('course_id', courseId)
+
+    if (updateErr) {
+      errors.push(`Error updating ${slug}: ${updateErr.message}`)
+    } else {
+      updatedCount++
+    }
+  }
+
+  revalidatePath(`/courses/${courseSlug}`)
+  revalidatePath('/admin/courses')
+  revalidatePath('/admin')
+
+  return {
+    success: updatedCount > 0,
+    updatedCount,
+    totalAttempted: items.length,
+    errors: errors.length > 0 ? errors : undefined,
+  }
+}
+
+

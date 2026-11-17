@@ -5709,9 +5709,10 @@ button.lms-sidebar-item {
   color: #2C1A12;
 }
 
-.admin-lesson-editor-modal {
-  max-width: 980px;
-  width: 95%;
+.admin-lesson-editor-window {
+  max-width: 1040px;
+  width: 96%;
+  height: 90vh;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
@@ -5719,15 +5720,17 @@ button.lms-sidebar-item {
 
 .admin-lesson-editor-body {
   display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 20px;
+  grid-template-columns: 310px 1fr;
+  flex: 1;
+  min-height: 0;
   overflow: hidden;
-  height: calc(85vh - 120px);
+  background: #FAF5EE;
 }
 
 .admin-lesson-editor-sidebar {
+  background: #fff;
   border-right: 1px solid #EADBCE;
-  padding-right: 16px;
+  padding: 16px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -5749,33 +5752,45 @@ button.lms-sidebar-item {
 
 .admin-lesson-picker-item {
   display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid #EADBCE;
-  background: #fff;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1.5px solid #EADBCE;
+  background: #FAF5EE;
   text-align: left;
   cursor: pointer;
   transition: all 0.15s ease;
 }
 .admin-lesson-picker-item:hover {
   border-color: #E86A58;
-  background: #FAF5EE;
+  background: #fff;
+  transform: translateY(-1px);
 }
 .admin-lesson-picker-item.active {
   border-color: #E86A58;
   background: #FDEEE9;
+  box-shadow: 0 4px 12px rgba(232, 106, 88, 0.12);
 }
 
 .admin-lesson-picker-num {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
-  color: #E86A58;
+  color: #2C1A12;
   background: #fff;
-  padding: 2px 6px;
-  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
   border: 1px solid #EADBCE;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.admin-lesson-picker-item.active .admin-lesson-picker-num {
+  background: #E86A58;
+  color: #fff;
+  border-color: #E86A58;
 }
 
 .admin-lesson-picker-meta {
@@ -5796,57 +5811,279 @@ button.lms-sidebar-item {
 .admin-lesson-picker-sub {
   display: block;
   font-size: 11px;
+  font-weight: 600;
   color: #7A6256;
   margin-top: 2px;
 }
 
+.admin-editor-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.admin-editor-tabs-pill {
+  display: inline-flex;
+  background: #FAF5EE;
+  border: 1px solid #EADBCE;
+  border-radius: 12px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.admin-editor-tab-btn {
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  font-size: 12px;
+  font-weight: 700;
+  color: #7A6256;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.admin-editor-tab-btn:hover {
+  color: #2C1A12;
+}
+.admin-editor-tab-btn.active {
+  background: #2C1A12;
+  color: #FAF5EE;
+}
+
+.admin-bulk-textarea {
+  width: 100%;
+  font-family: monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1.5px solid #EADBCE;
+  background: #FAF5EE;
+  color: #2C1A12;
+  resize: vertical;
+}
+.admin-bulk-textarea:focus {
+  outline: none;
+  border-color: #E86A58;
+  background: #fff;
+}
+
+.admin-bulk-status-badge {
+  background: #EEF7EE;
+  border: 1px solid #3DA872;
+  color: #206E46;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin-top: 14px;
+}
+
 .admin-lesson-editor-form-col {
   overflow-y: auto;
-  padding-right: 8px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
 }
 
-.admin-form-row-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
-
-.admin-form-hint {
-  font-size: 11px;
-  color: #7A6256;
-  margin-bottom: 6px;
-  display: block;
+.admin-lesson-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
 .admin-lesson-form-actions {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 20px;
-  padding-top: 16px;
+  margin-top: 24px;
+  padding-top: 20px;
   border-top: 1px solid #EADBCE;
 }
 
 .admin-lesson-loading,
 .admin-lesson-empty,
 .admin-lesson-no-selection {
-  padding: 30px 16px;
+  padding: 40px 20px;
   text-align: center;
   color: #7A6256;
+  font-size: 14px;
+}
+
+/* ── Smart Editorial Prose Styling in LMS Player ───────────────────────── */
+.lms-editorial-prose {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.lms-prose-para {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #2C1A12;
+  margin: 0;
+}
+
+.lms-content-h3 {
+  font-size: 17px;
+  font-weight: 800;
+  color: #E86A58;
+  letter-spacing: -0.01em;
+  margin: 16px 0 4px;
+  text-transform: uppercase;
+}
+
+.lms-steps-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 10px 0;
+}
+
+.lms-step-card {
+  display: flex;
+  gap: 16px;
+  background: #FAF5EE;
+  border: 1px solid #EADBCE;
+  border-radius: 14px;
+  padding: 16px;
+  position: relative;
+  transition: all 0.2s ease;
+}
+.lms-step-card:hover {
+  border-color: #E86A58;
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(44, 26, 18, 0.06);
+}
+
+.lms-step-badge-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.lms-step-pill {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: #2C1A12;
+  color: #FAF5EE;
   font-size: 13px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lms-step-line {
+  width: 2px;
+  flex: 1;
+  background: #EADBCE;
+  margin-top: 8px;
+}
+
+.lms-step-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.lms-step-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #2C1A12;
+  margin: 0 0 4px;
+}
+
+.lms-step-text {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #4A3528;
+  margin: 0;
 }
 
 @media (max-width: 768px) {
+  .admin-lesson-editor-window {
+    height: 94dvh;
+    max-height: 94dvh;
+    border-radius: 20px 20px 0 0;
+  }
   .admin-lesson-editor-body {
     grid-template-columns: 1fr;
-    height: auto;
-    max-height: 75vh;
+    overflow-y: auto;
   }
   .admin-lesson-editor-sidebar {
     border-right: none;
     border-bottom: 1px solid #EADBCE;
-    padding-bottom: 16px;
-    max-height: 200px;
+    max-height: 180px;
+    padding: 12px;
+  }
+  .admin-editor-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.admin-editor-tabs-pill {
+  display: inline-flex;
+  background: #FAF5EE;
+  border: 1px solid #EADBCE;
+  border-radius: 12px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.admin-editor-tab-btn {
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  font-size: 12px;
+  font-weight: 700;
+  color: #7A6256;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.admin-editor-tab-btn:hover {
+  color: #2C1A12;
+}
+.admin-editor-tab-btn.active {
+  background: #2C1A12;
+  color: #FAF5EE;
+}
+
+.admin-bulk-textarea {
+  width: 100%;
+  font-family: monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1.5px solid #EADBCE;
+  background: #FAF5EE;
+  color: #2C1A12;
+  resize: vertical;
+}
+.admin-bulk-textarea:focus {
+  outline: none;
+  border-color: #E86A58;
+  background: #fff;
+}
+
+.admin-bulk-status-badge {
+  background: #EEF7EE;
+  border: 1px solid #3DA872;
+  color: #206E46;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin-top: 14px;
+}
+
+.admin-lesson-editor-form-col {
+    padding: 16px;
   }
 }
+
 

@@ -41,7 +41,9 @@ import {
   grantPaidCourseEnrollmentAction,
   getCourseLessonsAction,
   updateLessonContentAction,
+  bulkUpsertCourseLessonsAction,
   type AdminLessonData,
+  type BulkLessonUpdateItem,
 } from '@/app/actions/admin'
 import type { Profile, Course, CourseStatus, LessonType } from '@/lib/database.types'
 import { PAID_COURSE_PRODUCTS } from '@/lib/course-products'
@@ -123,6 +125,12 @@ export default function AdminDashboardView({
 
   // Lesson Content Editor State
   const [isLessonEditorOpen, setIsLessonEditorOpen] = useState(false)
+  const [editorMode, setEditorMode] = useState<'single' | 'smart-paste' | 'bulk-json'>('single')
+  const [smartPasteText, setSmartPasteText] = useState('')
+  const [bulkJsonText, setBulkJsonText] = useState('')
+  const [isBulkSaving, setIsBulkSaving] = useState(false)
+  const [bulkStatusMsg, setBulkStatusMsg] = useState<string | null>(null)
+
   const [selectedCourseForLessons, setSelectedCourseForLessons] = useState<AdminCourse | null>(null)
   const [courseLessons, setCourseLessons] = useState<AdminLessonData[]>([])
   const [isLoadingLessons, setIsLoadingLessons] = useState(false)
@@ -386,6 +394,153 @@ export default function AdminDashboardView({
       })
     } finally {
       setIsSavingLesson(false)
+      setTimeout(() => setNotification(null), 5000)
+    }
+  }
+
+  // Smart Parser for pasting a complete formatted lesson block
+  const handleApplySmartPaste = () => {
+    if (!smartPasteText.trim()) return
+
+    const text = smartPasteText.trim()
+    let detectedTitle = ''
+    let detectedAccess: 'free' | 'paid' | undefined
+    let detectedVideoId = ''
+    let detectedTakeaway = ''
+    let detectedReadTime = 4
+
+    // Look for Title: / Lesson Title:
+    const titleMatch = text.match(/(?:(?:Lesson\s+)?Title|Heading)\s*:\s*([^\n\r]+)/i)
+    if (titleMatch) {
+      detectedTitle = titleMatch[1].replace(/—/g, ':').trim()
+    }
+
+    // Look for Access: Free / Paid
+    const accessMatch = text.match(/Access(?:\s+Level)?\s*:\s*(free|paid)/i)
+    if (accessMatch) {
+      detectedAccess = accessMatch[1].toLowerCase() as 'free' | 'paid'
+    }
+
+    // Look for YouTube / Video ID:
+    const videoMatch = text.match(/(?:YouTube(?:\s*Video)?\s*ID|Video\s*ID)\s*:\s*([A-Za-z0-9_-]{10,12})/i)
+    if (videoMatch) {
+      detectedVideoId = videoMatch[1].trim()
+    }
+
+    // Look for Read Time:
+    const readTimeMatch = text.match(/(?:Read\s*Time|Duration)\s*:\s*(\d+)/i)
+    if (readTimeMatch) {
+      detectedReadTime = parseInt(readTimeMatch[1], 10) || 4
+    }
+
+    // Look for Key Takeaway:
+    const takeawayMatch = text.match(/(?:Key\s+Takeaway|Summary\s+Takeaway|Takeaway)\s*:\s*([^\n\r]+(?:\n[^\n\r]+)?)/i)
+    if (takeawayMatch) {
+      detectedTakeaway = takeawayMatch[1].replace(/—/g, ':').trim()
+    }
+
+    // Extract body by stripping detected metadata header lines
+    const bodyLines = text.split('\n').filter((line) => {
+      const lower = line.trim().toLowerCase()
+      if (lower.startsWith('lesson title:') || lower.startsWith('title:')) return false
+      if (lower.startsWith('access:') || lower.startsWith('access level:')) return false
+      if (lower.startsWith('youtube:') || lower.startsWith('youtube video id:') || lower.startsWith('video id:')) return false
+      if (lower.startsWith('read time:') || lower.startsWith('duration:')) return false
+      if (lower.startsWith('key takeaway:') || lower.startsWith('summary takeaway:')) return false
+      return true
+    })
+    const extractedBody = bodyLines.join('\n').replace(/—/g, ':').trim()
+
+    setLessonEditForm((prev) => ({
+      ...prev,
+      title: detectedTitle || prev.title,
+      accessLevel: detectedAccess || prev.accessLevel,
+      youtubeVideoId: detectedVideoId || prev.youtubeVideoId,
+      readTimeMin: detectedReadTime || prev.readTimeMin,
+      takeaway: detectedTakeaway || prev.takeaway,
+      body: extractedBody || prev.body,
+    }))
+
+    setEditorMode('single')
+    setSmartPasteText('')
+    setNotification({
+      message: 'Content parsed successfully! Review the populated fields and save.',
+      type: 'success',
+    })
+    setTimeout(() => setNotification(null), 4000)
+  }
+
+  // Bulk JSON/CSV Import Handler
+  const handleRunBulkImport = async () => {
+    if (!selectedCourseForLessons || !bulkJsonText.trim()) return
+
+    setIsBulkSaving(true)
+    setBulkStatusMsg(null)
+
+    try {
+      let parsedItems: BulkLessonUpdateItem[] = []
+      const rawText = bulkJsonText.trim()
+
+      if (rawText.startsWith('[') || rawText.startsWith('{')) {
+        // Parse as JSON array or single JSON object
+        const parsed = JSON.parse(rawText)
+        parsedItems = Array.isArray(parsed) ? parsed : [parsed]
+      } else {
+        // Parse simple CSV (header line: slug/position,title,body,takeaway,access,youtube_id)
+        const lines = rawText.split('\n').map((l) => l.trim()).filter(Boolean)
+        const header = lines[0].toLowerCase()
+        const hasHeader = header.includes('title') || header.includes('slug') || header.includes('body')
+        const dataLines = hasHeader ? lines.slice(1) : lines
+
+        parsedItems = dataLines.map((row, idx) => {
+          // Naive CSV split preserving double quotes
+          const regex = /(?:,|\n|^)("(?:(?:"")*[^"]*)*"|[^",\n]*|(?:\n|$))/g
+          const matches: string[] = []
+          let match
+          while ((match = regex.exec(row)) !== null) {
+            let val = match[1] || ''
+            if (val.startsWith('"') && val.endsWith('"')) {
+              val = val.slice(1, -1).replace(/""/g, '"')
+            }
+            matches.push(val)
+            if (regex.lastIndex >= row.length) break
+          }
+
+          return {
+            position: idx + 1,
+            title: matches[0] || undefined,
+            body: matches[1] || undefined,
+            takeaway: matches[2] || undefined,
+            accessLevel: (matches[3] as any) || undefined,
+            youtubeVideoId: matches[4] || undefined,
+          }
+        })
+      }
+
+      const res = await bulkUpsertCourseLessonsAction(
+        selectedCourseForLessons.id,
+        selectedCourseForLessons.slug,
+        parsedItems
+      )
+
+      if (res.success) {
+        setBulkStatusMsg(`Successfully updated ${res.updatedCount} lesson(s)!`)
+        // Refresh lessons list
+        const refreshRes = await getCourseLessonsAction(selectedCourseForLessons.id)
+        if (refreshRes.success && refreshRes.lessons) {
+          setCourseLessons(refreshRes.lessons)
+        }
+        setNotification({
+          message: `Bulk import completed: ${res.updatedCount} lessons updated.`,
+          type: 'success',
+        })
+      } else {
+        setBulkStatusMsg(res.error || 'Bulk update failed.')
+      }
+    } catch (err: unknown) {
+      setBulkStatusMsg(err instanceof Error ? `Parsing error: ${err.message}` : 'Failed to parse data.')
+    } finally {
+      setIsBulkSaving(false)
       setTimeout(() => setNotification(null), 5000)
     }
   }
@@ -1385,36 +1540,62 @@ export default function AdminDashboardView({
 
         {/* Lesson Content Editor Modal */}
         {isLessonEditorOpen && selectedCourseForLessons && (
-          <div className="admin-modal-overlay" onClick={() => setIsLessonEditorOpen(false)}>
+          <div
+            className="admin-modal-backdrop"
+            role="dialog"
+            aria-modal="true"
+            onClick={() => setIsLessonEditorOpen(false)}
+          >
             <div
-              className="admin-modal-card admin-lesson-editor-modal"
+              className="admin-modal-window admin-lesson-editor-window"
               onClick={(e) => e.stopPropagation()}
             >
               <header className="admin-modal-header">
                 <div>
-                  <span className="admin-modal-kicker">CONTENT MANAGER</span>
-                  <h3 className="admin-modal-title">
-                    {selectedCourseForLessons.title}
-                  </h3>
-                  <p className="admin-modal-subtitle">
-                    Select a lesson on the left to edit its body, prompt instructions, and takeaway.
-                  </p>
+                  <span className="creator-section-kicker">CONTENT MANAGER</span>
+                  <h2>{selectedCourseForLessons.title}</h2>
+                  <p>Edit individual lessons, auto-populate from raw paste, or bulk upload JSON/CSV.</p>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setIsLessonEditorOpen(false)}
-                  className="admin-modal-close"
-                  aria-label="Close modal"
-                >
-                  <X size={18} />
-                </button>
+                <div className="admin-editor-header-actions">
+                  <div className="admin-editor-tabs-pill">
+                    <button
+                      type="button"
+                      onClick={() => setEditorMode('single')}
+                      className={`admin-editor-tab-btn ${editorMode === 'single' ? 'active' : ''}`}
+                    >
+                      Single Lesson
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setEditorMode('smart-paste')}
+                      className={`admin-editor-tab-btn ${editorMode === 'smart-paste' ? 'active' : ''}`}
+                    >
+                      Auto-Populate Paste
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setEditorMode('bulk-json')}
+                      className={`admin-editor-tab-btn ${editorMode === 'bulk-json' ? 'active' : ''}`}
+                    >
+                      Bulk JSON / CSV
+                    </button>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsLessonEditorOpen(false)}
+                    className="admin-modal-close-btn"
+                    aria-label="Close modal"
+                  >
+                    <X size={18} />
+                  </button>
+                </div>
               </header>
 
               <div className="admin-lesson-editor-body">
                 {/* Left side: List of lessons */}
-                <div className="admin-lesson-editor-sidebar">
+                <aside className="admin-lesson-editor-sidebar">
                   <div className="admin-lesson-sidebar-hdr">
-                    <span>COURSE LESSONS ({courseLessons.length})</span>
+                    <span>LESSONS ({courseLessons.length})</span>
                   </div>
                   {isLoadingLessons ? (
                     <div className="admin-lesson-loading">Loading lessons...</div>
@@ -1428,7 +1609,10 @@ export default function AdminDashboardView({
                           <button
                             key={l.id}
                             type="button"
-                            onClick={() => handleSelectLessonForEdit(l)}
+                            onClick={() => {
+                              handleSelectLessonForEdit(l)
+                              if (editorMode === 'bulk-json') setEditorMode('single')
+                            }}
                             className={`admin-lesson-picker-item ${isSelected ? 'active' : ''}`}
                           >
                             <span className="admin-lesson-picker-num">
@@ -1437,7 +1621,7 @@ export default function AdminDashboardView({
                             <div className="admin-lesson-picker-meta">
                               <span className="admin-lesson-picker-title">{l.title}</span>
                               <span className="admin-lesson-picker-sub">
-                                slug: {l.slug} · {l.access_level.toUpperCase()}
+                                {l.access_level.toUpperCase()} · {l.read_time_min || 4}m read
                               </span>
                             </div>
                           </button>
@@ -1445,30 +1629,110 @@ export default function AdminDashboardView({
                       })}
                     </div>
                   )}
-                </div>
+                </aside>
 
-                {/* Right side: Form to edit selected lesson */}
+                {/* Right side: Dynamic Form according to mode */}
                 <div className="admin-lesson-editor-form-col">
-                  {selectedLesson ? (
-                    <form onSubmit={handleSaveLessonContent} className="admin-lesson-form">
-                      <div className="admin-lesson-form-grid">
-                        <div className="admin-form-group">
-                          <label className="admin-form-label">Lesson Title</label>
-                          <input
-                            type="text"
-                            required
-                            value={lessonEditForm.title}
-                            onChange={(e) =>
-                              setLessonEditForm((prev) => ({ ...prev, title: e.target.value }))
-                            }
-                            className="admin-form-input"
-                          />
+                  {editorMode === 'smart-paste' ? (
+                    <div className="creator-form-section">
+                      <span className="creator-section-kicker">SMART AI EXTRACTOR</span>
+                      <h3>Paste Full Lesson Text</h3>
+                      <p className="admin-form-hint">
+                        Paste your ChatGPT output. The system automatically extracts <b>Title</b>, <b>Access Level</b>, <b>Video ID</b>, <b>Takeaway</b>, and <b>Body</b> into their proper inputs.
+                      </p>
+                      <textarea
+                        rows={14}
+                        value={smartPasteText}
+                        onChange={(e) => setSmartPasteText(e.target.value)}
+                        placeholder={`Paste text here, for example:\n\nLesson Title: The 45-Second Hook Rule\nAccess: Free\nVideo ID: smWSKscrJ1k\n\nTHE BIG IDEA:\nExplain the core concept...\n\nSTEP-BY-STEP:\nPart 1: The opening...\nPart 2: The insight...\n\nKey Takeaway: Hook viewers in the first 4 seconds.`}
+                        className="admin-bulk-textarea"
+                      />
+                      <div className="admin-lesson-form-actions">
+                        <button
+                          type="button"
+                          onClick={() => setEditorMode('single')}
+                          className="table-action-btn"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleApplySmartPaste}
+                          disabled={!smartPasteText.trim()}
+                          className="button button-dark"
+                        >
+                          <Check size={16} />
+                          <span>Extract & Auto-Populate Inputs</span>
+                        </button>
+                      </div>
+                    </div>
+                  ) : editorMode === 'bulk-json' ? (
+                    <div className="creator-form-section">
+                      <span className="creator-section-kicker">BULK DATA SYNC</span>
+                      <h3>Bulk Update Lessons (JSON or CSV)</h3>
+                      <p className="admin-form-hint">
+                        Update all lessons at once. Paste a JSON array of lessons or CSV rows with position, title, body, and takeaway.
+                      </p>
+                      <textarea
+                        rows={14}
+                        value={bulkJsonText}
+                        onChange={(e) => setBulkJsonText(e.target.value)}
+                        placeholder={`JSON Array format:\n[\n  {\n    "position": 1,\n    "title": "Finding Your Purpose",\n    "body": "Detailed lesson content...",\n    "takeaway": "Define audience first.",\n    "accessLevel": "free"\n  },\n  {\n    "position": 2,\n    "title": "Writing the 45s Script",\n    "body": "Step 1: Hook...",\n    "takeaway": "Target 90 to 110 words.",\n    "accessLevel": "paid"\n  }\n]`}
+                        className="admin-bulk-textarea"
+                      />
+                      {bulkStatusMsg && (
+                        <div className="admin-bulk-status-badge">
+                          {bulkStatusMsg}
                         </div>
+                      )}
+                      <div className="admin-lesson-form-actions">
+                        <button
+                          type="button"
+                          onClick={() => setEditorMode('single')}
+                          className="table-action-btn"
+                        >
+                          Back to Single Editor
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handleRunBulkImport}
+                          disabled={isBulkSaving || !bulkJsonText.trim()}
+                          className="button button-dark"
+                        >
+                          {isBulkSaving ? (
+                            <span>Saving in Bulk...</span>
+                          ) : (
+                            <>
+                              <Check size={16} />
+                              <span>Execute Bulk Update</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                  ) : selectedLesson ? (
+                    <form onSubmit={handleSaveLessonContent} className="admin-lesson-form">
+                      <div className="creator-form-section">
+                        <span className="creator-section-kicker">LESSON {String(selectedLesson.position).padStart(2, '0')}</span>
+                        <h3>Lesson Details</h3>
+                        <div className="creator-form-grid">
+                          <div className="creator-form-field col-span-2">
+                            <label htmlFor="edit-lesson-title">Lesson Title *</label>
+                            <input
+                              id="edit-lesson-title"
+                              type="text"
+                              required
+                              value={lessonEditForm.title}
+                              onChange={(e) =>
+                                setLessonEditForm((prev) => ({ ...prev, title: e.target.value }))
+                              }
+                            />
+                          </div>
 
-                        <div className="admin-form-row-2">
-                          <div className="admin-form-group">
-                            <label className="admin-form-label">Access Level</label>
+                          <div className="creator-form-field">
+                            <label htmlFor="edit-access-level">Access Level</label>
                             <select
+                              id="edit-access-level"
                               value={lessonEditForm.accessLevel}
                               onChange={(e) =>
                                 setLessonEditForm((prev) => ({
@@ -1476,15 +1740,16 @@ export default function AdminDashboardView({
                                   accessLevel: e.target.value as 'free' | 'paid',
                                 }))
                               }
-                              className="admin-form-input"
                             >
                               <option value="free">Free Preview</option>
                               <option value="paid">Paid Only</option>
                             </select>
                           </div>
-                          <div className="admin-form-group">
-                            <label className="admin-form-label">Read Time (Minutes)</label>
+
+                          <div className="creator-form-field">
+                            <label htmlFor="edit-read-time">Read Time (Minutes)</label>
                             <input
+                              id="edit-read-time"
                               type="number"
                               min={1}
                               max={60}
@@ -1495,60 +1760,58 @@ export default function AdminDashboardView({
                                   readTimeMin: Number(e.target.value),
                                 }))
                               }
-                              className="admin-form-input"
                             />
                           </div>
-                        </div>
 
-                        <div className="admin-form-group">
-                          <label className="admin-form-label">YouTube Video ID (Optional)</label>
-                          <input
-                            type="text"
-                            placeholder="e.g. Xlbe16Kw49k"
-                            value={lessonEditForm.youtubeVideoId}
-                            onChange={(e) =>
-                              setLessonEditForm((prev) => ({
-                                ...prev,
-                                youtubeVideoId: e.target.value,
-                              }))
-                            }
-                            className="admin-form-input"
-                          />
-                        </div>
+                          <div className="creator-form-field col-span-2">
+                            <label htmlFor="edit-youtube-id">YouTube Video ID (Optional)</label>
+                            <input
+                              id="edit-youtube-id"
+                              type="text"
+                              placeholder="e.g. Xlbe16Kw49k"
+                              value={lessonEditForm.youtubeVideoId}
+                              onChange={(e) =>
+                                setLessonEditForm((prev) => ({
+                                  ...prev,
+                                  youtubeVideoId: e.target.value,
+                                }))
+                              }
+                            />
+                          </div>
 
-                        <div className="admin-form-group">
-                          <label className="admin-form-label">
-                            Lesson Body (Paste ChatGPT Content Here)
-                          </label>
-                          <span className="admin-form-hint">
-                            Em dashes (—) will automatically be converted to colons on save.
-                          </span>
-                          <textarea
-                            rows={12}
-                            required
-                            value={lessonEditForm.body}
-                            onChange={(e) =>
-                              setLessonEditForm((prev) => ({ ...prev, body: e.target.value }))
-                            }
-                            placeholder="Paste the step-by-step simplified lesson content here..."
-                            className="admin-form-textarea"
-                          />
-                        </div>
+                          <div className="creator-form-field col-span-2">
+                            <label htmlFor="edit-lesson-body">Lesson Content *</label>
+                            <small>
+                              Paste your ChatGPT lesson content here. The app formats steps and sections automatically.
+                            </small>
+                            <textarea
+                              id="edit-lesson-body"
+                              rows={10}
+                              required
+                              value={lessonEditForm.body}
+                              onChange={(e) =>
+                                setLessonEditForm((prev) => ({ ...prev, body: e.target.value }))
+                              }
+                              placeholder="Write or paste your detailed, step-by-step lesson here..."
+                            />
+                          </div>
 
-                        <div className="admin-form-group">
-                          <label className="admin-form-label">Key Takeaway Summary</label>
-                          <textarea
-                            rows={3}
-                            value={lessonEditForm.takeaway}
-                            onChange={(e) =>
-                              setLessonEditForm((prev) => ({
-                                ...prev,
-                                takeaway: e.target.value,
-                              }))
-                            }
-                            placeholder="One concise, memorable sentence summarizing the core lesson rule."
-                            className="admin-form-textarea"
-                          />
+                          <div className="creator-form-field col-span-2">
+                            <label htmlFor="edit-takeaway">Key Takeaway</label>
+                            <small>The single most important rule the learner must remember.</small>
+                            <textarea
+                              id="edit-takeaway"
+                              rows={2}
+                              value={lessonEditForm.takeaway}
+                              onChange={(e) =>
+                                setLessonEditForm((prev) => ({
+                                  ...prev,
+                                  takeaway: e.target.value,
+                                }))
+                              }
+                              placeholder="One clear, memorable takeaway sentence."
+                            />
+                          </div>
                         </div>
                       </div>
 
@@ -1580,7 +1843,7 @@ export default function AdminDashboardView({
                     </form>
                   ) : (
                     <div className="admin-lesson-no-selection">
-                      <p>Select a lesson from the list on the left to start editing.</p>
+                      <p>Select a lesson from the left column to view and edit its content.</p>
                     </div>
                   )}
                 </div>

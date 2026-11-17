@@ -56,6 +56,81 @@ export interface LessonInteractiveMeta {
   }
 }
 
+// ── Smart Structured Content Formatter for Top-Tier Learning UX ──
+function FormattedLessonProse({ text }: { text: string }) {
+  if (!text) return null
+
+  // Split on double newlines or structural markers
+  const rawBlocks = text
+    .split(/\n\s*\n/)
+    .map((b) => b.trim())
+    .filter(Boolean)
+
+  return (
+    <div className="lms-editorial-prose">
+      {rawBlocks.map((block, bIdx) => {
+        // 1. Check if block is a section header (e.g. "1. THE BIG IDEA", "STEP-BY-STEP WALKTHROUGH", "THE HOOK:")
+        const isHeading =
+          /^((\d+\.)|Part\s+\d+|Step\s+\d+|Rule\s+\d+|Section\s+\d+|[A-Z\s]{4,}[:\-])/i.test(block) &&
+          block.length < 80 &&
+          !block.includes('.')
+
+        if (isHeading) {
+          return (
+            <h3 key={bIdx} className="lms-content-h3">
+              {block.replace(/:/g, ':')}
+            </h3>
+          )
+        }
+
+        // 2. Check if block contains numbered or sequential parts (e.g. "Part 1:", "Step 1:", "Rule 1:")
+        const hasParts = /(?:(?:Part|Step|Rule|Scene)\s+\d+[:\s]|(?:\d+\.\s+[A-Z]))/i.test(block)
+
+        if (hasParts) {
+          // Split on "Part X:", "Step X:", "Scene X:", or numbered lists
+          const items = block
+            .split(/(?=(?:Part\s+\d+|Step\s+\d+|Scene\s+\d+|Rule\s+\d+|\d+\.\s+[A-Z]))/i)
+            .map((item) => item.trim())
+            .filter(Boolean)
+
+          if (items.length > 1) {
+            return (
+              <div key={bIdx} className="lms-steps-timeline">
+                {items.map((item, iIdx) => {
+                  // Separate the marker/title from the body description
+                  const match = item.match(/^((?:Part|Step|Scene|Rule)?\s*\d+[\.:]?\s*[^:\n\(\)]*(?:\([^\)]+\))?[:\.]?)\s*(.*)/is)
+                  const stepBadge = match ? match[1].trim() : `Step ${iIdx + 1}`
+                  const stepContent = match && match[2] ? match[2].trim() : item
+
+                  return (
+                    <div key={iIdx} className="lms-step-card">
+                      <div className="lms-step-badge-col">
+                        <span className="lms-step-pill">{String(iIdx + 1).padStart(2, '0')}</span>
+                        {iIdx < items.length - 1 && <span className="lms-step-line" />}
+                      </div>
+                      <div className="lms-step-details">
+                        <h4 className="lms-step-title">{stepBadge.replace(/:/g, '')}</h4>
+                        {stepContent && <p className="lms-step-text">{stepContent}</p>}
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            )
+          }
+        }
+
+        // 3. Regular Clean Paragraph
+        return (
+          <p key={bIdx} className="lms-prose-para">
+            {block}
+          </p>
+        )
+      })}
+    </div>
+  )
+}
+
 interface LessonLmsPlayerProps {
   course: Pick<Course, 'id' | 'title' | 'slug' | 'academy' | 'access'>
   lesson: Lesson
@@ -326,11 +401,7 @@ export default function LessonLmsPlayer({
                 {/* Lesson Main Body Card */}
                 {lesson.body && (
                   <div className="lms-body-card">
-                    <div className="lms-body-prose">
-                      {lesson.body.split(/\n\n|\.\s+/).filter(Boolean).map((para, idx) => (
-                        <p key={idx}>{para.trim().replace(/:/g, ':')}</p>
-                      ))}
-                    </div>
+                    <FormattedLessonProse text={lesson.body} />
                   </div>
                 )}
 
