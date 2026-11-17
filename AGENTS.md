@@ -88,7 +88,6 @@ Use server actions or route handlers for authorized server-side mutations.
 Supabase Auth is the authentication source of truth.
 Application roles:
 learner
-instructor
 admin
 Roles must never be trusted from client-side state or user-editable profile metadata.
 Use a trusted database role assignment mechanism.

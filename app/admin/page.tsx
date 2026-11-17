@@ -70,6 +70,12 @@ export default async function AdminPage() {
       .limit(50),
   ])
 
+  const paidUserIds = new Set(
+    (recentEnrollments ?? [])
+      .filter((e) => e.payment_verified_at)
+      .map((e) => e.user_id)
+  )
+
   return (
     <AdminDashboardView
       userCount={userCount ?? 0}
@@ -80,6 +86,7 @@ export default async function AdminPage() {
       courses={allCourses ?? []}
       adminUserEmail={user.email ?? 'Account email unavailable'}
       initialTab="overview"
+      paidUserIds={paidUserIds}
     />
   )
 }

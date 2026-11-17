@@ -1,4 +1,4 @@
-export type UserRole    = 'learner' | 'instructor' | 'admin'
+export type UserRole    = 'learner' | 'admin'
 export type CourseStatus = 'draft' | 'published' | 'archived'
 export type CourseAccess = 'free' | 'paid' | 'preview'
 export type LessonAccess = 'free' | 'paid' | 'preview'

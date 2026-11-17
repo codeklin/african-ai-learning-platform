@@ -67,6 +67,7 @@ interface AdminDashboardProps {
   courses: AdminCourse[]
   adminUserEmail: string
   initialTab?: string
+  paidUserIds?: Set<string>
 }
 
 type TabType = 'overview' | 'users' | 'enrollments' | 'courses' | 'settings'
@@ -80,13 +81,14 @@ export default function AdminDashboardView({
   courses: initialCourses,
   adminUserEmail,
   initialTab = 'overview',
+  paidUserIds = new Set(),
 }: AdminDashboardProps) {
   const router = useRouter()
   const [activeTab, setActiveTab] = useState<TabType>(initialTab as TabType)
   const [users, setUsers] = useState(initialUsers)
   const [courses, setCourses] = useState(initialCourses)
   const [searchUserQuery, setSearchUserQuery] = useState('')
-  const [roleFilter, setRoleFilter] = useState<'all' | 'learner' | 'instructor' | 'admin'>('all')
+  const [roleFilter, setRoleFilter] = useState<'all' | 'learner' | 'admin'>('all')
   const [searchCourseQuery, setSearchCourseQuery] = useState('')
   const [isExporting, setIsExporting] = useState(false)
   const [updatingCourseId, setUpdatingCourseId] = useState<string | null>(null)
@@ -659,7 +661,7 @@ export default function AdminDashboardView({
                   </div>
 
                   <div className="admin-filter-pills">
-                    {(['all', 'learner', 'instructor', 'admin'] as const).map((r) => (
+                    {(['all', 'learner', 'admin'] as const).map((r) => (
                       <button
                         key={r}
                         onClick={() => setRoleFilter(r)}
@@ -679,6 +681,7 @@ export default function AdminDashboardView({
                         <th>Learner Name</th>
                         <th>Email Address</th>
                         <th>Role Permission</th>
+                        <th>Access</th>
                         <th>Joined</th>
                       </tr>
                     </thead>
@@ -702,6 +705,11 @@ export default function AdminDashboardView({
                             </span>
                           </td>
                           <td>
+                            <span className={paidUserIds.has(u.id) ? 'user-access-badge user-access-badge--paid' : 'user-access-badge user-access-badge--free'}>
+                              {paidUserIds.has(u.id) ? 'Paid' : 'Free'}
+                            </span>
+                          </td>
+                          <td>
                             <span className="table-date">
                               {u.created_at
                                 ? new Date(u.created_at).toLocaleDateString('en-GB')
@@ -712,7 +720,7 @@ export default function AdminDashboardView({
                       ))}
                       {filteredUsers.length === 0 && (
                         <tr>
-                          <td colSpan={4} className="admin-table-empty">
+                          <td colSpan={5} className="admin-table-empty">
                             No learners match your search criteria.
                           </td>
                         </tr>
@@ -737,6 +745,9 @@ export default function AdminDashboardView({
                         </div>
                         <span className={`admin-role-badge admin-role-badge--${u.role ?? 'learner'}`}>
                           {u.role ?? 'learner'}
+                        </span>
+                        <span className={paidUserIds.has(u.id) ? 'user-access-badge user-access-badge--paid' : 'user-access-badge user-access-badge--free'}>
+                          {paidUserIds.has(u.id) ? 'Paid' : 'Free'}
                         </span>
                       </div>
                       <div className="mobile-user-card-foot">

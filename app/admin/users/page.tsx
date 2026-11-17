@@ -41,6 +41,12 @@ export default async function AdminUsersPage() {
     adminClient.from('courses').select('*').order('created_at', { ascending: false }),
   ])
 
+  const paidUserIds = new Set(
+    (recentEnrollments ?? [])
+      .filter((e) => e.payment_verified_at)
+      .map((e) => e.user_id)
+  )
+
   return (
     <AdminDashboardView
       userCount={userCount ?? 0}
@@ -51,6 +57,7 @@ export default async function AdminUsersPage() {
       courses={allCourses ?? []}
       adminUserEmail={user.email ?? 'Account email unavailable'}
       initialTab="users"
+      paidUserIds={paidUserIds}
     />
   )
 }

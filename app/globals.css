@@ -455,8 +455,10 @@ button { color: inherit; font: inherit; }
 .admin-avatar { display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; background:#FDEEE9; color:#D65543; font-size:12px; font-weight:700; margin-right:9px; vertical-align:middle; }
 .admin-role-badge { padding:3px 8px; border-radius:99px; font-size: 12px; font-weight:700; letter-spacing:.3px; }
 .admin-role-badge--admin { background:#ffe4c4; color:#b05a00; }
-.admin-role-badge--instructor { background:#e1edf2; color:#2d6a7f; }
 .admin-role-badge--learner { background:#f0f4d4; color:#596016; }
+.user-access-badge { padding: 3px 10px; border-radius: 99px; font-size: 11px; font-weight: 800; letter-spacing: .4px; }
+.user-access-badge--paid { background: #EEF7EE; color: #1E663B; }
+.user-access-badge--free { background: #F5EDFA; color: #6B3FA0; }
 .admin-table-empty { text-align:center; color:#9a9ba2; padding:24px; }
 .access-denied { min-height:100vh; display:flex; align-items:center; justify-content:center; background:#fbfbf8; }
 .access-denied-card { text-align:center; padding:40px; max-width:380px; }
@@ -1500,7 +1502,6 @@ a.skip-link:focus { top:0; }
 .profile-role-tag { padding: 4px 10px; border-radius: 9999px; font-size: 12px; font-weight: 800; letter-spacing: .5px; }
 .role--learner { background: #EEF7EE; color: #1E663B; }
 .role--admin { background: #FDEEE9; color: #D65543; }
-.role--instructor { background: #EEF3FC; color: #2B5C7D; }
 .profile-email-text, .profile-joined-text { display: flex; align-items: center; gap: 6px; font-size: 14px; color: #6C5950; margin: 4px 0 0; }
 .profile-hero-actions { display: flex; align-items: center; gap: 12px; }
 .profile-action-btn { height: 44px; padding: 0 18px; font-size: 14px; white-space: nowrap; }
