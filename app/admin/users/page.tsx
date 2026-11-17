@@ -24,6 +24,7 @@ export default async function AdminUsersPage() {
     { data: recentUsers },
     { data: recentEnrollments },
     { data: allCourses },
+    { data: paidEnrollments },
   ] = await Promise.all([
     adminClient.from('profiles').select('*', { count: 'exact', head: true }),
     adminClient.from('enrollments').select('*', { count: 'exact', head: true }),
@@ -39,12 +40,14 @@ export default async function AdminUsersPage() {
       .order('enrolled_at', { ascending: false })
       .limit(30),
     adminClient.from('courses').select('*').order('created_at', { ascending: false }),
+    adminClient
+      .from('enrollments')
+      .select('user_id')
+      .not('payment_verified_at', 'is', null),
   ])
 
   const paidUserIds = new Set(
-    (recentEnrollments ?? [])
-      .filter((e) => e.payment_verified_at)
-      .map((e) => e.user_id)
+    (paidEnrollments ?? []).map((e: { user_id: string }) => e.user_id)
   )
 
   return (

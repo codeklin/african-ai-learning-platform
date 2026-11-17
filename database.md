@@ -24,3 +24,56 @@ The project has six tables in `public`:
 - `set_updated_at()` → trigger
 
 **No Edge Functions are deployed.** The row numbers above are table counts; I haven’t listed the actual record contents. If you meant the records themselves, tell me which table(s) to show.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#torun
+-- Drop dependent policies first
+DROP POLICY IF EXISTS "Admins can read all profiles" ON public.profiles;
+DROP POLICY IF EXISTS "Admins can read all enrollments" ON public.enrollments;
+DROP POLICY IF EXISTS "Admins can read all progress" ON public.lesson_progress;
+DROP POLICY IF EXISTS "Admins can read all course payments" ON public.course_payments;
+DROP POLICY IF EXISTS "Admins can read all courses" ON public.courses;
+DROP POLICY IF EXISTS "Admins can insert courses" ON public.courses;
+DROP POLICY IF EXISTS "Admins can update courses" ON public.courses;
+DROP POLICY IF EXISTS "Admins can manage modules" ON public.modules;
+DROP POLICY IF EXISTS "Admins can manage lessons" ON public.lessons;
+
+-- Drop dependent function
+DROP FUNCTION IF EXISTS public.get_user_role(uuid);
+
+-- Swap the enum
+ALTER TYPE user_role RENAME TO user_role_old;
+CREATE TYPE user_role AS ENUM ('learner', 'admin');
+ALTER TABLE public.profiles ALTER COLUMN role DROP DEFAULT;
+ALTER TABLE public.profiles ALTER COLUMN role TYPE user_role USING role::text::user_role;
+ALTER TABLE public.profiles ALTER COLUMN role SET DEFAULT 'learner'::user_role;
+DROP TYPE user_role_old;
+
+-- Recreate function
+CREATE OR REPLACE FUNCTION public.get_user_role(user_id uuid)
+RETURNS user_role LANGUAGE sql STABLE SECURITY DEFINER AS $$
+  SELECT role FROM public.profiles WHERE id = user_id;
+$$;
+
+-- Recreate policies
+CREATE POLICY "Admins can read all profiles" ON public.profiles FOR SELECT USING (public.get_user_role(auth.uid()) = 'admin');
+CREATE POLICY "Admins can read all enrollments" ON public.enrollments FOR SELECT USING (public.get_user_role(auth.uid()) = 'admin');
+CREATE POLICY "Admins can read all progress" ON public.lesson_progress FOR SELECT USING (public.get_user_role(auth.uid()) = 'admin');
+CREATE POLICY "Admins can read all course payments" ON public.course_payments FOR SELECT USING (public.get_user_role(auth.uid()) = 'admin');
+CREATE POLICY "Admins can read all courses" ON public.courses FOR SELECT USING (public.get_user_role(auth.uid()) = 'admin');
+CREATE POLICY "Admins can insert courses" ON public.courses FOR INSERT WITH CHECK (public.get_user_role(auth.uid()) = 'admin');
+CREATE POLICY "Admins can update courses" ON public.courses FOR UPDATE USING (public.get_user_role(auth.uid()) = 'admin');
+CREATE POLICY "Admins can manage modules" ON public.modules FOR ALL USING (public.get_user_role(auth.uid()) = 'admin');
+CREATE POLICY "Admins can manage lessons" ON public.lessons FOR ALL USING (public.get_user_role(auth.uid()) = 'admin');

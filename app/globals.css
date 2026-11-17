@@ -5688,3 +5688,165 @@ button.lms-sidebar-item {
   color: #E86A58;
   margin-bottom: 8px;
 }
+
+/* ── Admin Lesson Content Editor ────────────────────────────────────────── */
+.admin-edit-lessons-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #FDF5E8;
+  border: 1px solid #FFBA38;
+  border-radius: 8px;
+  color: #8C5400;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.admin-edit-lessons-btn:hover {
+  background: #FFBA38;
+  color: #2C1A12;
+}
+
+.admin-lesson-editor-modal {
+  max-width: 980px;
+  width: 95%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-lesson-editor-body {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 20px;
+  overflow: hidden;
+  height: calc(85vh - 120px);
+}
+
+.admin-lesson-editor-sidebar {
+  border-right: 1px solid #EADBCE;
+  padding-right: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-lesson-sidebar-hdr {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #8C5400;
+  margin-bottom: 12px;
+}
+
+.admin-lesson-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-lesson-picker-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #EADBCE;
+  background: #fff;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.admin-lesson-picker-item:hover {
+  border-color: #E86A58;
+  background: #FAF5EE;
+}
+.admin-lesson-picker-item.active {
+  border-color: #E86A58;
+  background: #FDEEE9;
+}
+
+.admin-lesson-picker-num {
+  font-size: 11px;
+  font-weight: 800;
+  color: #E86A58;
+  background: #fff;
+  padding: 2px 6px;
+  border-radius: 6px;
+  border: 1px solid #EADBCE;
+}
+
+.admin-lesson-picker-meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin-lesson-picker-title {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #2C1A12;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.admin-lesson-picker-sub {
+  display: block;
+  font-size: 11px;
+  color: #7A6256;
+  margin-top: 2px;
+}
+
+.admin-lesson-editor-form-col {
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.admin-form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.admin-form-hint {
+  font-size: 11px;
+  color: #7A6256;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.admin-lesson-form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #EADBCE;
+}
+
+.admin-lesson-loading,
+.admin-lesson-empty,
+.admin-lesson-no-selection {
+  padding: 30px 16px;
+  text-align: center;
+  color: #7A6256;
+  font-size: 13px;
+}
+
+@media (max-width: 768px) {
+  .admin-lesson-editor-body {
+    grid-template-columns: 1fr;
+    height: auto;
+    max-height: 75vh;
+  }
+  .admin-lesson-editor-sidebar {
+    border-right: none;
+    border-bottom: 1px solid #EADBCE;
+    padding-bottom: 16px;
+    max-height: 200px;
+  }
+}
+

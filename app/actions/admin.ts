@@ -362,3 +362,102 @@ export async function redeemAccessCodeAction(input: { code: unknown; courseSlug:
   revalidatePath('/dashboard')
   return { success: true }
 }
+
+export interface AdminLessonData {
+  id: string
+  course_id: string
+  module_id: string | null
+  slug: string
+  title: string
+  position: number
+  lesson_type: LessonType
+  access_level: LessonAccess
+  status: CourseStatus
+  youtube_video_id: string | null
+  video_duration: string | null
+  body: string | null
+  takeaway: string | null
+  read_time_min: number | null
+}
+
+export async function getCourseLessonsAction(courseId: string) {
+  await assertSuperAdmin()
+  const adminClient: any = await createAdminClient()
+
+  const { data: lessons, error } = await adminClient
+    .from('lessons')
+    .select('id, course_id, module_id, slug, title, position, lesson_type, access_level, status, youtube_video_id, video_duration, body, takeaway, read_time_min')
+    .eq('course_id', courseId)
+    .order('position', { ascending: true })
+
+  if (error) {
+    console.error('Failed to load lessons for admin course:', error)
+    return { success: false, error: error.message, lessons: [] }
+  }
+
+  return { success: true, lessons: (lessons ?? []) as AdminLessonData[] }
+}
+
+export interface UpdateLessonPayload {
+  lessonId: string
+  courseId: string
+  courseSlug: string
+  lessonSlug: string
+  title: string
+  body: string
+  takeaway?: string
+  youtubeVideoId?: string
+  accessLevel?: LessonAccess
+  status?: CourseStatus
+  readTimeMin?: number
+}
+
+export async function updateLessonContentAction(payload: UpdateLessonPayload) {
+  await assertSuperAdmin()
+  const adminClient: any = await createAdminClient()
+
+  // Clean payload and ensure no em dashes are saved
+  const cleanBody = (payload.body || '').replace(/—/g, ':').trim()
+  const cleanTakeaway = (payload.takeaway || '').replace(/—/g, ':').trim()
+  const cleanTitle = (payload.title || '').replace(/—/g, ':').trim()
+
+  const updateFields: Record<string, any> = {
+    title: cleanTitle,
+    body: cleanBody,
+    takeaway: cleanTakeaway || null,
+    updated_at: new Date().toISOString(),
+  }
+
+  if (payload.youtubeVideoId !== undefined) {
+    updateFields.youtube_video_id = payload.youtubeVideoId.trim() || null
+  }
+  if (payload.accessLevel) {
+    updateFields.access_level = payload.accessLevel
+  }
+  if (payload.status) {
+    updateFields.status = payload.status
+  }
+  if (payload.readTimeMin) {
+    updateFields.read_time_min = payload.readTimeMin
+  }
+
+  const { error } = await adminClient
+    .from('lessons')
+    .update(updateFields)
+    .eq('id', payload.lessonId)
+    .eq('course_id', payload.courseId)
+
+  if (error) {
+    console.error('Failed to update lesson content:', error)
+    return { success: false, error: error.message }
+  }
+
+  // Revalidate lesson and course paths
+  revalidatePath(`/learn/${payload.courseSlug}/${payload.lessonSlug}`)
+  revalidatePath(`/courses/${payload.courseSlug}`)
+  revalidatePath('/admin/courses')
+  revalidatePath('/admin')
+
+  return { success: true }
+}
+

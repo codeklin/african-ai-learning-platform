@@ -39,6 +39,9 @@ import {
   updateCourseStatusAction,
   createCourseAction,
   grantPaidCourseEnrollmentAction,
+  getCourseLessonsAction,
+  updateLessonContentAction,
+  type AdminLessonData,
 } from '@/app/actions/admin'
 import type { Profile, Course, CourseStatus, LessonType } from '@/lib/database.types'
 import { PAID_COURSE_PRODUCTS } from '@/lib/course-products'
@@ -116,6 +119,22 @@ export default function AdminDashboardView({
     youtubeVideoId: '',
     lessonBody: '',
     takeaway: '',
+  })
+
+  // Lesson Content Editor State
+  const [isLessonEditorOpen, setIsLessonEditorOpen] = useState(false)
+  const [selectedCourseForLessons, setSelectedCourseForLessons] = useState<AdminCourse | null>(null)
+  const [courseLessons, setCourseLessons] = useState<AdminLessonData[]>([])
+  const [isLoadingLessons, setIsLoadingLessons] = useState(false)
+  const [selectedLesson, setSelectedLesson] = useState<AdminLessonData | null>(null)
+  const [isSavingLesson, setIsSavingLesson] = useState(false)
+  const [lessonEditForm, setLessonEditForm] = useState({
+    title: '',
+    body: '',
+    takeaway: '',
+    youtubeVideoId: '',
+    accessLevel: 'free' as 'free' | 'paid',
+    readTimeMin: 4,
   })
 
   // Filter users
@@ -269,6 +288,104 @@ export default function AdminDashboardView({
       })
     } finally {
       setIsSubmittingCourse(false)
+      setTimeout(() => setNotification(null), 5000)
+    }
+  }
+
+  const handleOpenLessonEditor = async (course: AdminCourse) => {
+    setSelectedCourseForLessons(course)
+    setIsLessonEditorOpen(true)
+    setIsLoadingLessons(true)
+    setSelectedLesson(null)
+
+    try {
+      const res = await getCourseLessonsAction(course.id)
+      if (res.success && res.lessons) {
+        setCourseLessons(res.lessons)
+        if (res.lessons.length > 0) {
+          handleSelectLessonForEdit(res.lessons[0])
+        }
+      } else {
+        setNotification({
+          message: res.error || 'Failed to fetch lessons for this course',
+          type: 'error',
+        })
+      }
+    } catch (err: unknown) {
+      setNotification({
+        message: err instanceof Error ? err.message : 'Error loading lessons',
+        type: 'error',
+      })
+    } finally {
+      setIsLoadingLessons(false)
+    }
+  }
+
+  const handleSelectLessonForEdit = (lesson: AdminLessonData) => {
+    setSelectedLesson(lesson)
+    setLessonEditForm({
+      title: lesson.title || '',
+      body: lesson.body || '',
+      takeaway: lesson.takeaway || '',
+      youtubeVideoId: lesson.youtube_video_id || '',
+      accessLevel: (lesson.access_level as 'free' | 'paid') || 'free',
+      readTimeMin: lesson.read_time_min || 4,
+    })
+  }
+
+  const handleSaveLessonContent = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!selectedCourseForLessons || !selectedLesson) return
+
+    setIsSavingLesson(true)
+    try {
+      const res = await updateLessonContentAction({
+        lessonId: selectedLesson.id,
+        courseId: selectedCourseForLessons.id,
+        courseSlug: selectedCourseForLessons.slug,
+        lessonSlug: selectedLesson.slug,
+        title: lessonEditForm.title,
+        body: lessonEditForm.body,
+        takeaway: lessonEditForm.takeaway,
+        youtubeVideoId: lessonEditForm.youtubeVideoId,
+        accessLevel: lessonEditForm.accessLevel,
+        readTimeMin: Number(lessonEditForm.readTimeMin) || 4,
+      })
+
+      if (res.success) {
+        setNotification({
+          message: `Lesson "${lessonEditForm.title}" updated successfully!`,
+          type: 'success',
+        })
+        // Update local lesson state
+        setCourseLessons((prev) =>
+          prev.map((l) =>
+            l.id === selectedLesson.id
+              ? {
+                  ...l,
+                  title: lessonEditForm.title,
+                  body: lessonEditForm.body,
+                  takeaway: lessonEditForm.takeaway,
+                  youtube_video_id: lessonEditForm.youtubeVideoId || null,
+                  access_level: lessonEditForm.accessLevel,
+                  read_time_min: Number(lessonEditForm.readTimeMin) || 4,
+                }
+              : l
+          )
+        )
+      } else {
+        setNotification({
+          message: res.error || 'Failed to update lesson content',
+          type: 'error',
+        })
+      }
+    } catch (err: unknown) {
+      setNotification({
+        message: err instanceof Error ? err.message : 'Error updating lesson',
+        type: 'error',
+      })
+    } finally {
+      setIsSavingLesson(false)
       setTimeout(() => setNotification(null), 5000)
     }
   }
@@ -970,6 +1087,14 @@ export default function AdminDashboardView({
                           >
                             {c.status === 'published' ? 'Unpublish' : 'Publish'}
                           </button>
+                          <button
+                            type="button"
+                            onClick={() => handleOpenLessonEditor(c)}
+                            className="admin-edit-lessons-btn"
+                          >
+                            <BookOpen size={13} />
+                            <span>Edit Lessons</span>
+                          </button>
                           <Link
                             href={`/courses/${c.slug}`}
                             className="table-action-btn"
@@ -1254,6 +1379,212 @@ export default function AdminDashboardView({
                   </button>
                 </footer>
               </form>
+            </div>
+          </div>
+        )}
+
+        {/* Lesson Content Editor Modal */}
+        {isLessonEditorOpen && selectedCourseForLessons && (
+          <div className="admin-modal-overlay" onClick={() => setIsLessonEditorOpen(false)}>
+            <div
+              className="admin-modal-card admin-lesson-editor-modal"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <header className="admin-modal-header">
+                <div>
+                  <span className="admin-modal-kicker">CONTENT MANAGER</span>
+                  <h3 className="admin-modal-title">
+                    {selectedCourseForLessons.title}
+                  </h3>
+                  <p className="admin-modal-subtitle">
+                    Select a lesson on the left to edit its body, prompt instructions, and takeaway.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsLessonEditorOpen(false)}
+                  className="admin-modal-close"
+                  aria-label="Close modal"
+                >
+                  <X size={18} />
+                </button>
+              </header>
+
+              <div className="admin-lesson-editor-body">
+                {/* Left side: List of lessons */}
+                <div className="admin-lesson-editor-sidebar">
+                  <div className="admin-lesson-sidebar-hdr">
+                    <span>COURSE LESSONS ({courseLessons.length})</span>
+                  </div>
+                  {isLoadingLessons ? (
+                    <div className="admin-lesson-loading">Loading lessons...</div>
+                  ) : courseLessons.length === 0 ? (
+                    <div className="admin-lesson-empty">No lessons found for this course.</div>
+                  ) : (
+                    <div className="admin-lesson-list">
+                      {courseLessons.map((l) => {
+                        const isSelected = selectedLesson?.id === l.id
+                        return (
+                          <button
+                            key={l.id}
+                            type="button"
+                            onClick={() => handleSelectLessonForEdit(l)}
+                            className={`admin-lesson-picker-item ${isSelected ? 'active' : ''}`}
+                          >
+                            <span className="admin-lesson-picker-num">
+                              {String(l.position).padStart(2, '0')}
+                            </span>
+                            <div className="admin-lesson-picker-meta">
+                              <span className="admin-lesson-picker-title">{l.title}</span>
+                              <span className="admin-lesson-picker-sub">
+                                slug: {l.slug} · {l.access_level.toUpperCase()}
+                              </span>
+                            </div>
+                          </button>
+                        )
+                      })}
+                    </div>
+                  )}
+                </div>
+
+                {/* Right side: Form to edit selected lesson */}
+                <div className="admin-lesson-editor-form-col">
+                  {selectedLesson ? (
+                    <form onSubmit={handleSaveLessonContent} className="admin-lesson-form">
+                      <div className="admin-lesson-form-grid">
+                        <div className="admin-form-group">
+                          <label className="admin-form-label">Lesson Title</label>
+                          <input
+                            type="text"
+                            required
+                            value={lessonEditForm.title}
+                            onChange={(e) =>
+                              setLessonEditForm((prev) => ({ ...prev, title: e.target.value }))
+                            }
+                            className="admin-form-input"
+                          />
+                        </div>
+
+                        <div className="admin-form-row-2">
+                          <div className="admin-form-group">
+                            <label className="admin-form-label">Access Level</label>
+                            <select
+                              value={lessonEditForm.accessLevel}
+                              onChange={(e) =>
+                                setLessonEditForm((prev) => ({
+                                  ...prev,
+                                  accessLevel: e.target.value as 'free' | 'paid',
+                                }))
+                              }
+                              className="admin-form-input"
+                            >
+                              <option value="free">Free Preview</option>
+                              <option value="paid">Paid Only</option>
+                            </select>
+                          </div>
+                          <div className="admin-form-group">
+                            <label className="admin-form-label">Read Time (Minutes)</label>
+                            <input
+                              type="number"
+                              min={1}
+                              max={60}
+                              value={lessonEditForm.readTimeMin}
+                              onChange={(e) =>
+                                setLessonEditForm((prev) => ({
+                                  ...prev,
+                                  readTimeMin: Number(e.target.value),
+                                }))
+                              }
+                              className="admin-form-input"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="admin-form-group">
+                          <label className="admin-form-label">YouTube Video ID (Optional)</label>
+                          <input
+                            type="text"
+                            placeholder="e.g. Xlbe16Kw49k"
+                            value={lessonEditForm.youtubeVideoId}
+                            onChange={(e) =>
+                              setLessonEditForm((prev) => ({
+                                ...prev,
+                                youtubeVideoId: e.target.value,
+                              }))
+                            }
+                            className="admin-form-input"
+                          />
+                        </div>
+
+                        <div className="admin-form-group">
+                          <label className="admin-form-label">
+                            Lesson Body (Paste ChatGPT Content Here)
+                          </label>
+                          <span className="admin-form-hint">
+                            Em dashes (—) will automatically be converted to colons on save.
+                          </span>
+                          <textarea
+                            rows={12}
+                            required
+                            value={lessonEditForm.body}
+                            onChange={(e) =>
+                              setLessonEditForm((prev) => ({ ...prev, body: e.target.value }))
+                            }
+                            placeholder="Paste the step-by-step simplified lesson content here..."
+                            className="admin-form-textarea"
+                          />
+                        </div>
+
+                        <div className="admin-form-group">
+                          <label className="admin-form-label">Key Takeaway Summary</label>
+                          <textarea
+                            rows={3}
+                            value={lessonEditForm.takeaway}
+                            onChange={(e) =>
+                              setLessonEditForm((prev) => ({
+                                ...prev,
+                                takeaway: e.target.value,
+                              }))
+                            }
+                            placeholder="One concise, memorable sentence summarizing the core lesson rule."
+                            className="admin-form-textarea"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="admin-lesson-form-actions">
+                        <Link
+                          href={`/learn/${selectedCourseForLessons.slug}/${selectedLesson.slug}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="table-action-btn"
+                        >
+                          <Eye size={14} />
+                          <span>View Live Lesson</span>
+                        </Link>
+                        <button
+                          type="submit"
+                          disabled={isSavingLesson}
+                          className="button button-dark"
+                        >
+                          {isSavingLesson ? (
+                            <span>Saving Changes...</span>
+                          ) : (
+                            <>
+                              <Check size={16} />
+                              <span>Save Lesson Content</span>
+                            </>
+                          )}
+                        </button>
+                      </div>
+                    </form>
+                  ) : (
+                    <div className="admin-lesson-no-selection">
+                      <p>Select a lesson from the list on the left to start editing.</p>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         )}

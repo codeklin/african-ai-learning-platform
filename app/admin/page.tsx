@@ -45,35 +45,34 @@ export default async function AdminPage() {
     { data: recentUsers },
     { data: recentEnrollments },
     { data: allCourses },
+    { data: paidEnrollments },
   ] = await Promise.all([
-    // counts : head:true fetches zero rows, just the count
     adminClient.from('profiles').select('id', { count: 'exact', head: true }),
     adminClient.from('enrollments').select('id', { count: 'exact', head: true }),
     adminClient.from('courses').select('id', { count: 'exact', head: true }).eq('status', 'published'),
-    // minimal columns, tight limit
     adminClient
       .from('profiles')
       .select('id, full_name, email, role, created_at')
       .order('created_at', { ascending: false })
       .limit(20),
-    // only the columns rendered in the table
     adminClient
       .from('enrollments')
       .select('id, enrolled_at, user_id, course_id, payment_verified_at, profiles(full_name, email), courses(title, academy, access)')
       .order('enrolled_at', { ascending: false })
       .limit(20),
-    // only columns used in the courses grid
     adminClient
       .from('courses')
       .select('id, title, slug, description, academy, status, access, created_at')
       .order('created_at', { ascending: false })
       .limit(50),
+    adminClient
+      .from('enrollments')
+      .select('user_id')
+      .not('payment_verified_at', 'is', null),
   ])
 
   const paidUserIds = new Set(
-    (recentEnrollments ?? [])
-      .filter((e) => e.payment_verified_at)
-      .map((e) => e.user_id)
+    (paidEnrollments ?? []).map((e: { user_id: string }) => e.user_id)
   )
 
   return (
