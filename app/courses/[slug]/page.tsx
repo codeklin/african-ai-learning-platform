@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ArrowLeft, ArrowRight, Check, ChevronDown, Clock3, Play, ShieldAlert } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Check, ChevronDown, Clock3, Play } from 'lucide-react'
 import Brand from '@/components/brand'
 import AppBottomNav from '@/components/app-bottom-nav'
 import YouTubeEmbed from '@/components/youtube-embed'
@@ -23,10 +23,6 @@ const creatorCourses: Record<string, { title: string; description: string }> = {
   'youtube-seo-and-analytics': { title: 'YouTube SEO and Analytics', description: 'Use search intent and channel analytics to make evidence-informed creative decisions.' },
   'youtube-monetization-policies-and-copyright': { title: 'YouTube Monetization Policies and Copyright', description: 'Understand policy, copyright, disclosure, and how to review official updates.' },
   'building-a-creator-business-beyond-ad-revenue': { title: 'Building a Creator Business Beyond Ad Revenue', description: 'Explore audience-aligned services, products, partnerships, and other diversified models.' },
-}
-
-function hasPublishedStatus(value: unknown): value is { status: 'published' } {
-  return typeof value === 'object' && value !== null && 'status' in value && value.status === 'published'
 }
 
 const courses: Record<string, {
@@ -209,11 +205,10 @@ export default async function CourseDetailPage({
 
   const { data: databaseCourse, error: databaseCourseError } = await supabase
     .from('courses')
-    .select('id, status')
+    .select('id')
     .eq('slug', product.databaseSlug)
     .maybeSingle()
   if (databaseCourseError) console.error('Unable to load course availability:', databaseCourseError)
-  const isInDevelopment = !hasPublishedStatus(databaseCourse)
   let isEnrolled = false
   if (user && product.price && databaseCourse) {
     const { data: enrollment, error: enrollmentError } = await supabase
@@ -317,9 +312,7 @@ export default async function CourseDetailPage({
       <div className="cdp-body">
         {paymentStatus === 'success' && (
           <p className="course-purchase-state" role="status">
-            {isInDevelopment
-              ? 'Payment confirmed and your enrollment is recorded. Lessons unlock when the course is published.'
-              : 'Payment confirmed. Your course access is ready.'}
+            Payment confirmed. Your course access is ready.
           </p>
         )}
         {paymentStatus === 'not-complete' && (
@@ -366,21 +359,8 @@ export default async function CourseDetailPage({
           </div>
         )}
 
-        {/* In development notice */}
-        {isInDevelopment && (
-          <div className="cdp-dev-notice">
-            <div className="cdp-dev-notice-icon">
-              <ShieldAlert size={18} color="#2C1A12" />
-            </div>
-            <div className="cdp-dev-notice-body">
-              <b>Content being added</b>
-              <p>You can lock in the ₦1,000 launch price now. Lessons unlock as content is published. No release date is promised.</p>
-            </div>
-          </div>
-        )}
-
         {/* Intro video */}
-        {course?.youtubeVideoId && !isInDevelopment && (
+        {course?.youtubeVideoId && (
           <div className="cdp-section">
             <span className="cdp-section-eyebrow">03 / INTRO VIDEO</span>
             <h2>Watch before you start.</h2>
@@ -391,11 +371,9 @@ export default async function CourseDetailPage({
         )}
 
         {/* Calendar reminder */}
-        {!isInDevelopment && (
-          <div className="cdp-section">
-            <CalendarReminder courseTitle={title} courseSlug={slug} />
-          </div>
-        )}
+        <div className="cdp-section">
+          <CalendarReminder courseTitle={title} courseSlug={slug} />
+        </div>
 
         {/* YouTube disclaimer for creator courses */}
         {isCreator && (
@@ -423,7 +401,7 @@ export default async function CourseDetailPage({
         </a>
 
         {/* Creator project studio */}
-        {isCreator && !isInDevelopment && <CreatorProjectStudio />}
+        {isCreator && <CreatorProjectStudio />}
       </div>
 
       {/* ── Sticky Bottom CTA ── */}

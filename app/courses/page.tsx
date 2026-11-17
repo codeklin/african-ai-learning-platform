@@ -218,9 +218,7 @@ export default function CoursesPage() {
                 <div className="catalog-card-details">
                   <div className="catalog-card-top">
                     <span className="catalog-academy-badge">{course.academy}</span>
-                    <span className={isFree ? 'access-free' : 'access-soon'}>
-                      {isFree ? 'Free' : isInDevelopment ? 'Pre-order' : 'Available'}
-                    </span>
+                    {isFree && <span className="access-free">Free</span>}
                   </div>
 
                   <h2><Link href={courseLink}>{course.title}</Link></h2>
@@ -256,11 +254,7 @@ export default function CoursesPage() {
                       {LAUNCH_PROMO_ACTIVE && course.launchPrice && (
                         <span className="catalog-launch-badge">LAUNCH PRICE</span>
                       )}
-                      {isInDevelopment && (
-                        <span className="catalog-development-note">
-                          Lessons unlock after the course publishes
-                        </span>
-                      )}
+
                       <CoursePurchaseButton
                         course={course}
                         isEnrolled={enrolledCourseSlugs.includes(course.slug)}

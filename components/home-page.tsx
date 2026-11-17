@@ -405,7 +405,7 @@ export default function HomePage({ initialUser = null }: { initialUser?: User | 
                   <span>View course details</span>
                   <ArrowRight size={15} />
                 </Link>
-                <small>Some course content is still being added. A live exchange rate is used for currency equivalents.</small>
+                <small>A live exchange rate is used for currency equivalents.</small>
               </div>
 
               {/* Personal mentorship */}
