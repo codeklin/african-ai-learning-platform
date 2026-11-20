@@ -779,3 +779,143 @@ ACCESS LEVEL RULES:
 Lessons 1, 2, and 3 must have "accessLevel": "free".
 Lessons 4 through 10 must have "accessLevel": "paid".
 ---END PROMPT---
+
+
+---
+
+## PROMPT 12: AI Content Marketing for Business
+
+---START PROMPT---
+You are a senior educational architect, expert curriculum developer, and author of best-selling "For Dummies" practical guides.
+
+I need complete, highly detailed lesson content for my online course: "AI Content Marketing for Business" on ItuwaAfrica.
+
+TARGET AUDIENCE:
+Small business owners, marketers, and freelancers in Nigeria and Africa who want to use AI tools to create consistent, useful content that attracts real customers. They have little or no marketing background and want practical steps they can apply immediately to an existing or new business.
+
+CRITICAL TONE AND STYLE RULES:
+1. Plain, everyday English that a 10-year-old can follow with zero confusion.
+2. No bogus buzzwords, no corporate filler, and no abstract theory.
+3. ABSOLUTELY ZERO EM DASHES (the long dash). Never use it anywhere. Use colons, commas, or periods instead.
+4. ABSOLUTELY ZERO EMOJIS anywhere in the output.
+5. Every lesson must have concrete, actionable steps: tell the student exact buttons to tap, free tools to open, and exact prompts to use.
+
+COURSE TOPICS TO COVER (ALL 10 LESSONS):
+Lesson 1: What Content Marketing Is and Why It Works Better Than Paid Ads for Small Businesses
+Lesson 2: Finding Your Target Customer and the One Problem Your Content Must Solve
+Lesson 3: Choosing the Right Platforms and Content Types for Your Business
+Lesson 4: Using AI to Generate a 30-Day Content Plan in Under an Hour
+Lesson 5: Writing Captions, Posts, and Short Articles with AI While Keeping Your Own Voice
+Lesson 6: Creating Simple Graphics and Visual Content for Posts with Free AI Design Tools
+Lesson 7: Writing Email Newsletters and WhatsApp Broadcast Messages That People Actually Read
+Lesson 8: Repurposing One Piece of Content into Five Different Formats with AI
+Lesson 9: Measuring What Is Working and Dropping What Is Not
+Lesson 10: Building a Content Routine You Can Sustain Alongside Running Your Business
+
+INTERNAL LESSON STRUCTURE (Apply to every lesson body):
+Each lesson body must have these four distinct sections separated by double newlines:
+
+THE BIG IDEA:
+Explain what this lesson is and why it matters in simple terms. Use an everyday physical analogy.
+
+STEP-BY-STEP WALKTHROUGH:
+Step 1: [Action title and exact instructions]
+Step 2: [Action title and exact instructions]
+Step 3: [Action title and exact instructions]
+Step 4: [Action title and exact instructions]
+
+COMMON MISTAKES TO AVOID:
+Highlight 2 common traps beginners fall into and how to prevent them.
+
+ONE PRACTICAL TASK FOR TODAY:
+One 5-minute exercise the student must complete right now on their phone or laptop.
+
+OUTPUT FORMAT:
+Output ONLY a single, valid JSON array containing all 10 lessons. No conversational preamble, no markdown formatting outside the JSON, no backticks at the beginning or end.
+
+Each object must follow this exact schema:
+[
+  {
+    "position": 1,
+    "title": "What Content Marketing Is and Why It Works Better Than Paid Ads for Small Businesses",
+    "accessLevel": "free",
+    "readTimeMin": 4,
+    "body": "THE BIG IDEA:\n...\n\nSTEP-BY-STEP WALKTHROUGH:\nStep 1: ...\nStep 2: ...\nStep 3: ...\nStep 4: ...\n\nCOMMON MISTAKES TO AVOID:\n...\n\nONE PRACTICAL TASK FOR TODAY:\n...",
+    "takeaway": "One short, punchy sentence defining the primary golden rule of this lesson."
+  }
+]
+
+ACCESS LEVEL RULES:
+Lessons 1, 2, and 3 must have "accessLevel": "free".
+Lessons 4 through 10 must have "accessLevel": "paid".
+---END PROMPT---
+
+
+---
+
+## PROMPT 13: AI Web App Development
+
+---START PROMPT---
+You are a senior educational architect, expert curriculum developer, and author of best-selling "For Dummies" practical guides.
+
+I need complete, highly detailed lesson content for my online course: "AI Web App Development" on ItuwaAfrica.
+
+TARGET AUDIENCE:
+Beginners and aspiring tech freelancers in Nigeria and Africa who want to build real, working web applications using AI coding tools, without needing a computer science degree. They may have little or no coding experience and want to build something useful for a real business problem they can see around them.
+
+CRITICAL TONE AND STYLE RULES:
+1. Plain, everyday English that a 10-year-old can follow with zero confusion.
+2. No bogus buzzwords, no corporate filler, and no abstract theory.
+3. ABSOLUTELY ZERO EM DASHES (the long dash). Never use it anywhere. Use colons, commas, or periods instead.
+4. ABSOLUTELY ZERO EMOJIS anywhere in the output.
+5. Every lesson must have concrete, actionable steps: tell the student exact buttons to tap, free tools to open, and exact prompts to type into AI coding assistants.
+
+COURSE TOPICS TO COVER (ALL 10 LESSONS):
+Lesson 1: Choosing a Real Business Problem Worth Building a Web App to Solve
+Lesson 2: Planning Your App Before Writing a Single Line of Code
+Lesson 3: Setting Up Your Free Development Environment with AI Assistance
+Lesson 4: Building Your First Page with AI: Prompting for HTML, CSS, and Layout
+Lesson 5: Adding Working Features with AI: Forms, Buttons, and Basic Logic
+Lesson 6: Connecting Your App to a Free Database to Store and Retrieve Data
+Lesson 7: Making Your App Look Clean and Professional on Mobile Screens
+Lesson 8: Testing Your App and Fixing Bugs with AI Help
+Lesson 9: Deploying Your App Online for Free So Anyone Can Use It
+Lesson 10: Presenting Your App to a Potential Client or Employer
+
+INTERNAL LESSON STRUCTURE (Apply to every lesson body):
+Each lesson body must have these four distinct sections separated by double newlines:
+
+THE BIG IDEA:
+Explain what this lesson is and why it matters in simple terms. Use an everyday physical analogy.
+
+STEP-BY-STEP WALKTHROUGH:
+Step 1: [Action title and exact instructions]
+Step 2: [Action title and exact instructions]
+Step 3: [Action title and exact instructions]
+Step 4: [Action title and exact instructions]
+
+COMMON MISTAKES TO AVOID:
+Highlight 2 common traps beginners fall into and how to prevent them.
+
+ONE PRACTICAL TASK FOR TODAY:
+One 5-minute exercise the student must complete right now on their phone or laptop.
+
+OUTPUT FORMAT:
+Output ONLY a single, valid JSON array containing all 10 lessons. No conversational preamble, no markdown formatting outside the JSON, no backticks at the beginning or end.
+
+Each object must follow this exact schema:
+[
+  {
+    "position": 1,
+    "title": "Choosing a Real Business Problem Worth Building a Web App to Solve",
+    "accessLevel": "free",
+    "readTimeMin": 4,
+    "body": "THE BIG IDEA:\n...\n\nSTEP-BY-STEP WALKTHROUGH:\nStep 1: ...\nStep 2: ...\nStep 3: ...\nStep 4: ...\n\nCOMMON MISTAKES TO AVOID:\n...\n\nONE PRACTICAL TASK FOR TODAY:\n...",
+    "takeaway": "One short, punchy sentence defining the primary golden rule of this lesson."
+  }
+]
+
+ACCESS LEVEL RULES:
+Lessons 1, 2, and 3 must have "accessLevel": "free".
+Lessons 4 through 10 must have "accessLevel": "paid".
+---END PROMPT---
