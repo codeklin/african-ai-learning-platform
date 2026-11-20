@@ -198,32 +198,56 @@ function getInteractiveMeta(lessonSlug: string): LessonInteractiveMeta | undefin
 
 export default async function LessonPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ courseSlug: string; lessonSlug: string }>
+  searchParams?: Promise<{ preview?: string | string[] }>
 }) {
   const { courseSlug, lessonSlug } = await params
+  const query = searchParams ? await searchParams : {}
+  const previewValue = Array.isArray(query.preview) ? query.preview[0] : query.preview
+  const adminPreview = previewValue === '1'
 
   // ── Authentication check ───────────────────────────────────────
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) {
-    redirect(`/login?next=/learn/${courseSlug}/${lessonSlug}`)
+    const lessonPath = `/learn/${courseSlug}/${lessonSlug}${adminPreview ? '?preview=1' : ''}`
+    redirect(`/login?next=${encodeURIComponent(lessonPath)}`)
   }
 
   // ── Validate slug format ───────────────────────────────────────
-  if (!/^lesson-\d+$/.test(lessonSlug)) notFound()
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(lessonSlug)) notFound()
+
+  let contentClient = supabase
+  if (adminPreview) {
+    const { data: rawProfile, error: profileError } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .maybeSingle()
+    const profile = rawProfile as { role: string } | null
+
+    if (profileError) {
+      console.error('Unable to verify admin lesson preview access:', profileError)
+      notFound()
+    }
+    if (profile?.role !== 'admin') notFound()
+
+    contentClient = await createAdminClient()
+  }
 
   const product = getCourseProduct(courseSlug)
   const databaseSlug = product?.databaseSlug ?? courseSlug
 
-  let accessibleCourse = (await supabase
+  let accessibleCourse = (await contentClient
     .from('courses')
     .select('id, title, slug, status, access, academy')
     .eq('slug', databaseSlug)
     .maybeSingle()).data as Pick<Course, 'id' | 'title' | 'slug' | 'status' | 'access' | 'academy'> | null
 
-  if (!accessibleCourse && product?.price) {
+  if (!accessibleCourse && !adminPreview && product?.price) {
     const adminClient: any = await createAdminClient()
     const { data: draftCourse } = await adminClient
       .from('courses')
@@ -235,11 +259,11 @@ export default async function LessonPage({
 
   if (!accessibleCourse || accessibleCourse.status === 'archived') notFound()
 
-  if (accessibleCourse.status !== 'published') {
+  if (!adminPreview && accessibleCourse.status !== 'published') {
     return <CourseInDevelopment courseTitle={accessibleCourse.title} courseSlug={courseSlug} />
   }
 
-  if (accessibleCourse.access === 'paid') {
+  if (!adminPreview && accessibleCourse.access === 'paid') {
     const { data: rawEnrollment } = await supabase
       .from('enrollments')
       .select('id, payment_verified_at')
@@ -254,7 +278,7 @@ export default async function LessonPage({
   }
 
   // ── Database-driven lesson lookup ──────────────────────────────
-  const { data: lesson } = await supabase
+  const { data: lesson } = await contentClient
     .from('lessons')
     .select('*, courses(*)')
     .eq('course_id', accessibleCourse.id)
@@ -262,8 +286,8 @@ export default async function LessonPage({
     .maybeSingle() as { data: (Lesson & { courses: Course }) | null }
 
   // Fallback to legacy LessonPreview if database lesson not yet seeded
-  if (!lesson || lesson.status !== 'published') {
-    if (LEGACY_COURSES.includes(courseSlug)) {
+  if (!lesson || (!adminPreview && lesson.status !== 'published')) {
+    if (!adminPreview && LEGACY_COURSES.includes(courseSlug)) {
       return <LessonPreview slug={courseSlug} userId={user.id} />
     }
     notFound()
@@ -273,7 +297,7 @@ export default async function LessonPage({
   // Individual lesson access_level is the source of truth.
   // A lesson marked 'free' is accessible to any authenticated user even inside a paid course
   // (allowing freebie / preview lessons within paid courses as configured in the database).
-  if (lesson.access_level === 'paid') {
+  if (!adminPreview && lesson.access_level === 'paid') {
     const { data: rawEnrollment } = await supabase
       .from('enrollments')
       .select('id, payment_verified_at')
@@ -288,7 +312,7 @@ export default async function LessonPage({
   }
 
   // ── Fetch modules for this course ──────────────────────────────
-  const { data: rawModules } = await supabase
+  const { data: rawModules } = await contentClient
     .from('modules')
     .select('id, title, position')
     .eq('course_id', accessibleCourse.id)
@@ -296,14 +320,14 @@ export default async function LessonPage({
   const dbModules = (rawModules ?? []) as Pick<Module, 'id' | 'title' | 'position'>[]
 
   // ── Fetch all published lessons in this course ─────────────────
-  type SiblingRow = Pick<Lesson, 'id' | 'slug' | 'title' | 'position' | 'access_level' | 'module_id'>
-  const { data: rawSiblings } = await supabase
+  type SiblingRow = Pick<Lesson, 'id' | 'slug' | 'title' | 'position' | 'access_level' | 'module_id' | 'status'>
+  const { data: rawSiblings } = await contentClient
     .from('lessons')
-    .select('id, slug, title, position, access_level, module_id')
+    .select('id, slug, title, position, access_level, module_id, status')
     .eq('course_id', accessibleCourse.id)
-    .eq('status', 'published')
     .order('position', { ascending: true })
-  const allLessons: SiblingLessonItem[] = (rawSiblings ?? []) as SiblingLessonItem[]
+  const allLessons: SiblingLessonItem[] = ((rawSiblings ?? []) as SiblingRow[])
+    .filter((item) => adminPreview || item.status === 'published')
 
   // ── Fetch completed lesson IDs for this user + course ─────────
   const { data: rawProgress } = await supabase
@@ -377,6 +401,7 @@ export default async function LessonPage({
       nextLesson={nextLesson}
       courseSlug={courseSlug}
       lessonSlug={lessonSlug}
+      previewMode={adminPreview}
       interactiveMeta={interactiveMeta}
     />
   )

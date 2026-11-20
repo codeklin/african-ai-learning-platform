@@ -142,6 +142,7 @@ interface LessonLmsPlayerProps {
   nextLesson: SiblingLessonItem | null
   courseSlug: string
   lessonSlug: string
+  previewMode?: boolean
   interactiveMeta?: LessonInteractiveMeta
 }
 
@@ -156,6 +157,7 @@ export default function LessonLmsPlayer({
   nextLesson,
   courseSlug,
   lessonSlug,
+  previewMode = false,
   interactiveMeta,
 }: LessonLmsPlayerProps) {
   const router = useRouter()
@@ -177,6 +179,8 @@ export default function LessonLmsPlayer({
   const completedCount = new Set(completedIds.filter((id) => validLessonIds.has(id))).size
   const progressPercent = Math.min(100, Math.round((completedCount / totalLessons) * 100))
   const isCourseCompleted = completedCount === totalLessons
+  const lessonHref = (slug: string) =>
+    `/learn/${courseSlug}/${slug}${previewMode ? '?preview=1' : ''}`
 
   const handleCopyPrompt = async () => {
     if (!interactiveMeta?.prompt) return
@@ -233,7 +237,7 @@ export default function LessonLmsPlayer({
       <header className="lms-header">
         <div className="lms-header-left">
           <Link
-            href={`/courses/${courseSlug}`}
+            href={previewMode ? '/admin/courses' : `/courses/${courseSlug}`}
             className="lms-back-btn"
             aria-label="Back to course overview"
           >
@@ -243,7 +247,9 @@ export default function LessonLmsPlayer({
         </div>
 
         <div className="lms-header-center">
-          <span className="lms-header-badge">{(course.academy ?? 'AI Academy').toUpperCase()}</span>
+          <span className="lms-header-badge">
+            {previewMode ? 'ADMIN PREVIEW' : (course.academy ?? 'AI Academy').toUpperCase()}
+          </span>
           <span className="lms-header-title">{course.title}</span>
         </div>
 
@@ -306,7 +312,7 @@ export default function LessonLmsPlayer({
                     return (
                       <Link
                         key={item.id}
-                        href={`/learn/${courseSlug}/${item.slug}`}
+                        href={lessonHref(item.slug)}
                         className={`lms-sidebar-item ${isSelected ? 'active' : ''} ${
                           isDone ? 'completed' : ''
                         }`}
@@ -639,7 +645,7 @@ export default function LessonLmsPlayer({
           {/* Previous Button */}
           {prevLesson ? (
             <Link
-              href={`/learn/${courseSlug}/${prevLesson.slug}`}
+              href={lessonHref(prevLesson.slug)}
               className="lms-dock-nav-btn prev"
               aria-label="Previous lesson"
             >
@@ -661,7 +667,7 @@ export default function LessonLmsPlayer({
           {/* Interactive Complete Toggle CTA Button */}
           <button
             type="button"
-            disabled={isPending}
+            disabled={previewMode || isPending}
             onClick={handleToggleComplete}
             className={`lms-dock-complete-btn ${isCurrentLessonCompleted ? 'is-completed' : ''}`}
           >
@@ -669,7 +675,9 @@ export default function LessonLmsPlayer({
               <Check size={14} strokeWidth={3} />
             </span>
             <span>
-              {isCurrentLessonCompleted
+              {previewMode
+                ? 'Preview Only'
+                : isCurrentLessonCompleted
                 ? 'Completed'
                 : isPending
                 ? 'Saving...'
@@ -680,7 +688,7 @@ export default function LessonLmsPlayer({
           {/* Next Button or Finish Course */}
           {nextLesson ? (
             <Link
-              href={`/learn/${courseSlug}/${nextLesson.slug}`}
+              href={lessonHref(nextLesson.slug)}
               className="lms-dock-nav-btn next"
               aria-label="Next lesson"
             >
@@ -689,7 +697,7 @@ export default function LessonLmsPlayer({
             </Link>
           ) : (
             <Link
-              href={`/courses/${courseSlug}`}
+              href={previewMode ? '/admin/courses' : `/courses/${courseSlug}`}
               className="lms-dock-nav-btn finish"
               aria-label={isCourseCompleted ? 'Finish course' : 'Return to course overview'}
             >
@@ -742,7 +750,7 @@ export default function LessonLmsPlayer({
                       return (
                         <Link
                           key={item.id}
-                          href={`/learn/${courseSlug}/${item.slug}`}
+                          href={lessonHref(item.slug)}
                           onClick={() => setDrawerOpen(false)}
                           className={`lms-drawer-item ${isCurrent ? 'active-lesson' : ''} ${
                             isDone ? 'done-lesson' : ''

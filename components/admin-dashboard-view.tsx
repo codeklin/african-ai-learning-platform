@@ -1817,13 +1817,13 @@ export default function AdminDashboardView({
 
                       <div className="admin-lesson-form-actions">
                         <Link
-                          href={`/learn/${selectedCourseForLessons.slug}/${selectedLesson.slug}`}
+                          href={`/learn/${selectedCourseForLessons.slug}/${selectedLesson.slug}?preview=1`}
                           target="_blank"
                           rel="noreferrer"
                           className="table-action-btn"
                         >
                           <Eye size={14} />
-                          <span>View Live Lesson</span>
+                          <span>Preview Lesson</span>
                         </Link>
                         <button
                           type="submit"
