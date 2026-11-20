@@ -1,15 +1,23 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Baloo_2 } from 'next/font/google'
+import localFont from 'next/font/local'
 import PwaRegister from '@/components/pwa-register'
 import PwaInstallPrompt from '@/components/pwa-install-prompt'
 import './globals.css'
 
-const baloo2 = Baloo_2({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
+const baloo2 = localFont({
+  src: './fonts/Baloo2-latin.woff2',
+  weight: '400 800',
   variable: '--font-baloo2',
   display: 'swap',
+})
+
+const baloo2LatinExt = localFont({
+  src: './fonts/Baloo2-latin-ext.woff2',
+  weight: '400 800',
+  variable: '--font-baloo2-latin-ext',
+  display: 'swap',
+  preload: false,
 })
 
 export const metadata: Metadata = {
@@ -58,7 +66,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={baloo2.variable}>
+    <html lang="en" className={`${baloo2.variable} ${baloo2LatinExt.variable}`}>
       <body className="antialiased">
         {/* PWA splash : only visible when running as an installed PWA before JS loads.
             suppressHydrationWarning prevents the React hydration mismatch caused by

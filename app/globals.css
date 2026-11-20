@@ -22,7 +22,7 @@ body {
   margin: 0;
   background: #FAF5EE;
   color: #2C1A12;
-  font-family: var(--font-baloo2), Arial, Helvetica, sans-serif;
+  font-family: var(--font-baloo2), var(--font-baloo2-latin-ext), Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   font-size: 19px;
   font-weight: 500;
@@ -2306,7 +2306,7 @@ a.skip-link:focus { top:0; }
   animation: pwa-pulse 1.4s ease-in-out infinite;
 }
 #pwa-splash span {
-  font-family: var(--font-baloo2), Arial, sans-serif;
+  font-family: var(--font-baloo2), var(--font-baloo2-latin-ext), Arial, sans-serif;
   font-size: 22px;
   font-weight: 800;
   color: #FAF5EE;
@@ -4093,7 +4093,7 @@ a.skip-link:focus { top:0; }
   flex-direction: column;
   min-height: 100dvh;
   background: #FAF5EE;
-  font-family: var(--font-baloo2), 'Baloo 2', sans-serif;
+  font-family: var(--font-baloo2), var(--font-baloo2-latin-ext), sans-serif;
   color: #2C1A12;
   overflow-x: hidden;
 }
